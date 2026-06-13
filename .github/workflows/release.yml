@@ -1,0 +1,87 @@
+name: release
+
+# Pushing a version tag turns the GoReleaser config (.goreleaser.yaml) into a
+# GitHub release with the archives, Linux packages (deb, rpm, apk), checksums,
+# SBOMs and a cosign signature, and pushes the multi-arch container image to
+# GHCR. Pull requests and pushes to main run `goreleaser check` only, so a
+# config that would fail a real release is caught long before the tag.
+
+on:
+  push:
+    branches: [main]
+    tags: ["v*"]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  # Fast gate on every PR and push: the config parses and is valid for the
+  # installed GoReleaser version. No artifacts are built here.
+  check:
+    if: github.ref_type != 'tag'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-go@v6
+        with:
+          go-version-file: go.mod
+          check-latest: true
+          cache: true
+      - uses: goreleaser/goreleaser-action@v6
+        with:
+          distribution: goreleaser
+          version: "~> v2"
+          args: check
+
+  # The real release, only on a version tag.
+  release:
+    if: github.ref_type == 'tag'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # create the GitHub release
+      packages: write # push the image to ghcr.io
+      id-token: write # keyless cosign signing
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-go@v6
+        with:
+          go-version-file: go.mod
+          check-latest: true
+          cache: true
+
+      # Build and ship the linux/arm64 image from the amd64 runner.
+      - uses: docker/setup-qemu-action@v3
+      - uses: docker/setup-buildx-action@v3
+      - uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      # Tools GoReleaser shells out to for signing and SBOMs.
+      - uses: sigstore/cosign-installer@v3
+      - uses: anchore/sbom-action/download-syft@v0
+
+      - uses: goreleaser/goreleaser-action@v6
+        with:
+          distribution: goreleaser
+          version: "~> v2"
+          args: release --clean
+        env:
+          # Creating the release and pushing the GHCR image use the built-in
+          # token. The package-manager publish steps each read their own secret;
+          # any that is unset leaves that manager skipped (the artifact is still
+          # produced), so the release never fails for a tap that is not set up.
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          HOMEBREW_TAP_GITHUB_TOKEN: ${{ secrets.HOMEBREW_TAP_GITHUB_TOKEN }}
+          SCOOP_BUCKET_GITHUB_TOKEN: ${{ secrets.SCOOP_BUCKET_GITHUB_TOKEN }}

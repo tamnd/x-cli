@@ -1,0 +1,195 @@
+# GoReleaser turns one tag push into everything a user might install from: raw
+# archives, Linux packages (deb, rpm, apk), a multi-arch container image, and
+# entries for the package managers (Homebrew, Scoop). `git tag vX.Y.Z && git
+# push --tags` fans out to all of them through .github/workflows/release.yml.
+#
+# Publish steps that push to a repository we do not own yet (the Homebrew tap,
+# the Scoop bucket) self-disable when their token is absent. A release with no
+# extra secrets still produces every downloadable artifact and the container
+# image; each manager lights up the moment its repository and token exist.
+#
+# x is derived from nitter and ships under the GNU AGPL-3.0, so the NOTICE file
+# rides along in every archive and package next to the license.
+version: 2
+
+project_name: x
+
+before:
+  # Only fetch modules; never `go mod tidy` during a release, the tree is kept
+  # tidy in CI.
+  hooks:
+    - go mod download
+
+builds:
+  - id: x
+    binary: x
+    main: ./cmd/x
+    env:
+      - CGO_ENABLED=0
+    flags:
+      - -trimpath
+    ldflags:
+      - -s -w
+      - -X github.com/tamnd/x-cli/cli.Version={{ .Version }}
+      - -X github.com/tamnd/x-cli/cli.Commit={{ .ShortCommit }}
+      - -X github.com/tamnd/x-cli/cli.Date={{ .CommitDate }}
+    mod_timestamp: "{{ .CommitTimestamp }}"
+    targets:
+      - linux_amd64
+      - linux_arm64
+      - linux_arm_7
+      - linux_386
+      - darwin_amd64
+      - darwin_arm64
+      - windows_amd64
+      - windows_arm64
+      - freebsd_amd64
+      - freebsd_arm64
+
+archives:
+  # tar.gz everywhere except a zip on Windows.
+  - id: default
+    name_template: "x_{{ .Version }}_{{ .Os }}_{{ .Arch }}{{ with .Arm }}v{{ . }}{{ end }}"
+    format_overrides:
+      - goos: windows
+        formats: [zip]
+    files:
+      - LICENSE
+      - NOTICE
+      - README.md
+
+nfpms:
+  # One nfpm definition emits the deb, rpm, and apk for every Linux build. x is
+  # a user command, not a daemon, so there is no unit file and no postinstall:
+  # the package is the binary, its license, and the nitter attribution NOTICE.
+  - id: linux-packages
+    package_name: x
+    file_name_template: "{{ .ConventionalFileName }}"
+    vendor: tamnd
+    homepage: https://github.com/tamnd/x-cli
+    maintainer: Duc-Tam Nguyen <tamnd87@gmail.com>
+    description: A free, read-only command line for X (Twitter).
+    license: AGPL-3.0
+    formats:
+      - deb
+      - rpm
+      - apk
+    bindir: /usr/bin
+    section: utils
+    contents:
+      - src: ./LICENSE
+        dst: /usr/share/doc/x/LICENSE
+      - src: ./NOTICE
+        dst: /usr/share/doc/x/NOTICE
+
+dockers_v2:
+  # One multi-platform image built with buildx. GoReleaser stages the prebuilt
+  # binaries under per-platform directories in the build context and the
+  # Dockerfile copies the right one through $TARGETPLATFORM.
+  - images:
+      - ghcr.io/tamnd/x
+    tags:
+      - "{{ .Version }}"
+      - latest
+    dockerfile: Dockerfile
+    platforms:
+      - linux/amd64
+      - linux/arm64
+    labels:
+      org.opencontainers.image.title: "{{ .ProjectName }}"
+      org.opencontainers.image.description: "A free, read-only command line for X (Twitter)"
+      org.opencontainers.image.url: "https://github.com/tamnd/x-cli"
+      org.opencontainers.image.source: "https://github.com/tamnd/x-cli"
+      org.opencontainers.image.version: "{{ .Version }}"
+      org.opencontainers.image.revision: "{{ .FullCommit }}"
+      org.opencontainers.image.licenses: "AGPL-3.0"
+
+homebrew_casks:
+  # Homebrew cask pushed to the tap repository. Self-disables until
+  # HOMEBREW_TAP_GITHUB_TOKEN (a PAT with write to tamnd/homebrew-tap) is set,
+  # so a tokenless release still writes the cask into dist for inspection.
+  - name: x
+    repository:
+      owner: tamnd
+      name: homebrew-tap
+      token: '{{ envOrDefault "HOMEBREW_TAP_GITHUB_TOKEN" "" }}'
+    directory: Casks
+    homepage: https://github.com/tamnd/x-cli
+    description: A free, read-only command line for X (Twitter)
+    skip_upload: '{{ if envOrDefault "HOMEBREW_TAP_GITHUB_TOKEN" "" }}false{{ else }}true{{ end }}'
+    commit_author:
+      name: Duc-Tam Nguyen
+      email: tamnd87@gmail.com
+
+scoops:
+  # Scoop manifest for Windows, pushed to the bucket repository.
+  - repository:
+      owner: tamnd
+      name: scoop-bucket
+      token: '{{ envOrDefault "SCOOP_BUCKET_GITHUB_TOKEN" "" }}'
+    homepage: https://github.com/tamnd/x-cli
+    description: A free, read-only command line for X (Twitter)
+    license: AGPL-3.0
+    skip_upload: '{{ if envOrDefault "SCOOP_BUCKET_GITHUB_TOKEN" "" }}false{{ else }}true{{ end }}'
+    commit_author:
+      name: Duc-Tam Nguyen
+      email: tamnd87@gmail.com
+
+checksum:
+  name_template: "checksums.txt"
+  algorithm: sha256
+
+sboms:
+  # A CycloneDX SBOM per archive via syft; the release workflow installs it.
+  - id: archive
+    artifacts: archive
+
+signs:
+  # Keyless cosign signature over the checksum file. It runs only on a real
+  # release in CI, where the workflow grants the OIDC token cosign needs.
+  - cmd: cosign
+    certificate: "${artifact}.pem"
+    args:
+      - sign-blob
+      - "--output-certificate=${certificate}"
+      - "--output-signature=${signature}"
+      - "${artifact}"
+      - "--yes"
+    artifacts: checksum
+    output: true
+
+docker_signs:
+  - cmd: cosign
+    artifacts: manifests
+    args:
+      - sign
+      - "${artifact}@${digest}"
+      - "--yes"
+
+changelog:
+  sort: asc
+  use: github
+  filters:
+    exclude:
+      - "^docs:"
+      - "^test:"
+      - "^chore:"
+      - "^ci:"
+      - Merge pull request
+      - Merge branch
+  groups:
+    - title: Features
+      regexp: '^.*?feat(\(.+\))??!?:.+$'
+      order: 0
+    - title: Fixes
+      regexp: '^.*?fix(\(.+\))??!?:.+$'
+      order: 1
+    - title: Other
+      order: 999
+
+release:
+  github:
+    owner: tamnd
+    name: x-cli
+  draft: false
+  prerelease: auto
