@@ -1,0 +1,24 @@
+x — a personal CLI for reading X (Twitter) free public surfaces.
+
+This program derives from Nitter (https://github.com/zedeus/nitter), in
+particular its approach to X's web-client GraphQL API: the hardcoded public
+web bearer token, the versioned GraphQL operation/query-id map, the
+guest-token activation flow, the variables/features request shape, cursor
+pagination, and the shared "legacy" tweet/user JSON model. Those techniques
+were studied from Nitter's source and reimplemented here in Go.
+
+Nitter is licensed under the GNU Affero General Public License v3.0 only
+(AGPL-3.0-only). Because this program is a derivative work, it is released
+under the same license. The full license text is in the file LICENSE.
+
+  Nitter — Copyright (C) 2019-2024 zedeus and Nitter contributors
+  x       — Copyright (C) 2026 Duc-Tam Nguyen
+
+This program is free software: you can redistribute it and/or modify it under
+the terms of the GNU Affero General Public License as published by the Free
+Software Foundation, version 3.
+
+This program is distributed in the hope that it will be useful, but WITHOUT
+ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE. See the GNU Affero General Public License for more
+details.
