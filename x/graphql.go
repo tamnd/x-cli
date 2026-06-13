@@ -168,10 +168,10 @@ func gqlError(err error) error {
 // ---- typed result wrappers ----
 
 type gqlTweetResult struct {
-	Typename  string          `json:"__typename"`
-	RestID    string          `json:"rest_id"`
-	Core      *gqlTweetCore   `json:"core"`
-	Legacy    *legacyTweet    `json:"legacy"`
+	Typename    string          `json:"__typename"`
+	RestID      string          `json:"rest_id"`
+	Core        *gqlTweetCore   `json:"core"`
+	Legacy      *legacyTweet    `json:"legacy"`
 	Views       *gqlViews       `json:"views"`
 	NoteTweet   *gqlNoteTweet   `json:"note_tweet"`
 	Quoted      *gqlResultWrap  `json:"quoted_status_result"`

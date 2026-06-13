@@ -1,4 +1,6 @@
 /bin/
+/dist/
+*.out
 *.db
 *.db-journal
 .DS_Store

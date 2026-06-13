@@ -23,7 +23,9 @@ func TestEmitCSVWithFields(t *testing.T) {
 	if err := o.Emit(mkRow()); err != nil {
 		t.Fatal(err)
 	}
-	o.Flush()
+	if err := o.Flush(); err != nil {
+		t.Fatal(err)
+	}
 	want := "id,likes\n20,312045\n"
 	if b.String() != want {
 		t.Errorf("csv = %q, want %q", b.String(), want)
@@ -33,8 +35,12 @@ func TestEmitCSVWithFields(t *testing.T) {
 func TestEmitJSONL(t *testing.T) {
 	var b bytes.Buffer
 	o, _ := NewOutput(&b, "jsonl", "", "", false)
-	o.Emit(mkRow())
-	o.Flush()
+	if err := o.Emit(mkRow()); err != nil {
+		t.Fatal(err)
+	}
+	if err := o.Flush(); err != nil {
+		t.Fatal(err)
+	}
 	if !strings.Contains(b.String(), `"id":"20"`) {
 		t.Errorf("jsonl missing id: %q", b.String())
 	}
@@ -46,8 +52,12 @@ func TestEmitTemplateAddsNewline(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	o.Emit(mkRow())
-	o.Flush()
+	if err := o.Emit(mkRow()); err != nil {
+		t.Fatal(err)
+	}
+	if err := o.Flush(); err != nil {
+		t.Fatal(err)
+	}
 	if b.String() != "jack\n" {
 		t.Errorf("template = %q, want %q", b.String(), "jack\n")
 	}
@@ -68,8 +78,12 @@ func TestEmitTemplateStructValue(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	o.Emit(Row{Value: prof{Username: "NASA", Metrics: metrics{Followers: 92099694}}})
-	o.Flush()
+	if err := o.Emit(Row{Value: prof{Username: "NASA", Metrics: metrics{Followers: 92099694}}}); err != nil {
+		t.Fatal(err)
+	}
+	if err := o.Flush(); err != nil {
+		t.Fatal(err)
+	}
 	if b.String() != "NASA 92099694\n" {
 		t.Errorf("template struct = %q, want %q", b.String(), "NASA 92099694\n")
 	}
@@ -78,7 +92,9 @@ func TestEmitTemplateStructValue(t *testing.T) {
 func TestEmitJSONArrayEmpty(t *testing.T) {
 	var b bytes.Buffer
 	o, _ := NewOutput(&b, "json", "", "", false)
-	o.Flush()
+	if err := o.Flush(); err != nil {
+		t.Fatal(err)
+	}
 	if strings.TrimSpace(b.String()) != "[]" {
 		t.Errorf("empty json = %q", b.String())
 	}

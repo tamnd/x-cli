@@ -7,7 +7,7 @@ import (
 )
 
 var (
-	numericRe   = regexp.MustCompile(`^\d+$`)
+	numericRe    = regexp.MustCompile(`^\d+$`)
 	statusPathRe = regexp.MustCompile(`/status(?:es)?/(\d+)`)
 )
 

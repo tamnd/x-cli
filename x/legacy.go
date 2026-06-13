@@ -73,7 +73,7 @@ type legacyEntities struct {
 	UserMentions []struct {
 		ScreenName string `json:"screen_name"`
 	} `json:"user_mentions"`
-	URLs []legacyURL `json:"urls"`
+	URLs  []legacyURL   `json:"urls"`
 	Media []legacyMedia `json:"media"`
 }
 
@@ -193,16 +193,16 @@ func (lt *legacyTweet) toTweet(author *User, noteText string) *Tweet {
 		text = noteText
 	}
 	t := &Tweet{
-		ID:                lt.IDStr,
-		Text:              text,
-		CreatedAt:         twitterTime(lt.CreatedAt),
-		Lang:              lt.Lang,
-		ConversationID:    lt.ConversationIDStr,
-		ReplyTo:           lt.InReplyToStatusIDStr,
-		ReplyToUser:       lt.InReplyToScreenName,
-		IsReply:           lt.InReplyToStatusIDStr != "",
-		Sensitive:         lt.PossiblySensitive,
-		Author:            author,
+		ID:             lt.IDStr,
+		Text:           text,
+		CreatedAt:      twitterTime(lt.CreatedAt),
+		Lang:           lt.Lang,
+		ConversationID: lt.ConversationIDStr,
+		ReplyTo:        lt.InReplyToStatusIDStr,
+		ReplyToUser:    lt.InReplyToScreenName,
+		IsReply:        lt.InReplyToStatusIDStr != "",
+		Sensitive:      lt.PossiblySensitive,
+		Author:         author,
 		Metrics: Metrics{
 			Replies:   lt.ReplyCount,
 			Retweets:  lt.RetweetCount,

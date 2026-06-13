@@ -60,23 +60,23 @@ type Entities struct {
 
 // User is an account/profile.
 type User struct {
-	ID           string      `json:"id"`
-	Username     string      `json:"username"`
-	Name         string      `json:"name"`
-	CreatedAt    time.Time   `json:"created_at,omitempty"`
-	Description  string      `json:"description,omitempty"`
-	Location     string      `json:"location,omitempty"`
-	URL          string      `json:"url,omitempty"`
-	Verified     bool        `json:"verified,omitempty"`
-	VerifiedType string      `json:"verified_type,omitempty"`
-	Protected    bool        `json:"protected,omitempty"`
-	Metrics      UserMetrics `json:"metrics"`
-	ProfileImage string      `json:"profile_image,omitempty"`
-	ProfileBanner string     `json:"profile_banner,omitempty"`
-	PinnedTweet  string      `json:"pinned_tweet,omitempty"`
-	Entities     Entities    `json:"entities,omitempty"`
-	Kind         string      `json:"kind,omitempty"` // follower|following|liker|retweeter|... when in a list
-	Provenance   string      `json:"provenance,omitempty"`
+	ID            string      `json:"id"`
+	Username      string      `json:"username"`
+	Name          string      `json:"name"`
+	CreatedAt     time.Time   `json:"created_at,omitempty"`
+	Description   string      `json:"description,omitempty"`
+	Location      string      `json:"location,omitempty"`
+	URL           string      `json:"url,omitempty"`
+	Verified      bool        `json:"verified,omitempty"`
+	VerifiedType  string      `json:"verified_type,omitempty"`
+	Protected     bool        `json:"protected,omitempty"`
+	Metrics       UserMetrics `json:"metrics"`
+	ProfileImage  string      `json:"profile_image,omitempty"`
+	ProfileBanner string      `json:"profile_banner,omitempty"`
+	PinnedTweet   string      `json:"pinned_tweet,omitempty"`
+	Entities      Entities    `json:"entities,omitempty"`
+	Kind          string      `json:"kind,omitempty"` // follower|following|liker|retweeter|... when in a list
+	Provenance    string      `json:"provenance,omitempty"`
 }
 
 // UserMetrics are the public counters on a profile.

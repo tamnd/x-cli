@@ -108,8 +108,8 @@ func (a *App) cmdConfig() *cobra.Command {
 			Use:   "path",
 			Short: "Print the config file path",
 			RunE: func(cmd *cobra.Command, args []string) error {
-				fmt.Fprintln(os.Stdout, x.ConfigPath())
-				return nil
+				_, err := fmt.Fprintln(os.Stdout, x.ConfigPath())
+				return err
 			},
 		},
 		&cobra.Command{
@@ -173,8 +173,8 @@ func (a *App) cmdOpen() *cobra.Command {
 		RunE: func(cmd *cobra.Command, args []string) error {
 			url := refURL(args[0])
 			if a.dryRun {
-				fmt.Fprintln(os.Stdout, url)
-				return nil
+				_, err := fmt.Fprintln(os.Stdout, url)
+				return err
 			}
 			return openBrowser(url)
 		},
@@ -264,9 +264,9 @@ func (a *App) cmdVersion() *cobra.Command {
 		Short:   "Print version info",
 		GroupID: "meta",
 		RunE: func(cmd *cobra.Command, args []string) error {
-			fmt.Fprintf(os.Stdout, "x %s (commit %s, built %s, %s/%s)\n",
+			_, err := fmt.Fprintf(os.Stdout, "x %s (commit %s, built %s, %s/%s)\n",
 				Version, Commit, Date, runtime.GOOS, runtime.GOARCH)
-			return nil
+			return err
 		},
 	}
 }
@@ -381,7 +381,7 @@ func downloadFile(ctx context.Context, url, dst string) error {
 	if err != nil {
 		return err
 	}
-	defer resp.Body.Close()
+	defer func() { _ = resp.Body.Close() }()
 	if resp.StatusCode != http.StatusOK {
 		return fmt.Errorf("http %d", resp.StatusCode)
 	}
@@ -389,7 +389,7 @@ func downloadFile(ctx context.Context, url, dst string) error {
 	if err != nil {
 		return err
 	}
-	defer f.Close()
+	defer func() { _ = f.Close() }()
 	_, err = io.Copy(f, resp.Body)
 	return err
 }
