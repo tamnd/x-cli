@@ -99,6 +99,16 @@ func (s *Session) ensureGuest(ctx context.Context, c *Client) (string, error) {
 	return out.GuestToken, nil
 }
 
+// invalidateGuest drops the cached guest token from memory and disk so the next
+// ensureGuest mints a fresh one. Called when X rejects a token before its TTL.
+func (s *Session) invalidateGuest() {
+	s.mu.Lock()
+	s.guestToken = ""
+	s.guestAt = time.Time{}
+	s.mu.Unlock()
+	_ = os.Remove(GuestStorePath())
+}
+
 // guestRecord is the on-disk shape of the cached guest token.
 type guestRecord struct {
 	Token    string    `json:"guest_token"`

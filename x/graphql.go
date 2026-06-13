@@ -118,20 +118,36 @@ func (g *GraphQL) get(ctx context.Context, op string, variables map[string]any) 
 	if ft := g.fieldToggles(op); ft != "" {
 		u += "&fieldToggles=" + url.QueryEscape(ft)
 	}
-	h, err := g.s.authHeaders(ctx, g.c)
-	if err != nil {
-		return nil, err
-	}
-	if pu, perr := url.Parse(u); perr == nil {
-		if tid := g.transactionID(ctx, http.MethodGet, pu.RequestURI()); tid != "" {
-			h.Set("x-client-transaction-id", tid)
+	// A guest token X has invalidated server-side comes back as 401/403 even
+	// though it has not hit our TTL. Drop it and re-mint once before giving up,
+	// so a stale cached token self-heals instead of surfacing as needs-auth.
+	for attempt := 0; ; attempt++ {
+		h, err := g.s.authHeaders(ctx, g.c)
+		if err != nil {
+			return nil, err
 		}
-	}
-	b, err := g.c.Do(ctx, Req{URL: u, Endpoint: "graphql." + op, Header: h, CacheTTL: gqlTTL(op)})
-	if err != nil {
+		if pu, perr := url.Parse(u); perr == nil {
+			if tid := g.transactionID(ctx, http.MethodGet, pu.RequestURI()); tid != "" {
+				h.Set("x-client-transaction-id", tid)
+			}
+		}
+		b, err := g.c.Do(ctx, Req{URL: u, Endpoint: "graphql." + op, Header: h, CacheTTL: gqlTTL(op)})
+		if err == nil {
+			return b, nil
+		}
+		if attempt == 0 && !g.s.IsUser() && isAuthReject(err) {
+			g.s.invalidateGuest()
+			continue
+		}
 		return nil, gqlError(err)
 	}
-	return b, nil
+}
+
+// isAuthReject reports whether an HTTP failure is X rejecting the credentials
+// (401/403), the signal that a guest token needs re-minting.
+func isAuthReject(err error) bool {
+	he, ok := err.(*HTTPError)
+	return ok && (he.Status == 401 || he.Status == 403)
 }
 
 // gqlError maps an HTTP failure to a typed error the CLI turns into an exit code.
