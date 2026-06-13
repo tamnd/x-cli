@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"maps"
 	"net/http"
 	"net/url"
 	"strconv"
@@ -30,24 +31,24 @@ func NewGraphQL(c *Client, s *Session, cfg Config) *GraphQL {
 // public, non-secret hashes the web client ships; they rotate on redeploy and
 // are overridable with `x config set graphql.query_id.<Op> <hash>` or --query-id.
 var defaultQueryIDs = map[string]string{
-	"TweetResultByRestId":      "pq05Js5l1pPezDLuwcr0OQ",
-	"TweetDetail":              "Kzfv17rukSzjT96BerOWZA",
-	"UserByScreenName":         "-oaLodhGbbnzJBACb1kk2Q",
-	"UserByRestId":             "tD8zKvQzwY3kdx5yz6YmOw",
-	"UserTweets":               "a3SQAz_VP9k8VWDr9bMcXQ",
-	"UserTweetsAndReplies":     "NullQbZlUJl-u6oBYRdrVw",
-	"UserMedia":                "8HCIrWwy4C0fBTbPnMq5aA",
-	"Likes":                    "9rfg6gQDPzWUvO9pODrlNg",
-	"SearchTimeline":           "f_A-Gyo204PRxixpkrchJg",
-	"Followers":                "oQWxG6XdR5SPvMBsPiKUPQ",
-	"Following":                "i2GOldCH2D3OUEhAdimLrA",
+	"TweetResultByRestId":      "8CEYnZhCp0dx9DFyyEBlbQ",
+	"TweetDetail":              "meGUdoK_ryVZ0daBK-HJ2g",
+	"UserByScreenName":         "681MIj51w00Aj6dY0GXnHw",
+	"UserByRestId":             "IBScZCvFJadZC25ubLYNRQ",
+	"UserTweets":               "RyDU3I9VJtPF-Pnl6vrRlw",
+	"UserTweetsAndReplies":     "plVqzvVGaDxbFEPoOe_i-A",
+	"UserMedia":                "Ecl7YvFIuRaUPonVOHzoOA",
+	"Likes":                    "enfPHxWV3DDAG1XBw3obTg",
+	"SearchTimeline":           "yIphfmxUO-hddQHKIOk9tA",
+	"Followers":                "9jsVJ9l2uXUIKslHvJqIhw",
+	"Following":                "OLm4oHZBfqWx8jbcEhWoFw",
 	"Favoriters":               "E-ZTxvWWIkmOKwYdNTEefg",
 	"Retweeters":               "0BoJlKAxoNPQUHRftlwZ2w",
-	"ListLatestTweetsTimeline": "ROoq1i-X-fJlsHCCWcRYxQ",
-	"ListByRestId":             "cIUpT1UjuGgl_oWiY7Snhg",
-	"ListMembers":              "fuVHh5-gFn8zDBBxb8wOMA",
+	"ListLatestTweetsTimeline": "27HKUy8ulrflZ9Tole038g",
+	"ListByRestId":             "9VW7EyVQEX88LujnchNXXA",
+	"ListMembers":              "H_0zFfjp73xGZrJpY-C2IQ",
 	"AudioSpaceById":           "fYAuJHiY3TmYdBmrRtIKhA",
-	"HomeTimeline":             "HJFjzBgCs16TqxewQOeLNg",
+	"HomeTimeline":             "MP5Mn45hEc4i_q_UwIHBkw",
 	"Bookmarks":                "QUjXply7fA7fk05FRyajEg",
 }
 
@@ -118,7 +119,13 @@ func (g *GraphQL) get(ctx context.Context, op string, variables map[string]any) 
 			return nil, err
 		}
 		if pu, perr := url.Parse(u); perr == nil {
-			if tid := g.transactionID(ctx, http.MethodGet, pu.RequestURI()); tid != "" {
+			// The TID is verified against the request path only; the web client
+			// hashes url.pathname, never the ?variables&features query string.
+			// Hashing RequestURI() (path+query) yields a TID X rejects with an
+			// empty-body 404 on its stricter endpoints (search, the follow graph)
+			// while laxer ones (likes, media) wave it through — which looked like
+			// a per-operation outage until the path was the common cause.
+			if tid := g.transactionID(ctx, http.MethodGet, pu.Path); tid != "" {
 				h.Set("x-client-transaction-id", tid)
 			}
 		}
@@ -321,8 +328,11 @@ func walkUsers(node any, out *[]*User, cursor *string) {
 		if tn, _ := v["__typename"].(string); tn == "User" {
 			if u := buildUserFromMap(v); u != nil {
 				*out = append(*out, u)
+				return // a real user node: don't recurse into its own subtree
 			}
-			return
+			// A bare User wrapper with no core/legacy is the timeline owner
+			// (Followers/Following nest the list under result.timeline). Fall
+			// through and keep walking so we reach the entries it contains.
 		}
 		for _, e := range v {
 			walkUsers(e, out, cursor)
@@ -602,31 +612,43 @@ func (g *GraphQL) pageTweets(ctx context.Context, op string, vars func(cursor st
 
 // ---- paginated user lists ----
 
-// Followers / Following / Likers / Retweeters stream User rows.
-func (g *GraphQL) Followers(ctx context.Context, userID string, limit int, emit func(*User) error) error {
-	return g.pageUsers(ctx, "Followers", "follower", userID, "userId", limit, emit)
-}
-func (g *GraphQL) Following(ctx context.Context, userID string, limit int, emit func(*User) error) error {
-	return g.pageUsers(ctx, "Following", "following", userID, "userId", limit, emit)
-}
-func (g *GraphQL) Likers(ctx context.Context, tweetID string, limit int, emit func(*User) error) error {
-	return g.pageUsers(ctx, "Favoriters", "liker", tweetID, "tweetId", limit, emit)
-}
-func (g *GraphQL) Retweeters(ctx context.Context, tweetID string, limit int, emit func(*User) error) error {
-	return g.pageUsers(ctx, "Retweeters", "retweeter", tweetID, "tweetId", limit, emit)
+// engagementVars are the extra toggles the tweet-engagement readers
+// (Favoriters, Retweeters) still require; the follow-graph readers reject them.
+var engagementVars = map[string]any{
+	"withDownvotePerspective":     false,
+	"withReactionsMetadata":       false,
+	"withReactionsPerspective":    false,
+	"withSuperFollowsTweetFields": false,
+	"withSuperFollowsUserFields":  false,
 }
 
-func (g *GraphQL) pageUsers(ctx context.Context, op, kind, id, idKey string, limit int, emit func(*User) error) error {
+// Followers / Following / Likers / Retweeters stream User rows.
+func (g *GraphQL) Followers(ctx context.Context, userID string, limit int, emit func(*User) error) error {
+	return g.pageUsers(ctx, "Followers", "follower", userID, "userId", nil, limit, emit)
+}
+func (g *GraphQL) Following(ctx context.Context, userID string, limit int, emit func(*User) error) error {
+	return g.pageUsers(ctx, "Following", "following", userID, "userId", nil, limit, emit)
+}
+func (g *GraphQL) Likers(ctx context.Context, tweetID string, limit int, emit func(*User) error) error {
+	return g.pageUsers(ctx, "Favoriters", "liker", tweetID, "tweetId", engagementVars, limit, emit)
+}
+func (g *GraphQL) Retweeters(ctx context.Context, tweetID string, limit int, emit func(*User) error) error {
+	return g.pageUsers(ctx, "Retweeters", "retweeter", tweetID, "tweetId", engagementVars, limit, emit)
+}
+
+func (g *GraphQL) pageUsers(ctx context.Context, op, kind, id, idKey string, extra map[string]any, limit int, emit func(*User) error) error {
 	seen := map[string]bool{}
 	cursor := ""
 	n := 0
 	for {
-		b, err := g.get(ctx, op, map[string]any{
+		vars := map[string]any{
 			idKey:                    id,
 			"count":                  20,
 			"cursor":                 cursor,
 			"includePromotedContent": false,
-		})
+		}
+		maps.Copy(vars, extra)
+		b, err := g.get(ctx, op, vars)
 		if err != nil {
 			if n > 0 {
 				return nil
@@ -656,5 +678,3 @@ func (g *GraphQL) pageUsers(ctx context.Context, op, kind, id, idKey string, lim
 		cursor = next
 	}
 }
-
-var _ = http.MethodGet
