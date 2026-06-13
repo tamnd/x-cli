@@ -15,16 +15,15 @@ concurrency:
 
 jobs:
   # Build and test on Linux and macOS with the race detector on. gofmt and vet
-  # run here too so a formatting slip fails fast on both platforms. CGO is off
-  # so the binary stays static, the way it ships.
+  # run here too so a formatting slip fails fast on both platforms. The race
+  # detector needs cgo, so it is left at the runner default here; the static
+  # CGO_ENABLED=0 binary is what the release pipeline builds and ships.
   test:
     strategy:
       fail-fast: false
       matrix:
         os: [ubuntu-latest, macos-latest]
     runs-on: ${{ matrix.os }}
-    env:
-      CGO_ENABLED: "0"
     steps:
       - uses: actions/checkout@v5
       - uses: actions/setup-go@v6
