@@ -46,7 +46,7 @@ func OpenStore(path string) (*Store, error) {
 		return nil, err
 	}
 	if _, err := db.Exec(storeSchema); err != nil {
-		db.Close()
+		_ = db.Close()
 		return nil, err
 	}
 	return &Store{db: db}, nil
@@ -176,7 +176,7 @@ func (s *Store) QueueCounts() (map[string]int, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	out := map[string]int{}
 	for rows.Next() {
 		var st string
@@ -208,7 +208,7 @@ func (s *Store) TweetsByAuthor(username string) ([]*Tweet, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []*Tweet
 	for rows.Next() {
 		var raw string

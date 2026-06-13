@@ -23,9 +23,9 @@ type Client struct {
 	hc    *http.Client
 	cache *Cache
 
-	mu       sync.Mutex
-	nextOK   time.Time                // global rate-limit gate
-	limits   map[string]rateLimit     // endpoint -> last seen rate-limit window
+	mu     sync.Mutex
+	nextOK time.Time            // global rate-limit gate
+	limits map[string]rateLimit // endpoint -> last seen rate-limit window
 }
 
 type rateLimit struct {
@@ -174,14 +174,14 @@ func (c *Client) do1(ctx context.Context, r Req) ([]byte, bool, error) {
 	if err != nil {
 		return nil, true, err // network error: retry
 	}
-	defer resp.Body.Close()
+	defer func() { _ = resp.Body.Close() }()
 	c.noteRateLimit(r.Endpoint, resp.Header)
 
 	reader := resp.Body
 	if resp.Header.Get("Content-Encoding") == "gzip" {
 		gz, gerr := gzip.NewReader(resp.Body)
 		if gerr == nil {
-			defer gz.Close()
+			defer func() { _ = gz.Close() }()
 			reader = gz
 		}
 	}

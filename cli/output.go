@@ -33,7 +33,6 @@ type Output struct {
 	cw      *csv.Writer
 	enc     *json.Encoder
 	first   bool
-	header  []string
 }
 
 // NewOutput builds an Output for a format. tmplStr, when non-empty, switches to
@@ -138,27 +137,27 @@ func (o *Output) emitTable(r Row) error {
 	if !o.started {
 		o.started = true
 		if !o.noHeader {
-			fmt.Fprintln(o.tw, strings.Join(upper(cols), "\t"))
+			_, _ = fmt.Fprintln(o.tw, strings.Join(upper(cols), "\t"))
 		}
 	}
-	fmt.Fprintln(o.tw, strings.Join(clean(vals), "\t"))
+	_, _ = fmt.Fprintln(o.tw, strings.Join(clean(vals), "\t"))
 	return nil
 }
 
 func (o *Output) emitJSONArray(r Row) error {
 	if !o.started {
 		o.started = true
-		io.WriteString(o.w, "[\n")
+		_, _ = io.WriteString(o.w, "[\n")
 	}
 	if !o.first {
-		io.WriteString(o.w, ",\n")
+		_, _ = io.WriteString(o.w, ",\n")
 	}
 	o.first = false
 	b, err := json.MarshalIndent(r.Value, "  ", "  ")
 	if err != nil {
 		return err
 	}
-	io.WriteString(o.w, "  ")
+	_, _ = io.WriteString(o.w, "  ")
 	_, err = o.w.Write(b)
 	return err
 }
@@ -223,9 +222,9 @@ func (o *Output) Flush() error {
 		return o.cw.Error()
 	case o.format == "json":
 		if !o.started {
-			io.WriteString(o.w, "[]\n")
+			_, _ = io.WriteString(o.w, "[]\n")
 		} else {
-			io.WriteString(o.w, "\n]\n")
+			_, _ = io.WriteString(o.w, "\n]\n")
 		}
 	}
 	return nil

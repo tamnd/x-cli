@@ -4,8 +4,8 @@ import "testing"
 
 func TestParseTweetRef(t *testing.T) {
 	cases := map[string]string{
-		"20":                                    "20",
-		"https://x.com/jack/status/20":          "20",
+		"20":                                     "20",
+		"https://x.com/jack/status/20":           "20",
 		"https://twitter.com/jack/status/20?s=1": "20",
 		"http://mobile.twitter.com/x/status/123": "123",
 		"x.com/i/web/status/456":                 "456",

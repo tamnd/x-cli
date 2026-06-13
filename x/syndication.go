@@ -79,22 +79,22 @@ func TweetByID(ctx context.Context, c *Client, id string) (*Tweet, error) {
 
 // synTweet is the syndication wire shape (only the fields we map).
 type synTweet struct {
-	IDStr             string          `json:"id_str"`
-	Text              string          `json:"text"`
-	CreatedAt         string          `json:"created_at"`
-	Lang              string          `json:"lang"`
-	FavoriteCount     int             `json:"favorite_count"`
-	ConversationCount int             `json:"conversation_count"`
-	Sensitive         bool            `json:"possibly_sensitive"`
-	InReplyToScreen   string          `json:"in_reply_to_screen_name"`
-	InReplyToStatus   string          `json:"in_reply_to_status_id_str"`
-	User              synUser         `json:"user"`
-	Entities          synEntities     `json:"entities"`
-	Photos            []synPhoto      `json:"photos"`
-	MediaDetails      []synMedia      `json:"mediaDetails"`
-	Video             *synVideo       `json:"video"`
-	QuotedTweet       *synTweet       `json:"quoted_tweet"`
-	Parent            *synTweet       `json:"parent"`
+	IDStr             string      `json:"id_str"`
+	Text              string      `json:"text"`
+	CreatedAt         string      `json:"created_at"`
+	Lang              string      `json:"lang"`
+	FavoriteCount     int         `json:"favorite_count"`
+	ConversationCount int         `json:"conversation_count"`
+	Sensitive         bool        `json:"possibly_sensitive"`
+	InReplyToScreen   string      `json:"in_reply_to_screen_name"`
+	InReplyToStatus   string      `json:"in_reply_to_status_id_str"`
+	User              synUser     `json:"user"`
+	Entities          synEntities `json:"entities"`
+	Photos            []synPhoto  `json:"photos"`
+	MediaDetails      []synMedia  `json:"mediaDetails"`
+	Video             *synVideo   `json:"video"`
+	QuotedTweet       *synTweet   `json:"quoted_tweet"`
+	Parent            *synTweet   `json:"parent"`
 }
 
 type synUser struct {
@@ -128,10 +128,10 @@ type synPhoto struct {
 }
 
 type synMedia struct {
-	Type         string `json:"type"`
+	Type          string `json:"type"`
 	MediaURLHTTPS string `json:"media_url_https"`
-	ExtAltText   string `json:"ext_alt_text"`
-	OriginalInfo struct {
+	ExtAltText    string `json:"ext_alt_text"`
+	OriginalInfo  struct {
 		Width  int `json:"width"`
 		Height int `json:"height"`
 	} `json:"original_info"`
@@ -156,15 +156,15 @@ type synVideo struct {
 
 func (s *synTweet) toTweet() *Tweet {
 	t := &Tweet{
-		ID:            s.IDStr,
-		Text:          s.Text,
-		Lang:          s.Lang,
-		Sensitive:     s.Sensitive,
-		ReplyTo:       s.InReplyToStatus,
-		ReplyToUser:   s.InReplyToScreen,
-		IsReply:       s.InReplyToStatus != "",
-		Metrics:       Metrics{Likes: s.FavoriteCount, Replies: s.ConversationCount},
-		Provenance:    "syndication",
+		ID:          s.IDStr,
+		Text:        s.Text,
+		Lang:        s.Lang,
+		Sensitive:   s.Sensitive,
+		ReplyTo:     s.InReplyToStatus,
+		ReplyToUser: s.InReplyToScreen,
+		IsReply:     s.InReplyToStatus != "",
+		Metrics:     Metrics{Likes: s.FavoriteCount, Replies: s.ConversationCount},
+		Provenance:  "syndication",
 	}
 	t.CreatedAt, _ = time.Parse(time.RFC3339, s.CreatedAt)
 	t.Author = &User{

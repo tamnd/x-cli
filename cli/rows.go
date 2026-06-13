@@ -50,8 +50,8 @@ func mediaRow(m x.Media) Row {
 		best = m.Variants[len(m.Variants)-1].URL
 	}
 	return Row{
-		Cols: []string{"type", "w", "h", "dur_ms", "alt", "url"},
-		Vals: []string{m.Type, itoa(m.Width), itoa(m.Height), itoa(m.Duration), oneline(m.AltText), best},
+		Cols:  []string{"type", "w", "h", "dur_ms", "alt", "url"},
+		Vals:  []string{m.Type, itoa(m.Width), itoa(m.Height), itoa(m.Duration), oneline(m.AltText), best},
 		Value: mediaValue{Media: m, URL: best},
 	}
 }

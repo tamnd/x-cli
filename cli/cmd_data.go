@@ -40,7 +40,7 @@ func (a *App) cmdCrawl() *cobra.Command {
 			if err != nil {
 				return err
 			}
-			defer st.Close()
+			defer func() { _ = st.Close() }()
 			eng := a.engine()
 			for _, s := range args {
 				ref, _, err := userRef(s, false)
@@ -113,7 +113,7 @@ func (a *App) cmdQueue() *cobra.Command {
 			if err != nil {
 				return err
 			}
-			defer st.Close()
+			defer func() { _ = st.Close() }()
 			counts, err := st.QueueCounts()
 			if err != nil {
 				return err
@@ -129,7 +129,7 @@ func (a *App) cmdQueue() *cobra.Command {
 			if err != nil {
 				return err
 			}
-			defer st.Close()
+			defer func() { _ = st.Close() }()
 			if err := st.ClearQueue(); err != nil {
 				return err
 			}
@@ -156,7 +156,7 @@ func (a *App) cmdDB() *cobra.Command {
 				if err != nil {
 					return err
 				}
-				defer st.Close()
+				defer func() { _ = st.Close() }()
 				s, err := st.Stats()
 				if err != nil {
 					return err
@@ -173,7 +173,7 @@ func (a *App) cmdDB() *cobra.Command {
 				if err != nil {
 					return err
 				}
-				defer st.Close()
+				defer func() { _ = st.Close() }()
 				return a.runQuery(st, joinArgs(args))
 			},
 		},
@@ -187,7 +187,7 @@ func (a *App) runQuery(st *x.Store, sql string) error {
 	if err != nil {
 		return err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	cols, err := rows.Columns()
 	if err != nil {
 		return err
@@ -251,7 +251,7 @@ func (a *App) cmdExport() *cobra.Command {
 			if err != nil {
 				return err
 			}
-			defer st.Close()
+			defer func() { _ = st.Close() }()
 			ref, _, err := userRef(args[0], false)
 			if err != nil {
 				return err
