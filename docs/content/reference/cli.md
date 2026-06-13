@@ -40,25 +40,8 @@ map. A `<ref>` is a tweet id, status URL, or anything x can resolve to a tweet; 
 `counts --product` takes `Top|Latest`. `timeline --replies` includes replies and
 `--media` keeps only tweets with media.
 
-## Writes (your own session)
-
-All writes confirm before firing unless `--yes`, and `--dry-run` prints the
-request without sending it. The toggle commands take `--undo` to reverse.
-
-| Command | What it does | Key flags |
-|---|---|---|
-| `post <text>` | Post a tweet from your account | `--reply-to`, `--quote`, `--reply-settings` |
-| `reply <ref> <text>` | Reply to a tweet | |
-| `delete <ref>` | Delete one of your tweets | |
-| `like <ref>` | Like a tweet | `--undo` |
-| `retweet <ref>` | Retweet a tweet | `--undo` |
-| `bookmark <ref>` | Bookmark a tweet | `--undo` |
-| `follow <user>` | Follow a user | `--undo` |
-| `mute <user>` | Mute a user | `--undo` |
-| `block <user>` | Block a user | `--undo` |
-| `dm <user> <text>` | Send a direct message | |
-
-`post --reply-settings` takes `Everyone|Following|MentionedUsers`.
+x is read-only: there are no commands that post, like, follow, or otherwise
+change your account. `likes`, `likers`, `followers`, and `bookmarks` only read.
 
 ## Local store
 
@@ -113,8 +96,7 @@ for defaults and [output formats](/reference/output/) for what `-o` produces.
 | `--retries` | Retries on 429/5xx (default `3`) |
 | `--timeout` | Per-request timeout (default `30s`) |
 | `--no-cache` | Bypass the HTTP cache |
-| `--dry-run` | Print the request without sending it (writes) |
-| `-y, --yes` | Assume yes to prompts (writes) |
+| `--dry-run` | Print the target instead of acting (e.g. `open` prints the URL) |
 | `-q, --quiet` | Suppress progress on stderr |
 | `-v, --verbose` | Show tier, endpoint, and timing |
 | `-h, --help` | Help for a command |

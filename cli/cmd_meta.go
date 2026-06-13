@@ -252,7 +252,6 @@ func (a *App) cmdInfo() *cobra.Command {
 				"search":            yn(gql),
 				"followers/likes":   yn(gql),
 				"home/bookmarks":    yn(cfg.HasSession()),
-				"writes":            yn(cfg.HasSession()),
 			}
 			return a.printKVString(caps)
 		},

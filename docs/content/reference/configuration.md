@@ -66,8 +66,7 @@ instant and gentle on X.
 x cache clear     # delete all cached responses
 ```
 
-Bypass the cache for one run with `--no-cache`. The cache holds read responses
-only; it never stores writes.
+Bypass the cache for one run with `--no-cache`.
 
 ## Where the session and guest token live
 

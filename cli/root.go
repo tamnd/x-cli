@@ -38,7 +38,6 @@ type App struct {
 	quiet    bool
 	verbose  bool
 	color    string
-	yes      bool
 	dryRun   bool
 	db       string
 	queryIDs []string
@@ -49,8 +48,8 @@ func Root() *cobra.Command {
 	a := &App{}
 	root := &cobra.Command{
 		Use:           "x",
-		Short:         "A fast command line for X (Twitter)",
-		Long:          "x reads X's free public surfaces (syndication and the web-client GraphQL), writes from your own session, and crawls into a local store. No paid API.",
+		Short:         "A fast, read-only command line for X (Twitter)",
+		Long:          "x reads X's free public surfaces (syndication and the web-client GraphQL) and crawls them into a local store. Read-only: it never writes to your account. No paid API.",
 		SilenceUsage:  true,
 		SilenceErrors: true,
 	}
@@ -70,20 +69,17 @@ func Root() *cobra.Command {
 	pf.BoolVarP(&a.quiet, "quiet", "q", false, "suppress progress on stderr")
 	pf.BoolVarP(&a.verbose, "verbose", "v", false, "show tier/endpoint and timing")
 	pf.StringVar(&a.color, "color", "auto", "auto|always|never")
-	pf.BoolVarP(&a.yes, "yes", "y", false, "assume yes to prompts (writes)")
-	pf.BoolVar(&a.dryRun, "dry-run", false, "print the request without sending it")
+	pf.BoolVar(&a.dryRun, "dry-run", false, "print the target instead of acting (e.g. open)")
 	pf.StringVar(&a.db, "db", "", "path to the local SQLite store")
 	pf.StringArrayVar(&a.queryIDs, "query-id", nil, "override a GraphQL query id (Op=hash)")
 
 	root.AddGroup(
 		&cobra.Group{ID: "read", Title: "Reads:"},
-		&cobra.Group{ID: "write", Title: "Writes (your own session):"},
 		&cobra.Group{ID: "data", Title: "Local store:"},
 		&cobra.Group{ID: "meta", Title: "Meta:"},
 	)
 	addReadCommands(root, a)
 	addEntityCommands(root, a)
-	addWriteCommands(root, a)
 	addDataCommands(root, a)
 	addMetaCommands(root, a)
 	return root

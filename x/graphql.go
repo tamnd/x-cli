@@ -49,15 +49,6 @@ var defaultQueryIDs = map[string]string{
 	"AudioSpaceById":           "fYAuJHiY3TmYdBmrRtIKhA",
 	"HomeTimeline":             "HJFjzBgCs16TqxewQOeLNg",
 	"Bookmarks":                "QUjXply7fA7fk05FRyajEg",
-	// writes
-	"CreateTweet":     "znq45IGNNVe8sjEapqfZ_w",
-	"DeleteTweet":     "VaenaVgh5q5ih7kvyVjgtg",
-	"FavoriteTweet":   "lI07N6Otwv1PhnEgXILM7A",
-	"UnfavoriteTweet": "ZYKSe-w7KEslx3JhSIk5LA",
-	"CreateRetweet":   "ojPdsZsimiJrUGLR1sjUtA",
-	"DeleteRetweet":   "iQtK4dl5hBmXewYZuEOKVw",
-	"CreateBookmark":  "aoDbu3RHznuiSkQ9aNM67Q",
-	"DeleteBookmark":  "Wlmlj2-xzyS1GN3a6cj-mQ",
 }
 
 func (g *GraphQL) queryID(op string) string {
