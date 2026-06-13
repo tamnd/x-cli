@@ -204,7 +204,7 @@ func (s *Store) Stats() (map[string]int, error) {
 
 // TweetsByAuthor returns stored tweets for a username, oldest first.
 func (s *Store) TweetsByAuthor(username string) ([]*Tweet, error) {
-	rows, err := s.db.Query(`SELECT raw FROM tweets WHERE author_username=? ORDER BY created_at ASC`, username)
+	rows, err := s.db.Query(`SELECT raw FROM tweets WHERE author_username=? COLLATE NOCASE ORDER BY created_at ASC`, username)
 	if err != nil {
 		return nil, err
 	}
