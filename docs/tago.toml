@@ -1,0 +1,10 @@
+title       = "x"
+baseURL     = "https://x-cli.tamnd.com/"
+description = "A fast, friendly command line for X (Twitter). One binary that reads tweets, profiles, timelines, threads, and search over X's free public surfaces, writes from your own session, and crawls into a local store. No paid API."
+contentDir  = "content"
+outputDir   = "public"
+theme       = "tago-doks"
+syntaxHighlight = "true"
+
+[params]
+github = "https://github.com/tamnd/x-cli"

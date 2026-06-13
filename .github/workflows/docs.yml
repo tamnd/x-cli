@@ -1,0 +1,135 @@
+name: Docs
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "docs/**"
+      - ".github/workflows/docs.yml"
+      - "scripts/ensure_cloudflare_pages.py"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+  deployments: write
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+concurrency:
+  group: docs-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6.0.2
+        with:
+          submodules: true
+          # Sitemap lastmod comes from the latest content commit.
+          fetch-depth: 0
+
+      - name: Checkout tago
+        uses: actions/checkout@v6.0.2
+        with:
+          repository: tamnd/tago
+          path: .tago-src
+          fetch-depth: 1
+
+      - name: Setup Go
+        uses: actions/setup-go@v6.4.0
+        with:
+          go-version-file: .tago-src/go.mod
+          cache: false
+
+      - name: Cache tago binary
+        id: tago-bin-cache
+        uses: actions/cache@v5.0.5
+        with:
+          path: /usr/local/bin/tago
+          key: tago-bin-${{ runner.os }}-${{ hashFiles('.tago-src/go.sum', '.tago-src/**/*.go') }}
+
+      - name: Build tago
+        if: steps.tago-bin-cache.outputs.cache-hit != 'true'
+        run: |
+          cd .tago-src
+          go build -o /usr/local/bin/tago ./cmd/tago/
+
+      # Two builds, one per deploy target. The theme links every page and asset
+      # with absURL, so each output carries its own base path: the Pages build
+      # gets the /x-cli/ sub-path, the Cloudflare build gets the domain root.
+      - name: Build for GitHub Pages
+        working-directory: docs
+        run: tago build --base-url "https://tamnd.github.io/x-cli/" --output public-pages
+
+      # tago absURLs theme links but passes markdown content links through, so
+      # root-relative links in content need the sub-path prefixed for the Pages
+      # mirror. The Cloudflare build serves from the root and needs none.
+      - name: Rewrite content links for the Pages sub-path
+        run: |
+          find docs/public-pages -name '*.html' -print0 |
+            xargs -0 perl -pi -e 's|(href=")/(?!/)|${1}/x-cli/|g; s|(src=")/(?!/)|${1}/x-cli/|g'
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v5.0.0
+        with:
+          path: docs/public-pages
+
+      - name: Build for Cloudflare Pages
+        working-directory: docs
+        run: tago build --base-url "https://x-cli.tamnd.com/" --output public-cf
+
+      - name: Upload Cloudflare artifact
+        uses: actions/upload-artifact@v7.0.1
+        with:
+          name: public-cf
+          path: docs/public-cf
+          retention-days: 1
+
+  deploy-pages:
+    runs-on: ubuntu-latest
+    needs: build
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5.0.0
+
+  deploy-cloudflare:
+    runs-on: ubuntu-latest
+    needs: build
+    concurrency:
+      group: cloudflare-pages-x-cli
+      cancel-in-progress: true
+    steps:
+      - uses: actions/checkout@v6.0.2
+        with:
+          fetch-depth: 1
+          sparse-checkout: scripts/
+
+      - name: Download Cloudflare artifact
+        uses: actions/download-artifact@v8.0.1
+        with:
+          name: public-cf
+          path: public-cf
+
+      - name: Ensure Cloudflare Pages config
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: python3 scripts/ensure_cloudflare_pages.py --project x-cli --domain x-cli.tamnd.com --zone tamnd.com
+
+      - name: Deploy to Cloudflare Pages
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          npx -y wrangler@4 pages deploy public-cf \
+            --project-name=x-cli \
+            --branch=main \
+            --commit-dirty=true
