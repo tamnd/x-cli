@@ -35,8 +35,8 @@ message names the tier. Two fixes, depending on which it asks for:
 - It wants the **guest** tier: add `--guest`.
 - It wants a **session**: run `x auth import` once, then re-run the command.
 
-Reads like `search`, `followers`, and `likes` want guest-or-session; writes,
-`home`, and `bookmarks` always want a session.
+Reads like `search`, `followers`, and `likes` want guest-or-session; `home` and
+`bookmarks` always want a session.
 
 ## Rate-limited (exit 5)
 

@@ -1,9 +1,9 @@
 # x
 
 A fast, friendly command line for X (Twitter). One pure-Go binary that reads
-tweets, profiles, timelines, threads, and search over X's free public surfaces,
-writes from your own session, and crawls accounts into a local SQLite store.
-No paid API, nothing to sign up for.
+tweets, profiles, timelines, threads, and search over X's free public surfaces
+and crawls accounts into a local SQLite store. Strictly read-only: it never
+writes to your account. No paid API, nothing to sign up for.
 
 Documentation: <https://x-cli.tamnd.com> (mirror: <https://tamnd.github.io/x-cli>)
 
@@ -25,10 +25,12 @@ uses, across three tiers. It picks the cheapest one that can answer each call:
 - **Tier 1, guest GraphQL.** An opt-in (`--guest`) guest token, minted the same
   way the web client mints one. Pages deeper into timelines and resolves more.
 - **Tier 2, session GraphQL.** Your own browser session cookies, imported with
-  `x auth import`. Unlocks search, followers/following, your home timeline and
-  bookmarks, and every write (post, reply, like, follow, ...).
+  `x auth import`. Unlocks reads X reserves for logged-in clients: search,
+  followers/following, your home timeline, and bookmarks.
 
-There is no developer API key and no paid plan anywhere in the tool.
+There is no developer API key and no paid plan anywhere in the tool, and the
+tool only ever reads. It has no commands that post, like, follow, or otherwise
+change your account.
 
 ## Install
 
@@ -64,8 +66,8 @@ in `jq` or a spreadsheet.
 
 ## Your own session
 
-Reads that X reserves for logged-in clients, and all writes, need your session.
-Import it once from your browser cookies:
+Some reads X reserves for logged-in clients (search, followers/following, your
+home timeline, bookmarks). Import your session once from your browser cookies:
 
 ```bash
 x auth import --auth-token <auth_token> --ct0 <ct0>
@@ -76,13 +78,12 @@ Then, for example:
 
 ```bash
 x search "site reliability" -n 50 -o jsonl
-x post "hello from the command line"
-x like 20
 x followers nasa -n 100 -o csv --fields username,name,followers
+x home -n 50 -o jsonl
 ```
 
-Writes confirm before they fire, or pass `--yes`; `--dry-run` prints the request
-without sending it.
+Your session is used only to read. The tool has no command that posts, likes,
+follows, or otherwise changes your account.
 
 ## Local store
 

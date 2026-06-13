@@ -26,7 +26,7 @@ func (e *Engine) Client() *Client { return e.c }
 // Config returns the engine's config.
 func (e *Engine) Config() Config { return e.cfg }
 
-// GraphQL returns the GraphQL client (writes, advanced reads).
+// GraphQL returns the GraphQL client (the deeper reads beyond syndication).
 func (e *Engine) GraphQL() *GraphQL { return e.g }
 
 // canGraphQL reports whether a GraphQL tier (1 or 2) is available.

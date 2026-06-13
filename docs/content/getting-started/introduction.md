@@ -29,9 +29,9 @@ think about them. They differ in what they can reach and what they cost you.
   endpoints (replies, media, thread, search, followers) are denied to guest
   tokens by X and need your own session instead.
 - **Tier 2, session GraphQL.** Your own browser cookies, imported once with
-  `x auth import`. This is the full web client: search, followers and following,
-  your home timeline, your bookmarks, and every write (post, reply, like,
-  retweet, bookmark, follow, mute, block, DM).
+  `x auth import`. This reaches the reads X reserves for a logged-in client:
+  search, followers and following, your home timeline, and your bookmarks. x is
+  read-only, so the session is only ever used to fetch data, never to act.
 
 `x info` prints the tiers it has available and what each can do right now.
 Force a specific one with `--tier syndication|guest|session` when you want to
@@ -47,9 +47,9 @@ invocations from looking like a bot and getting rate-limited.
 ## No paid API
 
 There is no API key, no developer app, and no quota to manage. Reads cost
-nothing. Writes need your own session because they act as you, not because they
-cost money. If a command needs a tier you have not enabled, x tells you which
-one and exits with a specific code (see
+nothing. Some reads need your own session because X reserves them for a
+logged-in client, not because they cost money. If a command needs a tier you
+have not enabled, x tells you which one and exits with a specific code (see
 [troubleshooting](/reference/troubleshooting/)).
 
 ## IDs are strings

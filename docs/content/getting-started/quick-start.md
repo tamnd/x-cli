@@ -90,6 +90,6 @@ You have the core loop. From here:
   and polls, and which tier each needs.
 - [Search and discovery](/guides/search-and-discovery/) covers search,
   followers, and likers.
-- [Your account](/guides/your-account/) imports your session and walks the
-  writes.
+- [Your session](/guides/your-account/) imports your session to unlock the
+  logged-in reads.
 - The [CLI reference](/reference/cli/) lists every command and flag.
