@@ -40,7 +40,9 @@ func newTweetCmd() kit.Command {
 			if err != nil {
 				return err
 			}
+			sp := a.progress("fetching tweet")
 			t, err := a.engine().Tweet(a.ctx(), id)
+			sp.stop()
 			if err != nil {
 				return mapErr(err)
 			}
@@ -117,10 +119,13 @@ func newMediaCmd() kit.Command {
 			if err != nil {
 				return err
 			}
+			sp := a.progress("fetching media")
+			defer sp.stop()
 			n := 0
 			o := x.TimelineOpts{Media: true, Limit: a.limit}
 			err = a.engine().Timeline(a.ctx(), ref, isID, o, func(t *x.Tweet) error {
 				for _, m := range t.Media {
+					sp.stop()
 					if e := out.Emit(mediaRow(m)); e != nil {
 						return e
 					}
@@ -265,7 +270,9 @@ func newPollCmd() kit.Command {
 			if err != nil {
 				return err
 			}
+			sp := a.progress("fetching tweet")
 			t, err := a.engine().Tweet(a.ctx(), id)
+			sp.stop()
 			if err != nil {
 				return mapErr(err)
 			}
@@ -298,6 +305,7 @@ func newCountsCmd() kit.Command {
 		Run: func(ctx context.Context, args []string) error {
 			a := appFromCtx(ctx)
 			q := x.SearchQuery{Raw: joinArgs(args), Product: product, Limit: a.limit}
+			sp := a.progress("counting")
 			days := map[string]int{}
 			err := a.engine().Search(a.ctx(), q, func(t *x.Tweet) error {
 				key := t.CreatedAt.UTC().Format("2006-01-02")
@@ -307,6 +315,7 @@ func newCountsCmd() kit.Command {
 				days[key]++
 				return nil
 			})
+			sp.stop()
 			if err != nil {
 				return mapErr(err)
 			}

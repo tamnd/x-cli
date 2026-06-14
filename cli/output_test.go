@@ -5,8 +5,37 @@ import (
 	"strings"
 	"testing"
 
+	"github.com/tamnd/any-cli/kit"
 	"github.com/tamnd/any-cli/kit/render"
 )
+
+// x defaults to the readable list/section view on a terminal instead of kit's
+// table, and to jsonl when piped; an explicit -o or --template still wins.
+func TestOutDefaultFormat(t *testing.T) {
+	cases := []struct {
+		name string
+		out  kit.OutputOptions
+		want render.Format
+	}{
+		{"tty auto -> list", kit.OutputOptions{IsTTY: true}, render.List},
+		{"piped auto -> jsonl", kit.OutputOptions{IsTTY: false}, render.JSONL},
+		{"explicit table wins on tty", kit.OutputOptions{IsTTY: true, Format: "table"}, render.Table},
+		{"explicit json wins when piped", kit.OutputOptions{IsTTY: false, Format: "json"}, render.JSON},
+		{"template wins over list", kit.OutputOptions{IsTTY: true, Template: "{{.id}}"}, render.Template},
+	}
+	for _, c := range cases {
+		t.Run(c.name, func(t *testing.T) {
+			a := &App{st: &kit.State{Output: c.out}}
+			r, err := a.out()
+			if err != nil {
+				t.Fatal(err)
+			}
+			if r.Format() != c.want {
+				t.Errorf("Format = %q, want %q", r.Format(), c.want)
+			}
+		})
+	}
+}
 
 // These tests pin the rendering contract x relies on now that output goes
 // through kit's shared render.Renderer (Row is render.Record): a curated

@@ -39,11 +39,14 @@ func (a *App) streamTweets(run func(emit func(*x.Tweet) error) error) error {
 	if err != nil {
 		return err
 	}
+	sp := a.progress("fetching tweets")
+	defer sp.stop()
 	n := 0
 	err = run(func(t *x.Tweet) error {
 		if t == nil {
 			return nil
 		}
+		sp.stop() // clear the spinner before the first row reaches stdout
 		if e := out.Emit(tweetRow(t)); e != nil {
 			return e
 		}
@@ -71,11 +74,14 @@ func (a *App) streamUsers(run func(emit func(*x.User) error) error) error {
 	if err != nil {
 		return err
 	}
+	sp := a.progress("fetching accounts")
+	defer sp.stop()
 	n := 0
 	err = run(func(u *x.User) error {
 		if u == nil {
 			return nil
 		}
+		sp.stop() // clear the spinner before the first row reaches stdout
 		if e := out.Emit(userRow(u)); e != nil {
 			return e
 		}
