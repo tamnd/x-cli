@@ -61,11 +61,12 @@ twttr") stays `"20"`, and a 19-digit id stays exactly itself.
 
 ## The output model
 
-Every read produces rows. On a terminal you get an aligned table; piped into
-another program you get JSONL by default. Switch formats with `-o`
-(`json`, `csv`, `tsv`, `url`, `raw`), project columns with `--fields`, or render
-each row with a Go template via `--template`. The same row shape feeds all of
-them. See [output formats](/reference/output/) for the details.
+Every read produces rows. On a terminal you get a readable list of sections;
+piped into another program you get JSONL by default. Switch formats with `-o`
+(`list`, `table`, `jsonl`, `json`, `csv`, `tsv`, `markdown`, `url`, `raw`),
+project columns with `--fields`, or render each row with a Go template via
+`--template`. The same row shape feeds all of them. See
+[output formats](/reference/output/) for the details.
 
 Next: [install it](/getting-started/installation/), then take the
 [quick start](/getting-started/quick-start/).

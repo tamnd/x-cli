@@ -1,9 +1,17 @@
 # x
 
+[![CI](https://github.com/tamnd/x-cli/actions/workflows/ci.yml/badge.svg)](https://github.com/tamnd/x-cli/actions/workflows/ci.yml)
+[![Release](https://img.shields.io/github/v/release/tamnd/x-cli)](https://github.com/tamnd/x-cli/releases/latest)
+[![Go Reference](https://pkg.go.dev/badge/github.com/tamnd/x-cli.svg)](https://pkg.go.dev/github.com/tamnd/x-cli)
+[![Go Report Card](https://goreportcard.com/badge/github.com/tamnd/x-cli)](https://goreportcard.com/report/github.com/tamnd/x-cli)
+[![License](https://img.shields.io/github/license/tamnd/x-cli)](./LICENSE)
+
 A fast, friendly command line for X (Twitter). One pure-Go binary that reads
 tweets, profiles, timelines, threads, and search over X's free public surfaces
 and crawls accounts into a local SQLite store. Strictly read-only: it never
 writes to your account. No paid API, nothing to sign up for.
+
+[Install](#install) • [Commands](#commands) • [Output](#output) • [Session](#your-own-session) • [Guides](#guides)
 
 ![x reading a tweet and a timeline into colored tables, then through jq](docs/static/demo.gif)
 
@@ -49,6 +57,34 @@ make build        # produces ./bin/x
 ```
 
 x is pure Go (`CGO_ENABLED=0`); the binary has no runtime dependencies.
+
+Shell completion is built in: `x completion bash|zsh|fish|powershell`.
+
+## Commands
+
+The everyday reads. The tier column shows the cheapest tier that can answer:
+Tier 0 needs nothing, `g` needs `--guest` or a session, `s` needs a session.
+
+| Command | Reads | Tier |
+| --- | --- | --- |
+| `x tweet <ref>` | a single tweet | 0 |
+| `x user <user>` | a profile | 0 |
+| `x timeline <user>` | a user's tweets (deeper with `--guest`) | 0 |
+| `x thread <ref>` | the conversation around a tweet | g |
+| `x replies <user>` | a user's tweets including replies | s |
+| `x media <user>` | media attached to a user's tweets | s |
+| `x search <query>` | search tweets | g |
+| `x counts <query>` | per-day tweet counts for a search | g |
+| `x followers <user>` / `x following <user>` | the follow graph | g |
+| `x likers <ref>` / `x retweeters <ref>` | who liked or retweeted | g |
+| `x home` / `x bookmarks` | your home timeline, your bookmarks | s |
+| `x download <ref>` | a tweet's media to disk | 0 |
+| `x crawl <seed>...` | breadth-first crawl into the local store | g |
+| `x db <query>` | query what you have collected | local |
+
+`x serve` exposes every read over HTTP as NDJSON and `x mcp` exposes the same
+set as MCP tools. See the [CLI reference](https://x-cli.tamnd.com/reference/cli/)
+for the full surface and every flag.
 
 ## Output
 
@@ -101,6 +137,21 @@ x crawl nasa --depth 1 --db x.db
 x db stats --db x.db
 x db query "select username, count(*) from tweets group by author" --db x.db
 ```
+
+## Guides
+
+The full documentation lives at [x-cli.tamnd.com](https://x-cli.tamnd.com). The
+guides walk through each area in depth:
+
+- [Reading tweets](https://x-cli.tamnd.com/guides/reading-tweets/): tweets, profiles, timelines, and threads, and which tier each needs.
+- [Search and discovery](https://x-cli.tamnd.com/guides/search-and-discovery/): search, counts, the follow graph, likers, and retweeters.
+- [Your session](https://x-cli.tamnd.com/guides/your-account/): import your browser cookies to unlock the session-only reads.
+- [Output and pipelines](https://x-cli.tamnd.com/guides/output-and-pipelines/): the formats, `--fields`, templates, and feeding `jq`.
+- [The local store](https://x-cli.tamnd.com/guides/local-store/): turn any read into a crawl and query it back with SQL.
+
+For the complete command and flag map, see the
+[CLI reference](https://x-cli.tamnd.com/reference/cli/) and
+[output formats](https://x-cli.tamnd.com/reference/output/).
 
 ## License
 
