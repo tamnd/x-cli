@@ -5,6 +5,8 @@ tweets, profiles, timelines, threads, and search over X's free public surfaces
 and crawls accounts into a local SQLite store. Strictly read-only: it never
 writes to your account. No paid API, nothing to sign up for.
 
+![x reading a tweet and a timeline into colored tables, then through jq](docs/static/demo.gif)
+
 Documentation: <https://x-cli.tamnd.com> (mirror: <https://tamnd.github.io/x-cli>)
 
 ```bash
