@@ -71,8 +71,14 @@ the global `--db` flag, which also persists entities on any read.
 | `download <ref>` | Download a tweet's media to disk | `-O`/`--out` |
 | `open <ref>` | Open a tweet or profile in your browser | |
 | `info` | Show resolved tiers and capabilities | |
+| `serve` | Serve the operations over HTTP (NDJSON) | `--addr` |
+| `mcp` | Run as an MCP server over stdio | |
 | `version` | Print version info | |
 | `completion <shell>` | Generate a shell completion script | |
+
+`serve` exposes every read over HTTP as NDJSON, and `mcp` exposes the same set
+as MCP tools for an agent. Both reuse the command surface above with no extra
+configuration.
 
 ## Global flags
 
@@ -81,7 +87,7 @@ for defaults and [output formats](/reference/output/) for what `-o` produces.
 
 | Flag | Meaning |
 |---|---|
-| `-o, --output` | Output format: `table\|json\|jsonl\|csv\|tsv\|url\|raw` (default auto) |
+| `-o, --output` | Output format: `list\|table\|jsonl\|json\|csv\|tsv\|markdown\|url\|raw` (default auto: `list` on a terminal, `jsonl` when piped) |
 | `--fields` | Comma-separated columns to project |
 | `--template` | Go text/template rendered per row |
 | `-n, --limit` | Maximum rows (`0` means unlimited) |
