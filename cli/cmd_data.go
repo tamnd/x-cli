@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"sort"
+	"strings"
 
 	"github.com/tamnd/any-cli/kit"
 	"github.com/tamnd/x-cli/x"
@@ -226,15 +227,20 @@ func (a *App) runQuery(st *x.Store, sql string) error {
 	return nil
 }
 
+// cellString renders a scanned SQL value for a table/csv cell. It collapses
+// newlines and tabs to spaces so a stored tweet body stays on one row; the full
+// untouched value still rides in the Row's Value for json and template output.
 func cellString(v any) string {
+	var s string
 	switch t := v.(type) {
 	case nil:
 		return ""
 	case []byte:
-		return string(t)
+		s = string(t)
 	default:
-		return fmt.Sprintf("%v", t)
+		s = fmt.Sprintf("%v", t)
 	}
+	return strings.NewReplacer("\n", " ", "\t", " ").Replace(s)
 }
 
 func newExportCmd() kit.Command {

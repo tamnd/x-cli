@@ -4,7 +4,15 @@ import (
 	"bytes"
 	"strings"
 	"testing"
+
+	"github.com/tamnd/any-cli/kit/render"
 )
+
+// These tests pin the rendering contract x relies on now that output goes
+// through kit's shared render.Renderer (Row is render.Record): a curated
+// Cols/Vals column set drives table/csv/url, and the typed Value drives
+// json/jsonl/template. They guard the behavior the old hand-rolled formatter
+// used to own, so a kit bump that changed it would fail here.
 
 func mkRow() Row {
 	return Row{
@@ -14,16 +22,23 @@ func mkRow() Row {
 	}
 }
 
-func TestEmitCSVWithFields(t *testing.T) {
-	var b bytes.Buffer
-	o, err := NewOutput(&b, "csv", "id,likes", "", false)
+func newRenderer(t *testing.T, w *bytes.Buffer, o render.Options) *render.Renderer {
+	t.Helper()
+	o.Writer = w
+	r, err := render.New(o)
 	if err != nil {
 		t.Fatal(err)
 	}
-	if err := o.Emit(mkRow()); err != nil {
+	return r
+}
+
+func TestEmitCSVWithFields(t *testing.T) {
+	var b bytes.Buffer
+	r := newRenderer(t, &b, render.Options{Format: render.CSV, Fields: []string{"id", "likes"}})
+	if err := r.Emit(mkRow()); err != nil {
 		t.Fatal(err)
 	}
-	if err := o.Flush(); err != nil {
+	if err := r.Flush(); err != nil {
 		t.Fatal(err)
 	}
 	want := "id,likes\n20,312045\n"
@@ -34,11 +49,11 @@ func TestEmitCSVWithFields(t *testing.T) {
 
 func TestEmitJSONL(t *testing.T) {
 	var b bytes.Buffer
-	o, _ := NewOutput(&b, "jsonl", "", "", false)
-	if err := o.Emit(mkRow()); err != nil {
+	r := newRenderer(t, &b, render.Options{Format: render.JSONL})
+	if err := r.Emit(mkRow()); err != nil {
 		t.Fatal(err)
 	}
-	if err := o.Flush(); err != nil {
+	if err := r.Flush(); err != nil {
 		t.Fatal(err)
 	}
 	if !strings.Contains(b.String(), `"id":"20"`) {
@@ -48,14 +63,11 @@ func TestEmitJSONL(t *testing.T) {
 
 func TestEmitTemplateAddsNewline(t *testing.T) {
 	var b bytes.Buffer
-	o, err := NewOutput(&b, "", "", "{{.author}}", false)
-	if err != nil {
+	r := newRenderer(t, &b, render.Options{Template: "{{.author}}"})
+	if err := r.Emit(mkRow()); err != nil {
 		t.Fatal(err)
 	}
-	if err := o.Emit(mkRow()); err != nil {
-		t.Fatal(err)
-	}
-	if err := o.Flush(); err != nil {
+	if err := r.Flush(); err != nil {
 		t.Fatal(err)
 	}
 	if b.String() != "jack\n" {
@@ -74,14 +86,11 @@ func TestEmitTemplateStructValue(t *testing.T) {
 		Metrics  metrics `json:"metrics"`
 	}
 	var b bytes.Buffer
-	o, err := NewOutput(&b, "", "", "{{.username}} {{.metrics.followers}}", false)
-	if err != nil {
+	r := newRenderer(t, &b, render.Options{Template: "{{.username}} {{.metrics.followers}}"})
+	if err := r.Emit(Row{Value: prof{Username: "NASA", Metrics: metrics{Followers: 92099694}}}); err != nil {
 		t.Fatal(err)
 	}
-	if err := o.Emit(Row{Value: prof{Username: "NASA", Metrics: metrics{Followers: 92099694}}}); err != nil {
-		t.Fatal(err)
-	}
-	if err := o.Flush(); err != nil {
+	if err := r.Flush(); err != nil {
 		t.Fatal(err)
 	}
 	if b.String() != "NASA 92099694\n" {
@@ -91,11 +100,32 @@ func TestEmitTemplateStructValue(t *testing.T) {
 
 func TestEmitJSONArrayEmpty(t *testing.T) {
 	var b bytes.Buffer
-	o, _ := NewOutput(&b, "json", "", "", false)
-	if err := o.Flush(); err != nil {
+	r := newRenderer(t, &b, render.Options{Format: render.JSON})
+	if err := r.Flush(); err != nil {
 		t.Fatal(err)
 	}
 	if strings.TrimSpace(b.String()) != "[]" {
 		t.Errorf("empty json = %q", b.String())
+	}
+}
+
+// A tweet row keeps the curated table columns and carries the typed tweet as
+// Value, so json sees the full object while the table stays compact.
+func TestTweetRowColumns(t *testing.T) {
+	var b bytes.Buffer
+	r := newRenderer(t, &b, render.Options{Format: render.CSV, NoHeader: true})
+	row := Row{
+		Cols:  []string{"id", "author", "text"},
+		Vals:  []string{"20", "jack", "just setting up my twttr"},
+		Value: map[string]any{"id": "20"},
+	}
+	if err := r.Emit(row); err != nil {
+		t.Fatal(err)
+	}
+	if err := r.Flush(); err != nil {
+		t.Fatal(err)
+	}
+	if got := b.String(); !strings.HasPrefix(got, "20,jack,") {
+		t.Errorf("csv row = %q", got)
 	}
 }
