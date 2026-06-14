@@ -15,16 +15,19 @@ output is a terminal and `jsonl` when it is a pipe or file.
 
 | Format | What it produces |
 |---|---|
-| `table` | Aligned, human-readable columns. The default on a terminal. |
+| `table` | A rounded-border grid with aligned columns. The default on a terminal. On a wide result it shrinks to your terminal width instead of wrapping. |
 | `jsonl` | One JSON object per line. The default when piped. The natural input for `jq`. |
 | `json` | A single JSON array of all rows. |
 | `csv` | Comma-separated values with a header row. |
 | `tsv` | Tab-separated values with a header row. |
+| `markdown` | A GitHub-flavored pipe table, ready to paste into an issue, PR, or README. |
 | `url` | The canonical X URL of each row, one per line. |
 | `raw` | The upstream payload, unshaped, as x received it. |
 
-`--no-header` drops the header line from `csv` and `tsv`. `--color`
-(`auto|always|never`) controls colored table output.
+`--no-header` drops the header line from `csv`, `tsv`, and `markdown`. `--color`
+(`auto|always|never`) controls color: a bold header and dimmed grid lines in the
+`table` format, and syntax-highlighted `json` and `jsonl`. Color is on by default
+on a terminal and off when piped, so machine-read output stays plain.
 
 ## Projecting columns
 
