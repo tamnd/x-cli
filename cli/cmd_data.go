@@ -1,41 +1,39 @@
 package cli
 
 import (
+	"context"
 	"fmt"
 	"sort"
-	"strings"
 
-	"github.com/spf13/cobra"
+	"github.com/tamnd/any-cli/kit"
 	"github.com/tamnd/x-cli/x"
 )
 
-// addDataCommands wires the local-store workflow: crawl, queue, db, export.
-func addDataCommands(root *cobra.Command, a *App) {
-	root.AddCommand(
-		a.cmdCrawl(),
-		a.cmdQueue(),
-		a.cmdDB(),
-		a.cmdExport(),
-	)
-}
-
-// openStore opens the SQLite store named by --db (required for the data group).
-func (a *App) openStore() (*x.Store, error) {
-	path := a.config().Store
-	if path == "" {
-		return nil, fmt.Errorf("this command needs a store: pass --db <file.db>")
+// dataCommands returns the local-store workflow: crawl, queue, db, export. The
+// store lives at a fixed path under the data dir (App.StorePath); it is not the
+// generic kit --db sink.
+func dataCommands() []kit.Command {
+	return []kit.Command{
+		newCrawlCmd(),
+		newQueueCmd(),
+		newDBCmd(),
+		newExportCmd(),
 	}
-	return x.OpenStore(path)
 }
 
-func (a *App) cmdCrawl() *cobra.Command {
+func newCrawlCmd() kit.Command {
 	var depth, max int
-	c := &cobra.Command{
-		Use:     "crawl <seed>...",
-		Short:   "Breadth-first crawl of users into the local store",
-		GroupID: "data",
-		Args:    cobra.MinimumNArgs(1),
-		RunE: func(cmd *cobra.Command, args []string) error {
+	return kit.Command{
+		Use:   "crawl <seed>...",
+		Short: "Breadth-first crawl of users into the local store",
+		Args:  kit.MinimumNArgs(1),
+		Write: true,
+		Flags: func(f *kit.FlagSet) {
+			f.IntVar(&depth, "depth", 1, "how many mention-hops to follow")
+			f.IntVar(&max, "max", 200, "stop after this many stored tweets")
+		},
+		Run: func(ctx context.Context, args []string) error {
+			a := appFromCtx(ctx)
 			st, err := a.openStore()
 			if err != nil {
 				return err
@@ -88,9 +86,6 @@ func (a *App) cmdCrawl() *cobra.Command {
 			return nil
 		},
 	}
-	c.Flags().IntVar(&depth, "depth", 1, "how many mention-hops to follow")
-	c.Flags().IntVar(&max, "max", 200, "stop after this many stored tweets")
-	return c
 }
 
 // remainingDepth reads the queued priority (used as a depth counter) for target.
@@ -103,12 +98,12 @@ func remainingDepth(st *x.Store, target string) int {
 	return p
 }
 
-func (a *App) cmdQueue() *cobra.Command {
-	c := &cobra.Command{
-		Use:     "queue",
-		Short:   "Show or clear the crawl queue",
-		GroupID: "data",
-		RunE: func(cmd *cobra.Command, args []string) error {
+func newQueueCmd() kit.Command {
+	return kit.Command{
+		Use:   "queue",
+		Short: "Show or clear the crawl queue",
+		Run: func(ctx context.Context, args []string) error {
+			a := appFromCtx(ctx)
 			st, err := a.openStore()
 			if err != nil {
 				return err
@@ -120,65 +115,67 @@ func (a *App) cmdQueue() *cobra.Command {
 			}
 			return a.printKV(counts)
 		},
-	}
-	clear := &cobra.Command{
-		Use:   "clear",
-		Short: "Empty the crawl queue",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			st, err := a.openStore()
-			if err != nil {
-				return err
-			}
-			defer func() { _ = st.Close() }()
-			if err := st.ClearQueue(); err != nil {
-				return err
-			}
-			a.logf("queue cleared")
-			return nil
+		Sub: []kit.Command{
+			{
+				Use:   "clear",
+				Short: "Empty the crawl queue",
+				Write: true,
+				Run: func(ctx context.Context, args []string) error {
+					a := appFromCtx(ctx)
+					st, err := a.openStore()
+					if err != nil {
+						return err
+					}
+					defer func() { _ = st.Close() }()
+					if err := st.ClearQueue(); err != nil {
+						return err
+					}
+					a.logf("queue cleared")
+					return nil
+				},
+			},
 		},
 	}
-	c.AddCommand(clear)
-	return c
 }
 
-func (a *App) cmdDB() *cobra.Command {
-	c := &cobra.Command{
-		Use:     "db",
-		Short:   "Query and inspect the local store",
-		GroupID: "data",
+func newDBCmd() kit.Command {
+	return kit.Command{
+		Use:   "db",
+		Short: "Query and inspect the local store",
+		Sub: []kit.Command{
+			{
+				Use:   "stats",
+				Short: "Row counts per table",
+				Run: func(ctx context.Context, args []string) error {
+					a := appFromCtx(ctx)
+					st, err := a.openStore()
+					if err != nil {
+						return err
+					}
+					defer func() { _ = st.Close() }()
+					s, err := st.Stats()
+					if err != nil {
+						return err
+					}
+					return a.printKV(s)
+				},
+			},
+			{
+				Use:   "query <sql>",
+				Short: "Run a read-only SQL query",
+				Args:  kit.MinimumNArgs(1),
+				Run: func(ctx context.Context, args []string) error {
+					a := appFromCtx(ctx)
+					st, err := a.openStore()
+					if err != nil {
+						return err
+					}
+					defer func() { _ = st.Close() }()
+					return mapErr(a.runQuery(st, joinArgs(args)))
+				},
+			},
+		},
 	}
-	c.AddCommand(
-		&cobra.Command{
-			Use:   "stats",
-			Short: "Row counts per table",
-			RunE: func(cmd *cobra.Command, args []string) error {
-				st, err := a.openStore()
-				if err != nil {
-					return err
-				}
-				defer func() { _ = st.Close() }()
-				s, err := st.Stats()
-				if err != nil {
-					return err
-				}
-				return a.printKV(s)
-			},
-		},
-		&cobra.Command{
-			Use:   "query <sql>",
-			Short: "Run a read-only SQL query",
-			Args:  cobra.MinimumNArgs(1),
-			RunE: func(cmd *cobra.Command, args []string) error {
-				st, err := a.openStore()
-				if err != nil {
-					return err
-				}
-				defer func() { _ = st.Close() }()
-				return a.runQuery(st, joinArgs(args))
-			},
-		},
-	)
-	return c
 }
 
 // runQuery streams arbitrary SQL rows through the output formatter.
@@ -240,13 +237,14 @@ func cellString(v any) string {
 	}
 }
 
-func (a *App) cmdExport() *cobra.Command {
-	return &cobra.Command{
-		Use:     "export <user> <out-dir>",
-		Short:   "Render a stored user's tweets as Markdown",
-		GroupID: "data",
-		Args:    cobra.ExactArgs(2),
-		RunE: func(cmd *cobra.Command, args []string) error {
+func newExportCmd() kit.Command {
+	return kit.Command{
+		Use:   "export <user> <out-dir>",
+		Short: "Render a stored user's tweets as Markdown",
+		Args:  kit.ExactArgs(2),
+		Write: true,
+		Run: func(ctx context.Context, args []string) error {
+			a := appFromCtx(ctx)
 			st, err := a.openStore()
 			if err != nil {
 				return err
@@ -289,5 +287,3 @@ func (a *App) printKV(m map[string]int) error {
 	}
 	return out.Flush()
 }
-
-var _ = strings.TrimSpace

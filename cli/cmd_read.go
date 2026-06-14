@@ -1,108 +1,114 @@
 package cli
 
 import (
+	"context"
 	"fmt"
 	"sort"
 	"time"
 
-	"github.com/spf13/cobra"
+	"github.com/tamnd/any-cli/kit"
 	"github.com/tamnd/x-cli/x"
 )
 
-// addReadCommands wires the tweet- and query-centric reads.
-func addReadCommands(root *cobra.Command, a *App) {
-	root.AddCommand(
-		a.cmdTweet(),
-		a.cmdTimeline(),
-		a.cmdReplies(),
-		a.cmdMedia(),
-		a.cmdThread(),
-		a.cmdSearch(),
-		a.cmdQuotes(),
-		a.cmdMentions(),
-		a.cmdHome(),
-		a.cmdBookmarks(),
-		a.cmdPoll(),
-		a.cmdCounts(),
-		a.cmdList(),
-	)
+// readCommands returns the tweet- and query-centric reads.
+func readCommands() []kit.Command {
+	return []kit.Command{
+		newTweetCmd(),
+		newTimelineCmd(),
+		newRepliesCmd(),
+		newMediaCmd(),
+		newThreadCmd(),
+		newSearchCmd(),
+		newQuotesCmd(),
+		newMentionsCmd(),
+		newHomeCmd(),
+		newBookmarksCmd(),
+		newPollCmd(),
+		newCountsCmd(),
+		newListCmd(),
+	}
 }
 
-func (a *App) cmdTweet() *cobra.Command {
-	return &cobra.Command{
-		Use:     "tweet <ref>",
-		Short:   "Show a single tweet",
-		GroupID: "read",
-		Args:    cobra.ExactArgs(1),
-		RunE: func(cmd *cobra.Command, args []string) error {
+func newTweetCmd() kit.Command {
+	return kit.Command{
+		Use:   "tweet <ref>",
+		Short: "Show a single tweet",
+		Args:  kit.ExactArgs(1),
+		Run: func(ctx context.Context, args []string) error {
+			a := appFromCtx(ctx)
 			id, err := tweetRef(args[0])
 			if err != nil {
 				return err
 			}
 			t, err := a.engine().Tweet(a.ctx(), id)
 			if err != nil {
-				return err
+				return mapErr(err)
 			}
-			return a.emitOne(tweetRow(t))
+			return mapErr(a.emitOne(tweetRow(t)))
 		},
 	}
 }
 
-func (a *App) cmdTimeline() *cobra.Command {
+func newTimelineCmd() kit.Command {
 	var withReplies, mediaOnly, byID bool
-	c := &cobra.Command{
+	return kit.Command{
 		Use:     "timeline <user>",
 		Aliases: []string{"tweets"},
 		Short:   "A user's tweets (Tier 0 recent window; deeper with --guest/session)",
-		GroupID: "read",
-		Args:    cobra.ExactArgs(1),
-		RunE: func(cmd *cobra.Command, args []string) error {
+		Args:    kit.ExactArgs(1),
+		Flags: func(f *kit.FlagSet) {
+			f.BoolVar(&withReplies, "replies", false, "include replies")
+			f.BoolVar(&mediaOnly, "media", false, "only tweets with media")
+			f.BoolVar(&byID, "id", false, "treat the argument as a numeric user id")
+		},
+		Run: func(ctx context.Context, args []string) error {
+			a := appFromCtx(ctx)
 			ref, isID, err := userRef(args[0], byID)
 			if err != nil {
 				return err
 			}
 			o := x.TimelineOpts{Replies: withReplies, Media: mediaOnly, Limit: a.limit}
-			return a.streamTweets(func(emit func(*x.Tweet) error) error {
+			return mapErr(a.streamTweets(func(emit func(*x.Tweet) error) error {
 				return a.engine().Timeline(a.ctx(), ref, isID, o, emit)
-			})
+			}))
 		},
 	}
-	c.Flags().BoolVar(&withReplies, "replies", false, "include replies")
-	c.Flags().BoolVar(&mediaOnly, "media", false, "only tweets with media")
-	c.Flags().BoolVar(&byID, "id", false, "treat the argument as a numeric user id")
-	return c
 }
 
-func (a *App) cmdReplies() *cobra.Command {
+func newRepliesCmd() kit.Command {
 	var byID bool
-	c := &cobra.Command{
-		Use:     "replies <user>",
-		Short:   "A user's tweets including replies",
-		GroupID: "read",
-		Args:    cobra.ExactArgs(1),
-		RunE: func(cmd *cobra.Command, args []string) error {
+	return kit.Command{
+		Use:   "replies <user>",
+		Short: "A user's tweets including replies",
+		Args:  kit.ExactArgs(1),
+		Flags: func(f *kit.FlagSet) {
+			f.BoolVar(&byID, "id", false, "treat the argument as a numeric user id")
+		},
+		Run: func(ctx context.Context, args []string) error {
+			a := appFromCtx(ctx)
 			ref, isID, err := userRef(args[0], byID)
 			if err != nil {
 				return err
 			}
 			o := x.TimelineOpts{Replies: true, Limit: a.limit}
-			return a.streamTweets(func(emit func(*x.Tweet) error) error {
+			return mapErr(a.streamTweets(func(emit func(*x.Tweet) error) error {
 				return a.engine().Timeline(a.ctx(), ref, isID, o, emit)
-			})
+			}))
 		},
 	}
-	c.Flags().BoolVar(&byID, "id", false, "treat the argument as a numeric user id")
-	return c
 }
 
-func (a *App) cmdMedia() *cobra.Command {
+func newMediaCmd() kit.Command {
 	var byID bool
-	c := &cobra.Command{
-		Use:     "media <user>",
-		Short:   "Media attached to a user's tweets",
-		GroupID: "read",
-		Args:    cobra.ExactArgs(1),
-		RunE: func(cmd *cobra.Command, args []string) error {
+	return kit.Command{
+		Use:   "media <user>",
+		Short: "Media attached to a user's tweets",
+		Args:  kit.ExactArgs(1),
+		Flags: func(f *kit.FlagSet) {
+			f.BoolVar(&byID, "id", false, "treat the argument as a numeric user id")
+		},
+		Run: func(ctx context.Context, args []string) error {
+			a := appFromCtx(ctx)
 			ref, isID, err := userRef(args[0], byID)
 			if err != nil {
 				return err
@@ -129,140 +135,139 @@ func (a *App) cmdMedia() *cobra.Command {
 				err = e
 			}
 			if err != nil && err != errStop {
-				return err
+				return mapErr(err)
 			}
 			if n == 0 {
-				return errNoResults
+				return mapErr(errNoResults)
 			}
 			return nil
 		},
 	}
-	c.Flags().BoolVar(&byID, "id", false, "treat the argument as a numeric user id")
-	return c
 }
 
-func (a *App) cmdThread() *cobra.Command {
-	return &cobra.Command{
-		Use:     "thread <ref>",
-		Short:   "A conversation thread around a tweet",
-		GroupID: "read",
-		Args:    cobra.ExactArgs(1),
-		RunE: func(cmd *cobra.Command, args []string) error {
+func newThreadCmd() kit.Command {
+	return kit.Command{
+		Use:   "thread <ref>",
+		Short: "A conversation thread around a tweet",
+		Args:  kit.ExactArgs(1),
+		Run: func(ctx context.Context, args []string) error {
+			a := appFromCtx(ctx)
 			id, err := tweetRef(args[0])
 			if err != nil {
 				return err
 			}
-			return a.streamTweets(func(emit func(*x.Tweet) error) error {
+			return mapErr(a.streamTweets(func(emit func(*x.Tweet) error) error {
 				return a.engine().Thread(a.ctx(), id, a.limit, emit)
-			})
+			}))
 		},
 	}
 }
 
-func (a *App) cmdSearch() *cobra.Command {
+func newSearchCmd() kit.Command {
 	var product string
-	c := &cobra.Command{
-		Use:     "search <query>",
-		Short:   "Search tweets (needs --guest or your session)",
-		GroupID: "read",
-		Args:    cobra.MinimumNArgs(1),
-		RunE: func(cmd *cobra.Command, args []string) error {
+	return kit.Command{
+		Use:   "search <query>",
+		Short: "Search tweets (needs --guest or your session)",
+		Args:  kit.MinimumNArgs(1),
+		Flags: func(f *kit.FlagSet) {
+			f.StringVar(&product, "product", "Latest", "Top|Latest|People|Photos|Videos")
+		},
+		Run: func(ctx context.Context, args []string) error {
+			a := appFromCtx(ctx)
 			q := x.SearchQuery{Raw: joinArgs(args), Product: product, Limit: a.limit}
-			return a.streamTweets(func(emit func(*x.Tweet) error) error {
+			return mapErr(a.streamTweets(func(emit func(*x.Tweet) error) error {
 				return a.engine().Search(a.ctx(), q, emit)
-			})
+			}))
 		},
 	}
-	c.Flags().StringVar(&product, "product", "Latest", "Top|Latest|People|Photos|Videos")
-	return c
 }
 
-func (a *App) cmdQuotes() *cobra.Command {
-	return &cobra.Command{
-		Use:     "quotes <ref>",
-		Short:   "Quote tweets of a tweet (search-backed)",
-		GroupID: "read",
-		Args:    cobra.ExactArgs(1),
-		RunE: func(cmd *cobra.Command, args []string) error {
+func newQuotesCmd() kit.Command {
+	return kit.Command{
+		Use:   "quotes <ref>",
+		Short: "Quote tweets of a tweet (search-backed)",
+		Args:  kit.ExactArgs(1),
+		Run: func(ctx context.Context, args []string) error {
+			a := appFromCtx(ctx)
 			id, err := tweetRef(args[0])
 			if err != nil {
 				return err
 			}
 			q := x.SearchQuery{Raw: "quoted_tweet_id:" + id, Product: "Latest", Limit: a.limit}
-			return a.streamTweets(func(emit func(*x.Tweet) error) error {
+			return mapErr(a.streamTweets(func(emit func(*x.Tweet) error) error {
 				return a.engine().Search(a.ctx(), q, emit)
-			})
+			}))
 		},
 	}
 }
 
-func (a *App) cmdMentions() *cobra.Command {
-	return &cobra.Command{
-		Use:     "mentions <user>",
-		Short:   "Tweets mentioning a user (search-backed)",
-		GroupID: "read",
-		Args:    cobra.ExactArgs(1),
-		RunE: func(cmd *cobra.Command, args []string) error {
+func newMentionsCmd() kit.Command {
+	return kit.Command{
+		Use:   "mentions <user>",
+		Short: "Tweets mentioning a user (search-backed)",
+		Args:  kit.ExactArgs(1),
+		Run: func(ctx context.Context, args []string) error {
+			a := appFromCtx(ctx)
 			ref, _, err := userRef(args[0], false)
 			if err != nil {
 				return err
 			}
 			q := x.SearchQuery{Raw: "@" + ref, Product: "Latest", Limit: a.limit}
-			return a.streamTweets(func(emit func(*x.Tweet) error) error {
+			return mapErr(a.streamTweets(func(emit func(*x.Tweet) error) error {
 				return a.engine().Search(a.ctx(), q, emit)
-			})
+			}))
 		},
 	}
 }
 
-func (a *App) cmdHome() *cobra.Command {
-	return &cobra.Command{
-		Use:     "home",
-		Short:   "Your reverse-chron home timeline (session only)",
-		GroupID: "read",
-		Args:    cobra.NoArgs,
-		RunE: func(cmd *cobra.Command, args []string) error {
+func newHomeCmd() kit.Command {
+	return kit.Command{
+		Use:   "home",
+		Short: "Your reverse-chron home timeline (session only)",
+		Args:  kit.NoArgs,
+		Run: func(ctx context.Context, args []string) error {
+			a := appFromCtx(ctx)
 			if err := a.needSession("home"); err != nil {
-				return err
+				return mapErr(err)
 			}
-			return a.streamTweets(func(emit func(*x.Tweet) error) error {
+			return mapErr(a.streamTweets(func(emit func(*x.Tweet) error) error {
 				return a.engine().GraphQL().Home(a.ctx(), a.limit, emit)
-			})
+			}))
 		},
 	}
 }
 
-func (a *App) cmdBookmarks() *cobra.Command {
-	return &cobra.Command{
-		Use:     "bookmarks",
-		Short:   "Your bookmarks (session only)",
-		GroupID: "read",
-		Args:    cobra.NoArgs,
-		RunE: func(cmd *cobra.Command, args []string) error {
+func newBookmarksCmd() kit.Command {
+	return kit.Command{
+		Use:   "bookmarks",
+		Short: "Your bookmarks (session only)",
+		Args:  kit.NoArgs,
+		Run: func(ctx context.Context, args []string) error {
+			a := appFromCtx(ctx)
 			if err := a.needSession("bookmarks"); err != nil {
-				return err
+				return mapErr(err)
 			}
-			return a.streamTweets(func(emit func(*x.Tweet) error) error {
+			return mapErr(a.streamTweets(func(emit func(*x.Tweet) error) error {
 				return a.engine().GraphQL().Bookmarks(a.ctx(), a.limit, emit)
-			})
+			}))
 		},
 	}
 }
 
-func (a *App) cmdPoll() *cobra.Command {
-	return &cobra.Command{
-		Use:     "poll <ref>",
-		Short:   "Show a tweet's poll options and tallies",
-		GroupID: "read",
-		Args:    cobra.ExactArgs(1),
-		RunE: func(cmd *cobra.Command, args []string) error {
+func newPollCmd() kit.Command {
+	return kit.Command{
+		Use:   "poll <ref>",
+		Short: "Show a tweet's poll options and tallies",
+		Args:  kit.ExactArgs(1),
+		Run: func(ctx context.Context, args []string) error {
+			a := appFromCtx(ctx)
 			id, err := tweetRef(args[0])
 			if err != nil {
 				return err
 			}
 			t, err := a.engine().Tweet(a.ctx(), id)
 			if err != nil {
-				return err
+				return mapErr(err)
 			}
 			if t.Poll == nil || len(t.Poll.Options) == 0 {
 				return fmt.Errorf("tweet %s has no poll", id)
@@ -281,14 +286,17 @@ func (a *App) cmdPoll() *cobra.Command {
 	}
 }
 
-func (a *App) cmdCounts() *cobra.Command {
+func newCountsCmd() kit.Command {
 	var product string
-	c := &cobra.Command{
-		Use:     "counts <query>",
-		Short:   "Per-day tweet counts for a search (client-side buckets)",
-		GroupID: "read",
-		Args:    cobra.MinimumNArgs(1),
-		RunE: func(cmd *cobra.Command, args []string) error {
+	return kit.Command{
+		Use:   "counts <query>",
+		Short: "Per-day tweet counts for a search (client-side buckets)",
+		Args:  kit.MinimumNArgs(1),
+		Flags: func(f *kit.FlagSet) {
+			f.StringVar(&product, "product", "Latest", "Top|Latest")
+		},
+		Run: func(ctx context.Context, args []string) error {
+			a := appFromCtx(ctx)
 			q := x.SearchQuery{Raw: joinArgs(args), Product: product, Limit: a.limit}
 			days := map[string]int{}
 			err := a.engine().Search(a.ctx(), q, func(t *x.Tweet) error {
@@ -300,10 +308,10 @@ func (a *App) cmdCounts() *cobra.Command {
 				return nil
 			})
 			if err != nil {
-				return err
+				return mapErr(err)
 			}
 			if len(days) == 0 {
-				return errNoResults
+				return mapErr(errNoResults)
 			}
 			keys := make([]string, 0, len(days))
 			for k := range days {
@@ -324,23 +332,21 @@ func (a *App) cmdCounts() *cobra.Command {
 			return out.Flush()
 		},
 	}
-	c.Flags().StringVar(&product, "product", "Latest", "Top|Latest")
-	return c
 }
 
-func (a *App) cmdList() *cobra.Command {
-	return &cobra.Command{
-		Use:     "list <list-id>",
-		Short:   "Tweets in an X List (needs --guest or your session)",
-		GroupID: "read",
-		Args:    cobra.ExactArgs(1),
-		RunE: func(cmd *cobra.Command, args []string) error {
+func newListCmd() kit.Command {
+	return kit.Command{
+		Use:   "list <list-id>",
+		Short: "Tweets in an X List (needs --guest or your session)",
+		Args:  kit.ExactArgs(1),
+		Run: func(ctx context.Context, args []string) error {
+			a := appFromCtx(ctx)
 			if err := a.needGraphQL("listing tweets"); err != nil {
-				return err
+				return mapErr(err)
 			}
-			return a.streamTweets(func(emit func(*x.Tweet) error) error {
+			return mapErr(a.streamTweets(func(emit func(*x.Tweet) error) error {
 				return a.engine().GraphQL().ListTweets(a.ctx(), args[0], a.limit, emit)
-			})
+			}))
 		},
 	}
 }

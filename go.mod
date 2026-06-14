@@ -2,11 +2,12 @@ module github.com/tamnd/x-cli
 
 go 1.26.4
 
+require modernc.org/sqlite v1.52.0
+
 require (
-	github.com/charmbracelet/fang v1.0.0
-	github.com/mattn/go-isatty v0.0.22
-	github.com/spf13/cobra v1.10.2
-	modernc.org/sqlite v1.52.0
+	github.com/charmbracelet/fang v1.0.0 // indirect
+	github.com/mattn/go-isatty v0.0.22 // indirect
+	github.com/spf13/cobra v1.10.2 // indirect
 )
 
 require (
