@@ -4,16 +4,17 @@ description: "The -o formats, --fields projection, --template rendering, piping 
 weight: 40
 ---
 
-Every read in x produces rows. The same rows can come out as a table, JSONL,
-JSON, CSV, TSV, plain URLs, raw bytes, or whatever a Go template makes of them.
-This guide shows how to pick a shape and pipe it.
+Every read in x produces rows. The same rows can come out as a readable list, a
+table, JSONL, JSON, CSV, TSV, plain URLs, raw bytes, or whatever a Go template
+makes of them. This guide shows how to pick a shape and pipe it.
 
 ## Formats
 
 `-o` (or `--output`) selects the format:
 
 ```bash
-x timeline nasa -o table     # aligned columns (default on a terminal)
+x timeline nasa -o list      # each row as a section (default on a terminal)
+x timeline nasa -o table     # aligned columns in a grid
 x timeline nasa -o jsonl     # one JSON object per line (default when piped)
 x timeline nasa -o json      # a single JSON array
 x timeline nasa -o csv       # comma-separated, with a header row
@@ -22,10 +23,13 @@ x timeline nasa -o url       # just the URL of each row
 x timeline nasa -o raw       # the raw upstream payload, unshaped
 ```
 
-When you do not pass `-o`, x chooses for you: `table` on a terminal, `jsonl`
+When you do not pass `-o`, x chooses for you: `list` on a terminal, `jsonl`
 when the output is a pipe or file. So `x timeline nasa` reads nicely on screen
-and `x timeline nasa | program` feeds JSONL without a flag. Drop the header row
-from `csv`/`tsv` with `--no-header`.
+and `x timeline nasa | program` feeds JSONL without a flag. The `list` view
+prints one record at a time as a short section, which reads better than a wide
+grid when a row has many fields; switch to `-o table` when you want to scan one
+column down many rows. Drop the header row from `csv`/`tsv`, and the section
+heading from `list`, with `--no-header`.
 
 ## Projecting columns
 

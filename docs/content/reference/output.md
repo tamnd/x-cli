@@ -10,12 +10,13 @@ modifiers, and the exit codes.
 
 ## Choosing a format
 
-`-o` (or `--output`) selects the format. With no `-o`, x picks `table` when the
+`-o` (or `--output`) selects the format. With no `-o`, x picks `list` when the
 output is a terminal and `jsonl` when it is a pipe or file.
 
 | Format | What it produces |
 |---|---|
-| `table` | A rounded-border grid with aligned columns. The default on a terminal. On a wide result it shrinks to your terminal width instead of wrapping. |
+| `list` | Each row as a readable section: a heading, then its fields as a list. The default on a terminal, and the format that reads best when a row has many fields. It streams a row at a time, so a slow command fills in as it goes. |
+| `table` | A rounded-border grid with aligned columns. On a wide result it shrinks to your terminal width instead of wrapping. Best when you want to scan one column down many rows. |
 | `jsonl` | One JSON object per line. The default when piped. The natural input for `jq`. |
 | `json` | A single JSON array of all rows. |
 | `csv` | Comma-separated values with a header row. |
@@ -24,10 +25,26 @@ output is a terminal and `jsonl` when it is a pipe or file.
 | `url` | The canonical X URL of each row, one per line. |
 | `raw` | The upstream payload, unshaped, as x received it. |
 
-`--no-header` drops the header line from `csv`, `tsv`, and `markdown`. `--color`
-(`auto|always|never`) controls color: a bold header and dimmed grid lines in the
-`table` format, and syntax-highlighted `json` and `jsonl`. Color is on by default
-on a terminal and off when piped, so machine-read output stays plain.
+The `list` and `table` views are two takes on the same rows: `list` puts one
+record in front of you at a time and `table` lines many records up in a grid.
+Reach for `-o table` when you are comparing a column across rows.
+
+`--no-header` drops the header line from `csv`, `tsv`, and `markdown`, and the
+section heading from `list`. `--color` (`auto|always|never`) controls color: a
+bold header and dimmed grid lines in `table`, a bold heading and aligned keys in
+`list`, and syntax-highlighted `json` and `jsonl`. Color is on by default on a
+terminal and off when piped, so machine-read output stays plain. On a terminal
+`list` styles its sections with color; piped or with `--color=never` it emits
+literal GitHub-flavored markdown you can paste straight into an issue.
+
+## Progress
+
+A read can wait on the network before it has anything to show. When the terminal
+is interactive, x prints a small spinner to standard error while it waits, and
+clears it the moment the first row is ready. It only ever writes to standard
+error, so a pipe like `x timeline nasa | jq` and a redirect like
+`x timeline nasa > out.jsonl` never see it; the data on standard output stays
+clean. `--quiet` turns it off.
 
 ## Projecting columns
 
@@ -39,7 +56,7 @@ x followers nasa --guest --fields username,name -o csv
 ```
 
 The names are the JSON keys of a row, the same keys the `jsonl` and `json`
-formats emit. It applies to `table`, `csv`, `tsv`, `json`, and `jsonl`.
+formats emit. It applies to `list`, `table`, `markdown`, `csv`, and `tsv`.
 
 ## Templates
 

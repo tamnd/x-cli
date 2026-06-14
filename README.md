@@ -51,10 +51,12 @@ x is pure Go (`CGO_ENABLED=0`); the binary has no runtime dependencies.
 ## Output
 
 Every command speaks one normalized data model and renders it the way your
-pipeline wants. The default is a table on a terminal and JSONL when piped.
+pipeline wants. The default is a readable list of sections on a terminal and
+JSONL when piped.
 
 ```bash
-x timeline nasa --guest -o table         # aligned columns
+x timeline nasa --guest                  # each tweet as a section (default)
+x timeline nasa --guest -o table         # aligned columns in a grid
 x timeline nasa --guest -o jsonl         # one JSON object per line
 x timeline nasa --guest -o csv --fields id,likes,text
 x timeline nasa --guest -o url           # just the permalinks

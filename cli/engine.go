@@ -127,13 +127,34 @@ func (a *App) engine() *x.Engine {
 // out builds the shared kit renderer over stdout from the run's resolved output
 // settings (the same --output/--fields/--no-header/--template every kit surface
 // uses), so the standalone binary, an ant host, and serve/mcp all format records
-// identically. kit's renderer resolves "auto" to a table on a TTY and jsonl when
-// piped, and applies the run's terminal width to any truncate columns.
+// identically. It differs from kit's default in one place: with no -o, x prints
+// the readable list/section view on a terminal instead of a table (the table is
+// still a step away with `-o table`), and jsonl when piped so scripts stay
+// machine-readable. An explicit -o or --template always wins. The run's terminal
+// width still applies to any truncate columns.
 func (a *App) out() (*render.Renderer, error) {
-	if a.st != nil {
-		return a.st.Renderer(os.Stdout)
+	if a.st == nil {
+		return render.New(render.Options{Format: render.List, Writer: os.Stdout})
 	}
-	return render.New(render.Options{Format: render.Auto, Writer: os.Stdout})
+	o := a.st.Output
+	format := render.Format(o.Format)
+	if o.Template == "" && (format == "" || format == render.Auto) {
+		if o.IsTTY {
+			format = render.List
+		} else {
+			format = render.JSONL
+		}
+	}
+	return render.New(render.Options{
+		Format:   format,
+		IsTTY:    o.IsTTY,
+		Color:    o.Color,
+		Fields:   o.Fields,
+		NoHeader: o.NoHeader,
+		Template: o.Template,
+		Width:    o.Width,
+		Writer:   os.Stdout,
+	})
 }
 
 // StorePath is the fixed location of the typed local store, under the data dir.

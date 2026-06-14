@@ -35,7 +35,9 @@ func newUserCmd() kit.Command {
 			if err != nil {
 				return err
 			}
+			sp := a.progress("fetching profile")
 			u, err := a.engine().User(a.ctx(), ref, isID)
+			sp.stop()
 			if err != nil {
 				return mapErr(err)
 			}
