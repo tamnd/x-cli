@@ -14,133 +14,137 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/spf13/cobra"
+	"github.com/tamnd/any-cli/kit"
 	"github.com/tamnd/x-cli/x"
 )
 
-// addMetaCommands wires session, config, cache, and convenience commands.
-func addMetaCommands(root *cobra.Command, a *App) {
-	root.AddCommand(
-		a.cmdAuth(),
-		a.cmdConfig(),
-		a.cmdCache(),
-		a.cmdOpen(),
-		a.cmdDownload(),
-		a.cmdInfo(),
-		a.cmdVersion(),
-	)
+// metaCommands returns the session, config, cache, and convenience commands.
+func metaCommands() []kit.Command {
+	return []kit.Command{
+		newAuthCmd(),
+		newConfigCmd(),
+		newCacheCmd(),
+		newOpenCmd(),
+		newDownloadCmd(),
+		newInfoCmd(),
+		newVersionCmd(),
+	}
 }
 
-func (a *App) cmdAuth() *cobra.Command {
-	c := &cobra.Command{
-		Use:     "auth",
-		Short:   "Manage your X session (Tier 2)",
-		GroupID: "meta",
-	}
+func newAuthCmd() kit.Command {
 	var authToken, ct0, handle string
-	imp := &cobra.Command{
-		Use:   "import",
-		Short: "Save your auth_token + ct0 cookies (or paste a Cookie header on stdin)",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			if authToken == "" || ct0 == "" {
-				at, c0 := parseCookieHeader(readStdin())
-				if authToken == "" {
-					authToken = at
-				}
-				if ct0 == "" {
-					ct0 = c0
-				}
-			}
-			if authToken == "" || ct0 == "" {
-				return fmt.Errorf("need both --auth-token and --ct0 (or paste your Cookie header on stdin)")
-			}
-			if err := x.SaveSession(x.Creds{AuthToken: authToken, CT0: ct0, Handle: handle}); err != nil {
-				return err
-			}
-			a.logf("session saved to %s", x.SessionStorePath())
-			return nil
-		},
-	}
-	imp.Flags().StringVar(&authToken, "auth-token", "", "the auth_token cookie")
-	imp.Flags().StringVar(&ct0, "ct0", "", "the ct0 cookie")
-	imp.Flags().StringVar(&handle, "handle", "", "your @handle (label only)")
-
-	status := &cobra.Command{
-		Use:   "status",
-		Short: "Show the current session and tier",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			cfg := a.config()
-			kv := map[string]string{
-				"session":     yn(cfg.HasSession()),
-				"guest":       yn(cfg.AllowGuest),
-				"forced_tier": orNone(cfg.Tier),
-				"store":       x.SessionStorePath(),
-			}
-			if cr, ok := x.LoadSession(); ok && cr.Handle != "" {
-				kv["handle"] = "@" + cr.Handle
-			}
-			return a.printKVString(kv)
-		},
-	}
-	logout := &cobra.Command{
-		Use:   "logout",
-		Short: "Forget the saved session",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			if err := x.ForgetSession(); err != nil {
-				return err
-			}
-			a.logf("session forgotten")
-			return nil
-		},
-	}
-	c.AddCommand(imp, status, logout)
-	return c
-}
-
-func (a *App) cmdConfig() *cobra.Command {
-	c := &cobra.Command{
-		Use:     "config",
-		Short:   "Show config paths and resolved values",
-		GroupID: "meta",
-	}
-	c.AddCommand(
-		&cobra.Command{
-			Use:   "path",
-			Short: "Print the config file path",
-			RunE: func(cmd *cobra.Command, args []string) error {
-				_, err := fmt.Fprintln(os.Stdout, x.ConfigPath())
-				return err
+	return kit.Command{
+		Use:   "auth",
+		Short: "Manage your X session (Tier 2)",
+		Sub: []kit.Command{
+			{
+				Use:   "import",
+				Short: "Save your auth_token + ct0 cookies (or paste a Cookie header on stdin)",
+				Write: true,
+				Flags: func(f *kit.FlagSet) {
+					f.StringVar(&authToken, "auth-token", "", "the auth_token cookie")
+					f.StringVar(&ct0, "ct0", "", "the ct0 cookie")
+					f.StringVar(&handle, "handle", "", "your @handle (label only)")
+				},
+				Run: func(ctx context.Context, args []string) error {
+					a := appFromCtx(ctx)
+					if authToken == "" || ct0 == "" {
+						at, c0 := parseCookieHeader(readStdin())
+						if authToken == "" {
+							authToken = at
+						}
+						if ct0 == "" {
+							ct0 = c0
+						}
+					}
+					if authToken == "" || ct0 == "" {
+						return fmt.Errorf("need both --auth-token and --ct0 (or paste your Cookie header on stdin)")
+					}
+					if err := x.SaveSession(x.Creds{AuthToken: authToken, CT0: ct0, Handle: handle}); err != nil {
+						return err
+					}
+					a.logf("session saved to %s", x.SessionStorePath())
+					return nil
+				},
+			},
+			{
+				Use:   "status",
+				Short: "Show the current session and tier",
+				Run: func(ctx context.Context, args []string) error {
+					a := appFromCtx(ctx)
+					cfg := a.config()
+					kv := map[string]string{
+						"session":     yn(cfg.HasSession()),
+						"guest":       yn(cfg.AllowGuest),
+						"forced_tier": orNone(cfg.Tier),
+						"store":       x.SessionStorePath(),
+					}
+					if cr, ok := x.LoadSession(); ok && cr.Handle != "" {
+						kv["handle"] = "@" + cr.Handle
+					}
+					return a.printKVString(kv)
+				},
+			},
+			{
+				Use:   "logout",
+				Short: "Forget the saved session",
+				Write: true,
+				Run: func(ctx context.Context, args []string) error {
+					a := appFromCtx(ctx)
+					if err := x.ForgetSession(); err != nil {
+						return err
+					}
+					a.logf("session forgotten")
+					return nil
+				},
 			},
 		},
-		&cobra.Command{
-			Use:   "show",
-			Short: "Print the resolved configuration",
-			RunE: func(cmd *cobra.Command, args []string) error {
-				cfg := a.config()
-				return a.printKVString(map[string]string{
-					"config_path": x.ConfigPath(),
-					"data_dir":    cfg.DataDir,
-					"cache_dir":   cfg.CacheDir,
-					"store":       orNone(cfg.Store),
-					"session":     yn(cfg.HasSession()),
-					"guest":       yn(cfg.AllowGuest),
-					"forced_tier": orNone(cfg.Tier),
-					"rate":        cfg.Rate.String(),
-					"retries":     fmt.Sprintf("%d", cfg.Retries),
-					"timeout":     cfg.Timeout.String(),
-				})
-			},
-		},
-	)
-	return c
+	}
 }
 
-func (a *App) cmdCache() *cobra.Command {
-	c := &cobra.Command{
-		Use:     "cache",
-		Short:   "Inspect or clear the HTTP cache",
-		GroupID: "meta",
-		RunE: func(cmd *cobra.Command, args []string) error {
+func newConfigCmd() kit.Command {
+	return kit.Command{
+		Use:   "config",
+		Short: "Show config paths and resolved values",
+		Sub: []kit.Command{
+			{
+				Use:   "path",
+				Short: "Print the config file path",
+				Run: func(ctx context.Context, args []string) error {
+					_, err := fmt.Fprintln(os.Stdout, x.ConfigPath())
+					return err
+				},
+			},
+			{
+				Use:   "show",
+				Short: "Print the resolved configuration",
+				Run: func(ctx context.Context, args []string) error {
+					a := appFromCtx(ctx)
+					cfg := a.config()
+					return a.printKVString(map[string]string{
+						"config_path": x.ConfigPath(),
+						"data_dir":    cfg.DataDir,
+						"cache_dir":   cfg.CacheDir,
+						"store":       a.StorePath(),
+						"session":     yn(cfg.HasSession()),
+						"guest":       yn(cfg.AllowGuest),
+						"forced_tier": orNone(cfg.Tier),
+						"rate":        cfg.Rate.String(),
+						"retries":     fmt.Sprintf("%d", cfg.Retries),
+						"timeout":     cfg.Timeout.String(),
+					})
+				},
+			},
+		},
+	}
+}
+
+func newCacheCmd() kit.Command {
+	return kit.Command{
+		Use:   "cache",
+		Short: "Inspect or clear the HTTP cache",
+		Run: func(ctx context.Context, args []string) error {
+			a := appFromCtx(ctx)
 			cache := a.engine().Client().Cache()
 			bytes, files := cache.Size()
 			return a.printKVString(map[string]string{
@@ -149,28 +153,31 @@ func (a *App) cmdCache() *cobra.Command {
 				"bytes": fmt.Sprintf("%d", bytes),
 			})
 		},
-	}
-	c.AddCommand(&cobra.Command{
-		Use:   "clear",
-		Short: "Delete all cached responses",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			if err := a.engine().Client().Cache().Clear(); err != nil {
-				return err
-			}
-			a.logf("cache cleared")
-			return nil
+		Sub: []kit.Command{
+			{
+				Use:   "clear",
+				Short: "Delete all cached responses",
+				Write: true,
+				Run: func(ctx context.Context, args []string) error {
+					a := appFromCtx(ctx)
+					if err := a.engine().Client().Cache().Clear(); err != nil {
+						return err
+					}
+					a.logf("cache cleared")
+					return nil
+				},
+			},
 		},
-	})
-	return c
+	}
 }
 
-func (a *App) cmdOpen() *cobra.Command {
-	return &cobra.Command{
-		Use:     "open <ref>",
-		Short:   "Open a tweet or profile in your browser",
-		GroupID: "meta",
-		Args:    cobra.ExactArgs(1),
-		RunE: func(cmd *cobra.Command, args []string) error {
+func newOpenCmd() kit.Command {
+	return kit.Command{
+		Use:   "open <ref>",
+		Short: "Open a tweet or profile in your browser",
+		Args:  kit.ExactArgs(1),
+		Run: func(ctx context.Context, args []string) error {
+			a := appFromCtx(ctx)
 			url := refURL(args[0])
 			if a.dryRun {
 				_, err := fmt.Fprintln(os.Stdout, url)
@@ -181,22 +188,26 @@ func (a *App) cmdOpen() *cobra.Command {
 	}
 }
 
-func (a *App) cmdDownload() *cobra.Command {
+func newDownloadCmd() kit.Command {
 	var outDir string
-	c := &cobra.Command{
+	return kit.Command{
 		Use:     "download <ref>",
 		Aliases: []string{"dl"},
 		Short:   "Download a tweet's media to disk",
-		GroupID: "meta",
-		Args:    cobra.ExactArgs(1),
-		RunE: func(cmd *cobra.Command, args []string) error {
+		Args:    kit.ExactArgs(1),
+		Write:   true,
+		Flags: func(f *kit.FlagSet) {
+			f.StringVarP(&outDir, "out", "O", ".", "output directory")
+		},
+		Run: func(ctx context.Context, args []string) error {
+			a := appFromCtx(ctx)
 			id, err := tweetRef(args[0])
 			if err != nil {
 				return err
 			}
 			t, err := a.engine().Tweet(a.ctx(), id)
 			if err != nil {
-				return err
+				return mapErr(err)
 			}
 			if len(t.Media) == 0 {
 				return fmt.Errorf("tweet %s has no media", id)
@@ -228,21 +239,19 @@ func (a *App) cmdDownload() *cobra.Command {
 				return e
 			}
 			if n == 0 {
-				return errNoResults
+				return mapErr(errNoResults)
 			}
 			return nil
 		},
 	}
-	c.Flags().StringVarP(&outDir, "out", "O", ".", "output directory")
-	return c
 }
 
-func (a *App) cmdInfo() *cobra.Command {
-	return &cobra.Command{
-		Use:     "info",
-		Short:   "Show resolved tiers and capabilities",
-		GroupID: "meta",
-		RunE: func(cmd *cobra.Command, args []string) error {
+func newInfoCmd() kit.Command {
+	return kit.Command{
+		Use:   "info",
+		Short: "Show resolved tiers and capabilities",
+		Run: func(ctx context.Context, args []string) error {
+			a := appFromCtx(ctx)
 			cfg := a.config()
 			gql := cfg.HasSession() || cfg.AllowGuest || cfg.Tier == "guest" || cfg.Tier == "session"
 			caps := map[string]string{
@@ -258,12 +267,11 @@ func (a *App) cmdInfo() *cobra.Command {
 	}
 }
 
-func (a *App) cmdVersion() *cobra.Command {
-	return &cobra.Command{
-		Use:     "version",
-		Short:   "Print version info",
-		GroupID: "meta",
-		RunE: func(cmd *cobra.Command, args []string) error {
+func newVersionCmd() kit.Command {
+	return kit.Command{
+		Use:   "version",
+		Short: "Print version info",
+		Run: func(ctx context.Context, args []string) error {
 			_, err := fmt.Fprintf(os.Stdout, "x %s (commit %s, built %s, %s/%s)\n",
 				Version, Commit, Date, runtime.GOOS, runtime.GOARCH)
 			return err

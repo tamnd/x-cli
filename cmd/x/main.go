@@ -3,6 +3,17 @@
 // It derives from Nitter (AGPL-3.0-only); see the NOTICE and LICENSE files.
 package main
 
-import "github.com/tamnd/x-cli/cli"
+import (
+	"context"
+	"os"
+	"os/signal"
 
-func main() { cli.Execute() }
+	"github.com/tamnd/any-cli/kit"
+	"github.com/tamnd/x-cli/cli"
+)
+
+func main() {
+	ctx, stop := signal.NotifyContext(context.Background(), os.Interrupt)
+	defer stop()
+	os.Exit(kit.Run(ctx, cli.New()))
+}

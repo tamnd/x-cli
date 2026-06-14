@@ -31,67 +31,19 @@ func (a *App) needGraphQL(action string) error {
 // by the stream helpers and never surfaces to the user.
 var errStop = errors.New("stop")
 
-// teeTweets returns a best-effort sink that upserts every emitted tweet (its
-// author and media too) into the --db store, plus a closer. When --db is unset
-// it is a no-op, so any read doubles as a crawl simply by adding --db.
-func (a *App) teeTweets() (func(*x.Tweet), func()) {
-	if a.db == "" {
-		return func(*x.Tweet) {}, func() {}
-	}
-	st, err := x.OpenStore(a.db)
-	if err != nil {
-		a.logf("store: %v", err)
-		return func(*x.Tweet) {}, func() {}
-	}
-	sink := func(t *x.Tweet) {
-		if t == nil {
-			return
-		}
-		if t.Author != nil {
-			_ = st.UpsertUser(t.Author)
-		}
-		_ = st.UpsertTweet(t)
-		for _, m := range t.Media {
-			_ = st.UpsertMedia(t.ID, m)
-		}
-	}
-	return sink, func() { _ = st.Close() }
-}
-
-// teeUsers is the user-list analogue of teeTweets.
-func (a *App) teeUsers() (func(*x.User), func()) {
-	if a.db == "" {
-		return func(*x.User) {}, func() {}
-	}
-	st, err := x.OpenStore(a.db)
-	if err != nil {
-		a.logf("store: %v", err)
-		return func(*x.User) {}, func() {}
-	}
-	return func(u *x.User) {
-			if u != nil {
-				_ = st.UpsertUser(u)
-			}
-		}, func() {
-			_ = st.Close()
-		}
-}
-
 // streamTweets runs a producer that emits *x.Tweet, renders each as a row, and
 // stops at --limit. It returns errNoResults when the producer yielded nothing.
+// Reads no longer tee into a store; the crawl command owns store population.
 func (a *App) streamTweets(run func(emit func(*x.Tweet) error) error) error {
 	out, err := a.out()
 	if err != nil {
 		return err
 	}
-	persist, closeStore := a.teeTweets()
-	defer closeStore()
 	n := 0
 	err = run(func(t *x.Tweet) error {
 		if t == nil {
 			return nil
 		}
-		persist(t)
 		if e := out.Emit(tweetRow(t)); e != nil {
 			return e
 		}
@@ -119,14 +71,11 @@ func (a *App) streamUsers(run func(emit func(*x.User) error) error) error {
 	if err != nil {
 		return err
 	}
-	persist, closeStore := a.teeUsers()
-	defer closeStore()
 	n := 0
 	err = run(func(u *x.User) error {
 		if u == nil {
 			return nil
 		}
-		persist(u)
 		if e := out.Emit(userRow(u)); e != nil {
 			return e
 		}
