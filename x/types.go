@@ -13,15 +13,15 @@ import "time"
 // Tweet (a Post) is the central object. IDs are always strings: an X snowflake
 // does not fit in a JSON number without silent corruption in jq/JavaScript.
 type Tweet struct {
-	ID             string    `json:"id"`
+	ID             string    `json:"id" kit:"id"`
 	URL            string    `json:"url"`
-	Text           string    `json:"text"`
+	Text           string    `json:"text" kit:"body"`
 	CreatedAt      time.Time `json:"created_at"`
 	Lang           string    `json:"lang,omitempty"`
 	Author         *User     `json:"author,omitempty"`
-	ConversationID string    `json:"conversation_id,omitempty"`
-	ReplyTo        string    `json:"reply_to,omitempty"`
-	ReplyToUser    string    `json:"reply_to_user,omitempty"`
+	ConversationID string    `json:"conversation_id,omitempty" kit:"link,kind=x/status,optional"`
+	ReplyTo        string    `json:"reply_to,omitempty" kit:"link,kind=x/status,optional"`
+	ReplyToUser    string    `json:"reply_to_user,omitempty" kit:"link,kind=x/user,optional"`
 	Quoted         *Tweet    `json:"quoted,omitempty"`
 	Retweeted      *Tweet    `json:"retweeted,omitempty"`
 	Metrics        Metrics   `json:"metrics"`
@@ -60,11 +60,11 @@ type Entities struct {
 
 // User is an account/profile.
 type User struct {
-	ID            string      `json:"id"`
+	ID            string      `json:"id" kit:"id"`
 	Username      string      `json:"username"`
 	Name          string      `json:"name"`
 	CreatedAt     time.Time   `json:"created_at,omitempty"`
-	Description   string      `json:"description,omitempty"`
+	Description   string      `json:"description,omitempty" kit:"body"`
 	Location      string      `json:"location,omitempty"`
 	URL           string      `json:"url,omitempty"`
 	Verified      bool        `json:"verified,omitempty"`
@@ -73,7 +73,7 @@ type User struct {
 	Metrics       UserMetrics `json:"metrics"`
 	ProfileImage  string      `json:"profile_image,omitempty"`
 	ProfileBanner string      `json:"profile_banner,omitempty"`
-	PinnedTweet   string      `json:"pinned_tweet,omitempty"`
+	PinnedTweet   string      `json:"pinned_tweet,omitempty" kit:"link,kind=x/status,optional"`
 	Entities      Entities    `json:"entities,omitempty"`
 	Kind          string      `json:"kind,omitempty"` // follower|following|liker|retweeter|... when in a list
 	Provenance    string      `json:"provenance,omitempty"`
