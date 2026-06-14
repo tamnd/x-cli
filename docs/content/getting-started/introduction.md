@@ -4,6 +4,8 @@ description: "What X's free surfaces are, the three tiers x reads them through, 
 weight: 10
 ---
 
+![x reading a tweet and a timeline into colored tables, then through jq](https://x-cli.tamnd.com/demo.gif)
+
 X has a paid API with developer apps, keys, and quotas. x does not touch it.
 Instead it reads the same free, public surfaces the website and the embed
 widgets already use: the syndication endpoints behind tweet embeds, and the
