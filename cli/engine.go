@@ -10,8 +10,16 @@ import (
 
 	"github.com/tamnd/any-cli/kit"
 	"github.com/tamnd/any-cli/kit/errs"
+	"github.com/tamnd/any-cli/kit/render"
 	"github.com/tamnd/x-cli/x"
 )
+
+// Row is one output record: an ordered, curated column set (Cols/Vals) for the
+// table, csv, tsv, and url views plus the full typed object as Value for json,
+// jsonl, raw, and template. It is kit's render.Record, so every row builder
+// feeds straight into the shared renderer with no per-format code of our own,
+// the same way ytb-cli does. Snowflake IDs stay strings (the Value tags them).
+type Row = render.Record
 
 // x-specific global flags, bound on the root by the GlobalFlags hook in root.go.
 // They are not part of the kit framework baseline, so x owns them: the forced
@@ -33,14 +41,10 @@ var (
 // command surface here, now on kit instead of cobra.
 type App struct {
 	actx   context.Context
+	st     *kit.State // the resolved run state; nil only on the defensive fallback
 	cfg    x.Config
 	eng    *x.Engine
 	limit  int
-	format string
-	fields string
-	tmpl   string
-	header bool // true means a header row is shown
-	isTTY  bool
 	quiet  bool
 	dryRun bool
 }
@@ -51,23 +55,16 @@ type App struct {
 // binary has always built, so behavior matches the old cobra wiring exactly.
 func appFromCtx(ctx context.Context) *App {
 	st := kit.FromContext(ctx)
-	a := &App{actx: ctx}
+	a := &App{actx: ctx, st: st}
 	if st == nil {
 		// No PersistentPreRunE ran (should not happen in normal use); fall back
 		// to plain defaults so the command still does something sane.
 		a.cfg = xConfig(kit.Config{})
-		a.format = "auto"
-		a.header = true
 		return a
 	}
 	kc := st.Config
 	a.cfg = xConfig(kc)
 	a.limit = st.Globals.Limit
-	a.format = st.Output.Format
-	a.fields = strings.Join(st.Output.Fields, ",")
-	a.tmpl = st.Output.Template
-	a.header = !st.Output.NoHeader
-	a.isTTY = st.Output.IsTTY
 	a.quiet = kc.Quiet
 	a.dryRun = kc.DryRun
 	return a
@@ -127,18 +124,16 @@ func (a *App) engine() *x.Engine {
 	return a.eng
 }
 
-// out builds the Output, auto-detecting table vs jsonl when --output is unset or
-// "auto" (kit's default), matching the old cobra behavior.
-func (a *App) out() (*Output, error) {
-	format := a.format
-	if format == "" || format == "auto" {
-		if a.isTTY {
-			format = "table"
-		} else {
-			format = "jsonl"
-		}
+// out builds the shared kit renderer over stdout from the run's resolved output
+// settings (the same --output/--fields/--no-header/--template every kit surface
+// uses), so the standalone binary, an ant host, and serve/mcp all format records
+// identically. kit's renderer resolves "auto" to a table on a TTY and jsonl when
+// piped, and applies the run's terminal width to any truncate columns.
+func (a *App) out() (*render.Renderer, error) {
+	if a.st != nil {
+		return a.st.Renderer(os.Stdout)
 	}
-	return NewOutput(os.Stdout, format, a.fields, a.tmpl, !a.header)
+	return render.New(render.Options{Format: render.Auto, Writer: os.Stdout})
 }
 
 // StorePath is the fixed location of the typed local store, under the data dir.
