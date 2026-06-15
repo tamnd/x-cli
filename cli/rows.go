@@ -44,6 +44,35 @@ func userRow(u *x.User) Row {
 	return Row{Cols: cols, Vals: vals, Value: u}
 }
 
+// nodeRow renders a graph node discovered by `x discover` / `x crawl`. The
+// curated columns read the walk at a glance (how deep, by which edge, and a
+// one-line who/what) while the full typed node (with the nested tweet or user)
+// rides in Value for json, jsonl, and templates.
+func nodeRow(n *x.Node) Row {
+	var id, who, summary, url string
+	switch n.Kind {
+	case x.KindTweet:
+		t := n.Tweet
+		id = t.ID
+		if t.Author != nil {
+			who = "@" + t.Author.Username
+		}
+		summary = oneline(t.Text)
+		url = t.URL
+	case x.KindUser:
+		u := n.User
+		id = u.ID
+		who = "@" + u.Username
+		summary = oneline(u.Name)
+		url = x.UserURL(u.Username)
+	}
+	return Row{
+		Cols:  []string{"depth", "via", "kind", "id", "who", "summary", "url"},
+		Vals:  []string{itoa(n.Depth), string(n.Via), string(n.Kind), id, who, summary, url},
+		Value: n,
+	}
+}
+
 func mediaRow(m x.Media) Row {
 	best := m.URL
 	if best == "" && len(m.Variants) > 0 {

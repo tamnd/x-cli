@@ -47,16 +47,22 @@ change your account. `likes`, `likers`, `followers`, and `bookmarks` only read.
 
 | Command | What it does | Key flags |
 |---|---|---|
-| `crawl <seed>...` | Breadth-first crawl of users into the local store | `--depth`, `--max` |
+| `discover <seed>...` | Breadth-first walk of the graph linked from a tweet or user (aliases `walk`, `graph`) | `--follow`, `--depth`, `--fanout`, `--store`, `-n` |
+| `crawl <seed>...` | The same walk, persisted into the local store | `--follow`, `--depth`, `--fanout`, `--max` |
 | `db stats` | Row counts per table | |
 | `db query <sql>` | Run a read-only SQL query | |
 | `queue` | Show the crawl queue | |
 | `queue clear` | Empty the crawl queue | |
 | `export <user> <out-dir>` | Render a stored user's tweets as Markdown | |
 
-`crawl --depth` sets how many mention-hops to follow (default `1`); `--max`
-stops after that many stored tweets (default `200`). The store is selected with
-the global `--db` flag, which also persists entities on any read.
+`discover` and `crawl` share the same walk: `--follow` is a preset (`content`,
+`thread`, `engagement`, `network`, `timeline`, `all`) or a comma-separated edge
+list, `--depth` is how many hops to follow (default `1`), and `--fanout` caps
+neighbors per edge (default `25`). `discover` streams nodes and stops at `-n`
+(default `500`); add `--store` to also persist them. `crawl` always persists and
+stops at `--max` (default `200`). The store is a fixed `x.db` under `--data-dir`.
+Engagement and network edges need `--guest` or a session. See
+[graph discovery](/guides/graph-discovery/).
 
 ## Meta
 
@@ -95,7 +101,7 @@ for defaults and [output formats](/reference/output/) for what `-o` produces.
 | `--color` | `auto\|always\|never` (default auto) |
 | `--guest` | Enable the opt-in free guest-GraphQL tier |
 | `--tier` | Force a tier: `syndication\|guest\|session` |
-| `--db` | Path to the local SQLite store (persists entities on reads) |
+| `--db` | Generic record sink provided by the framework; x's own typed store lives under `--data-dir`, not here |
 | `--data-dir` | Cache and store root |
 | `--query-id` | Override a GraphQL query id (`Op=hash`) |
 | `--rate` | Minimum delay between requests (default `1s`) |

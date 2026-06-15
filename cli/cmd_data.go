@@ -7,14 +7,20 @@ import (
 	"strings"
 
 	"github.com/tamnd/any-cli/kit"
+	"github.com/tamnd/any-cli/kit/errs"
 	"github.com/tamnd/x-cli/x"
 )
 
-// dataCommands returns the local-store workflow: crawl, queue, db, export. The
-// store lives at a fixed path under the data dir (App.StorePath); it is not the
-// generic kit --db sink.
+// defaultDiscoverBudget caps an unbounded `x discover` so a deep walk has a sane
+// stop even when the user does not pass -n. `x crawl` has its own --max default.
+const defaultDiscoverBudget = 500
+
+// dataCommands returns the local-store workflow: discover, crawl, queue, db,
+// export. The store lives at a fixed path under the data dir (App.StorePath); it
+// is not the generic kit --db sink.
 func dataCommands() []kit.Command {
 	return []kit.Command{
+		newDiscoverCmd(),
 		newCrawlCmd(),
 		newQueueCmd(),
 		newDBCmd(),
@@ -22,81 +28,170 @@ func dataCommands() []kit.Command {
 	}
 }
 
-func newCrawlCmd() kit.Command {
-	var depth, max int
+// parseSeeds classifies each positional argument as a tweet or a user seed.
+func parseSeeds(args []string) ([]x.Seed, error) {
+	seeds := make([]x.Seed, 0, len(args))
+	for _, s := range args {
+		sd, err := x.ParseSeed(s)
+		if err != nil {
+			return nil, errs.Usage("%s", err.Error())
+		}
+		seeds = append(seeds, sd)
+	}
+	return seeds, nil
+}
+
+// followHelp is the shared --follow flag help, drawn from the edge catalogue so
+// the names a user can type live in one place (x.EdgeHelp).
+var followHelp = "edges to follow: " + x.EdgeHelp()
+
+func newDiscoverCmd() kit.Command {
+	var depth, fanout int
+	var follow string
+	var store bool
 	return kit.Command{
-		Use:   "crawl <seed>...",
-		Short: "Breadth-first crawl of users into the local store",
-		Args:  kit.MinimumNArgs(1),
-		Write: true,
+		Use:     "discover <seed>...",
+		Aliases: []string{"walk", "graph"},
+		Short:   "Breadth-first walk of the graph linked from a tweet or user",
+		Long: "discover starts at one or more tweets or users and follows their links\n" +
+			"outward, hop by hop, streaming every node it reaches. Choose what to follow\n" +
+			"with --follow (a preset like content/thread/engagement/network, or a list of\n" +
+			"edges), how far with --depth, and how wide per edge with --fanout. The walk\n" +
+			"stays on Tier 0 by default; engagement and network edges need --guest or a\n" +
+			"session. Add --store to also persist nodes and edges into the local store.",
+		Args: kit.MinimumNArgs(1),
 		Flags: func(f *kit.FlagSet) {
-			f.IntVar(&depth, "depth", 1, "how many mention-hops to follow")
-			f.IntVar(&max, "max", 200, "stop after this many stored tweets")
+			f.IntVar(&depth, "depth", 1, "how many hops to follow from each seed")
+			f.IntVar(&fanout, "fanout", 25, "max neighbors to pull per edge (0 = unlimited)")
+			f.StringVar(&follow, "follow", "content", followHelp)
+			f.BoolVar(&store, "store", false, "also persist discovered nodes and edges into the local store")
 		},
 		Run: func(ctx context.Context, args []string) error {
 			a := appFromCtx(ctx)
-			st, err := a.openStore()
+			edges, err := x.ParseEdges(follow)
+			if err != nil {
+				return errs.Usage("%s", err.Error())
+			}
+			seeds, err := parseSeeds(args)
 			if err != nil {
 				return err
 			}
-			defer func() { _ = st.Close() }()
-			eng := a.engine()
-			for _, s := range args {
-				ref, _, err := userRef(s, false)
+			out, err := a.out()
+			if err != nil {
+				return err
+			}
+			var st *x.Store
+			if store {
+				st, err = a.openStore()
 				if err != nil {
 					return err
 				}
-				_ = st.Enqueue(ref, "user", depth)
+				defer func() { _ = st.Close() }()
 			}
-			stored := 0
-			for stored < max {
-				item, ok, err := st.NextPending()
-				if err != nil {
-					return err
-				}
-				if !ok {
-					break
-				}
-				prio := remainingDepth(st, item.Target)
-				a.logf("crawl @%s", item.Target)
-				o := x.TimelineOpts{Limit: 0}
-				err = eng.Timeline(a.ctx(), item.Target, false, o, func(t *x.Tweet) error {
-					if e := st.UpsertTweet(t); e != nil {
-						return e
-					}
-					stored++
-					if prio > 1 {
-						for _, m := range t.Entities.Mentions {
-							_ = st.Enqueue(m, "user", prio-1)
-						}
-					}
-					if stored >= max {
-						return errStop
-					}
-					return nil
-				})
-				_ = st.MarkDone(item.Target)
-				if err != nil && err != errStop {
-					a.logf("  warn: %v", err)
-				}
-				if err == errStop {
-					break
-				}
+			budget := a.limit
+			if budget <= 0 {
+				budget = defaultDiscoverBudget
 			}
-			a.logf("stored %d tweets", stored)
+			sp := a.progress("discovering")
+			defer sp.stop()
+			opts := x.WalkOptions{
+				Depth:  depth,
+				Max:    budget,
+				Fanout: fanout,
+				Edges:  edges,
+				Note:   func(s string) { sp.stop(); a.logf("note: %s", s) },
+			}
+			if st != nil {
+				opts.OnEdge = func(src, dst string, e x.Edge) { _ = st.UpsertEdge(src, dst, string(e)) }
+			}
+			n := 0
+			err = a.engine().Walk(a.ctx(), seeds, opts, func(nd *x.Node) error {
+				sp.stop()
+				if st != nil {
+					_ = st.UpsertNode(nd)
+				}
+				if e := out.Emit(nodeRow(nd)); e != nil {
+					return e
+				}
+				n++
+				return nil
+			})
+			if e := out.Flush(); e != nil && err == nil {
+				err = e
+			}
+			if err != nil {
+				return mapErr(err)
+			}
+			if n == 0 {
+				return mapErr(errNoResults)
+			}
 			return nil
 		},
 	}
 }
 
-// remainingDepth reads the queued priority (used as a depth counter) for target.
-func remainingDepth(st *x.Store, target string) int {
-	var p int
-	_ = st.DB().QueryRow(`SELECT priority FROM queue WHERE url=?`, target).Scan(&p)
-	if p < 1 {
-		p = 1
+func newCrawlCmd() kit.Command {
+	var depth, max, fanout int
+	var follow string
+	return kit.Command{
+		Use:   "crawl <seed>...",
+		Short: "Breadth-first crawl of the graph into the local store",
+		Long: "crawl is discover that persists: it walks the graph from each seed and writes\n" +
+			"every node and edge into the local store under the data dir, marking the\n" +
+			"frontier in the queue as it goes. Use the same --follow/--depth/--fanout knobs\n" +
+			"as discover; --max bounds how many nodes it stores. Inspect the result with\n" +
+			"`x db stats`, `x db query`, and `x queue`.",
+		Args:  kit.MinimumNArgs(1),
+		Write: true,
+		Flags: func(f *kit.FlagSet) {
+			f.IntVar(&depth, "depth", 1, "how many hops to follow from each seed")
+			f.IntVar(&max, "max", 200, "stop after storing this many nodes")
+			f.IntVar(&fanout, "fanout", 25, "max neighbors to pull per edge (0 = unlimited)")
+			f.StringVar(&follow, "follow", "content", followHelp)
+		},
+		Run: func(ctx context.Context, args []string) error {
+			a := appFromCtx(ctx)
+			edges, err := x.ParseEdges(follow)
+			if err != nil {
+				return errs.Usage("%s", err.Error())
+			}
+			seeds, err := parseSeeds(args)
+			if err != nil {
+				return err
+			}
+			st, err := a.openStore()
+			if err != nil {
+				return err
+			}
+			defer func() { _ = st.Close() }()
+			stored := 0
+			opts := x.WalkOptions{
+				Depth:  depth,
+				Max:    max,
+				Fanout: fanout,
+				Edges:  edges,
+				Note:   func(s string) { a.logf("note: %s", s) },
+				OnEdge: func(src, dst string, e x.Edge) {
+					_ = st.UpsertEdge(src, dst, string(e))
+					_ = st.Enqueue(dst, string(e.Target()), 0)
+				},
+			}
+			err = a.engine().Walk(a.ctx(), seeds, opts, func(n *x.Node) error {
+				if e := st.UpsertNode(n); e != nil {
+					return e
+				}
+				_ = st.MarkDone(n.Endpoint())
+				stored++
+				a.logf("[%d] %s %s", n.Depth, n.Kind, n.Endpoint())
+				return nil
+			})
+			if err != nil {
+				return mapErr(err)
+			}
+			a.logf("stored %d nodes", stored)
+			return nil
+		},
 	}
-	return p
 }
 
 func newQueueCmd() kit.Command {

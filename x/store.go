@@ -122,6 +122,18 @@ func (s *Store) UpsertMedia(tweetID string, m Media) error {
 	return err
 }
 
+// UpsertNode persists a discovered graph node by dispatching on its kind, so the
+// discover/crawl walkers have one call to store whatever they reached.
+func (s *Store) UpsertNode(n *Node) error {
+	switch n.Kind {
+	case KindTweet:
+		return s.UpsertTweet(n.Tweet)
+	case KindUser:
+		return s.UpsertUser(n.User)
+	}
+	return nil
+}
+
 // UpsertEdge records a graph edge (follow/like/retweet/quote/reply/mention).
 func (s *Store) UpsertEdge(src, dst, kind string) error {
 	if src == "" || dst == "" {
