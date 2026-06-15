@@ -66,6 +66,9 @@ x likes nasa --guest              # tweets a user has liked
 user and returns the tweets they liked. All three need a guest token or a
 session.
 
+To chain these into one another, hop by hop, from a starting tweet or account
+rather than running them one at a time, see [graph discovery](/guides/graph-discovery/).
+
 ## Lists
 
 ```bash

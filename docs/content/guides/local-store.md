@@ -1,42 +1,46 @@
 ---
 title: "The local store"
-description: "Persist reads to SQLite with --db, crawl accounts breadth-first, inspect with db stats and db query, manage the queue, and export to Markdown."
+description: "Keep a local SQLite copy of the graph: crawl breadth-first, persist a discover walk with --store, inspect with db stats and db query, manage the queue, and export to Markdown."
 weight: 50
 ---
 
-x can keep a local copy of everything it reads. Point any read at a SQLite file
-with `--db` and the tweets and accounts it returns are persisted as a side
-effect, so a read doubles as a crawl. `x crawl` automates that into a
-breadth-first walk, and a few commands inspect and export the result.
+x can keep a local copy of the graph it walks. The store is a single SQLite file
+at `x.db` under the data dir; move it by pointing `--data-dir` somewhere else.
+`x crawl` fills it with a breadth-first walk, `x discover --store` tees a live
+walk into it, and a few commands inspect and export the result.
 
-## Persist as you read
+## Persist a walk
+
+`x discover --store` writes every node and edge it streams into the store as a
+side effect, so a live walk doubles as a crawl:
 
 ```bash
-x timeline nasa --guest --db x.db -n 200
-x user nasa --db x.db
-x followers nasa --guest --db x.db
+x discover nasa --follow network --depth 2 --guest --store
+x discover 1234567890 --follow all --guest --store
 ```
 
-The command does exactly what it normally does (prints rows), and on the way it
-upserts the entities into `x.db`. Run more reads against the same file and the
-store grows. Nothing is lost between runs; the database is the accumulated state.
+See [graph discovery](/guides/graph-discovery/) for the full edge and preset
+vocabulary. Plain reads (`x timeline`, `x user`, and the rest) do not write to
+the store; `--store` and `x crawl` are what fill it.
 
 ## Crawl
 
 ```bash
-x crawl nasa --db x.db --depth 1 --max 200
-x crawl nasa jack --db x.db --depth 2 --max 1000
+x crawl nasa --depth 1 --max 200
+x crawl nasa jack --depth 2 --max 1000 --guest
+x crawl 1234567890 --follow thread --depth 2
 ```
 
-`x crawl` takes one or more seed users and walks outward breadth-first, storing
-tweets and the accounts it discovers. `--depth` is how many mention-hops to
-follow from the seeds (default `1`). `--max` stops the crawl after that many
-stored tweets (default `200`). Add `--guest` or a session so the crawl can page
-past the syndication window.
+`x crawl` is `x discover` pointed at the store instead of stdout. It takes one or
+more seeds (tweets or users), walks the graph breadth-first, and writes every
+node and edge it reaches, marking the frontier in the queue as it goes. The
+`--follow`, `--depth`, and `--fanout` knobs are the same as discover; `--max`
+stops after that many stored nodes (default `200`). Add `--guest` or a session to
+follow the engagement and network edges and to page past the syndication window.
 
 ## The queue
 
-A crawl keeps a work queue of accounts it still has to visit, in the store.
+A crawl keeps a work queue of nodes it still has to visit, in the store.
 
 ```bash
 x queue              # show what is still queued
