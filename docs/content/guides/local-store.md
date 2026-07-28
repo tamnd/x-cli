@@ -19,7 +19,7 @@ x discover nasa --follow network --depth 2 --store
 x discover 1234567890 --follow all --store
 ```
 
-See [graph discovery](/guides/graph-discovery/) for the full edge and preset
+See [graph discovery](/guides/graph-discovery/) for the full hop and preset
 vocabulary. Plain reads (`x timeline`, `x user`, and the rest) do not write to
 the store; `--store` and `x crawl` are what fill it.
 
@@ -36,7 +36,7 @@ more seeds (tweets or users), walks the graph breadth-first, and writes every
 node and edge it reaches, marking the frontier in the queue as it goes. The
 `--follow`, `--depth`, and `--fanout` knobs are the same as discover; `--max`
 stops after that many stored nodes (default `200`). The engagement and network
-edges need your session; `--guest` only pages past the syndication window.
+hops need your session; `--guest` only pages past the syndication window.
 
 ## The queue
 
@@ -50,10 +50,31 @@ x queue clear        # empty the queue
 Clearing the queue lets you start a fresh crawl against the same database
 without re-walking what is pending.
 
+## What is in it
+
+Two tables carry the graph, and the typed `tweets`, `users`, and `media` tables
+sit beside them for the reads that want columns rather than triples.
+
+`nodes` is one row per addressed thing: `uri`, `kind`, `id`, `tier`, the whole
+record as JSON, and when it was captured. A revisit keeps the higher-tier
+record, so a crawl that later reads a tweet with a session does not lose it to
+the next anonymous pass.
+
+`edges` is one row per claim: `from_uri`, `predicate`, `to_uri`, `source`,
+`tier`, `captured`. The source is part of the primary key, so two surfaces
+asserting the same thing are two rows. That is deliberate, and it is what makes
+agreement and disagreement queryable rather than silently collapsed:
+
+```bash
+x db query "select from_uri, predicate, to_uri, source from edges
+            where from_uri = 'x://user/jack' and predicate = 'authored'"
+```
+
 ## Inspect the store
 
 ```bash
 x db stats                 # row counts per table
+x db query "select predicate, count(*) from edges group by 1 order by 2 desc"
 x db query "select username, count(*) from tweets group by username"
 ```
 

@@ -138,8 +138,13 @@ streams, so you keep the graph as well as see it:
 
 ```bash
 x discover nasa --follow network --depth 2 --store
-x db query "select kind, count(*) from edges group by 1 order by 2 desc"
+x db query "select predicate, count(*) from edges group by 1 order by 2 desc"
 ```
+
+What lands in `edges` is claims, not hops. Most of them come out of the records
+themselves, and four come out of the walk because nothing else asserts them:
+`liker`, `retweeter`, `following`, and `followers` are listings rather than
+records, so a likers page is the only place that says an account liked a tweet.
 
 When you want the dataset rather than the live answer, reach for
 [`x crawl`](/guides/local-store/), which is the same walk pointed at the store

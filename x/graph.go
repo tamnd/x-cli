@@ -427,6 +427,86 @@ func mediaURI(m Media) string {
 	return ""
 }
 
+// HopEdge turns one traversed hop into the claim it is evidence for.
+//
+// Most hops are redundant with the record at the other end: following the author
+// hop and then reading the tweet produce the same `authored` edge. Four are not.
+// A likers list, a retweeters list, a following list and a followers list are
+// listings rather than records, so nothing either endpoint says asserts them and
+// the walk is the only place they exist. That is why the walker writes edges at
+// all instead of leaving it to Edges.
+//
+// src and dst are walk endpoints: a bare id for a tweet, `@handle` or `#id` for a
+// user. An account reached only by numeric id has no address in the URI space,
+// which is doc 04 section 1.3's choice, so that hop yields no edge.
+//
+// meta is the neighbour's own provenance, which for the listing hops is the
+// listing request itself. That is exactly the right source: the URL that
+// asserted the claim is the one the list came back on.
+func HopEdge(h Hop, src, dst string, meta *Meta) (Edge, bool) {
+	from, pred, to := "", Predicate(""), ""
+	tweet, user := func(id string) string { return URI(KindTweet, id) }, endpointURI
+	switch h {
+	case HopAuthor:
+		from, pred, to = user(dst), PredAuthored, tweet(src)
+	case HopTimeline:
+		from, pred, to = user(src), PredAuthored, tweet(dst)
+	case HopPinned:
+		from, pred, to = user(src), PredPinned, tweet(dst)
+	case HopQuoted:
+		from, pred, to = tweet(src), PredQuotes, tweet(dst)
+	case HopQuotedBy:
+		from, pred, to = tweet(dst), PredQuotes, tweet(src)
+	case HopRetweet:
+		from, pred, to = tweet(src), PredReposts, tweet(dst)
+	case HopReply:
+		from, pred, to = tweet(src), PredRepliesTo, tweet(dst)
+	case HopReplies:
+		from, pred, to = tweet(dst), PredRepliesTo, tweet(src)
+	case HopMention:
+		from, pred, to = tweet(src), PredMentions, user(dst)
+	case HopLiker:
+		from, pred, to = user(dst), PredLiked, tweet(src)
+	case HopLikes:
+		from, pred, to = user(src), PredLiked, tweet(dst)
+	case HopRetweeter:
+		from, pred, to = user(dst), PredReposted, tweet(src)
+	case HopFollowing:
+		from, pred, to = user(src), PredFollows, user(dst)
+	case HopFollowers:
+		// A followers listing of src says every account in it follows src, so it
+		// is recorded as `follows` pointing the way the claim points rather than
+		// as `followed_by` pointing the way the walk travelled. One predicate
+		// means a following crawl and a followers crawl of the same pair produce
+		// one edge instead of two spellings of it.
+		from, pred, to = user(dst), PredFollows, user(src)
+	default:
+		return Edge{}, false
+	}
+	if from == "" || to == "" {
+		return Edge{}, false
+	}
+	source, surface, tier := provenance(meta)
+	// A claim nobody can be pointed at for is not worth recording. The hops with
+	// no provenance are the ones that name a neighbour without fetching it, a
+	// reply parent or a mention, and every one of those is already asserted by
+	// the record at the near end, with the URL that read it.
+	if source == "" {
+		return Edge{}, false
+	}
+	return Edge{From: from, Predicate: pred, To: to, Source: source, Surface: surface, Tier: tier}, true
+}
+
+// endpointURI addresses whatever the walk calls a user endpoint. `@handle` is a
+// node and `#id` is not, because doc 04 section 1.3 addresses accounts by handle
+// and inventing a second spelling would split one account into two nodes.
+func endpointURI(endpoint string) string {
+	if strings.HasPrefix(endpoint, "#") {
+		return ""
+	}
+	return userURI(endpoint)
+}
+
 // MergeEdges sorts, and collapses edges that are the same claim from the same
 // source. Two surfaces asserting one thing stay two edges, because that is the
 // agreement the store is built to record and the input `x edges --conflicts`

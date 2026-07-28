@@ -103,7 +103,11 @@ func newDiscoverCmd() kit.Command {
 				Note:   func(s string) { sp.stop(); a.logf("note: %s", s) },
 			}
 			if st != nil {
-				opts.OnHop = func(src, dst string, e x.Hop) { _ = st.UpsertEdge(src, dst, string(e)) }
+				opts.OnHop = func(src, dst string, e x.Hop, m *x.Meta) {
+					if edge, ok := x.HopEdge(e, src, dst, m); ok {
+						_ = st.PutEdges([]x.Edge{edge})
+					}
+				}
 			}
 			n := 0
 			err = a.engine().Walk(a.ctx(), seeds, opts, func(nd *x.Node) error {
@@ -172,8 +176,10 @@ func newCrawlCmd() kit.Command {
 				Fanout: fanout,
 				Hops:   hops,
 				Note:   func(s string) { a.logf("note: %s", s) },
-				OnHop: func(src, dst string, e x.Hop) {
-					_ = st.UpsertEdge(src, dst, string(e))
+				OnHop: func(src, dst string, e x.Hop, m *x.Meta) {
+					if edge, ok := x.HopEdge(e, src, dst, m); ok {
+						_ = st.PutEdges([]x.Edge{edge})
+					}
 					_ = st.Enqueue(dst, string(e.Target()), 0)
 				},
 			}

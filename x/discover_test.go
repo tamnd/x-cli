@@ -198,7 +198,7 @@ func collect(t *testing.T, g grapher, seeds []Seed, opts WalkOptions) ([]*Node, 
 	t.Helper()
 	var nodes []*Node
 	var edges []string
-	opts.OnHop = func(src, dst string, e Hop) { edges = append(edges, src+" -"+string(e)+"-> "+dst) }
+	opts.OnHop = func(src, dst string, e Hop, _ *Meta) { edges = append(edges, src+" -"+string(e)+"-> "+dst) }
 	err := NewWalker(g).Walk(context.Background(), seeds, opts, func(n *Node) error {
 		nodes = append(nodes, n)
 		return nil

@@ -492,3 +492,79 @@ func TestExtractionIsTotalAndQuiet(t *testing.T) {
 		}
 	}
 }
+
+// The four hops that are the only evidence for what they find. Nothing either
+// endpoint says asserts these: a liker's profile does not mention the tweet and
+// the tweet does not list its likers, so if the walk does not record them
+// nobody does.
+func TestTheListingHopsAreTheOnlyEvidence(t *testing.T) {
+	liker := NewUser("alice")
+	liker.Meta.Stamp(7, "https://x.com/i/api/graphql/Favoriters")
+
+	cases := []struct {
+		hop      Hop
+		src, dst string
+		want     string
+	}{
+		{HopLiker, "20", "@alice", "x://user/alice liked x://tweet/20"},
+		{HopRetweeter, "20", "@alice", "x://user/alice reposted x://tweet/20"},
+		{HopFollowing, "@jack", "@alice", "x://user/jack follows x://user/alice"},
+		// A followers listing of @jack says alice follows jack, so the edge
+		// points the way the claim points and not the way the walk travelled.
+		{HopFollowers, "@jack", "@alice", "x://user/alice follows x://user/jack"},
+		{HopLikes, "@jack", "20", "x://user/jack liked x://tweet/20"},
+	}
+	for _, c := range cases {
+		e, ok := HopEdge(c.hop, c.src, c.dst, &liker.Meta)
+		if !ok {
+			t.Fatalf("the %s hop yielded no edge", c.hop)
+		}
+		if got := e.From + " " + string(e.Predicate) + " " + e.To; got != c.want {
+			t.Errorf("the %s hop is %q, want %q", c.hop, got, c.want)
+		}
+		if e.Surface != 7 || e.Source == "" {
+			t.Errorf("the %s hop lost the listing's provenance: s%d %q", c.hop, e.Surface, e.Source)
+		}
+	}
+}
+
+// Walking the author hop and reading the tweet are the same claim, arrived at
+// two ways. They have to agree, because a store fed by both would otherwise
+// hold one account authoring a tweet and another not.
+func TestAHopAndARecordAgreeAboutTheSameClaim(t *testing.T) {
+	tw := synTweetFromCapture(t, "s1_reply_with_parent.json.gz", "1903142823316049977")
+	hop, ok := HopEdge(HopAuthor, tw.ID, "@"+tw.Author.Username, &tw.Meta)
+	if !ok {
+		t.Fatal("the author hop yielded no edge")
+	}
+	var rec Edge
+	for _, e := range Edges(tw) {
+		if e.Predicate == PredAuthored && e.To == URI(KindTweet, tw.ID) {
+			rec = e
+		}
+	}
+	if hop.From != rec.From || hop.Predicate != rec.Predicate || hop.To != rec.To {
+		t.Fatalf("the hop says %s %s %s and the record says %s %s %s",
+			hop.From, hop.Predicate, hop.To, rec.From, rec.Predicate, rec.To)
+	}
+}
+
+// An account reached by numeric id has no address, because doc 04 section 1.3
+// addresses accounts by handle. Inventing a second spelling would split one
+// account into two nodes, so the hop yields nothing instead.
+func TestAnAccountKnownOnlyByIdIsNotANode(t *testing.T) {
+	known := NewUser("jack")
+	known.Meta.Stamp(1, "https://cdn.syndication.twimg.com/tweet-result?id=20")
+	if e, ok := HopEdge(HopAuthor, "20", "#12", &known.Meta); ok {
+		t.Fatalf("got %s %s %s, want no edge at all", e.From, e.Predicate, e.To)
+	}
+}
+
+// A hop with no record at the far end has no source either, and a claim nobody
+// can be pointed at for is not worth a row. Nothing is lost: the reply parent
+// and the mention are both asserted by the record at the near end.
+func TestAHopWithNoProvenanceIsNotRecorded(t *testing.T) {
+	if e, ok := HopEdge(HopReply, "1903142823316049977", "1903136743634723031", nil); ok {
+		t.Fatalf("got %s %s %s from %q, want no edge", e.From, e.Predicate, e.To, e.Source)
+	}
+}
