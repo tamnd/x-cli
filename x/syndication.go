@@ -85,8 +85,8 @@ type synTweet struct {
 	Text              string      `json:"text"`
 	CreatedAt         string      `json:"created_at"`
 	Lang              string      `json:"lang"`
-	FavoriteCount     int         `json:"favorite_count"`
-	ConversationCount int         `json:"conversation_count"`
+	FavoriteCount     *int        `json:"favorite_count"`
+	ConversationCount *int        `json:"conversation_count"`
 	Sensitive         bool        `json:"possibly_sensitive"`
 	InReplyToScreen   string      `json:"in_reply_to_screen_name"`
 	InReplyToStatus   string      `json:"in_reply_to_status_id_str"`
@@ -313,9 +313,9 @@ func extractProfileFromNextData(page []byte) (*User, bool) {
 						Description  string `json:"description"`
 						Location     string `json:"location"`
 						Verified     bool   `json:"verified"`
-						FollowersCnt int    `json:"followers_count"`
-						FriendsCnt   int    `json:"friends_count"`
-						StatusesCnt  int    `json:"statuses_count"`
+						FollowersCnt *int   `json:"followers_count"`
+						FriendsCnt   *int   `json:"friends_count"`
+						StatusesCnt  *int   `json:"statuses_count"`
 						ProfileImage string `json:"profile_image_url_https"`
 					} `json:"user"`
 				} `json:"contextProvider"`

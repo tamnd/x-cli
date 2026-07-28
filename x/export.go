@@ -58,7 +58,7 @@ func writeMonth(outDir, month string, tweets []*Tweet) error {
 		fmt.Fprintf(&b, "### %s\n\n", ts)
 		fmt.Fprintf(&b, "%s\n\n", t.Text)
 		fmt.Fprintf(&b, "♥ %d  ↺ %d  💬 %d  [%s](%s)\n\n",
-			t.Metrics.Likes, t.Metrics.Retweets, t.Metrics.Replies, t.ID, t.URL)
+			Val(t.Metrics.Likes), Val(t.Metrics.Retweets), Val(t.Metrics.Replies), t.ID, t.URL)
 		for _, m := range t.Media {
 			u := m.URL
 			if u == "" && len(m.Variants) > 0 {

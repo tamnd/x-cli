@@ -56,7 +56,7 @@ func TestTweetFromStatusPage(t *testing.T) {
 	}
 	for _, c := range []struct {
 		name string
-		got  int
+		got  *int
 		want int
 	}{
 		{"likes", tw.Metrics.Likes, 307403},
@@ -67,8 +67,10 @@ func TestTweetFromStatusPage(t *testing.T) {
 		// at tier 0, on the plain status page.
 		{"bookmarks", tw.Metrics.Bookmarks, 21256},
 	} {
-		if c.got != c.want {
-			t.Errorf("%s = %d, want %d", c.name, c.got, c.want)
+		if c.got == nil {
+			t.Errorf("%s is missing, want %d", c.name, c.want)
+		} else if *c.got != c.want {
+			t.Errorf("%s = %d, want %d", c.name, *c.got, c.want)
 		}
 	}
 	if len(tw.Surfaces) != 1 || tw.Surfaces[0] != "s8" {
@@ -84,14 +86,14 @@ func TestTweetFromStatusPage(t *testing.T) {
 	if tw.Author.Username != "jack" || tw.Author.RestID != "12" {
 		t.Errorf("author = %+v", tw.Author)
 	}
-	if tw.Author.Metrics.Followers != 10548148 {
-		t.Errorf("followers = %d", tw.Author.Metrics.Followers)
+	if Val(tw.Author.Metrics.Followers) != 10548148 {
+		t.Errorf("followers = %d", Val(tw.Author.Metrics.Followers))
 	}
-	if tw.Author.Metrics.Following != 3 {
-		t.Errorf("following = %d", tw.Author.Metrics.Following)
+	if Val(tw.Author.Metrics.Following) != 3 {
+		t.Errorf("following = %d", Val(tw.Author.Metrics.Following))
 	}
-	if tw.Author.Metrics.Tweets != 30786 {
-		t.Errorf("tweets = %d", tw.Author.Metrics.Tweets)
+	if Val(tw.Author.Metrics.Tweets) != 30786 {
+		t.Errorf("tweets = %d", Val(tw.Author.Metrics.Tweets))
 	}
 	if tw.Author.Description != "no state is the best state" {
 		t.Errorf("bio = %q", tw.Author.Description)
@@ -141,11 +143,11 @@ func TestReplyMetricsFromMicrodata(t *testing.T) {
 	if tw.Text != "@jack Hello from the future" {
 		t.Errorf("text = %q", tw.Text)
 	}
-	if tw.Metrics.Likes != 5195 {
-		t.Errorf("likes = %d, want 5195", tw.Metrics.Likes)
+	if Val(tw.Metrics.Likes) != 5195 {
+		t.Errorf("likes = %d, want 5195", Val(tw.Metrics.Likes))
 	}
-	if tw.Metrics.Impressions != 454161 {
-		t.Errorf("views = %d, want 454161", tw.Metrics.Impressions)
+	if Val(tw.Metrics.Impressions) != 454161 {
+		t.Errorf("views = %d, want 454161", Val(tw.Metrics.Impressions))
 	}
 	if tw.Author == nil || tw.Author.Username != "lexfridman" {
 		t.Errorf("author = %+v", tw.Author)
@@ -153,15 +155,15 @@ func TestReplyMetricsFromMicrodata(t *testing.T) {
 }
 
 // X leaves the view count null on a tweet from 2006, and both planes agree.
-// Reporting zero would be a claim X never made.
-func TestViewsAbsentStaysZero(t *testing.T) {
+// Reporting zero would be a claim X never made, so the counter stays absent.
+func TestViewsAbsentStaysUnknown(t *testing.T) {
 	tw, err := statusPage(t).TweetFromPage("20")
 	if err != nil {
 		t.Fatal(err)
 	}
-	if tw.Metrics.Impressions != 0 {
-		t.Errorf("impressions = %d, want 0 for a tweet X reports no views for",
-			tw.Metrics.Impressions)
+	if tw.Metrics.Impressions != nil {
+		t.Errorf("impressions = %d, want no count at all for a tweet X reports no views for",
+			*tw.Metrics.Impressions)
 	}
 }
 
@@ -183,7 +185,7 @@ func TestUserFromProfilePage(t *testing.T) {
 	if u.Description == "" {
 		t.Error("no bio")
 	}
-	if u.Metrics.Followers == 0 {
+	if Val(u.Metrics.Followers) == 0 {
 		t.Error("no follower count")
 	}
 	if u.URL != "https://x.com/jack" {
@@ -232,14 +234,14 @@ func TestUserFromProfilePageWithoutARelayRecord(t *testing.T) {
 	if u.RestID != "11348282" || u.ID != "nasa" || u.Name != "NASA" {
 		t.Errorf("user = %+v", u)
 	}
-	if u.Metrics.Followers < 90000000 {
-		t.Errorf("followers = %d, want the real count", u.Metrics.Followers)
+	if Val(u.Metrics.Followers) < 90000000 {
+		t.Errorf("followers = %d, want the real count", Val(u.Metrics.Followers))
 	}
-	if u.Metrics.Following != 119 {
-		t.Errorf("following = %d, want 119", u.Metrics.Following)
+	if Val(u.Metrics.Following) != 119 {
+		t.Errorf("following = %d, want 119", Val(u.Metrics.Following))
 	}
-	if u.Metrics.Tweets != 74261 {
-		t.Errorf("tweets = %d, want 74261", u.Metrics.Tweets)
+	if Val(u.Metrics.Tweets) != 74261 {
+		t.Errorf("tweets = %d, want 74261", Val(u.Metrics.Tweets))
 	}
 	if u.Location != "Pale Blue Dot" {
 		t.Errorf("location = %q", u.Location)

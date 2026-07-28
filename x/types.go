@@ -16,7 +16,7 @@ type Tweet struct {
 	Meta
 
 	Text           string    `json:"text" kit:"body"`
-	CreatedAt      time.Time `json:"created_at"`
+	CreatedAt      time.Time `json:"created_at,omitzero"`
 	Lang           string    `json:"lang,omitempty"`
 	Author         *User     `json:"author,omitempty"`
 	ConversationID string    `json:"conversation_id,omitempty" kit:"link,kind=x/tweet,optional"`
@@ -38,15 +38,40 @@ type Tweet struct {
 	IsReply        bool      `json:"is_reply,omitempty"`
 }
 
-// Metrics are the engagement counts on a tweet. The public ones are present on
-// most tiers; impressions/bookmarks may be zero where a tier does not expose them.
+// Metrics are the engagement counts on a tweet.
+//
+// Every one is a pointer, because the surfaces disagree about which counters
+// they publish and a counter nobody published is not a counter of zero. The
+// syndication endpoint has never carried a bookmark count; a tweet nobody has
+// bookmarked has none. Written as plain ints both come out as 0, and a graph
+// built on that says the same false thing twice.
 type Metrics struct {
-	Replies     int `json:"replies"`
-	Retweets    int `json:"retweets"`
-	Likes       int `json:"likes"`
-	Quotes      int `json:"quotes"`
-	Bookmarks   int `json:"bookmarks"`
-	Impressions int `json:"impressions"`
+	Replies     *int `json:"replies,omitempty"`
+	Retweets    *int `json:"retweets,omitempty"`
+	Likes       *int `json:"likes,omitempty"`
+	Quotes      *int `json:"quotes,omitempty"`
+	Bookmarks   *int `json:"bookmarks,omitempty"`
+	Impressions *int `json:"impressions,omitempty"`
+}
+
+// Num wraps a count a surface published, so it can be told from one it did not.
+func Num(n int) *int { return &n }
+
+// Val reads a count, treating an unpublished one as zero. It is for arithmetic
+// and for a table cell, never for deciding whether the count is known.
+func Val(p *int) int {
+	if p == nil {
+		return 0
+	}
+	return *p
+}
+
+// setNum fills a counter from a surface that published one, and leaves a
+// counter another surface already filled alone.
+func setNum(dst **int, n int, ok bool) {
+	if ok && *dst == nil {
+		*dst = Num(n)
+	}
 }
 
 // Entities are the parsed surface features of a tweet or a bio.
@@ -72,7 +97,7 @@ type User struct {
 	RestID string `json:"rest_id,omitempty"`
 
 	Name          string      `json:"name"`
-	CreatedAt     time.Time   `json:"created_at,omitempty"`
+	CreatedAt     time.Time   `json:"created_at,omitzero"`
 	Description   string      `json:"description,omitempty" kit:"body"`
 	Location      string      `json:"location,omitempty"`
 	Website       string      `json:"website,omitempty"`
@@ -91,14 +116,16 @@ type User struct {
 	Role string `json:"role,omitempty"`
 }
 
-// UserMetrics are the public counters on a profile.
+// UserMetrics are the public counters on a profile, pointers for the same
+// reason: the profile page states followers, following and tweets, and says
+// nothing at all about listed, likes or media.
 type UserMetrics struct {
-	Followers int `json:"followers"`
-	Following int `json:"following"`
-	Tweets    int `json:"tweets"`
-	Listed    int `json:"listed"`
-	Likes     int `json:"likes,omitempty"`
-	Media     int `json:"media,omitempty"`
+	Followers *int `json:"followers,omitempty"`
+	Following *int `json:"following,omitempty"`
+	Tweets    *int `json:"tweets,omitempty"`
+	Listed    *int `json:"listed,omitempty"`
+	Likes     *int `json:"likes,omitempty"`
+	Media     *int `json:"media,omitempty"`
 }
 
 // Media is one attached photo, video, or gif.
@@ -127,7 +154,7 @@ type Poll struct {
 	ID           string       `json:"id,omitempty"`
 	Options      []PollOption `json:"options"`
 	DurationMin  int          `json:"duration_minutes,omitempty"`
-	EndDateTime  time.Time    `json:"end_datetime,omitempty"`
+	EndDateTime  time.Time    `json:"end_datetime,omitzero"`
 	VotingStatus string       `json:"voting_status,omitempty"`
 }
 
@@ -159,7 +186,7 @@ type List struct {
 	Members     int       `json:"member_count"`
 	Followers   int       `json:"follower_count"`
 	Private     bool      `json:"private,omitempty"`
-	CreatedAt   time.Time `json:"created_at,omitempty"`
+	CreatedAt   time.Time `json:"created_at,omitzero"`
 }
 
 // Space is an audio Space.
@@ -172,9 +199,9 @@ type Space struct {
 	SpeakerIDs     []string  `json:"speaker_ids,omitempty"`
 	Participants   int       `json:"participant_count,omitempty"`
 	Subscribers    int       `json:"subscriber_count,omitempty"`
-	StartedAt      time.Time `json:"started_at,omitempty"`
-	ScheduledStart time.Time `json:"scheduled_start,omitempty"`
-	EndedAt        time.Time `json:"ended_at,omitempty"`
+	StartedAt      time.Time `json:"started_at,omitzero"`
+	ScheduledStart time.Time `json:"scheduled_start,omitzero"`
+	EndedAt        time.Time `json:"ended_at,omitzero"`
 	Lang           string    `json:"lang,omitempty"`
 	Ticketed       bool      `json:"is_ticketed,omitempty"`
 	Topics         []string  `json:"topics,omitempty"`

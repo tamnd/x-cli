@@ -46,11 +46,11 @@ type legacyTweet struct {
 	Text                 string            `json:"text"`
 	CreatedAt            string            `json:"created_at"`
 	Lang                 string            `json:"lang"`
-	FavoriteCount        int               `json:"favorite_count"`
-	RetweetCount         int               `json:"retweet_count"`
-	ReplyCount           int               `json:"reply_count"`
-	QuoteCount           int               `json:"quote_count"`
-	BookmarkCount        int               `json:"bookmark_count"`
+	FavoriteCount        *int              `json:"favorite_count"`
+	RetweetCount         *int              `json:"retweet_count"`
+	ReplyCount           *int              `json:"reply_count"`
+	QuoteCount           *int              `json:"quote_count"`
+	BookmarkCount        *int              `json:"bookmark_count"`
 	ConversationIDStr    string            `json:"conversation_id_str"`
 	InReplyToStatusIDStr string            `json:"in_reply_to_status_id_str"`
 	InReplyToScreenName  string            `json:"in_reply_to_screen_name"`
@@ -115,12 +115,12 @@ type legacyUser struct {
 	URL             string         `json:"url"`
 	Verified        bool           `json:"verified"`
 	Protected       bool           `json:"protected"`
-	FollowersCount  int            `json:"followers_count"`
-	FriendsCount    int            `json:"friends_count"`
-	StatusesCount   int            `json:"statuses_count"`
-	ListedCount     int            `json:"listed_count"`
-	FavouritesCount int            `json:"favourites_count"`
-	MediaCount      int            `json:"media_count"`
+	FollowersCount  *int           `json:"followers_count"`
+	FriendsCount    *int           `json:"friends_count"`
+	StatusesCount   *int           `json:"statuses_count"`
+	ListedCount     *int           `json:"listed_count"`
+	FavouritesCount *int           `json:"favourites_count"`
+	MediaCount      *int           `json:"media_count"`
 	ProfileImage    string         `json:"profile_image_url_https"`
 	ProfileBanner   string         `json:"profile_banner_url"`
 	PinnedTweetIDs  []string       `json:"pinned_tweet_ids_str"`

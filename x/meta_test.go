@@ -77,23 +77,23 @@ func TestMergeNamesTheSurfaceBehindEachField(t *testing.T) {
 	// What the syndication endpoint knows.
 	a := NewTweet("20")
 	a.Text = "just setting up my twttr"
-	a.Metrics.Likes = 100
+	a.Metrics.Likes = Num(100)
 	stampTweet(a, 1, "https://cdn.syndication.twimg.com/tweet-result?id=20")
 
 	// What only the page knows.
 	b := NewTweet("20")
 	b.Text = "just setting up my twttr"
-	b.Metrics.Likes = 99
-	b.Metrics.Bookmarks = 7
-	b.Metrics.Impressions = 1234
+	b.Metrics.Likes = Num(99)
+	b.Metrics.Bookmarks = Num(7)
+	b.Metrics.Impressions = Num(1234)
 	stampTweet(b, 8, "https://x.com/jack/status/20")
 
 	got := MergeTweet(a, b)
-	if got.Metrics.Bookmarks != 7 || got.Metrics.Impressions != 1234 {
+	if Val(got.Metrics.Bookmarks) != 7 || Val(got.Metrics.Impressions) != 1234 {
 		t.Fatalf("merge did not fill the gaps: %+v", got.Metrics)
 	}
-	if got.Metrics.Likes != 100 {
-		t.Errorf("likes = %d, want the first surface's 100 kept", got.Metrics.Likes)
+	if Val(got.Metrics.Likes) != 100 {
+		t.Errorf("likes = %d, want the first surface's 100 kept", Val(got.Metrics.Likes))
 	}
 	if got.Via["bookmarks"] != "s8" || got.Via["impressions"] != "s8" {
 		t.Errorf("via = %v, want the page named for both counts", got.Via)
@@ -109,6 +109,29 @@ func TestMergeNamesTheSurfaceBehindEachField(t *testing.T) {
 	}
 }
 
+func TestAZeroCountIsAFactAndAnAbsentOneIsNot(t *testing.T) {
+	// s1 does not publish a bookmark count at all. s8 publishes one and it is
+	// zero, which is a real answer and has to survive the merge.
+	a := NewTweet("20")
+	stampTweet(a, 1, "https://cdn.syndication.twimg.com/tweet-result?id=20")
+
+	b := NewTweet("20")
+	b.Metrics.Bookmarks = Num(0)
+	stampTweet(b, 8, "https://x.com/jack/status/20")
+
+	got := MergeTweet(a, b)
+	if got.Metrics.Bookmarks == nil {
+		t.Fatal("the merge dropped a zero the page actually published")
+	}
+	if *got.Metrics.Bookmarks != 0 || got.Via["bookmarks"] != "s8" {
+		t.Errorf("bookmarks = %d via %q, want 0 via s8", *got.Metrics.Bookmarks, got.Via["bookmarks"])
+	}
+	// Nothing said anything about impressions, so the record says nothing.
+	if got.Metrics.Impressions != nil {
+		t.Errorf("impressions = %d, want no count at all", *got.Metrics.Impressions)
+	}
+}
+
 func TestMergeCarriesTheOtherRecordsVia(t *testing.T) {
 	// A record built from two surfaces already carries a via of its own, and
 	// folding it into a third must not lose it.
@@ -116,7 +139,7 @@ func TestMergeCarriesTheOtherRecordsVia(t *testing.T) {
 	stampTweet(a, 1, "https://cdn.syndication.twimg.com/tweet-result?id=20")
 
 	b := NewTweet("20")
-	b.Metrics.Bookmarks = 7
+	b.Metrics.Bookmarks = Num(7)
 	stampTweet(b, 8, "https://x.com/jack/status/20")
 	b.Note("bookmarks", 8)
 	b.Stamp(4, "https://x.com/i/api/graphql/TweetResultByRestId")

@@ -292,7 +292,8 @@ func (r *gqlTweetResult) build() *Tweet {
 		t.Identify(KindTweet, r.RestID)
 	}
 	if r.Views != nil {
-		t.Metrics.Impressions, _ = strconv.Atoi(r.Views.Count)
+		n, err := strconv.Atoi(r.Views.Count)
+		setNum(&t.Metrics.Impressions, n, err == nil)
 	}
 	if r.Source != "" && t.Source == "" {
 		t.Source = sourceName(r.Source)

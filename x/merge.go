@@ -138,8 +138,10 @@ func (m merger) str(dst *string, src, field string) {
 	}
 }
 
-func (m merger) num(dst *int, src int, field string) {
-	if *dst == 0 && src != 0 {
+// num fills a counter from another record. A zero another surface published is
+// a fact and is copied; a counter nobody published is nil and copies nothing.
+func (m merger) num(dst **int, src *int, field string) {
+	if *dst == nil && src != nil {
 		*dst = src
 		m.note(field)
 	}

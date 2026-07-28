@@ -200,10 +200,9 @@ func applyRelayTweet(t *Tweet, rec map[string]any) {
 		}
 	}
 	if counts, ok := rec["counts"].(map[string]any); ok {
-		set := func(dst *int, key string) {
-			if n, ok := asInt(counts[key]); ok {
-				*dst = int(n)
-			}
+		set := func(dst **int, key string) {
+			n, ok := asInt(counts[key])
+			setNum(dst, int(n), ok)
 		}
 		set(&t.Metrics.Likes, "favorite_count")
 		set(&t.Metrics.Retweets, "retweet_count")
@@ -214,9 +213,8 @@ func applyRelayTweet(t *Tweet, rec map[string]any) {
 		set(&t.Metrics.Bookmarks, "bookmark_count")
 	}
 	if v, ok := embed.Dig(rec, "views", "count"); ok {
-		if n, ok := asInt(v); ok {
-			t.Metrics.Impressions = int(n)
-		}
+		n, ok := asInt(v)
+		setNum(&t.Metrics.Impressions, int(n), ok)
 	}
 	if author, ok := embed.Dig(rec, "core", "user_results", "result"); ok {
 		if m, ok := author.(map[string]any); ok {
@@ -288,15 +286,12 @@ func userFromRelay(rec map[string]any) *User {
 	if v, ok := embed.DigStr(rec, "verification", "verified_type"); ok {
 		u.VerifiedType = v
 	}
-	if n, ok := asInt(embed.MustDig(rec, "relationship_counts", "followers")); ok {
-		u.Metrics.Followers = int(n)
-	}
-	if n, ok := asInt(embed.MustDig(rec, "relationship_counts", "following")); ok {
-		u.Metrics.Following = int(n)
-	}
-	if n, ok := asInt(embed.MustDig(rec, "tweet_counts", "tweets")); ok {
-		u.Metrics.Tweets = int(n)
-	}
+	n, ok := asInt(embed.MustDig(rec, "relationship_counts", "followers"))
+	setNum(&u.Metrics.Followers, int(n), ok)
+	n, ok = asInt(embed.MustDig(rec, "relationship_counts", "following"))
+	setNum(&u.Metrics.Following, int(n), ok)
+	n, ok = asInt(embed.MustDig(rec, "tweet_counts", "tweets"))
+	setNum(&u.Metrics.Tweets, int(n), ok)
 	return u
 }
 
@@ -330,12 +325,13 @@ func applyMicrodataUser(u *User, person *embed.Item) {
 		// The author of a posting states the avatar as a plain URL.
 		fillStr(&u.ProfileImage, person.Str("image"))
 	}
-	count := func(dst *int, prop, action string) {
-		if *dst != 0 {
+	count := func(dst **int, prop, action string) {
+		if *dst != nil {
 			return
 		}
 		if v, ok := person.Counter(prop, action); ok {
-			*dst, _ = strconv.Atoi(v)
+			n, err := strconv.Atoi(v)
+			setNum(dst, n, err == nil)
 		}
 	}
 	count(&u.Metrics.Followers, "interactionStatistic", "FollowAction")
@@ -364,23 +360,21 @@ func applyMicrodataTweet(t *Tweet, it *embed.Item) {
 			t.CreatedAt = v.UTC()
 		}
 	}
-	fill := func(dst *int, prop, action string) {
-		if *dst != 0 {
+	fill := func(dst **int, prop, action string) {
+		if *dst != nil {
 			return
 		}
 		if v, ok := it.Counter(prop, action); ok {
-			if n, err := strconv.Atoi(v); err == nil {
-				*dst = n
-			}
+			n, err := strconv.Atoi(v)
+			setNum(dst, n, err == nil)
 		}
 	}
 	fill(&t.Metrics.Likes, "interactionStatistic", "LikeAction")
 	fill(&t.Metrics.Retweets, "interactionStatistic", "ShareAction")
 	fill(&t.Metrics.Impressions, "interactionStatistic", "ViewAction")
-	if t.Metrics.Replies == 0 {
-		if n, err := strconv.Atoi(it.Str("commentCount")); err == nil {
-			t.Metrics.Replies = n
-		}
+	if t.Metrics.Replies == nil {
+		n, err := strconv.Atoi(it.Str("commentCount"))
+		setNum(&t.Metrics.Replies, n, err == nil)
 	}
 	if author := it.Item("author"); author != nil {
 		if t.Author == nil {
