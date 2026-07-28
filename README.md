@@ -22,7 +22,8 @@ x tweet 20                         # a single tweet
 x user nasa                        # a profile
 x timeline nasa --guest -n 20      # a user's recent tweets
 x search "from:nasa filter:media" --guest -o jsonl
-x download https://x.com/nasa/status/2064422103416238295 -O .
+x media https://x.com/nasa/status/2064422103416238295 --download .
+x timeline nasa -o url | xargs -n1 x get
 ```
 
 ## How it works
@@ -67,12 +68,13 @@ Tier 0 needs nothing, `g` needs `--guest` or a session, `s` needs a session.
 
 | Command | Reads | Tier |
 | --- | --- | --- |
+| `x get <ref>...` | whatever the reference points at, read by the command that fits | 0 |
 | `x tweet <ref>` | a single tweet | 0 |
 | `x user <user>` | a profile | 0 |
 | `x timeline <user>` | a user's tweets (deeper with `--guest`) | 0 |
 | `x thread <ref>` | the conversation around a tweet | g |
 | `x replies <user>` | a user's tweets including replies | s |
-| `x media <user>` | media attached to a user's tweets | s |
+| `x media <ref>` | the pictures and video on a tweet or a profile, `--download` for the bytes | 0 |
 | `x search <query>` | search tweets | g |
 | `x counts <query>` | per-day tweet counts for a search | g |
 | `x followers <user>` / `x following <user>` | the follow graph | g |

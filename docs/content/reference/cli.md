@@ -16,11 +16,13 @@ map. A `<ref>` is a tweet id, status URL, or anything x can resolve to a tweet; 
 
 | Command | What it does | Key flags |
 |---|---|---|
+| `get <ref>...` | Read whatever each reference points at, with the command that fits | |
 | `tweet <ref>` | Show a single tweet | (Tier 0) |
 | `user <user>` | Show a profile | `--id` |
 | `timeline <user>` | A user's tweets (recent window; deeper with `--guest`/session) | `--id`, `--replies`, `--media` |
 | `replies <user>` | A user's tweets including replies (session) | `--id` |
-| `media <user>` | Media attached to a user's tweets (session) | `--id` |
+| `media <ref>` | The media on a tweet, or on a user's tweets | `--id`, `--tab`, `--download`, `--size`, `--variant` |
+| `embed <ref>` | Print a tweet's oEmbed blockquote, verbatim | |
 | `thread <ref>` | A conversation thread around a tweet (session) | |
 | `poll <ref>` | A tweet's poll options and tallies | |
 | `search <query>` | Search tweets (needs `--guest` or session) | `--product` |
@@ -39,6 +41,15 @@ map. A `<ref>` is a tweet id, status URL, or anything x can resolve to a tweet; 
 `search --product` takes `Top|Latest|People|Photos|Videos` (default `Latest`).
 `counts --product` takes `Top|Latest`. `timeline --replies` includes replies and
 `--media` keeps only tweets with media.
+
+`get` classifies each argument the way `x classify` does and dispatches: a tweet
+id or status link reads the tweet, a handle reads the profile, a hashtag or a
+search link runs the search, a list link reads the list. A kind it has no reader
+for exits 7 rather than guessing. `media --size` takes
+`thumb|small|medium|large|orig` (default `orig`) and `--variant` names a video
+rendition by resolution or bitrate (default: the highest-bitrate MP4). With
+`--download`, `media` writes files and prints their paths, so the record flags
+(`-o`, `--fields`, `--template`) do not apply.
 
 x is read-only: there are no commands that post, like, follow, or otherwise
 change your account. `likes`, `likers`, `followers`, and `bookmarks` only read.

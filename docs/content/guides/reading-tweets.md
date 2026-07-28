@@ -40,12 +40,21 @@ to guest tokens, so it needs your own session.
 ## Media
 
 ```bash
-x media nasa --guest          # media attached to a user's tweets
+x media 2081860978694594863            # the pictures on one tweet
+x media nasa                           # the media on a user's recent tweets
+x media nasa --tab --guest             # the profile's media tab, all of it
+x media nasa --download ./out          # the bytes, not the records
 ```
 
-`x media` lists the photo and video tweets for a user. It is one of the
-endpoints X denies to guest tokens, so in practice it needs your session; pass
-`--guest` only to try the guest path.
+`x media` takes a tweet or a profile. A tweet is answered at tier 0, and so is
+the recent window of a profile; `--tab` reads X's own index of every post with a
+picture in it, which is a GraphQL operation and needs `--guest` or your session.
+
+`--size` is `thumb|small|medium|large|orig` and defaults to `orig`, because a
+photo URL carries its size in it and the point of downloading a picture is to
+have the picture. `--variant` picks a video rendition by resolution or bitrate;
+the default is the highest-bitrate MP4, since the playlist X also offers is the
+right answer for a player and the wrong one for a file on disk.
 
 ## Threads
 

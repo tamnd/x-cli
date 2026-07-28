@@ -211,12 +211,24 @@ func (a *App) fail(target string, err error) error {
 // failure builds the record. errNoResults is a cli sentinel rather than an x
 // error, so x.FailureOf would call it unclassified; it gets code 3 here to match
 // the exit code the same error produces.
+//
+// The same goes for an error a command raised through kit rather than through
+// the x package, such as the exit-code-7 answer get gives a kind it has no
+// reader for. x.FailureOf reads the x taxonomy and calls anything else
+// unclassified, and a record whose code disagrees with the process exit code is
+// worse than no record, so kit's code wins whenever x has not classified it.
 func (a *App) failure(target string, err error) x.Failure {
 	if errors.Is(err, errNoResults) {
 		return x.Failure{Kind: "error", Target: target, Code: 3,
 			Reason: "no results", Tier: a.cfg.TierNum()}
 	}
-	return x.FailureOf(err, target, a.cfg.TierNum())
+	f := x.FailureOf(err, target, a.cfg.TierNum())
+	if f.Code == 1 {
+		if c := errs.ExitCode(err); c > 1 {
+			f.Code = c
+		}
+	}
+	return f
 }
 
 // done is the tail of every read: nil passes through, and anything else becomes

@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"net/url"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -189,7 +190,7 @@ func newOpenCmd() kit.Command {
 }
 
 func newDownloadCmd() kit.Command {
-	var outDir string
+	var outDir, size, variant string
 	return kit.Command{
 		Use:     "download <ref>",
 		Aliases: []string{"dl"},
@@ -198,6 +199,8 @@ func newDownloadCmd() kit.Command {
 		Write:   true,
 		Flags: func(f *kit.FlagSet) {
 			f.StringVarP(&outDir, "out", "O", ".", "output directory")
+			f.StringVar(&size, "size", x.DefaultMediaSize, "photo size: thumb|small|medium|large|orig")
+			f.StringVar(&variant, "variant", "", "video rendition, by resolution or bitrate (default: the best mp4)")
 		},
 		Run: func(ctx context.Context, args []string) error {
 			a := appFromCtx(ctx)
@@ -221,8 +224,9 @@ func newDownloadCmd() kit.Command {
 			}
 			n := 0
 			for i, m := range t.Media {
-				u := bestMediaURL(m)
-				if u == "" {
+				u, err := x.MediaURL(m, size, variant)
+				if err != nil {
+					a.logf("warn: %v", err)
 					continue
 				}
 				name := fmt.Sprintf("%s-%d%s", id, i+1, extOf(u))
@@ -335,23 +339,17 @@ func openBrowser(url string) error {
 	return exec.Command(cmd, append(args, url)...).Start()
 }
 
-func bestMediaURL(m x.Media) string {
-	if len(m.Variants) > 0 {
-		best, rate := "", -1
-		for _, v := range m.Variants {
-			if v.Bitrate >= rate && v.URL != "" {
-				best, rate = v.URL, v.Bitrate
-			}
-		}
-		if best != "" {
-			return best
-		}
-	}
-	return m.URL
-}
-
+// extOf is the file extension to save a media URL under.
+//
+// A sized photo URL has no extension left in its path, because the size form
+// moved the format into ?format=jpg, so that is where to look first.
 func extOf(u string) string {
 	if i := strings.IndexByte(u, '?'); i >= 0 {
+		if q, err := url.ParseQuery(u[i+1:]); err == nil {
+			if f := q.Get("format"); f != "" {
+				return "." + f
+			}
+		}
 		u = u[:i]
 	}
 	if e := filepath.Ext(u); e != "" {

@@ -75,12 +75,16 @@ x download 20 -O ./media
 ```
 
 It writes each attachment under the output directory and prints the paths it
-wrote. To find media-heavy tweets first, then fetch them:
+wrote. `x media` does the same job for a whole profile, and lists the URLs
+first when you want to look before you fetch:
 
 ```bash
-x media nasa --guest -o jsonl | jq -r .id | head -5 \
-  | while read id; do x download "$id" -O ./media; done
+x media nasa -o url                    # what is there
+x media nasa --download ./media        # the bytes
 ```
+
+Both save the original upload by default. Pass `--size small` for X's re-encode
+when the full-resolution file is more than you need.
 
 ## Where to next
 
