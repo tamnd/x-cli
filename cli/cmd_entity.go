@@ -35,13 +35,14 @@ func newUserCmd() kit.Command {
 			if err != nil {
 				return err
 			}
+			a.target = ref
 			sp := a.progress("fetching profile")
 			u, err := a.engine().User(a.ctx(), ref, isID)
 			sp.stop()
 			if err != nil {
-				return mapErr(err)
+				return a.done(err)
 			}
-			return mapErr(a.emitOne(userRow(u)))
+			return a.done(a.emitOne(userRow(u)))
 		},
 	}
 }
@@ -62,8 +63,9 @@ func userListCmd(use, short string, run func(a *App, e *x.Engine, ref string, is
 			if err != nil {
 				return err
 			}
+			a.target = ref
 			e := a.engine()
-			return mapErr(a.streamUsers(func(emit func(*x.User) error) error {
+			return a.done(a.streamUsers(func(emit func(*x.User) error) error {
 				return run(a, e, ref, isID, emit)
 			}))
 		},
@@ -99,7 +101,8 @@ func newLikesCmd() kit.Command {
 			if err != nil {
 				return err
 			}
-			return mapErr(a.streamTweets(func(emit func(*x.Tweet) error) error {
+			a.target = ref
+			return a.done(a.streamTweets(func(emit func(*x.Tweet) error) error {
 				return a.engine().Likes(a.ctx(), ref, isID, a.limit, emit)
 			}))
 		},
@@ -117,7 +120,8 @@ func newRetweetersCmd() kit.Command {
 			if err != nil {
 				return err
 			}
-			return mapErr(a.streamUsers(func(emit func(*x.User) error) error {
+			a.target = id
+			return a.done(a.streamUsers(func(emit func(*x.User) error) error {
 				return a.engine().Retweeters(a.ctx(), id, a.limit, emit)
 			}))
 		},
@@ -135,7 +139,8 @@ func newLikersCmd() kit.Command {
 			if err != nil {
 				return err
 			}
-			return mapErr(a.streamUsers(func(emit func(*x.User) error) error {
+			a.target = id
+			return a.done(a.streamUsers(func(emit func(*x.User) error) error {
 				return a.engine().Likers(a.ctx(), id, a.limit, emit)
 			}))
 		},

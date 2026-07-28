@@ -61,6 +61,9 @@ func TweetByID(ctx context.Context, c *Client, id string) (*Tweet, error) {
 		url.QueryEscape(id), syndicationToken(id))
 	b, err := c.Do(ctx, Req{URL: u, Endpoint: "syndication.tweet", CacheTTL: tweetTTL(id)})
 	if err != nil {
+		if nf := asNotFound(err, "tweet", id); nf != nil {
+			return nil, nf
+		}
 		return nil, err
 	}
 	var raw synTweet
