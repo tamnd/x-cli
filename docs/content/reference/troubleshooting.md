@@ -9,23 +9,30 @@ what to do. This page maps the common ones to a fix.
 
 ## Endpoints the guest tier cannot reach
 
-X denies a guest token (Tier 1) on several endpoints. Under `--guest` they come
-back as not-found even though the request was well-formed. These need your own
-session instead:
+X denies a guest token (Tier 1) on almost everything. Under `--guest` the denied
+calls come back 404 with an empty body even though the request was well-formed,
+which is how X says no to a credential it does not accept.
 
-- `replies`
-- `media`
-- `thread`
-- `search` (on some accounts and windows)
-- `followers`
+Measured on 2026-07-28, running each command under `--tier guest`, a guest token
+reaches two operations and no others:
 
-If one of these returns nothing or not-found under `--guest`, import your
-session and run it again:
+- `x user`, the profile read
+- `x timeline`, the deeper walk back through an account
+
+Everything else on the GraphQL surface was denied: the profile media tab,
+`search` and the commands built on it (`counts`, `quotes`, `mentions`),
+`followers`, `following`, `likers`, `retweeters`, `likes`, `list`, and the
+conversation call behind `thread`. Those need your own session:
 
 ```bash
 x auth import --auth-token <auth_token> --ct0 <ct0>
-x replies nasa
+x followers nasa
 ```
+
+`thread` and `replies` are the exception that needs nothing. They stopped going
+through GraphQL: the conversation above a tweet comes off the syndication
+endpoint and the replies below it off the status page, so both work at Tier 0
+with no credential at all.
 
 ## Needs auth (exit 4)
 
@@ -35,8 +42,8 @@ message names the tier. Two fixes, depending on which it asks for:
 - It wants the **guest** tier: add `--guest`.
 - It wants a **session**: run `x auth import` once, then re-run the command.
 
-Reads like `search`, `followers`, and `likes` want guest-or-session; `home` and
-`bookmarks` always want a session.
+Reads like `search`, `followers`, and `likes` want a session, and so do `home`
+and `bookmarks`. `--guest` only ever helps `x timeline`.
 
 ## Rate-limited (exit 5)
 

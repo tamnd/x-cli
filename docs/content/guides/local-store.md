@@ -15,8 +15,8 @@ walk into it, and a few commands inspect and export the result.
 side effect, so a live walk doubles as a crawl:
 
 ```bash
-x discover nasa --follow network --depth 2 --guest --store
-x discover 1234567890 --follow all --guest --store
+x discover nasa --follow network --depth 2 --store
+x discover 1234567890 --follow all --store
 ```
 
 See [graph discovery](/guides/graph-discovery/) for the full edge and preset
@@ -27,7 +27,7 @@ the store; `--store` and `x crawl` are what fill it.
 
 ```bash
 x crawl nasa --depth 1 --max 200
-x crawl nasa jack --depth 2 --max 1000 --guest
+x crawl nasa jack --depth 2 --max 1000
 x crawl 1234567890 --follow thread --depth 2
 ```
 
@@ -35,8 +35,8 @@ x crawl 1234567890 --follow thread --depth 2
 more seeds (tweets or users), walks the graph breadth-first, and writes every
 node and edge it reaches, marking the frontier in the queue as it goes. The
 `--follow`, `--depth`, and `--fanout` knobs are the same as discover; `--max`
-stops after that many stored nodes (default `200`). Add `--guest` or a session to
-follow the engagement and network edges and to page past the syndication window.
+stops after that many stored nodes (default `200`). The engagement and network
+edges need your session; `--guest` only pages past the syndication window.
 
 ## The queue
 

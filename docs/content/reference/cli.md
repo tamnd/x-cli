@@ -25,16 +25,16 @@ map. A `<ref>` is a tweet id, status URL, or anything x can resolve to a tweet; 
 | `embed <ref>` | Print a tweet's oEmbed blockquote, verbatim | |
 | `thread <ref>` | A conversation thread around a tweet | (Tier 0) |
 | `poll <ref>` | A tweet's poll options and tallies | |
-| `search <query>` | Search tweets (needs `--guest` or session) | `--product` |
-| `counts <query>` | Per-day tweet counts for a search | `--product` |
-| `quotes <ref>` | Quote tweets of a tweet (search-backed) | |
-| `mentions <user>` | Tweets mentioning a user (search-backed) | |
-| `followers <user>` | Accounts following a user (needs `--guest` or session) | `--id` |
-| `following <user>` | Accounts a user follows (needs `--guest` or session) | `--id` |
-| `likers <ref>` | Accounts that liked a tweet (needs `--guest` or session) | |
-| `retweeters <ref>` | Accounts that retweeted a tweet (needs `--guest` or session) | |
-| `likes <user>` | Tweets a user has liked (needs `--guest` or session) | `--id` |
-| `list <list-id>` | Tweets in an X List (needs `--guest` or session) | |
+| `search <query>` | Search tweets (session) | `--product` |
+| `counts <query>` | Per-day tweet counts for a search (session) | `--product` |
+| `quotes <ref>` | Quote tweets of a tweet (search-backed, session) | |
+| `mentions <user>` | Tweets mentioning a user (search-backed, session) | |
+| `followers <user>` | Accounts following a user (session) | `--id` |
+| `following <user>` | Accounts a user follows (session) | `--id` |
+| `likers <ref>` | Accounts that liked a tweet (session) | |
+| `retweeters <ref>` | Accounts that retweeted a tweet (session) | |
+| `likes <user>` | Tweets a user has liked (session) | `--id` |
+| `list <list-id>` | Tweets in an X List (session) | |
 | `home` | Your reverse-chron home timeline (session) | |
 | `bookmarks` | Your bookmarks (session) | |
 | `trends [woeid]` | What is trending in a place, worldwide by default | |
@@ -80,7 +80,7 @@ list, `--depth` is how many hops to follow (default `1`), and `--fanout` caps
 neighbors per edge (default `25`). `discover` streams nodes and stops at `-n`
 (default `500`); add `--store` to also persist them. `crawl` always persists and
 stops at `--max` (default `200`). The store is a fixed `x.db` under `--data-dir`.
-Engagement and network edges need `--guest` or a session. See
+Engagement and network edges need a session. See
 [graph discovery](/guides/graph-discovery/).
 
 ## Meta

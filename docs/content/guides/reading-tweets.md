@@ -4,8 +4,9 @@ description: "Single tweets, timelines, replies, media, threads, polls, profiles
 weight: 10
 ---
 
-Most reading on X is free and needs no auth. Some of it needs a guest token
-(`--guest`), and a few endpoints X reserves for a real session. This guide walks
+Most reading on X is free and needs no auth. A guest token (`--guest`) buys one
+more thing, the deeper timeline walk, and the rest of the GraphQL surface X
+reserves for a real session. This guide walks
 the read commands and marks the tier each needs.
 
 A `<ref>` anywhere below is a tweet id (`20`), a status URL, or anything x can
@@ -79,13 +80,13 @@ x timeline nasa --guest -n 2000 -o jsonl > nasa.jsonl
 ```bash
 x media 2081860978694594863            # the pictures on one tweet
 x media nasa                           # the media on a user's recent tweets
-x media nasa --tab --guest             # the profile's media tab, all of it
+x media nasa --tab                     # the profile's media tab, all of it
 x media nasa --download ./out          # the bytes, not the records
 ```
 
 `x media` takes a tweet or a profile. A tweet is answered at tier 0, and so is
 the recent window of a profile; `--tab` reads X's own index of every post with a
-picture in it, which is a GraphQL operation and needs `--guest` or your session.
+picture in it, which is a GraphQL operation X now answers only for a session.
 
 `--size` is `thumb|small|medium|large|orig` and defaults to `orig`, because a
 photo URL carries its size in it and the point of downloading a picture is to
@@ -120,7 +121,7 @@ x mentions nasa               # tweets mentioning a user
 ```
 
 Both are search-backed: x runs a query under the hood, so they need a tier that
-can search, which means `--guest` or a session.
+can search, and search is session-only. `--guest` is refused.
 
 ## Trends and places
 
@@ -153,9 +154,9 @@ cuts the budget from 180 requests per fifteen minutes to 15.
 | `tweet`, `user`, `poll` | yes | yes | yes |
 | `timeline` | recent window | deeper | deeper |
 | `replies` | what the page renders | same, plus the user reading | the whole tree |
-| `media` | no | denied by X | yes |
+| `media` | a tweet, and a recent window | same | the media tab too |
 | `thread` | ancestors, plus what the page renders | same | the whole tree |
-| `quotes`, `mentions` | no | yes | yes |
+| `quotes`, `mentions` | no | denied by X | yes |
 | `trends`, `places` | yes | same read | same read |
 
 When a command needs a tier you have not enabled, x exits with code `4`

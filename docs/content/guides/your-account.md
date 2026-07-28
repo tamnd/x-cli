@@ -48,8 +48,8 @@ x bookmarks                          # your saved bookmarks
 ```
 
 `home` and `bookmarks` are session-only by nature: they are your account's own
-views. The rest also work with the opt-in guest tier for shallow windows, but a
-session pages deeper and resolves more.
+views. The rest are session-only by X's choice: a guest token is refused on all
+of them, and only `x timeline` still gets anything extra out of `--guest`.
 
 ## Read-only by design
 

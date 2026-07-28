@@ -37,7 +37,7 @@ heading from `list`, with `--no-header`.
 
 ```bash
 x timeline nasa --fields id,text
-x following nasa --guest --fields username,name -o csv
+x following nasa --fields username,name -o csv
 ```
 
 The field names are the JSON keys of a row (see the template section for how to
@@ -64,8 +64,8 @@ keys for a command, run it once with `-o json` and read the structure.
 JSONL is the natural bridge to `jq`:
 
 ```bash
-x search "from:nasa" --guest -o jsonl | jq -r .id
-x followers nasa --guest -o jsonl | jq -r 'select(.metrics.followers > 1000) | .username'
+x search "from:nasa" -o jsonl | jq -r .id
+x followers nasa -o jsonl | jq -r 'select(.metrics.followers > 1000) | .username'
 ```
 
 ## IDs are strings
@@ -87,7 +87,7 @@ string as-is.
 
 ```bash
 x timeline nasa --guest -n 100   # at most 100 tweets
-x followers nasa --guest -n 0    # everything the tier will return
+x followers nasa -n 0            # everything the tier will return
 ```
 
 x pages under the hood until it has enough rows or the source runs out, honoring
