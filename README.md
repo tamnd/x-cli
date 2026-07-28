@@ -91,9 +91,11 @@ Tier 0 needs nothing, `g` needs `--guest`, `s` needs a session.
 | `x crawl <seed>...` | breadth-first crawl into the local store | 0 |
 | `x query <sql>` | query what you have collected | local |
 
-`x serve` exposes every read over HTTP as NDJSON and `x mcp` exposes the same
-set as MCP tools. See the [CLI reference](https://x-cli.tamnd.com/reference/cli/)
-for the full surface and every flag.
+`x serve` exposes the reads over HTTP as NDJSON, one route each under `/v1/`, and
+`x mcp` exposes the same 24 as MCP tools for an agent. Both take the global
+flags, so the tier you serve at is the one you pass. See the
+[CLI reference](https://x-cli.tamnd.com/reference/cli/) for the full surface and
+every flag.
 
 ## Output
 

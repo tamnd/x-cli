@@ -190,9 +190,19 @@ are for.
 | `version` | Print version info | |
 | `completion <shell>` | Generate a shell completion script | |
 
-`serve` exposes every read over HTTP as NDJSON, and `mcp` exposes the same set
-as MCP tools for an agent. Both reuse the command surface above with no extra
-configuration.
+`serve` exposes the reads over HTTP as NDJSON, one route each under `/v1/`, and
+`mcp` exposes the same set as MCP tools for an agent. Both take the global flags,
+so `x serve --guest` and `x mcp --tier session` serve at that tier and nothing
+else needs configuring. `x mcp` says how many tools it registered on stderr
+before it blocks, because a server waiting for JSON-RPC on stdin is otherwise
+indistinguishable from a hang.
+
+They carry the reads and not the whole command line: 24 of the commands above,
+which is everything that takes a reference and answers with records. `get`,
+`classify`, `crawl`, `discover`, `export`, `rdf`, `db`, `auth`, and the rest of
+the local-store and session commands stay on the command line, because a walk
+that writes to your disk and a command that saves your cookies are not things to
+hand a network port.
 
 ## Global flags
 

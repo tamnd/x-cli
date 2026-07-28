@@ -9,6 +9,8 @@ import (
 	"strconv"
 	"strings"
 	"time"
+
+	"github.com/tamnd/any-cli/kit/errs"
 )
 
 // trends.go is surface 5, the two routes left over from the REST v1.1 API
@@ -317,4 +319,70 @@ func appHeaders() http.Header {
 	h.Set("Authorization", "Bearer "+bearerForHeader())
 	h.Set("Accept", "*/*")
 	return h
+}
+
+// ResolveWOEID takes the number, and also takes a place name, because
+// `x trends tokyo` is what somebody who has just read `x places` will type and
+// making them paste the digits back is a small unkindness. The name goes through
+// the directory, which x caches for a week, so it costs one request ever.
+//
+// An ambiguous name is a usage error naming the candidates rather than a pick.
+// "springfield" is eight towns and choosing one for the user would be the tool
+// answering a question it was not asked.
+//
+// It lives on the engine rather than in the command because the HTTP and MCP
+// surfaces take the same argument, and a place name that resolves on the command
+// line and not over MCP would be the same tool disagreeing with itself.
+func (e *Engine) ResolveWOEID(ctx context.Context, s string) (int64, error) {
+	s = strings.TrimSpace(s)
+	if s == "" {
+		return WorldwideWOEID, nil
+	}
+	if n, err := strconv.ParseInt(s, 10, 64); err == nil {
+		if n <= 0 {
+			return 0, errs.Usage("a woeid is a positive number, and %q is not one; run `x places` to find one", s)
+		}
+		return n, nil
+	}
+	places, err := e.Places(ctx, s, "", "", 0)
+	if err != nil {
+		return 0, err
+	}
+	// An exact name beats a substring, so "york" is York and not New York, and
+	// a country beats a town of the same name.
+	var exact []*Place
+	for _, p := range places {
+		if strings.EqualFold(p.Name, s) {
+			exact = append(exact, p)
+		}
+	}
+	if len(exact) > 0 {
+		places = exact
+	}
+	switch {
+	case len(places) == 0:
+		return 0, errs.Usage("X has no trends for %q; run `x places` to see the ones it has", s)
+	case len(places) == 1:
+		return places[0].WOEID, nil
+	}
+	return 0, errs.Usage("%q is %d places (%s); pass the woeid you meant, or run `x places %s`",
+		s, len(places), placeChoices(places), s)
+}
+
+// placeChoices renders the candidates for the ambiguity message, capped, because
+// a query matching forty places produces a message nobody reads to the end.
+func placeChoices(places []*Place) string {
+	const max = 4
+	var parts []string
+	for _, p := range places[:min(max, len(places))] {
+		label := p.Name
+		if p.Country != "" && !strings.EqualFold(p.Country, p.Name) {
+			label += ", " + p.Country
+		}
+		parts = append(parts, label+" "+strconv.FormatInt(p.WOEID, 10))
+	}
+	if len(places) > max {
+		parts = append(parts, "and "+strconv.Itoa(len(places)-max)+" more")
+	}
+	return strings.Join(parts, "; ")
 }
