@@ -84,6 +84,7 @@ func xConfig(kc kit.Config) x.Config {
 		Rate:       kc.Rate,
 		Retries:    kc.Retries,
 		Timeout:    kc.Timeout,
+		Verbose:    kc.Verbose,
 		AllowGuest: flagGuest,
 		Tier:       flagTier,
 		QueryIDs:   map[string]string{},
