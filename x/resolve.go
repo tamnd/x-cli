@@ -163,9 +163,37 @@ func (e *Engine) TimelineFromWeb(ctx context.Context, handle string) ([]*Tweet, 
 	if err != nil {
 		return nil, err
 	}
-	posts := p.Postings()
+	posts := byAuthor(p.Postings(), handle)
 	markSample(posts)
 	return posts, nil
+}
+
+// byAuthor keeps the tweets an account wrote and drops the rest.
+//
+// The profile page renders a reply with the tweet it answers, so its JSON-LD
+// carries both, and Postings returns both because on a status page that is
+// exactly right: there the other authors are the replies and they are the point.
+// On a profile they are context. Reading @jack's timeline at tier 0 and getting
+// @callebtc back is not a thin answer, it is a wrong one, and it was wrong twice
+// over because each borrowed row also spent one of the caller's -n.
+//
+// Live at tier 0 on 2026-07-28, two of the first six rows of @jack were somebody
+// else's tweets, which is how this was found.
+//
+// A repost is the case this cannot get right: the page shows it under the
+// original author and the JSON-LD does not say it was reposted, so it looks the
+// same as a reply parent and goes out with it. Dropping a repost is the smaller
+// error. The alternative is presenting it as an account's own posting, and this
+// tool exists to not do that.
+func byAuthor(ts []*Tweet, handle string) []*Tweet {
+	want := handleID(handle)
+	var out []*Tweet
+	for _, t := range ts {
+		if t.Author == nil || t.Author.ID == want {
+			out = append(out, t)
+		}
+	}
+	return out
 }
 
 // User resolves a profile.

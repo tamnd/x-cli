@@ -228,6 +228,55 @@ func TestPostingsFromProfilePage(t *testing.T) {
 	}
 }
 
+// Four of @jack's nine postings are somebody else's tweets: the page renders a
+// reply with the tweet it answers, and the JSON-LD carries both. Postings is
+// right to return them, because on a status page the other authors are the
+// replies and they are the answer. A timeline is not a status page, and
+// TimelineFromWeb filters.
+//
+// This is the fixture half of a defect found live: `x timeline jack --tier 0`
+// listed @callebtc and @wesbillman among @jack's tweets, and the bytes that
+// prove it were already committed here.
+func TestAProfileTimelineIsOnlyTheAccountsOwnTweets(t *testing.T) {
+	p, err := ParsePage(UserURL("jack"), capture(t, "profile_jack.html.gz"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	all := p.Postings()
+	mine := byAuthor(p.Postings(), "jack")
+	if len(mine) == len(all) {
+		t.Fatal("the fixture no longer carries a reply parent, so this test proves nothing; recapture a profile page with a reply on it")
+	}
+	if len(mine) != 5 {
+		t.Errorf("got %d of @jack's own tweets out of %d postings, want 5", len(mine), len(all))
+	}
+	for _, tw := range mine {
+		if tw.Author == nil || tw.Author.ID != "jack" {
+			t.Errorf("tweet %s is by %+v, not @jack", tw.ID, tw.Author)
+		}
+	}
+	// The handle is matched the way every id in x is: lowercased.
+	if len(byAuthor(p.Postings(), "JACK")) != len(mine) {
+		t.Error("the filter is case sensitive, and a handle's casing is its owner's business")
+	}
+}
+
+// NASA does not reply on its profile, so every posting is its own. It is the
+// case that says the filter is a filter and not a sieve.
+func TestAProfileWithNoRepliesKeepsEveryPosting(t *testing.T) {
+	p, err := ParsePage(UserURL("nasa"), capture(t, "profile_nasa.html.gz"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	all := p.Postings()
+	if len(all) == 0 {
+		t.Fatal("no postings on the NASA profile capture")
+	}
+	if got := byAuthor(p.Postings(), "nasa"); len(got) != len(all) {
+		t.Errorf("kept %d of %d of @nasa's own postings", len(got), len(all))
+	}
+}
+
 // The NASA page is the one that caught the counter bug. Its Relay store has no
 // user record at all, so every field here comes from the microdata, and two of
 // the three counters sit under agentInteractionStatistic rather than
