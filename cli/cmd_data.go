@@ -15,12 +15,13 @@ import (
 // stop even when the user does not pass -n. `x crawl` has its own --max default.
 const defaultDiscoverBudget = 500
 
-// dataCommands returns the local-store workflow: discover, crawl, queue, db,
-// export. The store lives at a fixed path under the data dir (App.StorePath); it
+// dataCommands returns the graph and local-store workflow: edges, discover,
+// crawl, queue, db, export. The store lives at a fixed path under the data dir (App.StorePath); it
 // is not the generic kit --db sink.
 func dataCommands() []kit.Command {
 	return []kit.Command{
 		newDiscoverCmd(),
+		newEdgesCmd(),
 		newCrawlCmd(),
 		newQueueCmd(),
 		newDBCmd(),
@@ -41,9 +42,9 @@ func parseSeeds(args []string) ([]x.Seed, error) {
 	return seeds, nil
 }
 
-// followHelp is the shared --follow flag help, drawn from the edge catalogue so
-// the names a user can type live in one place (x.EdgeHelp).
-var followHelp = "edges to follow: " + x.EdgeHelp()
+// followHelp is the shared --follow flag help, drawn from the hop catalogue so
+// the names a user can type live in one place (x.HopHelp).
+var followHelp = "hops to follow: " + x.HopHelp()
 
 func newDiscoverCmd() kit.Command {
 	var depth, fanout int
@@ -56,19 +57,19 @@ func newDiscoverCmd() kit.Command {
 		Long: "discover starts at one or more tweets or users and follows their links\n" +
 			"outward, hop by hop, streaming every node it reaches. Choose what to follow\n" +
 			"with --follow (a preset like content/thread/engagement/network, or a list of\n" +
-			"edges), how far with --depth, and how wide per edge with --fanout. The walk\n" +
-			"stays on Tier 0 by default; engagement and network edges need a session.\n" +
+			"hops), how far with --depth, and how wide per hop with --fanout. The walk\n" +
+			"stays on Tier 0 by default; engagement and network hops need a session.\n" +
 			"Add --store to also persist nodes and edges into the local store.",
 		Args: kit.MinimumNArgs(1),
 		Flags: func(f *kit.FlagSet) {
 			f.IntVar(&depth, "depth", 1, "how many hops to follow from each seed")
-			f.IntVar(&fanout, "fanout", 25, "max neighbors to pull per edge (0 = unlimited)")
+			f.IntVar(&fanout, "fanout", 25, "max neighbors to pull per hop (0 = unlimited)")
 			f.StringVar(&follow, "follow", "content", followHelp)
 			f.BoolVar(&store, "store", false, "also persist discovered nodes and edges into the local store")
 		},
 		Run: func(ctx context.Context, args []string) error {
 			a := appFromCtx(ctx)
-			edges, err := x.ParseEdges(follow)
+			hops, err := x.ParseHops(follow)
 			if err != nil {
 				return errs.Usage("%s", err.Error())
 			}
@@ -98,11 +99,11 @@ func newDiscoverCmd() kit.Command {
 				Depth:  depth,
 				Max:    budget,
 				Fanout: fanout,
-				Edges:  edges,
+				Hops:   hops,
 				Note:   func(s string) { sp.stop(); a.logf("note: %s", s) },
 			}
 			if st != nil {
-				opts.OnEdge = func(src, dst string, e x.Edge) { _ = st.UpsertEdge(src, dst, string(e)) }
+				opts.OnHop = func(src, dst string, e x.Hop) { _ = st.UpsertEdge(src, dst, string(e)) }
 			}
 			n := 0
 			err = a.engine().Walk(a.ctx(), seeds, opts, func(nd *x.Node) error {
@@ -146,12 +147,12 @@ func newCrawlCmd() kit.Command {
 		Flags: func(f *kit.FlagSet) {
 			f.IntVar(&depth, "depth", 1, "how many hops to follow from each seed")
 			f.IntVar(&max, "max", 200, "stop after storing this many nodes")
-			f.IntVar(&fanout, "fanout", 25, "max neighbors to pull per edge (0 = unlimited)")
+			f.IntVar(&fanout, "fanout", 25, "max neighbors to pull per hop (0 = unlimited)")
 			f.StringVar(&follow, "follow", "content", followHelp)
 		},
 		Run: func(ctx context.Context, args []string) error {
 			a := appFromCtx(ctx)
-			edges, err := x.ParseEdges(follow)
+			hops, err := x.ParseHops(follow)
 			if err != nil {
 				return errs.Usage("%s", err.Error())
 			}
@@ -169,9 +170,9 @@ func newCrawlCmd() kit.Command {
 				Depth:  depth,
 				Max:    max,
 				Fanout: fanout,
-				Edges:  edges,
+				Hops:   hops,
 				Note:   func(s string) { a.logf("note: %s", s) },
-				OnEdge: func(src, dst string, e x.Edge) {
+				OnHop: func(src, dst string, e x.Hop) {
 					_ = st.UpsertEdge(src, dst, string(e))
 					_ = st.Enqueue(dst, string(e.Target()), 0)
 				},

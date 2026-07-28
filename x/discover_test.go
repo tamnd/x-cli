@@ -11,50 +11,50 @@ import (
 // in-memory graph exercises the breadth-first traversal, the edge vocabulary,
 // the budgets, and the graceful Tier-0 degradation with no network.
 
-func TestParseEdges(t *testing.T) {
-	if got := DefaultEdges(); len(got) != 6 || !got.Has(EdgeAuthor) || got.Has(EdgeLiker) {
-		t.Fatalf("DefaultEdges = %v, want the content preset", got)
+func TestParseHops(t *testing.T) {
+	if got := DefaultHops(); len(got) != 6 || !got.Has(HopAuthor) || got.Has(HopLiker) {
+		t.Fatalf("DefaultHops = %v, want the content preset", got)
 	}
 	cases := []struct {
 		spec string
-		want []Edge
-		none []Edge
+		want []Hop
+		none []Hop
 	}{
-		{"", []Edge{EdgeAuthor, EdgeMention, EdgePinned}, []Edge{EdgeLiker}},
-		{"content", []Edge{EdgeAuthor, EdgeQuoted}, []Edge{EdgeFollowing}},
-		{"thread", []Edge{EdgeReplies, EdgeReply}, []Edge{EdgeFollowers}},
-		{"engagement", []Edge{EdgeLiker, EdgeRetweeter, EdgeQuotedBy}, []Edge{EdgeAuthor}},
-		{"network", []Edge{EdgeFollowing, EdgeFollowers}, []Edge{EdgeLiker}},
-		{"author,liker", []Edge{EdgeAuthor, EdgeLiker}, []Edge{EdgeQuoted}},
-		{"all", allEdges, nil},
+		{"", []Hop{HopAuthor, HopMention, HopPinned}, []Hop{HopLiker}},
+		{"content", []Hop{HopAuthor, HopQuoted}, []Hop{HopFollowing}},
+		{"thread", []Hop{HopReplies, HopReply}, []Hop{HopFollowers}},
+		{"engagement", []Hop{HopLiker, HopRetweeter, HopQuotedBy}, []Hop{HopAuthor}},
+		{"network", []Hop{HopFollowing, HopFollowers}, []Hop{HopLiker}},
+		{"author,liker", []Hop{HopAuthor, HopLiker}, []Hop{HopQuoted}},
+		{"all", allHops, nil},
 	}
 	for _, c := range cases {
-		set, err := ParseEdges(c.spec)
+		set, err := ParseHops(c.spec)
 		if err != nil {
-			t.Fatalf("ParseEdges(%q): %v", c.spec, err)
+			t.Fatalf("ParseHops(%q): %v", c.spec, err)
 		}
 		for _, e := range c.want {
 			if !set.Has(e) {
-				t.Errorf("ParseEdges(%q) missing %s", c.spec, e)
+				t.Errorf("ParseHops(%q) missing %s", c.spec, e)
 			}
 		}
 		for _, e := range c.none {
 			if set.Has(e) {
-				t.Errorf("ParseEdges(%q) should not contain %s", c.spec, e)
+				t.Errorf("ParseHops(%q) should not contain %s", c.spec, e)
 			}
 		}
 	}
-	if _, err := ParseEdges("bogus"); err == nil {
-		t.Error("ParseEdges(bogus) = nil error, want a usage error")
+	if _, err := ParseHops("bogus"); err == nil {
+		t.Error("ParseHops(bogus) = nil error, want a usage error")
 	}
 }
 
-func TestEdgeMeta(t *testing.T) {
-	if EdgeAuthor.Target() != KindUser || EdgeQuoted.Target() != KindTweet {
-		t.Error("Edge.Target classified wrong")
+func TestHopMeta(t *testing.T) {
+	if HopAuthor.Target() != KindUser || HopQuoted.Target() != KindTweet {
+		t.Error("Hop.Target classified wrong")
 	}
-	if !EdgeLiker.needsSession() || EdgeAuthor.needsSession() || EdgeReplies.needsSession() {
-		t.Error("Edge.needsSession classified wrong")
+	if !HopLiker.needsSession() || HopAuthor.needsSession() || HopReplies.needsSession() {
+		t.Error("Hop.needsSession classified wrong")
 	}
 }
 
@@ -198,7 +198,7 @@ func collect(t *testing.T, g grapher, seeds []Seed, opts WalkOptions) ([]*Node, 
 	t.Helper()
 	var nodes []*Node
 	var edges []string
-	opts.OnEdge = func(src, dst string, e Edge) { edges = append(edges, src+" -"+string(e)+"-> "+dst) }
+	opts.OnHop = func(src, dst string, e Hop) { edges = append(edges, src+" -"+string(e)+"-> "+dst) }
 	err := NewWalker(g).Walk(context.Background(), seeds, opts, func(n *Node) error {
 		nodes = append(nodes, n)
 		return nil
@@ -217,7 +217,7 @@ func keys(nodes []*Node) []string {
 func TestWalkContent(t *testing.T) {
 	g := sampleGraph(true)
 	seeds := []Seed{{Kind: KindTweet, Ref: "1"}}
-	nodes, edges, err := collect(t, g, seeds, WalkOptions{Depth: 1, Edges: DefaultEdges()})
+	nodes, edges, err := collect(t, g, seeds, WalkOptions{Depth: 1, Hops: DefaultHops()})
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -227,26 +227,26 @@ func TestWalkContent(t *testing.T) {
 	if strings.Join(got, ",") != strings.Join(want, ",") {
 		t.Fatalf("nodes = %v, want %v", got, want)
 	}
-	if nodes[1].Via != EdgeAuthor || nodes[1].Parent != "1" {
+	if nodes[1].Via != HopAuthor || nodes[1].Parent != "1" {
 		t.Errorf("author node = via %q parent %q, want author/1", nodes[1].Via, nodes[1].Parent)
 	}
-	wantEdges := map[string]bool{
+	wantHops := map[string]bool{
 		"1 -author-> @alice": true,
 		"1 -quote-> 2":       true,
 		"1 -mention-> @bob":  true,
 	}
 	for _, e := range edges {
-		delete(wantEdges, e)
+		delete(wantHops, e)
 	}
-	if len(wantEdges) != 0 {
-		t.Errorf("missing edges %v (got %v)", wantEdges, edges)
+	if len(wantHops) != 0 {
+		t.Errorf("missing edges %v (got %v)", wantHops, edges)
 	}
 }
 
 func TestWalkBudget(t *testing.T) {
 	g := sampleGraph(true)
 	nodes, _, err := collect(t, g, []Seed{{Kind: KindTweet, Ref: "1"}},
-		WalkOptions{Depth: 3, Max: 2, Edges: DefaultEdges()})
+		WalkOptions{Depth: 3, Max: 2, Hops: DefaultHops()})
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -260,7 +260,7 @@ func TestWalkDedup(t *testing.T) {
 	// through the author's pin. It must be visited exactly once.
 	g := sampleGraph(true)
 	nodes, _, err := collect(t, g, []Seed{{Kind: KindTweet, Ref: "1"}},
-		WalkOptions{Depth: 2, Edges: newEdgeSet(EdgeAuthor, EdgePinned)})
+		WalkOptions{Depth: 2, Hops: newHopSet(HopAuthor, HopPinned)})
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -278,9 +278,9 @@ func TestWalkDegradeToEmpty(t *testing.T) {
 	// left to follow, which is an actionable need-auth error, not silence.
 	g := sampleGraph(false)
 	var notes []string
-	set, _ := ParseEdges("engagement")
+	set, _ := ParseHops("engagement")
 	_, _, err := collect(t, g, []Seed{{Kind: KindTweet, Ref: "1"}}, WalkOptions{
-		Depth: 1, Edges: set, Note: func(s string) { notes = append(notes, s) },
+		Depth: 1, Hops: set, Note: func(s string) { notes = append(notes, s) },
 	})
 	var na *NeedAuthError
 	if !errors.As(err, &na) {
@@ -296,9 +296,9 @@ func TestWalkDegradePartial(t *testing.T) {
 	// GraphQL ones are dropped with a note; the walk produces what it can.
 	g := sampleGraph(false)
 	var notes []string
-	set, _ := ParseEdges("all")
+	set, _ := ParseHops("all")
 	nodes, _, err := collect(t, g, []Seed{{Kind: KindTweet, Ref: "1"}}, WalkOptions{
-		Depth: 1, Edges: set, Note: func(s string) { notes = append(notes, s) },
+		Depth: 1, Hops: set, Note: func(s string) { notes = append(notes, s) },
 	})
 	if err != nil {
 		t.Fatal(err)
@@ -324,7 +324,7 @@ func TestWalkSeedNotFound(t *testing.T) {
 func TestWalkUserSeedNetwork(t *testing.T) {
 	g := sampleGraph(true)
 	nodes, edges, err := collect(t, g, []Seed{{Kind: KindUser, Ref: "alice"}},
-		WalkOptions{Depth: 1, Edges: newEdgeSet(EdgeFollowing, EdgePinned)})
+		WalkOptions{Depth: 1, Hops: newHopSet(HopFollowing, HopPinned)})
 	if err != nil {
 		t.Fatal(err)
 	}

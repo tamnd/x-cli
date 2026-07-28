@@ -85,6 +85,7 @@ Tier 0 needs nothing, `g` needs `--guest`, `s` needs a session.
 | `x space <ref>` | an audio Space: hosts, speakers, times, audience | g |
 | `x embed <ref>` | a tweet's oEmbed blockquote, verbatim | 0 |
 | `x download <ref>` | a tweet's media to disk | 0 |
+| `x edges <ref>...` | the graph claims a record makes, one read and no walking | 0 |
 | `x crawl <seed>...` | breadth-first crawl into the local store | 0 |
 | `x db <query>` | query what you have collected | local |
 
