@@ -4,6 +4,7 @@ import (
 	"errors"
 	"strings"
 
+	"github.com/tamnd/any-cli/kit/render"
 	"github.com/tamnd/x-cli/x"
 )
 
@@ -39,10 +40,20 @@ func (a *App) streamTweets(run func(emit func(*x.Tweet) error) error) error {
 	if err != nil {
 		return err
 	}
+	err = a.streamInto(out, run)
+	if e := out.Flush(); e != nil && err == nil {
+		err = e
+	}
+	return err
+}
+
+// streamInto is the same thing against a renderer the caller owns and flushes.
+// x get reads several references in one run, and they belong in one document.
+func (a *App) streamInto(out *render.Renderer, run func(emit func(*x.Tweet) error) error) error {
 	sp := a.progress("fetching tweets")
 	defer sp.stop()
 	n := 0
-	err = run(func(t *x.Tweet) error {
+	err := run(func(t *x.Tweet) error {
 		if t == nil {
 			return nil
 		}
@@ -56,9 +67,6 @@ func (a *App) streamTweets(run func(emit func(*x.Tweet) error) error) error {
 		}
 		return nil
 	})
-	if e := out.Flush(); e != nil && err == nil {
-		err = e
-	}
 	if err != nil && !errors.Is(err, errStop) {
 		return err
 	}

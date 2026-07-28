@@ -2,19 +2,24 @@ package cli
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"io"
 	"os"
+	"path/filepath"
 	"sort"
 	"time"
 
 	"github.com/tamnd/any-cli/kit"
+	"github.com/tamnd/any-cli/kit/errs"
+	"github.com/tamnd/any-cli/kit/render"
 	"github.com/tamnd/x-cli/x"
 )
 
 // readCommands returns the tweet- and query-centric reads.
 func readCommands() []kit.Command {
 	return []kit.Command{
+		newGetCmd(),
 		newTweetCmd(),
 		newTimelineCmd(),
 		newRepliesCmd(),
@@ -106,55 +111,179 @@ func newRepliesCmd() kit.Command {
 	}
 }
 
+// newMediaCmd reads the pictures and video (spec 3003 doc 05, `x media`).
+//
+// It takes a tweet or a profile, because both are things people have in hand: a
+// link to one post whose photo they want, or an account whose pictures they
+// want. With --download it stops being a record command and becomes a byte one,
+// printing the paths it wrote.
+//
+// The size and the variant are decided here rather than taken from whatever URL
+// a plane happened to record, which is the whole point of x.MediaURL: a photo
+// URL carries its size in it, and the default has to be the original or a
+// download quietly saves a thumbnail.
 func newMediaCmd() kit.Command {
-	var byID bool
+	var byID, tab bool
+	var download, size, variant string
 	return kit.Command{
-		Use:   "media <user>",
-		Short: "Media attached to a user's tweets",
+		Use:   "media <ref>",
+		Short: "Media on a tweet, or on a user's tweets",
 		Args:  kit.ExactArgs(1),
+		Write: true, // --download writes files
 		Flags: func(f *kit.FlagSet) {
 			f.BoolVar(&byID, "id", false, "treat the argument as a numeric user id")
+			f.BoolVar(&tab, "tab", false, "read the profile's media tab (needs --guest or your session)")
+			f.StringVar(&download, "download", "", "save the bytes to this directory")
+			f.StringVar(&size, "size", x.DefaultMediaSize, "photo size: thumb|small|medium|large|orig")
+			f.StringVar(&variant, "variant", "", "video rendition, by resolution or bitrate (default: the best mp4)")
 		},
 		Run: func(ctx context.Context, args []string) error {
 			a := appFromCtx(ctx)
-			ref, isID, err := userRef(args[0], byID)
+			if download != "" {
+				if err := a.rawOutput("media --download"); err != nil {
+					return err
+				}
+			}
+			if err := x.CheckSize(size); err != nil {
+				return errs.Usage("%s", err.Error())
+			}
+			kind, ref, err := mediaRef(args[0], byID)
 			if err != nil {
 				return err
+			}
+			if tab && kind != x.KindUser {
+				return errs.Usage("--tab reads a profile's media tab, and %s is a tweet", args[0])
 			}
 			a.target = ref
-			out, err := a.out()
-			if err != nil {
-				return err
-			}
-			sp := a.progress("fetching media")
-			defer sp.stop()
-			n := 0
-			o := x.TimelineOpts{Media: true, Limit: a.limit}
-			err = a.engine().Timeline(a.ctx(), ref, isID, o, func(t *x.Tweet) error {
-				for _, m := range t.Media {
-					sp.stop()
-					if e := out.Emit(mediaRow(m)); e != nil {
-						return e
+
+			// One producer for the three shapes, so the download path and the
+			// record path read the same thing.
+			walk := func(emit func(*x.Tweet) error) error {
+				switch {
+				case kind == x.KindTweet:
+					t, err := a.engine().Tweet(a.ctx(), ref)
+					if err != nil {
+						return err
 					}
-					n++
-					if a.limit > 0 && n >= a.limit {
-						return errStop
-					}
+					return emit(t)
+				case tab:
+					return a.engine().MediaTab(a.ctx(), ref, byID, a.limit, emit)
+				default:
+					o := x.TimelineOpts{Media: true, Limit: a.limit}
+					return a.engine().Timeline(a.ctx(), ref, byID, o, emit)
 				}
-				return nil
-			})
-			if e := out.Flush(); e != nil && err == nil {
-				err = e
 			}
-			if err != nil && err != errStop {
-				return a.done(err)
+			if download != "" {
+				return mapErr(a.downloadMedia(walk, download, size, variant))
 			}
-			if n == 0 {
-				return a.done(errNoResults)
-			}
-			return nil
+			return a.done(a.streamMedia(walk, size, variant))
 		},
 	}
+}
+
+// mediaRef classifies the argument. --id is the escape hatch for a numeric user
+// id, which would otherwise read as a tweet id, because that is what a bare run
+// of digits means everywhere else in the tool.
+func mediaRef(arg string, byID bool) (kind, ref string, err error) {
+	if byID {
+		r, _, err := userRef(arg, true)
+		return x.KindUser, r, err
+	}
+	kind, ref, err = x.Classify(arg)
+	if err != nil {
+		return "", "", errs.Usage("%s", err.Error())
+	}
+	switch kind {
+	case x.KindTweet, x.KindUser:
+		return kind, ref, nil
+	}
+	return "", "", errs.Usage("media reads a tweet or a profile, and %s is a %s", arg, kind)
+}
+
+// streamMedia emits one record per media item, with the URL resolved to the
+// size and variant asked for.
+func (a *App) streamMedia(walk func(func(*x.Tweet) error) error, size, variant string) error {
+	out, err := a.out()
+	if err != nil {
+		return err
+	}
+	sp := a.progress("fetching media")
+	defer sp.stop()
+	n := 0
+	err = walk(func(t *x.Tweet) error {
+		for _, m := range t.Media {
+			u, err := x.MediaURL(m, size, variant)
+			if err != nil {
+				// One item that cannot answer the request, such as a photo in a
+				// tweet read with --variant, is not the whole read failing.
+				a.logf("warn: %s: %v", t.ID, err)
+				continue
+			}
+			sp.stop()
+			if e := out.Emit(mediaRow(m, u)); e != nil {
+				return e
+			}
+			n++
+			if a.limit > 0 && n >= a.limit {
+				return errStop
+			}
+		}
+		return nil
+	})
+	if e := out.Flush(); e != nil && err == nil {
+		err = e
+	}
+	if err != nil && !errors.Is(err, errStop) {
+		return err
+	}
+	if n == 0 {
+		return errNoResults
+	}
+	return nil
+}
+
+// downloadMedia saves the bytes and prints the path of each file, one per line.
+//
+// The paths are on stdout as plain lines rather than as records: the command
+// wrote bytes, and a list of files is what a shell wants back from it. Warnings
+// go to stderr, so one dead URL in a timeline does not abort the rest.
+func (a *App) downloadMedia(walk func(func(*x.Tweet) error) error, dir, size, variant string) error {
+	if err := os.MkdirAll(dir, 0o755); err != nil {
+		return err
+	}
+	sp := a.progress("downloading")
+	defer sp.stop()
+	n := 0
+	err := walk(func(t *x.Tweet) error {
+		for i, m := range t.Media {
+			u, err := x.MediaURL(m, size, variant)
+			if err != nil {
+				a.logf("warn: %s: %v", t.ID, err)
+				continue
+			}
+			dst := filepath.Join(dir, fmt.Sprintf("%s-%d%s", t.ID, i+1, extOf(u)))
+			if err := downloadFile(a.ctx(), u, dst); err != nil {
+				a.logf("warn: %s: %v", dst, err)
+				continue
+			}
+			n++
+			sp.stop()
+			if _, e := fmt.Fprintln(os.Stdout, dst); e != nil {
+				return e
+			}
+			if a.limit > 0 && n >= a.limit {
+				return errStop
+			}
+		}
+		return nil
+	})
+	if err != nil && !errors.Is(err, errStop) {
+		return err
+	}
+	if n == 0 {
+		return errNoResults
+	}
+	return nil
 }
 
 // newEmbedCmd prints the oEmbed blockquote (spec 3003 doc 02 section 6).
@@ -323,21 +452,30 @@ func newPollCmd() kit.Command {
 			if err != nil {
 				return a.done(err)
 			}
-			if t.Poll == nil || len(t.Poll.Options) == 0 {
-				return fmt.Errorf("tweet %s has no poll", id)
-			}
 			out, err := a.out()
 			if err != nil {
 				return err
 			}
-			for _, o := range t.Poll.Options {
-				if e := out.Emit(pollOptionRow(t.Poll, o)); e != nil {
-					return e
-				}
+			if err := emitPoll(out, t, id); err != nil {
+				return a.done(err)
 			}
 			return out.Flush()
 		},
 	}
+}
+
+// emitPoll renders a tweet's poll, one row per option. x poll and x get both
+// want it, and a tweet with no poll is the same answer either way.
+func emitPoll(out *render.Renderer, t *x.Tweet, id string) error {
+	if t.Poll == nil || len(t.Poll.Options) == 0 {
+		return fmt.Errorf("tweet %s has no poll", id)
+	}
+	for _, o := range t.Poll.Options {
+		if err := out.Emit(pollOptionRow(t.Poll, o)); err != nil {
+			return err
+		}
+	}
+	return nil
 }
 
 func newCountsCmd() kit.Command {

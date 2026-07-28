@@ -240,6 +240,21 @@ func (e *Engine) Timeline(ctx context.Context, ref string, isID bool, o Timeline
 	return e.g.UserTweets(ctx, uid, o, emit)
 }
 
+// MediaTab streams the profile's media tab.
+//
+// Timeline with Media set filters a timeline down to the tweets that carry
+// media, which is a different thing: the tier 0 window is the last hundred
+// tweets, so a profile that posts mostly text answers with almost nothing. The
+// media tab is X's own index of every post with a picture in it, back as far as
+// paging goes, and it is a GraphQL operation, so it costs a tier.
+func (e *Engine) MediaTab(ctx context.Context, ref string, isID bool, limit int, emit func(*Tweet) error) error {
+	uid, err := e.userID(ctx, ref, isID, "the media tab")
+	if err != nil {
+		return err
+	}
+	return e.g.UserTweets(ctx, uid, TimelineOpts{Media: true, Limit: limit}, emit)
+}
+
 // focalFirst moves the tweet the page is about to the front. The page renders
 // the replies before it, which is right for a page and wrong for a thread.
 func focalFirst(tweets []*Tweet, id string) []*Tweet {

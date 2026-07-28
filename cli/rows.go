@@ -73,19 +73,18 @@ func nodeRow(n *x.Node) Row {
 	}
 }
 
-func mediaRow(m x.Media) Row {
-	best := m.URL
-	if best == "" && len(m.Variants) > 0 {
-		best = m.Variants[len(m.Variants)-1].URL
-	}
+// mediaRow renders one media item. url is the fetchable address the caller
+// resolved with x.MediaURL, which is not always m.URL: a photo carries its size
+// in the URL and a video has no single one.
+func mediaRow(m x.Media, url string) Row {
 	return Row{
 		Cols:  []string{"type", "w", "h", "dur_ms", "alt", "url"},
-		Vals:  []string{m.Type, itoa(m.Width), itoa(m.Height), itoa(m.Duration), oneline(m.AltText), best},
-		Value: mediaValue{Media: m, URL: best},
+		Vals:  []string{m.Type, itoa(m.Width), itoa(m.Height), itoa(m.Duration), oneline(m.AltText), url},
+		Value: mediaValue{Media: m, URL: url},
 	}
 }
 
-// mediaValue carries a resolved best URL alongside the media for -o url/json.
+// mediaValue carries the resolved URL alongside the media for -o url/json.
 type mediaValue struct {
 	x.Media
 	URL string `json:"url"`
