@@ -31,6 +31,8 @@ func TestNoUnmodeledKeys(t *testing.T) {
 		stop []string
 	}{
 		{fixture: "s1_tweet_20.json.gz", at: whole, into: synTweet{}},
+		{fixture: "s3_oembed_20.json.gz", at: whole, into: oembedResp{}},
+		{fixture: "s3_oembed_media.json.gz", at: whole, into: oembedResp{}},
 		{fixture: "s4_user_nasa.json.gz", at: userResults, into: gqlUserResult{}},
 		{fixture: "s4_usertweets_nasa.json.gz", at: tweetResults, into: gqlTweetResult{},
 			stop: []string{"core.user_results.result", "quoted_status_result.result",

@@ -251,7 +251,7 @@ func (c Config) TierNum() int {
 		return 2
 	case "guest":
 		return 1
-	case "syndication", "web":
+	case "syndication", "web", "oembed":
 		return 0
 	}
 	switch {
