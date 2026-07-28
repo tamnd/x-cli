@@ -244,9 +244,25 @@ func (e *Engine) Timeline(ctx context.Context, ref string, isID bool, o Timeline
 	}
 	// Tier 0 is the whole answer when there is no GraphQL tier to fall through
 	// to, and it is the preferred answer when the caller asked for it by name.
-	tier0 := !e.canGraphQL() || e.cfg.Tier == "syndication"
+	//
+	// A replies-inclusive read is tier 0's whether the caller asked or not,
+	// because the guest tier answers it with nothing. UserTweetsAndReplies does
+	// not wall a guest token the way the rest of the operation list does; it
+	// returns 200 and `{"data":{"user":{"result":{"timeline":{}}}}}`, an empty
+	// envelope that reads as an account which has never replied to anybody. The
+	// syndication widget does carry replies: @jack's came back as 40 entries
+	// with 4 of them replies. So `x replies jack --guest` used to say "no
+	// results" where `x replies jack` answered, and adding a credential should
+	// not cost you the answer.
+	tier0 := !e.canGraphQL() || e.cfg.Tier == "syndication" || (o.Replies && !e.cfg.HasSession())
 	if tier0 || e.cfg.Tier == "" {
 		if isID {
+			if o.Replies && !e.cfg.HasSession() {
+				// Tier 0 has no route that takes a numeric id, and the two
+				// tiers that do are a guest token that answers this one empty
+				// and a session that answers it properly.
+				return NeedTier("a numeric-id timeline with replies", 2)
+			}
 			if tier0 {
 				return needGraphQL("a numeric-id timeline")
 			}
