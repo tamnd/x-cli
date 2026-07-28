@@ -72,8 +72,7 @@ func TweetByID(ctx context.Context, c *Client, id string) (*Tweet, error) {
 // caller that wants it, and paying for the request twice to get it would be
 // silly.
 func fetchSynTweet(ctx context.Context, c *Client, id string) (*synTweet, string, error) {
-	u := fmt.Sprintf("https://cdn.syndication.twimg.com/tweet-result?id=%s&token=%s&lang=en",
-		url.QueryEscape(id), syndicationToken(id))
+	u := synTweetURL(id)
 	b, err := c.Do(ctx, Req{URL: u, Endpoint: "syndication.tweet", CacheTTL: tweetTTL(id)})
 	if err != nil {
 		if nf := asNotFound(err, "tweet", id); nf != nil {
@@ -271,7 +270,7 @@ func (s *synTweet) toTweet() *Tweet {
 // Tier B user resolution is best-effort: it reads the public profile timeline
 // widget. Returns a NotFoundError if the handle yields nothing.
 func UserByNameSyndication(ctx context.Context, c *Client, handle string) (*User, error) {
-	u := "https://syndication.twitter.com/srv/timeline-profile/screen-name/" + url.PathEscape(handle)
+	u := synProfileURL(handle)
 	b, err := c.Do(ctx, Req{URL: u, Endpoint: "syndication.profile", CacheTTL: ttlProfile})
 	if err != nil {
 		return nil, err
@@ -382,7 +381,7 @@ func extractProfileFromNextData(page []byte) (*User, bool) {
 // timeline-profile widget (Tier 0, no auth). The widget embeds a __NEXT_DATA__
 // blob whose timeline entries are legacy tweets; one legacy parser maps them.
 func ProfileTimeline(ctx context.Context, c *Client, handle string, _ int) ([]*Tweet, error) {
-	u := "https://syndication.twitter.com/srv/timeline-profile/screen-name/" + url.PathEscape(handle)
+	u := synProfileURL(handle)
 	b, err := c.Do(ctx, Req{URL: u, Endpoint: "syndication.profile", CacheTTL: ttlTimeline})
 	if err != nil {
 		return nil, err
@@ -498,3 +497,15 @@ func looksDeleted(b []byte) bool { return len(b) < 3 || string(b) == "{}" }
 
 var _ = http.MethodGet
 var _ = looksDeleted
+
+// synTweetURL and synProfileURL are the two surface addresses this file reads,
+// named so that `x capture` asks for the same bytes the reader does. A fixture
+// captured from a slightly different URL is a fixture that tests nothing.
+func synTweetURL(id string) string {
+	return fmt.Sprintf("https://cdn.syndication.twimg.com/tweet-result?id=%s&token=%s&lang=en",
+		url.QueryEscape(id), syndicationToken(id))
+}
+
+func synProfileURL(handle string) string {
+	return "https://syndication.twitter.com/srv/timeline-profile/screen-name/" + url.PathEscape(handle)
+}

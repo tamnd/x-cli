@@ -55,7 +55,19 @@ type Page struct {
 // microdata, so this returns what it found and lets the caller decide whether
 // that was enough.
 func (c *Client) FetchPage(ctx context.Context, url string) (*Page, error) {
-	body, err := c.Do(ctx, Req{
+	body, err := c.Do(ctx, webPageReq(url))
+	if err != nil {
+		return nil, err
+	}
+	return ParsePage(url, string(body))
+}
+
+// webPageReq is the surface 8 request. It is a function rather than a literal
+// so that `x capture` sends the same headers the reader sends: a page fetched
+// without them comes back a different page, and a fixture of that tests the
+// wrong thing.
+func webPageReq(url string) Req {
+	return Req{
 		URL:      url,
 		Endpoint: "web",
 		Header: http.Header{
@@ -69,11 +81,7 @@ func (c *Client) FetchPage(ctx context.Context, url string) (*Page, error) {
 			"Upgrade-Insecure-Requests": {"1"},
 		},
 		CacheTTL: webPageTTL,
-	})
-	if err != nil {
-		return nil, err
 	}
-	return ParsePage(url, string(body))
 }
 
 // ParsePage splits an already-fetched page into its planes. It is separate

@@ -26,6 +26,7 @@ func tableCommands() []kit.Command {
 		newSurfacesCmd(),
 		newFieldsCmd(),
 		newDoctorCmd(),
+		newCaptureCmd(),
 	}
 }
 
@@ -341,4 +342,71 @@ func tierNote(tier int, reachable bool) string {
 		return "free"
 	}
 	return "needs tier " + strconv.Itoa(tier)
+}
+
+// newCaptureCmd is how testdata/ is refreshed (spec 3003 doc 05 section 6). It
+// writes what a surface says right now into a fixture file, so that no fixture
+// in the repo is hand-written and a shape that changes shows up as a diff in a
+// golden rather than as a parser that quietly stopped finding a field.
+func newCaptureCmd() kit.Command {
+	var dir string
+	return kit.Command{
+		Use:   "capture <ref>...",
+		Short: "Record what a surface says now, into a fixture file",
+		Args:  kit.MinimumNArgs(1),
+		Flags: func(f *kit.FlagSet) {
+			f.StringVar(&dir, "out", "x/testdata", "directory to write the fixtures into")
+		},
+		Run: func(ctx context.Context, args []string) error {
+			a := appFromCtx(ctx)
+			out, err := a.out()
+			if err != nil {
+				return err
+			}
+			cols := []string{"surface", "file", "bytes", "status"}
+			wrote := 0
+			for _, ref := range args {
+				a.target = ref
+				recs, err := a.engine().Capture(a.ctx(), ref)
+				if err != nil {
+					return a.done(err)
+				}
+				for _, r := range recs {
+					path, status := "", "ok"
+					switch {
+					case r.Err != nil:
+						// A surface that will not answer is worth a row rather
+						// than an abort. Capturing a tweet asks three of them and
+						// one being rate limited is not a reason to lose the two
+						// that worked.
+						path, status = r.Name, r.Err.Error()
+					default:
+						p, serr := r.Save(dir)
+						if serr != nil {
+							return a.done(serr)
+						}
+						path = p
+						wrote++
+					}
+					if err := out.Emit(Row{
+						Cols: cols,
+						Vals: []string{strconv.Itoa(r.Surface), path, strconv.Itoa(len(r.Body)), status},
+						Value: map[string]any{
+							"surface": r.Surface, "file": path,
+							"bytes": len(r.Body), "status": status, "url": r.URL,
+						},
+					}); err != nil {
+						return err
+					}
+				}
+			}
+			if err := out.Flush(); err != nil {
+				return err
+			}
+			if wrote == 0 {
+				return a.done(errNoResults)
+			}
+			return nil
+		},
+	}
 }
