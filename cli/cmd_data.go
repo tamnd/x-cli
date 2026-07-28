@@ -15,13 +15,15 @@ import (
 // stop even when the user does not pass -n. `x crawl` has its own --max default.
 const defaultDiscoverBudget = 500
 
-// dataCommands returns the graph and local-store workflow: edges, discover,
-// crawl, queue, db, export. The store lives at a fixed path under the data dir (App.StorePath); it
+// dataCommands returns the graph and local-store workflow: edges, graph,
+// discover, crawl, queue, db, query, export. The store lives at a fixed path under the data dir (App.StorePath); it
 // is not the generic kit --db sink.
 func dataCommands() []kit.Command {
 	return []kit.Command{
 		newDiscoverCmd(),
 		newEdgesCmd(),
+		newGraphCmd(),
+		newQueryCmd(),
 		newCrawlCmd(),
 		newQueueCmd(),
 		newDBCmd(),
@@ -52,7 +54,7 @@ func newDiscoverCmd() kit.Command {
 	var store bool
 	return kit.Command{
 		Use:     "discover <seed>...",
-		Aliases: []string{"walk", "graph"},
+		Aliases: []string{"walk"},
 		Short:   "Breadth-first walk of the graph linked from a tweet or user",
 		Long: "discover starts at one or more tweets or users and follows their links\n" +
 			"outward, hop by hop, streaming every node it reaches. Choose what to follow\n" +
@@ -213,6 +215,33 @@ func newCrawlCmd() kit.Command {
 			}
 			a.logf("stored %d nodes", stored)
 			return nil
+		},
+	}
+}
+
+// newQueryCmd is `x query <sql>` (spec 3003 doc 05 section 4), the same read as
+// `x db query` under the name the spec gives it. The store is a graph and SQL is
+// how you ask a graph a question, so the question does not deserve to be two
+// words deep. `x db` keeps its copy because the rest of `x db` is store
+// housekeeping and query belongs beside stats.
+func newQueryCmd() kit.Command {
+	return kit.Command{
+		Use:   "query <sql>",
+		Short: "Run a read-only SQL query against the local store",
+		Long: "query runs SQL against the store a crawl filled in, and never touches the " +
+			"network: crawl once and the graph is yours. The two tables are `nodes` (uri, " +
+			"kind, id, tier, record, captured) and `edges` (from_uri, predicate, to_uri, " +
+			"source, tier, captured), where the source is part of the key so two surfaces " +
+			"asserting the same claim stay two rows.",
+		Args: kit.MinimumNArgs(1),
+		Run: func(ctx context.Context, args []string) error {
+			a := appFromCtx(ctx)
+			st, err := a.openStore()
+			if err != nil {
+				return err
+			}
+			defer func() { _ = st.Close() }()
+			return mapErr(a.runQuery(st, joinArgs(args)))
 		},
 	}
 }

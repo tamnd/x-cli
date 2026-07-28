@@ -82,7 +82,18 @@ x db query "select username, count(*) from tweets group by username"
 `x db stats` is the quick health check: how many tweets, accounts, and so on you
 have stored. `x db query` runs read-only SQL against the store, so you can slice
 the data any way you like and shape the result with `-o`, `--fields`, or
-`--template` just like a live read.
+`--template` just like a live read. `x query` is the same command a word
+shallower, since asking the graph a question is the point of having one:
+
+```console
+$ x query "select predicate, count(*) n from edges group by predicate order by n desc" -o table
+ PREDICATE   N
+ authored    4
+ mentions    3
+ replies_to  2
+```
+
+Neither one touches the network. Crawl once and the graph is yours.
 
 ## Export to Markdown
 

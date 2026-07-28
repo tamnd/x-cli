@@ -77,10 +77,12 @@ change your account. `likes`, `likers`, `followers`, and `bookmarks` only read.
 | Command | What it does | Key flags |
 |---|---|---|
 | `edges <ref>...` | The graph claims one record makes, without walking anywhere | `--conflicts` |
-| `discover <seed>...` | Breadth-first walk of the graph linked from a tweet or user (aliases `walk`, `graph`) | `--follow`, `--depth`, `--fanout`, `--budget`, `--store`, `-n` |
+| `graph <ref>...` | Those claims and the nodes they address, as one document | |
+| `discover <seed>...` | Breadth-first walk of the graph linked from a tweet or user (alias `walk`) | `--follow`, `--depth`, `--fanout`, `--budget`, `--store`, `-n` |
 | `crawl <seed>...` | The same walk, persisted into the local store | `--follow`, `--depth`, `--fanout`, `--budget`, `--max` |
 | `db stats` | Row counts per table | |
 | `db query <sql>` | Run a read-only SQL query | |
+| `query <sql>` | The same query, one word shallower | |
 | `queue` | Show the crawl queue | |
 | `queue clear` | Empty the crawl queue | |
 | `export <user> <out-dir>` | Render a stored user's tweets as Markdown | |
@@ -93,6 +95,19 @@ a surface is worth before spending a budget on a crawl. `--conflicts` narrows th
 output to claims two sources cannot both be right about, and prints both sides
 with a marker on the one that wins on provenance rather than picking for you.
 
+`graph` is the same read printed as one value instead of one line per claim: the
+edges, plus every node those edges address. Nodes the read carried whole come
+with their record, and nodes that were only named come with just an address,
+because a mention is a claim about an account nobody fetched. It is a document,
+so `-o json` is the format it is for; on a terminal you get its shape summarized
+and reach for `x edges` or `x get` to read the parts.
+
+```console
+$ x graph 1903142823316049977 -o table
+ GRAPH                          NODES  READ  EDGES  PREDICATES
+ x://tweet/1903142823316049977  5      2     5      authored mentions replies_to
+```
+
 `discover` and `crawl` share the same walk: `--follow` is a preset (`content`,
 `thread`, `engagement`, `network`, `timeline`, `all`) or a comma-separated hop
 list, `--depth` is how many hops to follow (default `1`), and `--fanout` caps
@@ -100,6 +115,10 @@ neighbors per hop (default `25`). `discover` streams nodes and stops at `-n`
 (default `500`); add `--store` to also persist them. `crawl` always persists and
 stops at `--max` (default `200`). The store is a fixed `x.db` under `--data-dir`.
 Engagement and network hops need a session.
+
+`query` is `db query` without the `db`: SQL against the store a crawl filled in,
+never the network. The tables are `nodes` and `edges`; see
+[the local store](/guides/local-store/).
 
 `--budget` caps what the walk spends upstream, counted in requests rather than
 nodes, because requests are the unit the rate limits are written in. A walk that
