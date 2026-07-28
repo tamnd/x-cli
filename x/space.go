@@ -8,7 +8,7 @@ import (
 
 // space.go reads one audio Space off AudioSpaceById.
 //
-// It is the fourth operation a guest token reaches, which spec 3003 doc 01
+// It is one of the five operations a guest token reaches, which spec 3003 doc 01
 // section 4.2 did not know: the bare probe there answers 422 on this route
 // rather than the 404 the walled operations answer, and a well-formed request
 // with a guest token comes back 200 with the whole record. Measured 2026-07-28
@@ -225,7 +225,7 @@ func msTime(n json.Number) time.Time {
 }
 
 // Space reads one audio Space. It is a GraphQL read at either tier: a guest
-// token reaches AudioSpaceById, which makes it one of the four operations that
+// token reaches AudioSpaceById, which makes it one of the five operations that
 // do not need your session.
 func (e *Engine) Space(ctx context.Context, id string) (*Space, error) {
 	if !e.canGraphQL() {

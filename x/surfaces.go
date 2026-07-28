@@ -28,7 +28,7 @@ var Surfaces = []Surface{
 	{3, "oembed", "publish.x.com", 0, "none observed", "", false, "30d",
 		"the rendered blockquote, and the author handle"},
 	{4, "guest graphql", "x.com/i/api/graphql", 1, "50 to 500 per operation", "15 min", true, "varies",
-		"four operations survive the allowlist"},
+		"five operations survive the allowlist"},
 	{5, "app-only v1.1", "api.x.com/1.1", 0, "180 place, 75 directory", "15 min", true, "5m to 7d",
 		"trends and the place directory; a guest token here cuts the budget to 15"},
 	{6, "media cdn", "pbs.twimg.com, video.twimg.com", 0, "none observed", "", false, "forever",
