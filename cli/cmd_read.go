@@ -41,7 +41,7 @@ func readCommands() []kit.Command {
 // newSpaceCmd reads one audio Space.
 //
 // It is a GraphQL read that a guest token reaches, which makes it one of the
-// four operations `--guest` is worth passing for. That was not obvious: the bare
+// five operations `--guest` is worth passing for. That was not obvious: the bare
 // capability probe answers 422 on this route rather than the 404 the walled
 // operations answer, so it read as denied until a well-formed request went out.
 func newSpaceCmd() kit.Command {

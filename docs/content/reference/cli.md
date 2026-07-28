@@ -51,7 +51,7 @@ rather than refusing it; only a session pages it deeper.
 who created it, the admins and the speakers, when it was scheduled, started and
 ended, and how many people heard it live or played the replay. The table
 summarises the rosters as counts, and `-o json` has the participants themselves,
-each with the numeric account id you need to look them up. It is one of the four
+each with the numeric account id you need to look them up. It is one of the five
 reads `--guest` is worth passing for.
 
 `get` classifies each argument the way `x classify` does and dispatches: a tweet

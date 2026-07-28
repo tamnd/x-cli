@@ -13,12 +13,13 @@ X denies a guest token (Tier 1) on almost everything. Under `--guest` the denied
 calls come back 404 with an empty body even though the request was well-formed,
 which is how X says no to a credential it does not accept.
 
-Measured on 2026-07-28, running each command under `--tier guest`, a guest token
-reaches four operations and no others:
+Measured on 2026-07-28, running each read under `--tier guest` and reading back
+which surface answered, a guest token reaches five operations and no others:
 
 - `x user <handle>`, the profile read
 - `x user <id> --id`, the same read by numeric account id
 - `x timeline`, the deeper walk back through an account, by handle or by `--id`
+- `x tweet`, which adds the client a tweet was posted from
 - `x space`, the whole record of an audio Space
 
 `x space` is the one that took finding. Probing that route with no variables

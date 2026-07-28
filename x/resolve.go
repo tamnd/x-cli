@@ -40,8 +40,10 @@ func (e *Engine) canGraphQL() bool {
 // needGraphQL returns the actionable need-auth error for a GraphQL-only call.
 // A guest token clears it, so this is tier 1 rather than tier 2.
 //
-// Reserve it for the calls a guest token actually clears. Measured 2026-07-28,
-// that is three operations: UserByScreenName, UserByRestId, and UserTweets.
+// Reserve it for the calls a guest token actually clears. Measured 2026-07-28 by
+// running every read under --tier guest and reading back which surface answered,
+// that is five operations: UserByScreenName, UserByRestId, UserTweets,
+// TweetResultByRestId, and AudioSpaceById.
 // Everything else on the GraphQL surface answers a guest token with a 404 and an
 // empty body, and telling that caller to pass --guest sends them through a
 // wasted request to a second exit 4 with a different message. Use needSession
