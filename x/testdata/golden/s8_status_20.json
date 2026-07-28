@@ -1,0 +1,268 @@
+{
+  "tweet": {
+    "kind": "tweet",
+    "id": "20",
+    "uri": "x://tweet/20",
+    "url": "https://x.com/jack/status/20",
+    "tier": 0,
+    "surfaces": [
+      "s8"
+    ],
+    "sources": [
+      "https://x.com/i/status/20"
+    ],
+    "text": "just setting up my twttr",
+    "created_at": "2006-03-21T20:50:14Z",
+    "author": {
+      "kind": "user",
+      "id": "jack",
+      "uri": "x://user/jack",
+      "url": "https://x.com/jack",
+      "tier": 0,
+      "surfaces": [
+        "s8"
+      ],
+      "sources": [
+        "https://x.com/i/status/20"
+      ],
+      "username": "jack",
+      "rest_id": "12",
+      "name": "jack",
+      "description": "no state is the best state",
+      "verified": true,
+      "metrics": {
+        "followers": 10582229,
+        "following": 3,
+        "tweets": 30799
+      },
+      "profile_image": "https://pbs.twimg.com/profile_images/1661201415899951105/azNjKOSH_normal.jpg",
+      "entities": {}
+    },
+    "metrics": {
+      "replies": 17962,
+      "retweets": 124852,
+      "likes": 307897,
+      "quotes": 6813,
+      "bookmarks": 21250
+    },
+    "entities": {}
+  },
+  "postings": [
+    {
+      "kind": "tweet",
+      "id": "1770888775830262034",
+      "uri": "x://tweet/1770888775830262034",
+      "url": "https://x.com/derbederdusler/status/1770888775830262034",
+      "tier": 0,
+      "surfaces": [
+        "s8"
+      ],
+      "sources": [
+        "https://x.com/i/status/20"
+      ],
+      "text": "@jack https://t.co/j0vbZrENcJ",
+      "created_at": "2024-03-21T19:02:40Z",
+      "author": {
+        "kind": "user",
+        "id": "derbederdusler",
+        "uri": "x://user/derbederdusler",
+        "url": "https://x.com/derbederdusler",
+        "tier": 0,
+        "surfaces": [
+          "s8"
+        ],
+        "sources": [
+          "https://x.com/i/status/20"
+        ],
+        "username": "derbederdusler",
+        "rest_id": "1420469290369789958",
+        "name": "𝕯𝖊𝖗𝖇𝖊𝖉𝖊𝖗",
+        "verified": true,
+        "metrics": {
+          "followers": 3852,
+          "following": 6589,
+          "tweets": 14564
+        },
+        "profile_image": "https://pbs.twimg.com/profile_images/2068802435938689025/Iqb-7nQc_normal.jpg",
+        "entities": {}
+      },
+      "reply_to_user": "jack",
+      "metrics": {
+        "replies": 23,
+        "retweets": 141,
+        "likes": 8040,
+        "quotes": 7,
+        "bookmarks": 91,
+        "impressions": 456895
+      },
+      "entities": {
+        "mentions": [
+          "jack"
+        ]
+      },
+      "media": [
+        {
+          "type": "photo",
+          "url": "https://pbs.twimg.com/media/GJN19MHXQAAeNDq.jpg",
+          "width": 1080,
+          "height": 786,
+          "alt_text": "Image"
+        }
+      ]
+    },
+    {
+      "kind": "tweet",
+      "id": "1770825760162353449",
+      "uri": "x://tweet/1770825760162353449",
+      "url": "https://x.com/lexfridman/status/1770825760162353449",
+      "tier": 0,
+      "surfaces": [
+        "s8"
+      ],
+      "sources": [
+        "https://x.com/i/status/20"
+      ],
+      "text": "@jack Hello from the future",
+      "created_at": "2024-03-21T14:52:16Z",
+      "author": {
+        "kind": "user",
+        "id": "lexfridman",
+        "uri": "x://user/lexfridman",
+        "url": "https://x.com/lexfridman",
+        "tier": 0,
+        "surfaces": [
+          "s8"
+        ],
+        "sources": [
+          "https://x.com/i/status/20"
+        ],
+        "username": "lexfridman",
+        "rest_id": "427089628",
+        "name": "Lex Fridman",
+        "verified": true,
+        "metrics": {
+          "followers": 5228397,
+          "following": 688,
+          "tweets": 4014
+        },
+        "profile_image": "https://pbs.twimg.com/profile_images/1854713863817646088/nTmsz7jR_normal.jpg",
+        "entities": {}
+      },
+      "reply_to_user": "jack",
+      "metrics": {
+        "replies": 131,
+        "retweets": 50,
+        "likes": 5195,
+        "quotes": 6,
+        "bookmarks": 48,
+        "impressions": 454190
+      },
+      "entities": {
+        "mentions": [
+          "jack"
+        ]
+      }
+    },
+    {
+      "kind": "tweet",
+      "id": "1903136743634723031",
+      "uri": "x://tweet/1903136743634723031",
+      "url": "https://x.com/marmoushEra/status/1903136743634723031",
+      "tier": 0,
+      "surfaces": [
+        "s8"
+      ],
+      "sources": [
+        "https://x.com/i/status/20"
+      ],
+      "text": "@jack This is 2025, if you see this in 2040 bill me for anything i will pay. Pretty sure i will be rich",
+      "created_at": "2025-03-21T17:28:52Z",
+      "author": {
+        "kind": "user",
+        "id": "marmoushera",
+        "uri": "x://user/marmoushera",
+        "url": "https://x.com/marmoushera",
+        "tier": 0,
+        "surfaces": [
+          "s8"
+        ],
+        "sources": [
+          "https://x.com/i/status/20"
+        ],
+        "username": "marmoushEra",
+        "rest_id": "1605962922064232449",
+        "name": "Reymi",
+        "verified": true,
+        "metrics": {
+          "followers": 6993,
+          "following": 1603,
+          "tweets": 59115
+        },
+        "profile_image": "https://pbs.twimg.com/profile_images/1956662085259026432/mzjCbIlI_normal.jpg",
+        "entities": {}
+      },
+      "reply_to_user": "jack",
+      "metrics": {
+        "replies": 143,
+        "retweets": 100,
+        "likes": 4760,
+        "quotes": 5,
+        "bookmarks": 684,
+        "impressions": 398133
+      },
+      "entities": {
+        "mentions": [
+          "jack"
+        ]
+      }
+    },
+    {
+      "kind": "tweet",
+      "id": "20",
+      "uri": "x://tweet/20",
+      "url": "https://x.com/jack/status/20",
+      "tier": 0,
+      "surfaces": [
+        "s8"
+      ],
+      "sources": [
+        "https://x.com/i/status/20"
+      ],
+      "text": "just setting up my twttr",
+      "created_at": "2006-03-21T20:50:14Z",
+      "author": {
+        "kind": "user",
+        "id": "jack",
+        "uri": "x://user/jack",
+        "url": "https://x.com/jack",
+        "tier": 0,
+        "surfaces": [
+          "s8"
+        ],
+        "sources": [
+          "https://x.com/i/status/20"
+        ],
+        "username": "jack",
+        "rest_id": "12",
+        "name": "jack",
+        "description": "no state is the best state",
+        "verified": true,
+        "metrics": {
+          "followers": 10582229,
+          "following": 3,
+          "tweets": 30799
+        },
+        "profile_image": "https://pbs.twimg.com/profile_images/1661201415899951105/azNjKOSH_normal.jpg",
+        "entities": {}
+      },
+      "metrics": {
+        "replies": 17962,
+        "retweets": 124852,
+        "likes": 307897,
+        "quotes": 6813,
+        "bookmarks": 21250
+      },
+      "entities": {}
+    }
+  ]
+}

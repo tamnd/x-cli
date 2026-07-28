@@ -1,0 +1,8872 @@
+[
+  {
+    "kind": "place",
+    "id": "1",
+    "uri": "x://place/1",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Worldwide",
+    "woeid": 1,
+    "place_type": "Supername",
+    "place_type_code": 19
+  },
+  {
+    "kind": "place",
+    "id": "23424740",
+    "uri": "x://place/23424740",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Algeria",
+    "woeid": 23424740,
+    "country": "Algeria",
+    "country_code": "DZ",
+    "place_type": "Country",
+    "place_type_code": 12,
+    "parent_id": 1
+  },
+  {
+    "kind": "place",
+    "id": "1253079",
+    "uri": "x://place/1253079",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Algiers",
+    "woeid": 1253079,
+    "country": "Algeria",
+    "country_code": "DZ",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424740
+  },
+  {
+    "kind": "place",
+    "id": "23424747",
+    "uri": "x://place/23424747",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Argentina",
+    "woeid": 23424747,
+    "country": "Argentina",
+    "country_code": "AR",
+    "place_type": "Country",
+    "place_type_code": 12,
+    "parent_id": 1
+  },
+  {
+    "kind": "place",
+    "id": "468739",
+    "uri": "x://place/468739",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Buenos Aires",
+    "woeid": 468739,
+    "country": "Argentina",
+    "country_code": "AR",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424747
+  },
+  {
+    "kind": "place",
+    "id": "466861",
+    "uri": "x://place/466861",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Córdoba",
+    "woeid": 466861,
+    "country": "Argentina",
+    "country_code": "AR",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424747
+  },
+  {
+    "kind": "place",
+    "id": "332471",
+    "uri": "x://place/332471",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Mendoza",
+    "woeid": 332471,
+    "country": "Argentina",
+    "country_code": "AR",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424747
+  },
+  {
+    "kind": "place",
+    "id": "466862",
+    "uri": "x://place/466862",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Rosario",
+    "woeid": 466862,
+    "country": "Argentina",
+    "country_code": "AR",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424747
+  },
+  {
+    "kind": "place",
+    "id": "1099805",
+    "uri": "x://place/1099805",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Adelaide",
+    "woeid": 1099805,
+    "country": "Australia",
+    "country_code": "AU",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424748
+  },
+  {
+    "kind": "place",
+    "id": "23424748",
+    "uri": "x://place/23424748",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Australia",
+    "woeid": 23424748,
+    "country": "Australia",
+    "country_code": "AU",
+    "place_type": "Country",
+    "place_type_code": 12,
+    "parent_id": 1
+  },
+  {
+    "kind": "place",
+    "id": "1100661",
+    "uri": "x://place/1100661",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Brisbane",
+    "woeid": 1100661,
+    "country": "Australia",
+    "country_code": "AU",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424748
+  },
+  {
+    "kind": "place",
+    "id": "1100968",
+    "uri": "x://place/1100968",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Canberra",
+    "woeid": 1100968,
+    "country": "Australia",
+    "country_code": "AU",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424748
+  },
+  {
+    "kind": "place",
+    "id": "1101597",
+    "uri": "x://place/1101597",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Darwin",
+    "woeid": 1101597,
+    "country": "Australia",
+    "country_code": "AU",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424748
+  },
+  {
+    "kind": "place",
+    "id": "1103816",
+    "uri": "x://place/1103816",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Melbourne",
+    "woeid": 1103816,
+    "country": "Australia",
+    "country_code": "AU",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424748
+  },
+  {
+    "kind": "place",
+    "id": "1098081",
+    "uri": "x://place/1098081",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Perth",
+    "woeid": 1098081,
+    "country": "Australia",
+    "country_code": "AU",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424748
+  },
+  {
+    "kind": "place",
+    "id": "1105779",
+    "uri": "x://place/1105779",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Sydney",
+    "woeid": 1105779,
+    "country": "Australia",
+    "country_code": "AU",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424748
+  },
+  {
+    "kind": "place",
+    "id": "23424750",
+    "uri": "x://place/23424750",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Austria",
+    "woeid": 23424750,
+    "country": "Austria",
+    "country_code": "AT",
+    "place_type": "Country",
+    "place_type_code": 12,
+    "parent_id": 1
+  },
+  {
+    "kind": "place",
+    "id": "551801",
+    "uri": "x://place/551801",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Vienna",
+    "woeid": 551801,
+    "country": "Austria",
+    "country_code": "AT",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424750
+  },
+  {
+    "kind": "place",
+    "id": "23424753",
+    "uri": "x://place/23424753",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Bahrain",
+    "woeid": 23424753,
+    "country": "Bahrain",
+    "country_code": "BH",
+    "place_type": "Country",
+    "place_type_code": 12,
+    "parent_id": 1
+  },
+  {
+    "kind": "place",
+    "id": "23424765",
+    "uri": "x://place/23424765",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Belarus",
+    "woeid": 23424765,
+    "country": "Belarus",
+    "country_code": "BY",
+    "place_type": "Country",
+    "place_type_code": 12,
+    "parent_id": 1
+  },
+  {
+    "kind": "place",
+    "id": "824382",
+    "uri": "x://place/824382",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Brest",
+    "woeid": 824382,
+    "country": "Belarus",
+    "country_code": "BY",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424765
+  },
+  {
+    "kind": "place",
+    "id": "825978",
+    "uri": "x://place/825978",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Gomel",
+    "woeid": 825978,
+    "country": "Belarus",
+    "country_code": "BY",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424765
+  },
+  {
+    "kind": "place",
+    "id": "825848",
+    "uri": "x://place/825848",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Grodno",
+    "woeid": 825848,
+    "country": "Belarus",
+    "country_code": "BY",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424765
+  },
+  {
+    "kind": "place",
+    "id": "834463",
+    "uri": "x://place/834463",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Minsk",
+    "woeid": 834463,
+    "country": "Belarus",
+    "country_code": "BY",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424765
+  },
+  {
+    "kind": "place",
+    "id": "23424757",
+    "uri": "x://place/23424757",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Belgium",
+    "woeid": 23424757,
+    "country": "Belgium",
+    "country_code": "BE",
+    "place_type": "Country",
+    "place_type_code": 12,
+    "parent_id": 1
+  },
+  {
+    "kind": "place",
+    "id": "455821",
+    "uri": "x://place/455821",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Belo Horizonte",
+    "woeid": 455821,
+    "country": "Brazil",
+    "country_code": "BR",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424768
+  },
+  {
+    "kind": "place",
+    "id": "455820",
+    "uri": "x://place/455820",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Belém",
+    "woeid": 455820,
+    "country": "Brazil",
+    "country_code": "BR",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424768
+  },
+  {
+    "kind": "place",
+    "id": "455819",
+    "uri": "x://place/455819",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Brasília",
+    "woeid": 455819,
+    "country": "Brazil",
+    "country_code": "BR",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424768
+  },
+  {
+    "kind": "place",
+    "id": "23424768",
+    "uri": "x://place/23424768",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Brazil",
+    "woeid": 23424768,
+    "country": "Brazil",
+    "country_code": "BR",
+    "place_type": "Country",
+    "place_type_code": 12,
+    "parent_id": 1
+  },
+  {
+    "kind": "place",
+    "id": "455828",
+    "uri": "x://place/455828",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Campinas",
+    "woeid": 455828,
+    "country": "Brazil",
+    "country_code": "BR",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424768
+  },
+  {
+    "kind": "place",
+    "id": "455822",
+    "uri": "x://place/455822",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Curitiba",
+    "woeid": 455822,
+    "country": "Brazil",
+    "country_code": "BR",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424768
+  },
+  {
+    "kind": "place",
+    "id": "455830",
+    "uri": "x://place/455830",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Fortaleza",
+    "woeid": 455830,
+    "country": "Brazil",
+    "country_code": "BR",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424768
+  },
+  {
+    "kind": "place",
+    "id": "455831",
+    "uri": "x://place/455831",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Goiânia",
+    "woeid": 455831,
+    "country": "Brazil",
+    "country_code": "BR",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424768
+  },
+  {
+    "kind": "place",
+    "id": "455867",
+    "uri": "x://place/455867",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Guarulhos",
+    "woeid": 455867,
+    "country": "Brazil",
+    "country_code": "BR",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424768
+  },
+  {
+    "kind": "place",
+    "id": "455833",
+    "uri": "x://place/455833",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Manaus",
+    "woeid": 455833,
+    "country": "Brazil",
+    "country_code": "BR",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424768
+  },
+  {
+    "kind": "place",
+    "id": "455823",
+    "uri": "x://place/455823",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Porto Alegre",
+    "woeid": 455823,
+    "country": "Brazil",
+    "country_code": "BR",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424768
+  },
+  {
+    "kind": "place",
+    "id": "455824",
+    "uri": "x://place/455824",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Recife",
+    "woeid": 455824,
+    "country": "Brazil",
+    "country_code": "BR",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424768
+  },
+  {
+    "kind": "place",
+    "id": "455825",
+    "uri": "x://place/455825",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Rio de Janeiro",
+    "woeid": 455825,
+    "country": "Brazil",
+    "country_code": "BR",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424768
+  },
+  {
+    "kind": "place",
+    "id": "455826",
+    "uri": "x://place/455826",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Salvador",
+    "woeid": 455826,
+    "country": "Brazil",
+    "country_code": "BR",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424768
+  },
+  {
+    "kind": "place",
+    "id": "455834",
+    "uri": "x://place/455834",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "São Luís",
+    "woeid": 455834,
+    "country": "Brazil",
+    "country_code": "BR",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424768
+  },
+  {
+    "kind": "place",
+    "id": "455827",
+    "uri": "x://place/455827",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "São Paulo",
+    "woeid": 455827,
+    "country": "Brazil",
+    "country_code": "BR",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424768
+  },
+  {
+    "kind": "place",
+    "id": "8775",
+    "uri": "x://place/8775",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Calgary",
+    "woeid": 8775,
+    "country": "Canada",
+    "country_code": "CA",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424775
+  },
+  {
+    "kind": "place",
+    "id": "23424775",
+    "uri": "x://place/23424775",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Canada",
+    "woeid": 23424775,
+    "country": "Canada",
+    "country_code": "CA",
+    "place_type": "Country",
+    "place_type_code": 12,
+    "parent_id": 1
+  },
+  {
+    "kind": "place",
+    "id": "8676",
+    "uri": "x://place/8676",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Edmonton",
+    "woeid": 8676,
+    "country": "Canada",
+    "country_code": "CA",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424775
+  },
+  {
+    "kind": "place",
+    "id": "3534",
+    "uri": "x://place/3534",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Montreal",
+    "woeid": 3534,
+    "country": "Canada",
+    "country_code": "CA",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424775
+  },
+  {
+    "kind": "place",
+    "id": "3369",
+    "uri": "x://place/3369",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Ottawa",
+    "woeid": 3369,
+    "country": "Canada",
+    "country_code": "CA",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424775
+  },
+  {
+    "kind": "place",
+    "id": "3444",
+    "uri": "x://place/3444",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Quebec",
+    "woeid": 3444,
+    "country": "Canada",
+    "country_code": "CA",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424775
+  },
+  {
+    "kind": "place",
+    "id": "4118",
+    "uri": "x://place/4118",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Toronto",
+    "woeid": 4118,
+    "country": "Canada",
+    "country_code": "CA",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424775
+  },
+  {
+    "kind": "place",
+    "id": "9807",
+    "uri": "x://place/9807",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Vancouver",
+    "woeid": 9807,
+    "country": "Canada",
+    "country_code": "CA",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424775
+  },
+  {
+    "kind": "place",
+    "id": "2972",
+    "uri": "x://place/2972",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Winnipeg",
+    "woeid": 2972,
+    "country": "Canada",
+    "country_code": "CA",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424775
+  },
+  {
+    "kind": "place",
+    "id": "23424782",
+    "uri": "x://place/23424782",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Chile",
+    "woeid": 23424782,
+    "country": "Chile",
+    "country_code": "CL",
+    "place_type": "Country",
+    "place_type_code": 12,
+    "parent_id": 1
+  },
+  {
+    "kind": "place",
+    "id": "349860",
+    "uri": "x://place/349860",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Concepcion",
+    "woeid": 349860,
+    "country": "Chile",
+    "country_code": "CL",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424782
+  },
+  {
+    "kind": "place",
+    "id": "349859",
+    "uri": "x://place/349859",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Santiago",
+    "woeid": 349859,
+    "country": "Chile",
+    "country_code": "CL",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424782
+  },
+  {
+    "kind": "place",
+    "id": "349861",
+    "uri": "x://place/349861",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Valparaiso",
+    "woeid": 349861,
+    "country": "Chile",
+    "country_code": "CL",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424782
+  },
+  {
+    "kind": "place",
+    "id": "368151",
+    "uri": "x://place/368151",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Barranquilla",
+    "woeid": 368151,
+    "country": "Colombia",
+    "country_code": "CO",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424787
+  },
+  {
+    "kind": "place",
+    "id": "368148",
+    "uri": "x://place/368148",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Bogotá",
+    "woeid": 368148,
+    "country": "Colombia",
+    "country_code": "CO",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424787
+  },
+  {
+    "kind": "place",
+    "id": "368149",
+    "uri": "x://place/368149",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Cali",
+    "woeid": 368149,
+    "country": "Colombia",
+    "country_code": "CO",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424787
+  },
+  {
+    "kind": "place",
+    "id": "23424787",
+    "uri": "x://place/23424787",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Colombia",
+    "woeid": 23424787,
+    "country": "Colombia",
+    "country_code": "CO",
+    "place_type": "Country",
+    "place_type_code": 12,
+    "parent_id": 1
+  },
+  {
+    "kind": "place",
+    "id": "368150",
+    "uri": "x://place/368150",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Medellín",
+    "woeid": 368150,
+    "country": "Colombia",
+    "country_code": "CO",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424787
+  },
+  {
+    "kind": "place",
+    "id": "23424796",
+    "uri": "x://place/23424796",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Denmark",
+    "woeid": 23424796,
+    "country": "Denmark",
+    "country_code": "DK",
+    "place_type": "Country",
+    "place_type_code": 12,
+    "parent_id": 1
+  },
+  {
+    "kind": "place",
+    "id": "23424800",
+    "uri": "x://place/23424800",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Dominican Republic",
+    "woeid": 23424800,
+    "country": "Dominican Republic",
+    "country_code": "DO",
+    "place_type": "Country",
+    "place_type_code": 12,
+    "parent_id": 1
+  },
+  {
+    "kind": "place",
+    "id": "76456",
+    "uri": "x://place/76456",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Santo Domingo",
+    "woeid": 76456,
+    "country": "Dominican Republic",
+    "country_code": "DO",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424800
+  },
+  {
+    "kind": "place",
+    "id": "23424801",
+    "uri": "x://place/23424801",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Ecuador",
+    "woeid": 23424801,
+    "country": "Ecuador",
+    "country_code": "EC",
+    "place_type": "Country",
+    "place_type_code": 12,
+    "parent_id": 1
+  },
+  {
+    "kind": "place",
+    "id": "375733",
+    "uri": "x://place/375733",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Guayaquil",
+    "woeid": 375733,
+    "country": "Ecuador",
+    "country_code": "EC",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424801
+  },
+  {
+    "kind": "place",
+    "id": "375732",
+    "uri": "x://place/375732",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Quito",
+    "woeid": 375732,
+    "country": "Ecuador",
+    "country_code": "EC",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424801
+  },
+  {
+    "kind": "place",
+    "id": "1522006",
+    "uri": "x://place/1522006",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Alexandria",
+    "woeid": 1522006,
+    "country": "Egypt",
+    "country_code": "EG",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424802
+  },
+  {
+    "kind": "place",
+    "id": "1521894",
+    "uri": "x://place/1521894",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Cairo",
+    "woeid": 1521894,
+    "country": "Egypt",
+    "country_code": "EG",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424802
+  },
+  {
+    "kind": "place",
+    "id": "23424802",
+    "uri": "x://place/23424802",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Egypt",
+    "woeid": 23424802,
+    "country": "Egypt",
+    "country_code": "EG",
+    "place_type": "Country",
+    "place_type_code": 12,
+    "parent_id": 1
+  },
+  {
+    "kind": "place",
+    "id": "1521643",
+    "uri": "x://place/1521643",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Giza",
+    "woeid": 1521643,
+    "country": "Egypt",
+    "country_code": "EG",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424802
+  },
+  {
+    "kind": "place",
+    "id": "580778",
+    "uri": "x://place/580778",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Bordeaux",
+    "woeid": 580778,
+    "country": "France",
+    "country_code": "FR",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424819
+  },
+  {
+    "kind": "place",
+    "id": "23424819",
+    "uri": "x://place/23424819",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "France",
+    "woeid": 23424819,
+    "country": "France",
+    "country_code": "FR",
+    "place_type": "Country",
+    "place_type_code": 12,
+    "parent_id": 1
+  },
+  {
+    "kind": "place",
+    "id": "608105",
+    "uri": "x://place/608105",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Lille",
+    "woeid": 608105,
+    "country": "France",
+    "country_code": "FR",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424819
+  },
+  {
+    "kind": "place",
+    "id": "609125",
+    "uri": "x://place/609125",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Lyon",
+    "woeid": 609125,
+    "country": "France",
+    "country_code": "FR",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424819
+  },
+  {
+    "kind": "place",
+    "id": "610264",
+    "uri": "x://place/610264",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Marseille",
+    "woeid": 610264,
+    "country": "France",
+    "country_code": "FR",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424819
+  },
+  {
+    "kind": "place",
+    "id": "612977",
+    "uri": "x://place/612977",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Montpellier",
+    "woeid": 612977,
+    "country": "France",
+    "country_code": "FR",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424819
+  },
+  {
+    "kind": "place",
+    "id": "613858",
+    "uri": "x://place/613858",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Nantes",
+    "woeid": 613858,
+    "country": "France",
+    "country_code": "FR",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424819
+  },
+  {
+    "kind": "place",
+    "id": "615702",
+    "uri": "x://place/615702",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Paris",
+    "woeid": 615702,
+    "country": "France",
+    "country_code": "FR",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424819
+  },
+  {
+    "kind": "place",
+    "id": "619163",
+    "uri": "x://place/619163",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Rennes",
+    "woeid": 619163,
+    "country": "France",
+    "country_code": "FR",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424819
+  },
+  {
+    "kind": "place",
+    "id": "627791",
+    "uri": "x://place/627791",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Strasbourg",
+    "woeid": 627791,
+    "country": "France",
+    "country_code": "FR",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424819
+  },
+  {
+    "kind": "place",
+    "id": "628886",
+    "uri": "x://place/628886",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Toulouse",
+    "woeid": 628886,
+    "country": "France",
+    "country_code": "FR",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424819
+  },
+  {
+    "kind": "place",
+    "id": "638242",
+    "uri": "x://place/638242",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Berlin",
+    "woeid": 638242,
+    "country": "Germany",
+    "country_code": "DE",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424829
+  },
+  {
+    "kind": "place",
+    "id": "641142",
+    "uri": "x://place/641142",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Bremen",
+    "woeid": 641142,
+    "country": "Germany",
+    "country_code": "DE",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424829
+  },
+  {
+    "kind": "place",
+    "id": "667931",
+    "uri": "x://place/667931",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Cologne",
+    "woeid": 667931,
+    "country": "Germany",
+    "country_code": "DE",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424829
+  },
+  {
+    "kind": "place",
+    "id": "645458",
+    "uri": "x://place/645458",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Dortmund",
+    "woeid": 645458,
+    "country": "Germany",
+    "country_code": "DE",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424829
+  },
+  {
+    "kind": "place",
+    "id": "645686",
+    "uri": "x://place/645686",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Dresden",
+    "woeid": 645686,
+    "country": "Germany",
+    "country_code": "DE",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424829
+  },
+  {
+    "kind": "place",
+    "id": "646099",
+    "uri": "x://place/646099",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Dusseldorf",
+    "woeid": 646099,
+    "country": "Germany",
+    "country_code": "DE",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424829
+  },
+  {
+    "kind": "place",
+    "id": "648820",
+    "uri": "x://place/648820",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Essen",
+    "woeid": 648820,
+    "country": "Germany",
+    "country_code": "DE",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424829
+  },
+  {
+    "kind": "place",
+    "id": "650272",
+    "uri": "x://place/650272",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Frankfurt",
+    "woeid": 650272,
+    "country": "Germany",
+    "country_code": "DE",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424829
+  },
+  {
+    "kind": "place",
+    "id": "23424829",
+    "uri": "x://place/23424829",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Germany",
+    "woeid": 23424829,
+    "country": "Germany",
+    "country_code": "DE",
+    "place_type": "Country",
+    "place_type_code": 12,
+    "parent_id": 1
+  },
+  {
+    "kind": "place",
+    "id": "656958",
+    "uri": "x://place/656958",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Hamburg",
+    "woeid": 656958,
+    "country": "Germany",
+    "country_code": "DE",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424829
+  },
+  {
+    "kind": "place",
+    "id": "671072",
+    "uri": "x://place/671072",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Leipzig",
+    "woeid": 671072,
+    "country": "Germany",
+    "country_code": "DE",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424829
+  },
+  {
+    "kind": "place",
+    "id": "676757",
+    "uri": "x://place/676757",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Munich",
+    "woeid": 676757,
+    "country": "Germany",
+    "country_code": "DE",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424829
+  },
+  {
+    "kind": "place",
+    "id": "698064",
+    "uri": "x://place/698064",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Stuttgart",
+    "woeid": 698064,
+    "country": "Germany",
+    "country_code": "DE",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424829
+  },
+  {
+    "kind": "place",
+    "id": "1326075",
+    "uri": "x://place/1326075",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Accra",
+    "woeid": 1326075,
+    "country": "Ghana",
+    "country_code": "GH",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424824
+  },
+  {
+    "kind": "place",
+    "id": "23424824",
+    "uri": "x://place/23424824",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Ghana",
+    "woeid": 23424824,
+    "country": "Ghana",
+    "country_code": "GH",
+    "place_type": "Country",
+    "place_type_code": 12,
+    "parent_id": 1
+  },
+  {
+    "kind": "place",
+    "id": "1330595",
+    "uri": "x://place/1330595",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Kumasi",
+    "woeid": 1330595,
+    "country": "Ghana",
+    "country_code": "GH",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424824
+  },
+  {
+    "kind": "place",
+    "id": "946738",
+    "uri": "x://place/946738",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Athens",
+    "woeid": 946738,
+    "country": "Greece",
+    "country_code": "GR",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424833
+  },
+  {
+    "kind": "place",
+    "id": "23424833",
+    "uri": "x://place/23424833",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Greece",
+    "woeid": 23424833,
+    "country": "Greece",
+    "country_code": "GR",
+    "place_type": "Country",
+    "place_type_code": 12,
+    "parent_id": 1
+  },
+  {
+    "kind": "place",
+    "id": "963291",
+    "uri": "x://place/963291",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Thessaloniki",
+    "woeid": 963291,
+    "country": "Greece",
+    "country_code": "GR",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424833
+  },
+  {
+    "kind": "place",
+    "id": "23424834",
+    "uri": "x://place/23424834",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Guatemala",
+    "woeid": 23424834,
+    "country": "Guatemala",
+    "country_code": "GT",
+    "place_type": "Country",
+    "place_type_code": 12,
+    "parent_id": 1
+  },
+  {
+    "kind": "place",
+    "id": "83123",
+    "uri": "x://place/83123",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Guatemala City",
+    "woeid": 83123,
+    "country": "Guatemala",
+    "country_code": "GT",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424834
+  },
+  {
+    "kind": "place",
+    "id": "2295402",
+    "uri": "x://place/2295402",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Ahmedabad",
+    "woeid": 2295402,
+    "country": "India",
+    "country_code": "IN",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424848
+  },
+  {
+    "kind": "place",
+    "id": "2295388",
+    "uri": "x://place/2295388",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Amritsar",
+    "woeid": 2295388,
+    "country": "India",
+    "country_code": "IN",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424848
+  },
+  {
+    "kind": "place",
+    "id": "2295420",
+    "uri": "x://place/2295420",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Bangalore",
+    "woeid": 2295420,
+    "country": "India",
+    "country_code": "IN",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424848
+  },
+  {
+    "kind": "place",
+    "id": "2295407",
+    "uri": "x://place/2295407",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Bhopal",
+    "woeid": 2295407,
+    "country": "India",
+    "country_code": "IN",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424848
+  },
+  {
+    "kind": "place",
+    "id": "2295424",
+    "uri": "x://place/2295424",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Chennai",
+    "woeid": 2295424,
+    "country": "India",
+    "country_code": "IN",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424848
+  },
+  {
+    "kind": "place",
+    "id": "20070458",
+    "uri": "x://place/20070458",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Delhi",
+    "woeid": 20070458,
+    "country": "India",
+    "country_code": "IN",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424848
+  },
+  {
+    "kind": "place",
+    "id": "2295414",
+    "uri": "x://place/2295414",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Hyderabad",
+    "woeid": 2295414,
+    "country": "India",
+    "country_code": "IN",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424848
+  },
+  {
+    "kind": "place",
+    "id": "23424848",
+    "uri": "x://place/23424848",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "India",
+    "woeid": 23424848,
+    "country": "India",
+    "country_code": "IN",
+    "place_type": "Country",
+    "place_type_code": 12,
+    "parent_id": 1
+  },
+  {
+    "kind": "place",
+    "id": "2295408",
+    "uri": "x://place/2295408",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Indore",
+    "woeid": 2295408,
+    "country": "India",
+    "country_code": "IN",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424848
+  },
+  {
+    "kind": "place",
+    "id": "2295401",
+    "uri": "x://place/2295401",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Jaipur",
+    "woeid": 2295401,
+    "country": "India",
+    "country_code": "IN",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424848
+  },
+  {
+    "kind": "place",
+    "id": "2295378",
+    "uri": "x://place/2295378",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Kanpur",
+    "woeid": 2295378,
+    "country": "India",
+    "country_code": "IN",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424848
+  },
+  {
+    "kind": "place",
+    "id": "2295386",
+    "uri": "x://place/2295386",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Kolkata",
+    "woeid": 2295386,
+    "country": "India",
+    "country_code": "IN",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424848
+  },
+  {
+    "kind": "place",
+    "id": "2295377",
+    "uri": "x://place/2295377",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Lucknow",
+    "woeid": 2295377,
+    "country": "India",
+    "country_code": "IN",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424848
+  },
+  {
+    "kind": "place",
+    "id": "2295411",
+    "uri": "x://place/2295411",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Mumbai",
+    "woeid": 2295411,
+    "country": "India",
+    "country_code": "IN",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424848
+  },
+  {
+    "kind": "place",
+    "id": "2282863",
+    "uri": "x://place/2282863",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Nagpur",
+    "woeid": 2282863,
+    "country": "India",
+    "country_code": "IN",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424848
+  },
+  {
+    "kind": "place",
+    "id": "2295381",
+    "uri": "x://place/2295381",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Patna",
+    "woeid": 2295381,
+    "country": "India",
+    "country_code": "IN",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424848
+  },
+  {
+    "kind": "place",
+    "id": "2295412",
+    "uri": "x://place/2295412",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Pune",
+    "woeid": 2295412,
+    "country": "India",
+    "country_code": "IN",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424848
+  },
+  {
+    "kind": "place",
+    "id": "2295404",
+    "uri": "x://place/2295404",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Rajkot",
+    "woeid": 2295404,
+    "country": "India",
+    "country_code": "IN",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424848
+  },
+  {
+    "kind": "place",
+    "id": "2295383",
+    "uri": "x://place/2295383",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Ranchi",
+    "woeid": 2295383,
+    "country": "India",
+    "country_code": "IN",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424848
+  },
+  {
+    "kind": "place",
+    "id": "2295387",
+    "uri": "x://place/2295387",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Srinagar",
+    "woeid": 2295387,
+    "country": "India",
+    "country_code": "IN",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424848
+  },
+  {
+    "kind": "place",
+    "id": "2295405",
+    "uri": "x://place/2295405",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Surat",
+    "woeid": 2295405,
+    "country": "India",
+    "country_code": "IN",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424848
+  },
+  {
+    "kind": "place",
+    "id": "2295410",
+    "uri": "x://place/2295410",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Thane",
+    "woeid": 2295410,
+    "country": "India",
+    "country_code": "IN",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424848
+  },
+  {
+    "kind": "place",
+    "id": "1047180",
+    "uri": "x://place/1047180",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Bandung",
+    "woeid": 1047180,
+    "country": "Indonesia",
+    "country_code": "ID",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424846
+  },
+  {
+    "kind": "place",
+    "id": "1030077",
+    "uri": "x://place/1030077",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Bekasi",
+    "woeid": 1030077,
+    "country": "Indonesia",
+    "country_code": "ID",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424846
+  },
+  {
+    "kind": "place",
+    "id": "1032539",
+    "uri": "x://place/1032539",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Depok",
+    "woeid": 1032539,
+    "country": "Indonesia",
+    "country_code": "ID",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424846
+  },
+  {
+    "kind": "place",
+    "id": "23424846",
+    "uri": "x://place/23424846",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Indonesia",
+    "woeid": 23424846,
+    "country": "Indonesia",
+    "country_code": "ID",
+    "place_type": "Country",
+    "place_type_code": 12,
+    "parent_id": 1
+  },
+  {
+    "kind": "place",
+    "id": "1047378",
+    "uri": "x://place/1047378",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Jakarta",
+    "woeid": 1047378,
+    "country": "Indonesia",
+    "country_code": "ID",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424846
+  },
+  {
+    "kind": "place",
+    "id": "1046138",
+    "uri": "x://place/1046138",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Makassar",
+    "woeid": 1046138,
+    "country": "Indonesia",
+    "country_code": "ID",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424846
+  },
+  {
+    "kind": "place",
+    "id": "1047908",
+    "uri": "x://place/1047908",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Medan",
+    "woeid": 1047908,
+    "country": "Indonesia",
+    "country_code": "ID",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424846
+  },
+  {
+    "kind": "place",
+    "id": "1048059",
+    "uri": "x://place/1048059",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Palembang",
+    "woeid": 1048059,
+    "country": "Indonesia",
+    "country_code": "ID",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424846
+  },
+  {
+    "kind": "place",
+    "id": "1040779",
+    "uri": "x://place/1040779",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Pekanbaru",
+    "woeid": 1040779,
+    "country": "Indonesia",
+    "country_code": "ID",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424846
+  },
+  {
+    "kind": "place",
+    "id": "1048324",
+    "uri": "x://place/1048324",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Semarang",
+    "woeid": 1048324,
+    "country": "Indonesia",
+    "country_code": "ID",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424846
+  },
+  {
+    "kind": "place",
+    "id": "1044316",
+    "uri": "x://place/1044316",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Surabaya",
+    "woeid": 1044316,
+    "country": "Indonesia",
+    "country_code": "ID",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424846
+  },
+  {
+    "kind": "place",
+    "id": "1048536",
+    "uri": "x://place/1048536",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Tangerang",
+    "woeid": 1048536,
+    "country": "Indonesia",
+    "country_code": "ID",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424846
+  },
+  {
+    "kind": "place",
+    "id": "560472",
+    "uri": "x://place/560472",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Cork",
+    "woeid": 560472,
+    "country": "Ireland",
+    "country_code": "IE",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424803
+  },
+  {
+    "kind": "place",
+    "id": "560743",
+    "uri": "x://place/560743",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Dublin",
+    "woeid": 560743,
+    "country": "Ireland",
+    "country_code": "IE",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424803
+  },
+  {
+    "kind": "place",
+    "id": "560912",
+    "uri": "x://place/560912",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Galway",
+    "woeid": 560912,
+    "country": "Ireland",
+    "country_code": "IE",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424803
+  },
+  {
+    "kind": "place",
+    "id": "23424803",
+    "uri": "x://place/23424803",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Ireland",
+    "woeid": 23424803,
+    "country": "Ireland",
+    "country_code": "IE",
+    "place_type": "Country",
+    "place_type_code": 12,
+    "parent_id": 1
+  },
+  {
+    "kind": "place",
+    "id": "1967449",
+    "uri": "x://place/1967449",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Haifa",
+    "woeid": 1967449,
+    "country": "Israel",
+    "country_code": "IL",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424852
+  },
+  {
+    "kind": "place",
+    "id": "23424852",
+    "uri": "x://place/23424852",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Israel",
+    "woeid": 23424852,
+    "country": "Israel",
+    "country_code": "IL",
+    "place_type": "Country",
+    "place_type_code": 12,
+    "parent_id": 1
+  },
+  {
+    "kind": "place",
+    "id": "1968222",
+    "uri": "x://place/1968222",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Jerusalem",
+    "woeid": 1968222,
+    "country": "Israel",
+    "country_code": "IL",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424852
+  },
+  {
+    "kind": "place",
+    "id": "1968212",
+    "uri": "x://place/1968212",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Tel Aviv",
+    "woeid": 1968212,
+    "country": "Israel",
+    "country_code": "IL",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424852
+  },
+  {
+    "kind": "place",
+    "id": "711080",
+    "uri": "x://place/711080",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Bologna",
+    "woeid": 711080,
+    "country": "Italy",
+    "country_code": "IT",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424853
+  },
+  {
+    "kind": "place",
+    "id": "716085",
+    "uri": "x://place/716085",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Genoa",
+    "woeid": 716085,
+    "country": "Italy",
+    "country_code": "IT",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424853
+  },
+  {
+    "kind": "place",
+    "id": "23424853",
+    "uri": "x://place/23424853",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Italy",
+    "woeid": 23424853,
+    "country": "Italy",
+    "country_code": "IT",
+    "place_type": "Country",
+    "place_type_code": 12,
+    "parent_id": 1
+  },
+  {
+    "kind": "place",
+    "id": "718345",
+    "uri": "x://place/718345",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Milan",
+    "woeid": 718345,
+    "country": "Italy",
+    "country_code": "IT",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424853
+  },
+  {
+    "kind": "place",
+    "id": "719258",
+    "uri": "x://place/719258",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Naples",
+    "woeid": 719258,
+    "country": "Italy",
+    "country_code": "IT",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424853
+  },
+  {
+    "kind": "place",
+    "id": "719846",
+    "uri": "x://place/719846",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Palermo",
+    "woeid": 719846,
+    "country": "Italy",
+    "country_code": "IT",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424853
+  },
+  {
+    "kind": "place",
+    "id": "721943",
+    "uri": "x://place/721943",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Rome",
+    "woeid": 721943,
+    "country": "Italy",
+    "country_code": "IT",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424853
+  },
+  {
+    "kind": "place",
+    "id": "725003",
+    "uri": "x://place/725003",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Turin",
+    "woeid": 725003,
+    "country": "Italy",
+    "country_code": "IT",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424853
+  },
+  {
+    "kind": "place",
+    "id": "1117034",
+    "uri": "x://place/1117034",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Chiba",
+    "woeid": 1117034,
+    "country": "Japan",
+    "country_code": "JP",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424856
+  },
+  {
+    "kind": "place",
+    "id": "1117099",
+    "uri": "x://place/1117099",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Fukuoka",
+    "woeid": 1117099,
+    "country": "Japan",
+    "country_code": "JP",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424856
+  },
+  {
+    "kind": "place",
+    "id": "1117155",
+    "uri": "x://place/1117155",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Hamamatsu",
+    "woeid": 1117155,
+    "country": "Japan",
+    "country_code": "JP",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424856
+  },
+  {
+    "kind": "place",
+    "id": "1117227",
+    "uri": "x://place/1117227",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Hiroshima",
+    "woeid": 1117227,
+    "country": "Japan",
+    "country_code": "JP",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424856
+  },
+  {
+    "kind": "place",
+    "id": "23424856",
+    "uri": "x://place/23424856",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Japan",
+    "woeid": 23424856,
+    "country": "Japan",
+    "country_code": "JP",
+    "place_type": "Country",
+    "place_type_code": 12,
+    "parent_id": 1
+  },
+  {
+    "kind": "place",
+    "id": "1117502",
+    "uri": "x://place/1117502",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Kawasaki",
+    "woeid": 1117502,
+    "country": "Japan",
+    "country_code": "JP",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424856
+  },
+  {
+    "kind": "place",
+    "id": "1110809",
+    "uri": "x://place/1110809",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Kitakyushu",
+    "woeid": 1110809,
+    "country": "Japan",
+    "country_code": "JP",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424856
+  },
+  {
+    "kind": "place",
+    "id": "1117545",
+    "uri": "x://place/1117545",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Kobe",
+    "woeid": 1117545,
+    "country": "Japan",
+    "country_code": "JP",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424856
+  },
+  {
+    "kind": "place",
+    "id": "1117605",
+    "uri": "x://place/1117605",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Kumamoto",
+    "woeid": 1117605,
+    "country": "Japan",
+    "country_code": "JP",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424856
+  },
+  {
+    "kind": "place",
+    "id": "15015372",
+    "uri": "x://place/15015372",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Kyoto",
+    "woeid": 15015372,
+    "country": "Japan",
+    "country_code": "JP",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424856
+  },
+  {
+    "kind": "place",
+    "id": "1117817",
+    "uri": "x://place/1117817",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Nagoya",
+    "woeid": 1117817,
+    "country": "Japan",
+    "country_code": "JP",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424856
+  },
+  {
+    "kind": "place",
+    "id": "1117881",
+    "uri": "x://place/1117881",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Niigata",
+    "woeid": 1117881,
+    "country": "Japan",
+    "country_code": "JP",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424856
+  },
+  {
+    "kind": "place",
+    "id": "90036018",
+    "uri": "x://place/90036018",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Okayama",
+    "woeid": 90036018,
+    "country": "Japan",
+    "country_code": "JP",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424856
+  },
+  {
+    "kind": "place",
+    "id": "2345896",
+    "uri": "x://place/2345896",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Okinawa",
+    "woeid": 2345896,
+    "country": "Japan",
+    "country_code": "JP",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424856
+  },
+  {
+    "kind": "place",
+    "id": "15015370",
+    "uri": "x://place/15015370",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Osaka",
+    "woeid": 15015370,
+    "country": "Japan",
+    "country_code": "JP",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424856
+  },
+  {
+    "kind": "place",
+    "id": "1118072",
+    "uri": "x://place/1118072",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Sagamihara",
+    "woeid": 1118072,
+    "country": "Japan",
+    "country_code": "JP",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424856
+  },
+  {
+    "kind": "place",
+    "id": "1116753",
+    "uri": "x://place/1116753",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Saitama",
+    "woeid": 1116753,
+    "country": "Japan",
+    "country_code": "JP",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424856
+  },
+  {
+    "kind": "place",
+    "id": "1118108",
+    "uri": "x://place/1118108",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Sapporo",
+    "woeid": 1118108,
+    "country": "Japan",
+    "country_code": "JP",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424856
+  },
+  {
+    "kind": "place",
+    "id": "1118129",
+    "uri": "x://place/1118129",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Sendai",
+    "woeid": 1118129,
+    "country": "Japan",
+    "country_code": "JP",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424856
+  },
+  {
+    "kind": "place",
+    "id": "1118285",
+    "uri": "x://place/1118285",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Takamatsu",
+    "woeid": 1118285,
+    "country": "Japan",
+    "country_code": "JP",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424856
+  },
+  {
+    "kind": "place",
+    "id": "1118370",
+    "uri": "x://place/1118370",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Tokyo",
+    "woeid": 1118370,
+    "country": "Japan",
+    "country_code": "JP",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424856
+  },
+  {
+    "kind": "place",
+    "id": "1118550",
+    "uri": "x://place/1118550",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Yokohama",
+    "woeid": 1118550,
+    "country": "Japan",
+    "country_code": "JP",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424856
+  },
+  {
+    "kind": "place",
+    "id": "1968902",
+    "uri": "x://place/1968902",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Amman",
+    "woeid": 1968902,
+    "country": "Jordan",
+    "country_code": "JO",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424860
+  },
+  {
+    "kind": "place",
+    "id": "23424860",
+    "uri": "x://place/23424860",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Jordan",
+    "woeid": 23424860,
+    "country": "Jordan",
+    "country_code": "JO",
+    "place_type": "Country",
+    "place_type_code": 12,
+    "parent_id": 1
+  },
+  {
+    "kind": "place",
+    "id": "23424863",
+    "uri": "x://place/23424863",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Kenya",
+    "woeid": 23424863,
+    "country": "Kenya",
+    "country_code": "KE",
+    "place_type": "Country",
+    "place_type_code": 12,
+    "parent_id": 1
+  },
+  {
+    "kind": "place",
+    "id": "1528335",
+    "uri": "x://place/1528335",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Mombasa",
+    "woeid": 1528335,
+    "country": "Kenya",
+    "country_code": "KE",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424863
+  },
+  {
+    "kind": "place",
+    "id": "1528488",
+    "uri": "x://place/1528488",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Nairobi",
+    "woeid": 1528488,
+    "country": "Kenya",
+    "country_code": "KE",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424863
+  },
+  {
+    "kind": "place",
+    "id": "1132444",
+    "uri": "x://place/1132444",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Ansan",
+    "woeid": 1132444,
+    "country": "Korea",
+    "country_code": "KR",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424868
+  },
+  {
+    "kind": "place",
+    "id": "1132445",
+    "uri": "x://place/1132445",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Bucheon",
+    "woeid": 1132445,
+    "country": "Korea",
+    "country_code": "KR",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424868
+  },
+  {
+    "kind": "place",
+    "id": "1132447",
+    "uri": "x://place/1132447",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Busan",
+    "woeid": 1132447,
+    "country": "Korea",
+    "country_code": "KR",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424868
+  },
+  {
+    "kind": "place",
+    "id": "1132449",
+    "uri": "x://place/1132449",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Changwon",
+    "woeid": 1132449,
+    "country": "Korea",
+    "country_code": "KR",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424868
+  },
+  {
+    "kind": "place",
+    "id": "1132466",
+    "uri": "x://place/1132466",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Daegu",
+    "woeid": 1132466,
+    "country": "Korea",
+    "country_code": "KR",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424868
+  },
+  {
+    "kind": "place",
+    "id": "2345975",
+    "uri": "x://place/2345975",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Daejeon",
+    "woeid": 2345975,
+    "country": "Korea",
+    "country_code": "KR",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424868
+  },
+  {
+    "kind": "place",
+    "id": "1130853",
+    "uri": "x://place/1130853",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Goyang",
+    "woeid": 1130853,
+    "country": "Korea",
+    "country_code": "KR",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424868
+  },
+  {
+    "kind": "place",
+    "id": "1132481",
+    "uri": "x://place/1132481",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Gwangju",
+    "woeid": 1132481,
+    "country": "Korea",
+    "country_code": "KR",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424868
+  },
+  {
+    "kind": "place",
+    "id": "1132496",
+    "uri": "x://place/1132496",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Incheon",
+    "woeid": 1132496,
+    "country": "Korea",
+    "country_code": "KR",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424868
+  },
+  {
+    "kind": "place",
+    "id": "23424868",
+    "uri": "x://place/23424868",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Korea",
+    "woeid": 23424868,
+    "country": "Korea",
+    "country_code": "KR",
+    "place_type": "Country",
+    "place_type_code": 12,
+    "parent_id": 1
+  },
+  {
+    "kind": "place",
+    "id": "1132559",
+    "uri": "x://place/1132559",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Seongnam",
+    "woeid": 1132559,
+    "country": "Korea",
+    "country_code": "KR",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424868
+  },
+  {
+    "kind": "place",
+    "id": "1132599",
+    "uri": "x://place/1132599",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Seoul",
+    "woeid": 1132599,
+    "country": "Korea",
+    "country_code": "KR",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424868
+  },
+  {
+    "kind": "place",
+    "id": "1132567",
+    "uri": "x://place/1132567",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Suwon",
+    "woeid": 1132567,
+    "country": "Korea",
+    "country_code": "KR",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424868
+  },
+  {
+    "kind": "place",
+    "id": "1132578",
+    "uri": "x://place/1132578",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Ulsan",
+    "woeid": 1132578,
+    "country": "Korea",
+    "country_code": "KR",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424868
+  },
+  {
+    "kind": "place",
+    "id": "1132094",
+    "uri": "x://place/1132094",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Yongin",
+    "woeid": 1132094,
+    "country": "Korea",
+    "country_code": "KR",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424868
+  },
+  {
+    "kind": "place",
+    "id": "23424870",
+    "uri": "x://place/23424870",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Kuwait",
+    "woeid": 23424870,
+    "country": "Kuwait",
+    "country_code": "KW",
+    "place_type": "Country",
+    "place_type_code": 12,
+    "parent_id": 1
+  },
+  {
+    "kind": "place",
+    "id": "23424874",
+    "uri": "x://place/23424874",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Latvia",
+    "woeid": 23424874,
+    "country": "Latvia",
+    "country_code": "LV",
+    "place_type": "Country",
+    "place_type_code": 12,
+    "parent_id": 1
+  },
+  {
+    "kind": "place",
+    "id": "854823",
+    "uri": "x://place/854823",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Riga",
+    "woeid": 854823,
+    "country": "Latvia",
+    "country_code": "LV",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424874
+  },
+  {
+    "kind": "place",
+    "id": "23424873",
+    "uri": "x://place/23424873",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Lebanon",
+    "woeid": 23424873,
+    "country": "Lebanon",
+    "country_code": "LB",
+    "place_type": "Country",
+    "place_type_code": 12,
+    "parent_id": 1
+  },
+  {
+    "kind": "place",
+    "id": "56013645",
+    "uri": "x://place/56013645",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Hulu Langat",
+    "woeid": 56013645,
+    "country": "Malaysia",
+    "country_code": "MY",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424901
+  },
+  {
+    "kind": "place",
+    "id": "1154679",
+    "uri": "x://place/1154679",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Ipoh",
+    "woeid": 1154679,
+    "country": "Malaysia",
+    "country_code": "MY",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424901
+  },
+  {
+    "kind": "place",
+    "id": "1154698",
+    "uri": "x://place/1154698",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Johor Bahru",
+    "woeid": 1154698,
+    "country": "Malaysia",
+    "country_code": "MY",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424901
+  },
+  {
+    "kind": "place",
+    "id": "1141268",
+    "uri": "x://place/1141268",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Kajang",
+    "woeid": 1141268,
+    "country": "Malaysia",
+    "country_code": "MY",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424901
+  },
+  {
+    "kind": "place",
+    "id": "1154726",
+    "uri": "x://place/1154726",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Klang",
+    "woeid": 1154726,
+    "country": "Malaysia",
+    "country_code": "MY",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424901
+  },
+  {
+    "kind": "place",
+    "id": "1154781",
+    "uri": "x://place/1154781",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Kuala Lumpur",
+    "woeid": 1154781,
+    "country": "Malaysia",
+    "country_code": "MY",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424901
+  },
+  {
+    "kind": "place",
+    "id": "23424901",
+    "uri": "x://place/23424901",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Malaysia",
+    "woeid": 23424901,
+    "country": "Malaysia",
+    "country_code": "MY",
+    "place_type": "Country",
+    "place_type_code": 12,
+    "parent_id": 1
+  },
+  {
+    "kind": "place",
+    "id": "56013632",
+    "uri": "x://place/56013632",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Petaling",
+    "woeid": 56013632,
+    "country": "Malaysia",
+    "country_code": "MY",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424901
+  },
+  {
+    "kind": "place",
+    "id": "110978",
+    "uri": "x://place/110978",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Acapulco",
+    "woeid": 110978,
+    "country": "Mexico",
+    "country_code": "MX",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424900
+  },
+  {
+    "kind": "place",
+    "id": "111579",
+    "uri": "x://place/111579",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Aguascalientes",
+    "woeid": 111579,
+    "country": "Mexico",
+    "country_code": "MX",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424900
+  },
+  {
+    "kind": "place",
+    "id": "115958",
+    "uri": "x://place/115958",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Chihuahua",
+    "woeid": 115958,
+    "country": "Mexico",
+    "country_code": "MX",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424900
+  },
+  {
+    "kind": "place",
+    "id": "116556",
+    "uri": "x://place/116556",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Ciudad Juarez",
+    "woeid": 116556,
+    "country": "Mexico",
+    "country_code": "MX",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424900
+  },
+  {
+    "kind": "place",
+    "id": "117994",
+    "uri": "x://place/117994",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Culiacán",
+    "woeid": 117994,
+    "country": "Mexico",
+    "country_code": "MX",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424900
+  },
+  {
+    "kind": "place",
+    "id": "118466",
+    "uri": "x://place/118466",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Ecatepec de Morelos",
+    "woeid": 118466,
+    "country": "Mexico",
+    "country_code": "MX",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424900
+  },
+  {
+    "kind": "place",
+    "id": "124162",
+    "uri": "x://place/124162",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Guadalajara",
+    "woeid": 124162,
+    "country": "Mexico",
+    "country_code": "MX",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424900
+  },
+  {
+    "kind": "place",
+    "id": "124785",
+    "uri": "x://place/124785",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Hermosillo",
+    "woeid": 124785,
+    "country": "Mexico",
+    "country_code": "MX",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424900
+  },
+  {
+    "kind": "place",
+    "id": "131068",
+    "uri": "x://place/131068",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "León",
+    "woeid": 131068,
+    "country": "Mexico",
+    "country_code": "MX",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424900
+  },
+  {
+    "kind": "place",
+    "id": "133475",
+    "uri": "x://place/133475",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Mexicali",
+    "woeid": 133475,
+    "country": "Mexico",
+    "country_code": "MX",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424900
+  },
+  {
+    "kind": "place",
+    "id": "23424900",
+    "uri": "x://place/23424900",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Mexico",
+    "woeid": 23424900,
+    "country": "Mexico",
+    "country_code": "MX",
+    "place_type": "Country",
+    "place_type_code": 12,
+    "parent_id": 1
+  },
+  {
+    "kind": "place",
+    "id": "116545",
+    "uri": "x://place/116545",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Mexico City",
+    "woeid": 116545,
+    "country": "Mexico",
+    "country_code": "MX",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424900
+  },
+  {
+    "kind": "place",
+    "id": "134047",
+    "uri": "x://place/134047",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Monterrey",
+    "woeid": 134047,
+    "country": "Mexico",
+    "country_code": "MX",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424900
+  },
+  {
+    "kind": "place",
+    "id": "134091",
+    "uri": "x://place/134091",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Morelia",
+    "woeid": 134091,
+    "country": "Mexico",
+    "country_code": "MX",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424900
+  },
+  {
+    "kind": "place",
+    "id": "133327",
+    "uri": "x://place/133327",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Mérida",
+    "woeid": 133327,
+    "country": "Mexico",
+    "country_code": "MX",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424900
+  },
+  {
+    "kind": "place",
+    "id": "134395",
+    "uri": "x://place/134395",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Naucalpan de Juárez",
+    "woeid": 134395,
+    "country": "Mexico",
+    "country_code": "MX",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424900
+  },
+  {
+    "kind": "place",
+    "id": "116564",
+    "uri": "x://place/116564",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Nezahualcóyotl",
+    "woeid": 116564,
+    "country": "Mexico",
+    "country_code": "MX",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424900
+  },
+  {
+    "kind": "place",
+    "id": "137612",
+    "uri": "x://place/137612",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Puebla",
+    "woeid": 137612,
+    "country": "Mexico",
+    "country_code": "MX",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424900
+  },
+  {
+    "kind": "place",
+    "id": "138045",
+    "uri": "x://place/138045",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Querétaro",
+    "woeid": 138045,
+    "country": "Mexico",
+    "country_code": "MX",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424900
+  },
+  {
+    "kind": "place",
+    "id": "141272",
+    "uri": "x://place/141272",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Saltillo",
+    "woeid": 141272,
+    "country": "Mexico",
+    "country_code": "MX",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424900
+  },
+  {
+    "kind": "place",
+    "id": "144265",
+    "uri": "x://place/144265",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "San Luis Potosí",
+    "woeid": 144265,
+    "country": "Mexico",
+    "country_code": "MX",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424900
+  },
+  {
+    "kind": "place",
+    "id": "149361",
+    "uri": "x://place/149361",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Tijuana",
+    "woeid": 149361,
+    "country": "Mexico",
+    "country_code": "MX",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424900
+  },
+  {
+    "kind": "place",
+    "id": "149769",
+    "uri": "x://place/149769",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Toluca",
+    "woeid": 149769,
+    "country": "Mexico",
+    "country_code": "MX",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424900
+  },
+  {
+    "kind": "place",
+    "id": "151582",
+    "uri": "x://place/151582",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Zapopan",
+    "woeid": 151582,
+    "country": "Mexico",
+    "country_code": "MX",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424900
+  },
+  {
+    "kind": "place",
+    "id": "727232",
+    "uri": "x://place/727232",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Amsterdam",
+    "woeid": 727232,
+    "country": "Netherlands",
+    "country_code": "NL",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424909
+  },
+  {
+    "kind": "place",
+    "id": "726874",
+    "uri": "x://place/726874",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Den Haag",
+    "woeid": 726874,
+    "country": "Netherlands",
+    "country_code": "NL",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424909
+  },
+  {
+    "kind": "place",
+    "id": "23424909",
+    "uri": "x://place/23424909",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Netherlands",
+    "woeid": 23424909,
+    "country": "Netherlands",
+    "country_code": "NL",
+    "place_type": "Country",
+    "place_type_code": 12,
+    "parent_id": 1
+  },
+  {
+    "kind": "place",
+    "id": "733075",
+    "uri": "x://place/733075",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Rotterdam",
+    "woeid": 733075,
+    "country": "Netherlands",
+    "country_code": "NL",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424909
+  },
+  {
+    "kind": "place",
+    "id": "734047",
+    "uri": "x://place/734047",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Utrecht",
+    "woeid": 734047,
+    "country": "Netherlands",
+    "country_code": "NL",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424909
+  },
+  {
+    "kind": "place",
+    "id": "2348079",
+    "uri": "x://place/2348079",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Auckland",
+    "woeid": 2348079,
+    "country": "New Zealand",
+    "country_code": "NZ",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424916
+  },
+  {
+    "kind": "place",
+    "id": "23424916",
+    "uri": "x://place/23424916",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "New Zealand",
+    "woeid": 23424916,
+    "country": "New Zealand",
+    "country_code": "NZ",
+    "place_type": "Country",
+    "place_type_code": 12,
+    "parent_id": 1
+  },
+  {
+    "kind": "place",
+    "id": "1387660",
+    "uri": "x://place/1387660",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Benin City",
+    "woeid": 1387660,
+    "country": "Nigeria",
+    "country_code": "NG",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424908
+  },
+  {
+    "kind": "place",
+    "id": "1393672",
+    "uri": "x://place/1393672",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Ibadan",
+    "woeid": 1393672,
+    "country": "Nigeria",
+    "country_code": "NG",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424908
+  },
+  {
+    "kind": "place",
+    "id": "1396439",
+    "uri": "x://place/1396439",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Kaduna",
+    "woeid": 1396439,
+    "country": "Nigeria",
+    "country_code": "NG",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424908
+  },
+  {
+    "kind": "place",
+    "id": "1396803",
+    "uri": "x://place/1396803",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Kano",
+    "woeid": 1396803,
+    "country": "Nigeria",
+    "country_code": "NG",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424908
+  },
+  {
+    "kind": "place",
+    "id": "1398823",
+    "uri": "x://place/1398823",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Lagos",
+    "woeid": 1398823,
+    "country": "Nigeria",
+    "country_code": "NG",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424908
+  },
+  {
+    "kind": "place",
+    "id": "23424908",
+    "uri": "x://place/23424908",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Nigeria",
+    "woeid": 23424908,
+    "country": "Nigeria",
+    "country_code": "NG",
+    "place_type": "Country",
+    "place_type_code": 12,
+    "parent_id": 1
+  },
+  {
+    "kind": "place",
+    "id": "1404447",
+    "uri": "x://place/1404447",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Port Harcourt",
+    "woeid": 1404447,
+    "country": "Nigeria",
+    "country_code": "NG",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424908
+  },
+  {
+    "kind": "place",
+    "id": "857105",
+    "uri": "x://place/857105",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Bergen",
+    "woeid": 857105,
+    "country": "Norway",
+    "country_code": "NO",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424910
+  },
+  {
+    "kind": "place",
+    "id": "23424910",
+    "uri": "x://place/23424910",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Norway",
+    "woeid": 23424910,
+    "country": "Norway",
+    "country_code": "NO",
+    "place_type": "Country",
+    "place_type_code": 12,
+    "parent_id": 1
+  },
+  {
+    "kind": "place",
+    "id": "862592",
+    "uri": "x://place/862592",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Oslo",
+    "woeid": 862592,
+    "country": "Norway",
+    "country_code": "NO",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424910
+  },
+  {
+    "kind": "place",
+    "id": "2268284",
+    "uri": "x://place/2268284",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Muscat",
+    "woeid": 2268284,
+    "country": "Oman",
+    "country_code": "OM",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424898
+  },
+  {
+    "kind": "place",
+    "id": "23424898",
+    "uri": "x://place/23424898",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Oman",
+    "woeid": 23424898,
+    "country": "Oman",
+    "country_code": "OM",
+    "place_type": "Country",
+    "place_type_code": 12,
+    "parent_id": 1
+  },
+  {
+    "kind": "place",
+    "id": "2211574",
+    "uri": "x://place/2211574",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Faisalabad",
+    "woeid": 2211574,
+    "country": "Pakistan",
+    "country_code": "PK",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424922
+  },
+  {
+    "kind": "place",
+    "id": "2211096",
+    "uri": "x://place/2211096",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Karachi",
+    "woeid": 2211096,
+    "country": "Pakistan",
+    "country_code": "PK",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424922
+  },
+  {
+    "kind": "place",
+    "id": "2211177",
+    "uri": "x://place/2211177",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Lahore",
+    "woeid": 2211177,
+    "country": "Pakistan",
+    "country_code": "PK",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424922
+  },
+  {
+    "kind": "place",
+    "id": "2211269",
+    "uri": "x://place/2211269",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Multan",
+    "woeid": 2211269,
+    "country": "Pakistan",
+    "country_code": "PK",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424922
+  },
+  {
+    "kind": "place",
+    "id": "23424922",
+    "uri": "x://place/23424922",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Pakistan",
+    "woeid": 23424922,
+    "country": "Pakistan",
+    "country_code": "PK",
+    "place_type": "Country",
+    "place_type_code": 12,
+    "parent_id": 1
+  },
+  {
+    "kind": "place",
+    "id": "2211387",
+    "uri": "x://place/2211387",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Rawalpindi",
+    "woeid": 2211387,
+    "country": "Pakistan",
+    "country_code": "PK",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424922
+  },
+  {
+    "kind": "place",
+    "id": "23424924",
+    "uri": "x://place/23424924",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Panama",
+    "woeid": 23424924,
+    "country": "Panama",
+    "country_code": "PA",
+    "place_type": "Country",
+    "place_type_code": 12,
+    "parent_id": 1
+  },
+  {
+    "kind": "place",
+    "id": "418440",
+    "uri": "x://place/418440",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Lima",
+    "woeid": 418440,
+    "country": "Peru",
+    "country_code": "PE",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424919
+  },
+  {
+    "kind": "place",
+    "id": "23424919",
+    "uri": "x://place/23424919",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Peru",
+    "woeid": 23424919,
+    "country": "Peru",
+    "country_code": "PE",
+    "place_type": "Country",
+    "place_type_code": 12,
+    "parent_id": 1
+  },
+  {
+    "kind": "place",
+    "id": "1198785",
+    "uri": "x://place/1198785",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Antipolo",
+    "woeid": 1198785,
+    "country": "Philippines",
+    "country_code": "PH",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424934
+  },
+  {
+    "kind": "place",
+    "id": "1199002",
+    "uri": "x://place/1199002",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Cagayan de Oro",
+    "woeid": 1199002,
+    "country": "Philippines",
+    "country_code": "PH",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424934
+  },
+  {
+    "kind": "place",
+    "id": "1167715",
+    "uri": "x://place/1167715",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Calocan",
+    "woeid": 1167715,
+    "country": "Philippines",
+    "country_code": "PH",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424934
+  },
+  {
+    "kind": "place",
+    "id": "1199079",
+    "uri": "x://place/1199079",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Cebu City",
+    "woeid": 1199079,
+    "country": "Philippines",
+    "country_code": "PH",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424934
+  },
+  {
+    "kind": "place",
+    "id": "1199136",
+    "uri": "x://place/1199136",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Davao City",
+    "woeid": 1199136,
+    "country": "Philippines",
+    "country_code": "PH",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424934
+  },
+  {
+    "kind": "place",
+    "id": "1180689",
+    "uri": "x://place/1180689",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Makati",
+    "woeid": 1180689,
+    "country": "Philippines",
+    "country_code": "PH",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424934
+  },
+  {
+    "kind": "place",
+    "id": "1199477",
+    "uri": "x://place/1199477",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Manila",
+    "woeid": 1199477,
+    "country": "Philippines",
+    "country_code": "PH",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424934
+  },
+  {
+    "kind": "place",
+    "id": "1187115",
+    "uri": "x://place/1187115",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Pasig",
+    "woeid": 1187115,
+    "country": "Philippines",
+    "country_code": "PH",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424934
+  },
+  {
+    "kind": "place",
+    "id": "23424934",
+    "uri": "x://place/23424934",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Philippines",
+    "woeid": 23424934,
+    "country": "Philippines",
+    "country_code": "PH",
+    "place_type": "Country",
+    "place_type_code": 12,
+    "parent_id": 1
+  },
+  {
+    "kind": "place",
+    "id": "1199682",
+    "uri": "x://place/1199682",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Quezon City",
+    "woeid": 1199682,
+    "country": "Philippines",
+    "country_code": "PH",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424934
+  },
+  {
+    "kind": "place",
+    "id": "1195098",
+    "uri": "x://place/1195098",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Taguig",
+    "woeid": 1195098,
+    "country": "Philippines",
+    "country_code": "PH",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424934
+  },
+  {
+    "kind": "place",
+    "id": "1199980",
+    "uri": "x://place/1199980",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Zamboanga City",
+    "woeid": 1199980,
+    "country": "Philippines",
+    "country_code": "PH",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424934
+  },
+  {
+    "kind": "place",
+    "id": "493417",
+    "uri": "x://place/493417",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Gdańsk",
+    "woeid": 493417,
+    "country": "Poland",
+    "country_code": "PL",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424923
+  },
+  {
+    "kind": "place",
+    "id": "502075",
+    "uri": "x://place/502075",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Kraków",
+    "woeid": 502075,
+    "country": "Poland",
+    "country_code": "PL",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424923
+  },
+  {
+    "kind": "place",
+    "id": "505120",
+    "uri": "x://place/505120",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Lodz",
+    "woeid": 505120,
+    "country": "Poland",
+    "country_code": "PL",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424923
+  },
+  {
+    "kind": "place",
+    "id": "23424923",
+    "uri": "x://place/23424923",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Poland",
+    "woeid": 23424923,
+    "country": "Poland",
+    "country_code": "PL",
+    "place_type": "Country",
+    "place_type_code": 12,
+    "parent_id": 1
+  },
+  {
+    "kind": "place",
+    "id": "514048",
+    "uri": "x://place/514048",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Poznań",
+    "woeid": 514048,
+    "country": "Poland",
+    "country_code": "PL",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424923
+  },
+  {
+    "kind": "place",
+    "id": "523920",
+    "uri": "x://place/523920",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Warsaw",
+    "woeid": 523920,
+    "country": "Poland",
+    "country_code": "PL",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424923
+  },
+  {
+    "kind": "place",
+    "id": "526363",
+    "uri": "x://place/526363",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Wroclaw",
+    "woeid": 526363,
+    "country": "Poland",
+    "country_code": "PL",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424923
+  },
+  {
+    "kind": "place",
+    "id": "23424925",
+    "uri": "x://place/23424925",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Portugal",
+    "woeid": 23424925,
+    "country": "Portugal",
+    "country_code": "PT",
+    "place_type": "Country",
+    "place_type_code": 12,
+    "parent_id": 1
+  },
+  {
+    "kind": "place",
+    "id": "23424935",
+    "uri": "x://place/23424935",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Puerto Rico",
+    "woeid": 23424935,
+    "country": "Puerto Rico",
+    "country_code": "PR",
+    "place_type": "Country",
+    "place_type_code": 12,
+    "parent_id": 1
+  },
+  {
+    "kind": "place",
+    "id": "23424930",
+    "uri": "x://place/23424930",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Qatar",
+    "woeid": 23424930,
+    "country": "Qatar",
+    "country_code": "QA",
+    "place_type": "Country",
+    "place_type_code": 12,
+    "parent_id": 1
+  },
+  {
+    "kind": "place",
+    "id": "1997422",
+    "uri": "x://place/1997422",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Chelyabinsk",
+    "woeid": 1997422,
+    "country": "Russia",
+    "country_code": "RU",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424936
+  },
+  {
+    "kind": "place",
+    "id": "2121040",
+    "uri": "x://place/2121040",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Irkutsk",
+    "woeid": 2121040,
+    "country": "Russia",
+    "country_code": "RU",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424936
+  },
+  {
+    "kind": "place",
+    "id": "2121267",
+    "uri": "x://place/2121267",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Kazan",
+    "woeid": 2121267,
+    "country": "Russia",
+    "country_code": "RU",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424936
+  },
+  {
+    "kind": "place",
+    "id": "2018708",
+    "uri": "x://place/2018708",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Khabarovsk",
+    "woeid": 2018708,
+    "country": "Russia",
+    "country_code": "RU",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424936
+  },
+  {
+    "kind": "place",
+    "id": "2028717",
+    "uri": "x://place/2028717",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Krasnodar",
+    "woeid": 2028717,
+    "country": "Russia",
+    "country_code": "RU",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424936
+  },
+  {
+    "kind": "place",
+    "id": "2029043",
+    "uri": "x://place/2029043",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Krasnoyarsk",
+    "woeid": 2029043,
+    "country": "Russia",
+    "country_code": "RU",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424936
+  },
+  {
+    "kind": "place",
+    "id": "2122265",
+    "uri": "x://place/2122265",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Moscow",
+    "woeid": 2122265,
+    "country": "Russia",
+    "country_code": "RU",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424936
+  },
+  {
+    "kind": "place",
+    "id": "2122471",
+    "uri": "x://place/2122471",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Nizhny Novgorod",
+    "woeid": 2122471,
+    "country": "Russia",
+    "country_code": "RU",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424936
+  },
+  {
+    "kind": "place",
+    "id": "2122541",
+    "uri": "x://place/2122541",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Novosibirsk",
+    "woeid": 2122541,
+    "country": "Russia",
+    "country_code": "RU",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424936
+  },
+  {
+    "kind": "place",
+    "id": "2122641",
+    "uri": "x://place/2122641",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Omsk",
+    "woeid": 2122641,
+    "country": "Russia",
+    "country_code": "RU",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424936
+  },
+  {
+    "kind": "place",
+    "id": "2122814",
+    "uri": "x://place/2122814",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Perm",
+    "woeid": 2122814,
+    "country": "Russia",
+    "country_code": "RU",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424936
+  },
+  {
+    "kind": "place",
+    "id": "2123177",
+    "uri": "x://place/2123177",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Rostov-on-Don",
+    "woeid": 2123177,
+    "country": "Russia",
+    "country_code": "RU",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424936
+  },
+  {
+    "kind": "place",
+    "id": "23424936",
+    "uri": "x://place/23424936",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Russia",
+    "woeid": 23424936,
+    "country": "Russia",
+    "country_code": "RU",
+    "place_type": "Country",
+    "place_type_code": 12,
+    "parent_id": 1
+  },
+  {
+    "kind": "place",
+    "id": "2123260",
+    "uri": "x://place/2123260",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Saint Petersburg",
+    "woeid": 2123260,
+    "country": "Russia",
+    "country_code": "RU",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424936
+  },
+  {
+    "kind": "place",
+    "id": "2077746",
+    "uri": "x://place/2077746",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Samara",
+    "woeid": 2077746,
+    "country": "Russia",
+    "country_code": "RU",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424936
+  },
+  {
+    "kind": "place",
+    "id": "2124045",
+    "uri": "x://place/2124045",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Ufa",
+    "woeid": 2124045,
+    "country": "Russia",
+    "country_code": "RU",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424936
+  },
+  {
+    "kind": "place",
+    "id": "2124288",
+    "uri": "x://place/2124288",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Vladivostok",
+    "woeid": 2124288,
+    "country": "Russia",
+    "country_code": "RU",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424936
+  },
+  {
+    "kind": "place",
+    "id": "2124298",
+    "uri": "x://place/2124298",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Volgograd",
+    "woeid": 2124298,
+    "country": "Russia",
+    "country_code": "RU",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424936
+  },
+  {
+    "kind": "place",
+    "id": "2108210",
+    "uri": "x://place/2108210",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Voronezh",
+    "woeid": 2108210,
+    "country": "Russia",
+    "country_code": "RU",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424936
+  },
+  {
+    "kind": "place",
+    "id": "2112237",
+    "uri": "x://place/2112237",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Yekaterinburg",
+    "woeid": 2112237,
+    "country": "Russia",
+    "country_code": "RU",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424936
+  },
+  {
+    "kind": "place",
+    "id": "56120136",
+    "uri": "x://place/56120136",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Ahsa",
+    "woeid": 56120136,
+    "country": "Saudi Arabia",
+    "country_code": "SA",
+    "place_type": "Unknown",
+    "place_type_code": 9,
+    "parent_id": 23424938
+  },
+  {
+    "kind": "place",
+    "id": "1939574",
+    "uri": "x://place/1939574",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Dammam",
+    "woeid": 1939574,
+    "country": "Saudi Arabia",
+    "country_code": "SA",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424938
+  },
+  {
+    "kind": "place",
+    "id": "1939873",
+    "uri": "x://place/1939873",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Jeddah",
+    "woeid": 1939873,
+    "country": "Saudi Arabia",
+    "country_code": "SA",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424938
+  },
+  {
+    "kind": "place",
+    "id": "1939897",
+    "uri": "x://place/1939897",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Mecca",
+    "woeid": 1939897,
+    "country": "Saudi Arabia",
+    "country_code": "SA",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424938
+  },
+  {
+    "kind": "place",
+    "id": "1937801",
+    "uri": "x://place/1937801",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Medina",
+    "woeid": 1937801,
+    "country": "Saudi Arabia",
+    "country_code": "SA",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424938
+  },
+  {
+    "kind": "place",
+    "id": "1939753",
+    "uri": "x://place/1939753",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Riyadh",
+    "woeid": 1939753,
+    "country": "Saudi Arabia",
+    "country_code": "SA",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424938
+  },
+  {
+    "kind": "place",
+    "id": "23424938",
+    "uri": "x://place/23424938",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Saudi Arabia",
+    "woeid": 23424938,
+    "country": "Saudi Arabia",
+    "country_code": "SA",
+    "place_type": "Country",
+    "place_type_code": 12,
+    "parent_id": 1
+  },
+  {
+    "kind": "place",
+    "id": "1062617",
+    "uri": "x://place/1062617",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Singapore",
+    "woeid": 1062617,
+    "country": "Singapore",
+    "country_code": "SG",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424948
+  },
+  {
+    "kind": "place",
+    "id": "23424948",
+    "uri": "x://place/23424948",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Singapore",
+    "woeid": 23424948,
+    "country": "Singapore",
+    "country_code": "SG",
+    "place_type": "Country",
+    "place_type_code": 12,
+    "parent_id": 1
+  },
+  {
+    "kind": "place",
+    "id": "1591691",
+    "uri": "x://place/1591691",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Cape Town",
+    "woeid": 1591691,
+    "country": "South Africa",
+    "country_code": "ZA",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424942
+  },
+  {
+    "kind": "place",
+    "id": "1580913",
+    "uri": "x://place/1580913",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Durban",
+    "woeid": 1580913,
+    "country": "South Africa",
+    "country_code": "ZA",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424942
+  },
+  {
+    "kind": "place",
+    "id": "1582504",
+    "uri": "x://place/1582504",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Johannesburg",
+    "woeid": 1582504,
+    "country": "South Africa",
+    "country_code": "ZA",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424942
+  },
+  {
+    "kind": "place",
+    "id": "1586614",
+    "uri": "x://place/1586614",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Port Elizabeth",
+    "woeid": 1586614,
+    "country": "South Africa",
+    "country_code": "ZA",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424942
+  },
+  {
+    "kind": "place",
+    "id": "1586638",
+    "uri": "x://place/1586638",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Pretoria",
+    "woeid": 1586638,
+    "country": "South Africa",
+    "country_code": "ZA",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424942
+  },
+  {
+    "kind": "place",
+    "id": "23424942",
+    "uri": "x://place/23424942",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "South Africa",
+    "woeid": 23424942,
+    "country": "South Africa",
+    "country_code": "ZA",
+    "place_type": "Country",
+    "place_type_code": 12,
+    "parent_id": 1
+  },
+  {
+    "kind": "place",
+    "id": "1587677",
+    "uri": "x://place/1587677",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Soweto",
+    "woeid": 1587677,
+    "country": "South Africa",
+    "country_code": "ZA",
+    "place_type": "Unknown",
+    "place_type_code": 22,
+    "parent_id": 23424942
+  },
+  {
+    "kind": "place",
+    "id": "753692",
+    "uri": "x://place/753692",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Barcelona",
+    "woeid": 753692,
+    "country": "Spain",
+    "country_code": "ES",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424950
+  },
+  {
+    "kind": "place",
+    "id": "754542",
+    "uri": "x://place/754542",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Bilbao",
+    "woeid": 754542,
+    "country": "Spain",
+    "country_code": "ES",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424950
+  },
+  {
+    "kind": "place",
+    "id": "764814",
+    "uri": "x://place/764814",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Las Palmas",
+    "woeid": 764814,
+    "country": "Spain",
+    "country_code": "ES",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424950
+  },
+  {
+    "kind": "place",
+    "id": "766273",
+    "uri": "x://place/766273",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Madrid",
+    "woeid": 766273,
+    "country": "Spain",
+    "country_code": "ES",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424950
+  },
+  {
+    "kind": "place",
+    "id": "766356",
+    "uri": "x://place/766356",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Malaga",
+    "woeid": 766356,
+    "country": "Spain",
+    "country_code": "ES",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424950
+  },
+  {
+    "kind": "place",
+    "id": "768026",
+    "uri": "x://place/768026",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Murcia",
+    "woeid": 768026,
+    "country": "Spain",
+    "country_code": "ES",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424950
+  },
+  {
+    "kind": "place",
+    "id": "769293",
+    "uri": "x://place/769293",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Palma",
+    "woeid": 769293,
+    "country": "Spain",
+    "country_code": "ES",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424950
+  },
+  {
+    "kind": "place",
+    "id": "774508",
+    "uri": "x://place/774508",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Seville",
+    "woeid": 774508,
+    "country": "Spain",
+    "country_code": "ES",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424950
+  },
+  {
+    "kind": "place",
+    "id": "23424950",
+    "uri": "x://place/23424950",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Spain",
+    "woeid": 23424950,
+    "country": "Spain",
+    "country_code": "ES",
+    "place_type": "Country",
+    "place_type_code": 12,
+    "parent_id": 1
+  },
+  {
+    "kind": "place",
+    "id": "776688",
+    "uri": "x://place/776688",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Valencia",
+    "woeid": 776688,
+    "country": "Spain",
+    "country_code": "ES",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424950
+  },
+  {
+    "kind": "place",
+    "id": "779063",
+    "uri": "x://place/779063",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Zaragoza",
+    "woeid": 779063,
+    "country": "Spain",
+    "country_code": "ES",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424950
+  },
+  {
+    "kind": "place",
+    "id": "890869",
+    "uri": "x://place/890869",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Gothenburg",
+    "woeid": 890869,
+    "country": "Sweden",
+    "country_code": "SE",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424954
+  },
+  {
+    "kind": "place",
+    "id": "906057",
+    "uri": "x://place/906057",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Stockholm",
+    "woeid": 906057,
+    "country": "Sweden",
+    "country_code": "SE",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424954
+  },
+  {
+    "kind": "place",
+    "id": "23424954",
+    "uri": "x://place/23424954",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Sweden",
+    "woeid": 23424954,
+    "country": "Sweden",
+    "country_code": "SE",
+    "place_type": "Country",
+    "place_type_code": 12,
+    "parent_id": 1
+  },
+  {
+    "kind": "place",
+    "id": "782538",
+    "uri": "x://place/782538",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Geneva",
+    "woeid": 782538,
+    "country": "Switzerland",
+    "country_code": "CH",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424957
+  },
+  {
+    "kind": "place",
+    "id": "783058",
+    "uri": "x://place/783058",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Lausanne",
+    "woeid": 783058,
+    "country": "Switzerland",
+    "country_code": "CH",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424957
+  },
+  {
+    "kind": "place",
+    "id": "23424957",
+    "uri": "x://place/23424957",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Switzerland",
+    "woeid": 23424957,
+    "country": "Switzerland",
+    "country_code": "CH",
+    "place_type": "Country",
+    "place_type_code": 12,
+    "parent_id": 1
+  },
+  {
+    "kind": "place",
+    "id": "784794",
+    "uri": "x://place/784794",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Zurich",
+    "woeid": 784794,
+    "country": "Switzerland",
+    "country_code": "CH",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424957
+  },
+  {
+    "kind": "place",
+    "id": "1225448",
+    "uri": "x://place/1225448",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Bangkok",
+    "woeid": 1225448,
+    "country": "Thailand",
+    "country_code": "TH",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424960
+  },
+  {
+    "kind": "place",
+    "id": "23424960",
+    "uri": "x://place/23424960",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Thailand",
+    "woeid": 23424960,
+    "country": "Thailand",
+    "country_code": "TH",
+    "place_type": "Country",
+    "place_type_code": 12,
+    "parent_id": 1
+  },
+  {
+    "kind": "place",
+    "id": "2343678",
+    "uri": "x://place/2343678",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Adana",
+    "woeid": 2343678,
+    "country": "Turkey",
+    "country_code": "TR",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424969
+  },
+  {
+    "kind": "place",
+    "id": "2343732",
+    "uri": "x://place/2343732",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Ankara",
+    "woeid": 2343732,
+    "country": "Turkey",
+    "country_code": "TR",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424969
+  },
+  {
+    "kind": "place",
+    "id": "2343733",
+    "uri": "x://place/2343733",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Antalya",
+    "woeid": 2343733,
+    "country": "Turkey",
+    "country_code": "TR",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424969
+  },
+  {
+    "kind": "place",
+    "id": "2343843",
+    "uri": "x://place/2343843",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Bursa",
+    "woeid": 2343843,
+    "country": "Turkey",
+    "country_code": "TR",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424969
+  },
+  {
+    "kind": "place",
+    "id": "2343932",
+    "uri": "x://place/2343932",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Diyarbakır",
+    "woeid": 2343932,
+    "country": "Turkey",
+    "country_code": "TR",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424969
+  },
+  {
+    "kind": "place",
+    "id": "2343980",
+    "uri": "x://place/2343980",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Eskişehir",
+    "woeid": 2343980,
+    "country": "Turkey",
+    "country_code": "TR",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424969
+  },
+  {
+    "kind": "place",
+    "id": "2343999",
+    "uri": "x://place/2343999",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Gaziantep",
+    "woeid": 2343999,
+    "country": "Turkey",
+    "country_code": "TR",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424969
+  },
+  {
+    "kind": "place",
+    "id": "2344116",
+    "uri": "x://place/2344116",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Istanbul",
+    "woeid": 2344116,
+    "country": "Turkey",
+    "country_code": "TR",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424969
+  },
+  {
+    "kind": "place",
+    "id": "2344117",
+    "uri": "x://place/2344117",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Izmir",
+    "woeid": 2344117,
+    "country": "Turkey",
+    "country_code": "TR",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424969
+  },
+  {
+    "kind": "place",
+    "id": "2344174",
+    "uri": "x://place/2344174",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Kayseri",
+    "woeid": 2344174,
+    "country": "Turkey",
+    "country_code": "TR",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424969
+  },
+  {
+    "kind": "place",
+    "id": "2344210",
+    "uri": "x://place/2344210",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Konya",
+    "woeid": 2344210,
+    "country": "Turkey",
+    "country_code": "TR",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424969
+  },
+  {
+    "kind": "place",
+    "id": "2323778",
+    "uri": "x://place/2323778",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Mersin",
+    "woeid": 2323778,
+    "country": "Turkey",
+    "country_code": "TR",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424969
+  },
+  {
+    "kind": "place",
+    "id": "23424969",
+    "uri": "x://place/23424969",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Turkey",
+    "woeid": 23424969,
+    "country": "Turkey",
+    "country_code": "TR",
+    "place_type": "Country",
+    "place_type_code": 12,
+    "parent_id": 1
+  },
+  {
+    "kind": "place",
+    "id": "918981",
+    "uri": "x://place/918981",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Dnipropetrovsk",
+    "woeid": 918981,
+    "country": "Ukraine",
+    "country_code": "UA",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424976
+  },
+  {
+    "kind": "place",
+    "id": "919163",
+    "uri": "x://place/919163",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Donetsk",
+    "woeid": 919163,
+    "country": "Ukraine",
+    "country_code": "UA",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424976
+  },
+  {
+    "kind": "place",
+    "id": "922137",
+    "uri": "x://place/922137",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Kharkiv",
+    "woeid": 922137,
+    "country": "Ukraine",
+    "country_code": "UA",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424976
+  },
+  {
+    "kind": "place",
+    "id": "924938",
+    "uri": "x://place/924938",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Kyiv",
+    "woeid": 924938,
+    "country": "Ukraine",
+    "country_code": "UA",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424976
+  },
+  {
+    "kind": "place",
+    "id": "924943",
+    "uri": "x://place/924943",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Lviv",
+    "woeid": 924943,
+    "country": "Ukraine",
+    "country_code": "UA",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424976
+  },
+  {
+    "kind": "place",
+    "id": "929398",
+    "uri": "x://place/929398",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Odesa",
+    "woeid": 929398,
+    "country": "Ukraine",
+    "country_code": "UA",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424976
+  },
+  {
+    "kind": "place",
+    "id": "23424976",
+    "uri": "x://place/23424976",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Ukraine",
+    "woeid": 23424976,
+    "country": "Ukraine",
+    "country_code": "UA",
+    "place_type": "Country",
+    "place_type_code": 12,
+    "parent_id": 1
+  },
+  {
+    "kind": "place",
+    "id": "939628",
+    "uri": "x://place/939628",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Zaporozhye",
+    "woeid": 939628,
+    "country": "Ukraine",
+    "country_code": "UA",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424976
+  },
+  {
+    "kind": "place",
+    "id": "1940330",
+    "uri": "x://place/1940330",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Abu Dhabi",
+    "woeid": 1940330,
+    "country": "United Arab Emirates",
+    "country_code": "AE",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424738
+  },
+  {
+    "kind": "place",
+    "id": "1940345",
+    "uri": "x://place/1940345",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Dubai",
+    "woeid": 1940345,
+    "country": "United Arab Emirates",
+    "country_code": "AE",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424738
+  },
+  {
+    "kind": "place",
+    "id": "1940119",
+    "uri": "x://place/1940119",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Sharjah",
+    "woeid": 1940119,
+    "country": "United Arab Emirates",
+    "country_code": "AE",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424738
+  },
+  {
+    "kind": "place",
+    "id": "23424738",
+    "uri": "x://place/23424738",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "United Arab Emirates",
+    "woeid": 23424738,
+    "country": "United Arab Emirates",
+    "country_code": "AE",
+    "place_type": "Country",
+    "place_type_code": 12,
+    "parent_id": 1
+  },
+  {
+    "kind": "place",
+    "id": "44544",
+    "uri": "x://place/44544",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Belfast",
+    "woeid": 44544,
+    "country": "United Kingdom",
+    "country_code": "GB",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424975
+  },
+  {
+    "kind": "place",
+    "id": "12723",
+    "uri": "x://place/12723",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Birmingham",
+    "woeid": 12723,
+    "country": "United Kingdom",
+    "country_code": "GB",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424975
+  },
+  {
+    "kind": "place",
+    "id": "12903",
+    "uri": "x://place/12903",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Blackpool",
+    "woeid": 12903,
+    "country": "United Kingdom",
+    "country_code": "GB",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424975
+  },
+  {
+    "kind": "place",
+    "id": "13383",
+    "uri": "x://place/13383",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Bournemouth",
+    "woeid": 13383,
+    "country": "United Kingdom",
+    "country_code": "GB",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424975
+  },
+  {
+    "kind": "place",
+    "id": "13911",
+    "uri": "x://place/13911",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Brighton",
+    "woeid": 13911,
+    "country": "United Kingdom",
+    "country_code": "GB",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424975
+  },
+  {
+    "kind": "place",
+    "id": "13963",
+    "uri": "x://place/13963",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Bristol",
+    "woeid": 13963,
+    "country": "United Kingdom",
+    "country_code": "GB",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424975
+  },
+  {
+    "kind": "place",
+    "id": "15127",
+    "uri": "x://place/15127",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Cardiff",
+    "woeid": 15127,
+    "country": "United Kingdom",
+    "country_code": "GB",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424975
+  },
+  {
+    "kind": "place",
+    "id": "17044",
+    "uri": "x://place/17044",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Coventry",
+    "woeid": 17044,
+    "country": "United Kingdom",
+    "country_code": "GB",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424975
+  },
+  {
+    "kind": "place",
+    "id": "18114",
+    "uri": "x://place/18114",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Derby",
+    "woeid": 18114,
+    "country": "United Kingdom",
+    "country_code": "GB",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424975
+  },
+  {
+    "kind": "place",
+    "id": "19344",
+    "uri": "x://place/19344",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Edinburgh",
+    "woeid": 19344,
+    "country": "United Kingdom",
+    "country_code": "GB",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424975
+  },
+  {
+    "kind": "place",
+    "id": "21125",
+    "uri": "x://place/21125",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Glasgow",
+    "woeid": 21125,
+    "country": "United Kingdom",
+    "country_code": "GB",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424975
+  },
+  {
+    "kind": "place",
+    "id": "25211",
+    "uri": "x://place/25211",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Hull",
+    "woeid": 25211,
+    "country": "United Kingdom",
+    "country_code": "GB",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424975
+  },
+  {
+    "kind": "place",
+    "id": "26042",
+    "uri": "x://place/26042",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Leeds",
+    "woeid": 26042,
+    "country": "United Kingdom",
+    "country_code": "GB",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424975
+  },
+  {
+    "kind": "place",
+    "id": "26062",
+    "uri": "x://place/26062",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Leicester",
+    "woeid": 26062,
+    "country": "United Kingdom",
+    "country_code": "GB",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424975
+  },
+  {
+    "kind": "place",
+    "id": "26734",
+    "uri": "x://place/26734",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Liverpool",
+    "woeid": 26734,
+    "country": "United Kingdom",
+    "country_code": "GB",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424975
+  },
+  {
+    "kind": "place",
+    "id": "44418",
+    "uri": "x://place/44418",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "London",
+    "woeid": 44418,
+    "country": "United Kingdom",
+    "country_code": "GB",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424975
+  },
+  {
+    "kind": "place",
+    "id": "28218",
+    "uri": "x://place/28218",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Manchester",
+    "woeid": 28218,
+    "country": "United Kingdom",
+    "country_code": "GB",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424975
+  },
+  {
+    "kind": "place",
+    "id": "28869",
+    "uri": "x://place/28869",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Middlesbrough",
+    "woeid": 28869,
+    "country": "United Kingdom",
+    "country_code": "GB",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424975
+  },
+  {
+    "kind": "place",
+    "id": "30079",
+    "uri": "x://place/30079",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Newcastle",
+    "woeid": 30079,
+    "country": "United Kingdom",
+    "country_code": "GB",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424975
+  },
+  {
+    "kind": "place",
+    "id": "30720",
+    "uri": "x://place/30720",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Nottingham",
+    "woeid": 30720,
+    "country": "United Kingdom",
+    "country_code": "GB",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424975
+  },
+  {
+    "kind": "place",
+    "id": "32185",
+    "uri": "x://place/32185",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Plymouth",
+    "woeid": 32185,
+    "country": "United Kingdom",
+    "country_code": "GB",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424975
+  },
+  {
+    "kind": "place",
+    "id": "32452",
+    "uri": "x://place/32452",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Portsmouth",
+    "woeid": 32452,
+    "country": "United Kingdom",
+    "country_code": "GB",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424975
+  },
+  {
+    "kind": "place",
+    "id": "32566",
+    "uri": "x://place/32566",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Preston",
+    "woeid": 32566,
+    "country": "United Kingdom",
+    "country_code": "GB",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424975
+  },
+  {
+    "kind": "place",
+    "id": "34503",
+    "uri": "x://place/34503",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Sheffield",
+    "woeid": 34503,
+    "country": "United Kingdom",
+    "country_code": "GB",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424975
+  },
+  {
+    "kind": "place",
+    "id": "36240",
+    "uri": "x://place/36240",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Stoke-on-Trent",
+    "woeid": 36240,
+    "country": "United Kingdom",
+    "country_code": "GB",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424975
+  },
+  {
+    "kind": "place",
+    "id": "36758",
+    "uri": "x://place/36758",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Swansea",
+    "woeid": 36758,
+    "country": "United Kingdom",
+    "country_code": "GB",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424975
+  },
+  {
+    "kind": "place",
+    "id": "23424975",
+    "uri": "x://place/23424975",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "United Kingdom",
+    "woeid": 23424975,
+    "country": "United Kingdom",
+    "country_code": "GB",
+    "place_type": "Country",
+    "place_type_code": 12,
+    "parent_id": 1
+  },
+  {
+    "kind": "place",
+    "id": "2352824",
+    "uri": "x://place/2352824",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Albuquerque",
+    "woeid": 2352824,
+    "country": "United States",
+    "country_code": "US",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424977
+  },
+  {
+    "kind": "place",
+    "id": "2357024",
+    "uri": "x://place/2357024",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Atlanta",
+    "woeid": 2357024,
+    "country": "United States",
+    "country_code": "US",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424977
+  },
+  {
+    "kind": "place",
+    "id": "2357536",
+    "uri": "x://place/2357536",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Austin",
+    "woeid": 2357536,
+    "country": "United States",
+    "country_code": "US",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424977
+  },
+  {
+    "kind": "place",
+    "id": "2358820",
+    "uri": "x://place/2358820",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Baltimore",
+    "woeid": 2358820,
+    "country": "United States",
+    "country_code": "US",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424977
+  },
+  {
+    "kind": "place",
+    "id": "2359991",
+    "uri": "x://place/2359991",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Baton Rouge",
+    "woeid": 2359991,
+    "country": "United States",
+    "country_code": "US",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424977
+  },
+  {
+    "kind": "place",
+    "id": "2364559",
+    "uri": "x://place/2364559",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Birmingham",
+    "woeid": 2364559,
+    "country": "United States",
+    "country_code": "US",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424977
+  },
+  {
+    "kind": "place",
+    "id": "2367105",
+    "uri": "x://place/2367105",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Boston",
+    "woeid": 2367105,
+    "country": "United States",
+    "country_code": "US",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424977
+  },
+  {
+    "kind": "place",
+    "id": "2378426",
+    "uri": "x://place/2378426",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Charlotte",
+    "woeid": 2378426,
+    "country": "United States",
+    "country_code": "US",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424977
+  },
+  {
+    "kind": "place",
+    "id": "2379574",
+    "uri": "x://place/2379574",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Chicago",
+    "woeid": 2379574,
+    "country": "United States",
+    "country_code": "US",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424977
+  },
+  {
+    "kind": "place",
+    "id": "2380358",
+    "uri": "x://place/2380358",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Cincinnati",
+    "woeid": 2380358,
+    "country": "United States",
+    "country_code": "US",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424977
+  },
+  {
+    "kind": "place",
+    "id": "2381475",
+    "uri": "x://place/2381475",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Cleveland",
+    "woeid": 2381475,
+    "country": "United States",
+    "country_code": "US",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424977
+  },
+  {
+    "kind": "place",
+    "id": "2383489",
+    "uri": "x://place/2383489",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Colorado Springs",
+    "woeid": 2383489,
+    "country": "United States",
+    "country_code": "US",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424977
+  },
+  {
+    "kind": "place",
+    "id": "2383660",
+    "uri": "x://place/2383660",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Columbus",
+    "woeid": 2383660,
+    "country": "United States",
+    "country_code": "US",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424977
+  },
+  {
+    "kind": "place",
+    "id": "2388929",
+    "uri": "x://place/2388929",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Dallas-Ft. Worth",
+    "woeid": 2388929,
+    "country": "United States",
+    "country_code": "US",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424977
+  },
+  {
+    "kind": "place",
+    "id": "2391279",
+    "uri": "x://place/2391279",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Denver",
+    "woeid": 2391279,
+    "country": "United States",
+    "country_code": "US",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424977
+  },
+  {
+    "kind": "place",
+    "id": "2391585",
+    "uri": "x://place/2391585",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Detroit",
+    "woeid": 2391585,
+    "country": "United States",
+    "country_code": "US",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424977
+  },
+  {
+    "kind": "place",
+    "id": "2397816",
+    "uri": "x://place/2397816",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "El Paso",
+    "woeid": 2397816,
+    "country": "United States",
+    "country_code": "US",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424977
+  },
+  {
+    "kind": "place",
+    "id": "2407517",
+    "uri": "x://place/2407517",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Fresno",
+    "woeid": 2407517,
+    "country": "United States",
+    "country_code": "US",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424977
+  },
+  {
+    "kind": "place",
+    "id": "2414469",
+    "uri": "x://place/2414469",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Greensboro",
+    "woeid": 2414469,
+    "country": "United States",
+    "country_code": "US",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424977
+  },
+  {
+    "kind": "place",
+    "id": "2418046",
+    "uri": "x://place/2418046",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Harrisburg",
+    "woeid": 2418046,
+    "country": "United States",
+    "country_code": "US",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424977
+  },
+  {
+    "kind": "place",
+    "id": "2423945",
+    "uri": "x://place/2423945",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Honolulu",
+    "woeid": 2423945,
+    "country": "United States",
+    "country_code": "US",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424977
+  },
+  {
+    "kind": "place",
+    "id": "2424766",
+    "uri": "x://place/2424766",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Houston",
+    "woeid": 2424766,
+    "country": "United States",
+    "country_code": "US",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424977
+  },
+  {
+    "kind": "place",
+    "id": "2427032",
+    "uri": "x://place/2427032",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Indianapolis",
+    "woeid": 2427032,
+    "country": "United States",
+    "country_code": "US",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424977
+  },
+  {
+    "kind": "place",
+    "id": "2428184",
+    "uri": "x://place/2428184",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Jackson",
+    "woeid": 2428184,
+    "country": "United States",
+    "country_code": "US",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424977
+  },
+  {
+    "kind": "place",
+    "id": "2428344",
+    "uri": "x://place/2428344",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Jacksonville",
+    "woeid": 2428344,
+    "country": "United States",
+    "country_code": "US",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424977
+  },
+  {
+    "kind": "place",
+    "id": "2430683",
+    "uri": "x://place/2430683",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Kansas City",
+    "woeid": 2430683,
+    "country": "United States",
+    "country_code": "US",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424977
+  },
+  {
+    "kind": "place",
+    "id": "2436704",
+    "uri": "x://place/2436704",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Las Vegas",
+    "woeid": 2436704,
+    "country": "United States",
+    "country_code": "US",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424977
+  },
+  {
+    "kind": "place",
+    "id": "2441472",
+    "uri": "x://place/2441472",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Long Beach",
+    "woeid": 2441472,
+    "country": "United States",
+    "country_code": "US",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424977
+  },
+  {
+    "kind": "place",
+    "id": "2442047",
+    "uri": "x://place/2442047",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Los Angeles",
+    "woeid": 2442047,
+    "country": "United States",
+    "country_code": "US",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424977
+  },
+  {
+    "kind": "place",
+    "id": "2442327",
+    "uri": "x://place/2442327",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Louisville",
+    "woeid": 2442327,
+    "country": "United States",
+    "country_code": "US",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424977
+  },
+  {
+    "kind": "place",
+    "id": "2449323",
+    "uri": "x://place/2449323",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Memphis",
+    "woeid": 2449323,
+    "country": "United States",
+    "country_code": "US",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424977
+  },
+  {
+    "kind": "place",
+    "id": "2449808",
+    "uri": "x://place/2449808",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Mesa",
+    "woeid": 2449808,
+    "country": "United States",
+    "country_code": "US",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424977
+  },
+  {
+    "kind": "place",
+    "id": "2450022",
+    "uri": "x://place/2450022",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Miami",
+    "woeid": 2450022,
+    "country": "United States",
+    "country_code": "US",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424977
+  },
+  {
+    "kind": "place",
+    "id": "2451822",
+    "uri": "x://place/2451822",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Milwaukee",
+    "woeid": 2451822,
+    "country": "United States",
+    "country_code": "US",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424977
+  },
+  {
+    "kind": "place",
+    "id": "2452078",
+    "uri": "x://place/2452078",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Minneapolis",
+    "woeid": 2452078,
+    "country": "United States",
+    "country_code": "US",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424977
+  },
+  {
+    "kind": "place",
+    "id": "2457170",
+    "uri": "x://place/2457170",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Nashville",
+    "woeid": 2457170,
+    "country": "United States",
+    "country_code": "US",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424977
+  },
+  {
+    "kind": "place",
+    "id": "2458410",
+    "uri": "x://place/2458410",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "New Haven",
+    "woeid": 2458410,
+    "country": "United States",
+    "country_code": "US",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424977
+  },
+  {
+    "kind": "place",
+    "id": "2458833",
+    "uri": "x://place/2458833",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "New Orleans",
+    "woeid": 2458833,
+    "country": "United States",
+    "country_code": "US",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424977
+  },
+  {
+    "kind": "place",
+    "id": "2459115",
+    "uri": "x://place/2459115",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "New York",
+    "woeid": 2459115,
+    "country": "United States",
+    "country_code": "US",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424977
+  },
+  {
+    "kind": "place",
+    "id": "2460389",
+    "uri": "x://place/2460389",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Norfolk",
+    "woeid": 2460389,
+    "country": "United States",
+    "country_code": "US",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424977
+  },
+  {
+    "kind": "place",
+    "id": "2464592",
+    "uri": "x://place/2464592",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Oklahoma City",
+    "woeid": 2464592,
+    "country": "United States",
+    "country_code": "US",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424977
+  },
+  {
+    "kind": "place",
+    "id": "2465512",
+    "uri": "x://place/2465512",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Omaha",
+    "woeid": 2465512,
+    "country": "United States",
+    "country_code": "US",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424977
+  },
+  {
+    "kind": "place",
+    "id": "2466256",
+    "uri": "x://place/2466256",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Orlando",
+    "woeid": 2466256,
+    "country": "United States",
+    "country_code": "US",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424977
+  },
+  {
+    "kind": "place",
+    "id": "2471217",
+    "uri": "x://place/2471217",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Philadelphia",
+    "woeid": 2471217,
+    "country": "United States",
+    "country_code": "US",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424977
+  },
+  {
+    "kind": "place",
+    "id": "2471390",
+    "uri": "x://place/2471390",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Phoenix",
+    "woeid": 2471390,
+    "country": "United States",
+    "country_code": "US",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424977
+  },
+  {
+    "kind": "place",
+    "id": "2473224",
+    "uri": "x://place/2473224",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Pittsburgh",
+    "woeid": 2473224,
+    "country": "United States",
+    "country_code": "US",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424977
+  },
+  {
+    "kind": "place",
+    "id": "2475687",
+    "uri": "x://place/2475687",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Portland",
+    "woeid": 2475687,
+    "country": "United States",
+    "country_code": "US",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424977
+  },
+  {
+    "kind": "place",
+    "id": "2477058",
+    "uri": "x://place/2477058",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Providence",
+    "woeid": 2477058,
+    "country": "United States",
+    "country_code": "US",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424977
+  },
+  {
+    "kind": "place",
+    "id": "2478307",
+    "uri": "x://place/2478307",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Raleigh",
+    "woeid": 2478307,
+    "country": "United States",
+    "country_code": "US",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424977
+  },
+  {
+    "kind": "place",
+    "id": "2480894",
+    "uri": "x://place/2480894",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Richmond",
+    "woeid": 2480894,
+    "country": "United States",
+    "country_code": "US",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424977
+  },
+  {
+    "kind": "place",
+    "id": "2486340",
+    "uri": "x://place/2486340",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Sacramento",
+    "woeid": 2486340,
+    "country": "United States",
+    "country_code": "US",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424977
+  },
+  {
+    "kind": "place",
+    "id": "2487610",
+    "uri": "x://place/2487610",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Salt Lake City",
+    "woeid": 2487610,
+    "country": "United States",
+    "country_code": "US",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424977
+  },
+  {
+    "kind": "place",
+    "id": "2487796",
+    "uri": "x://place/2487796",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "San Antonio",
+    "woeid": 2487796,
+    "country": "United States",
+    "country_code": "US",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424977
+  },
+  {
+    "kind": "place",
+    "id": "2487889",
+    "uri": "x://place/2487889",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "San Diego",
+    "woeid": 2487889,
+    "country": "United States",
+    "country_code": "US",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424977
+  },
+  {
+    "kind": "place",
+    "id": "2487956",
+    "uri": "x://place/2487956",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "San Francisco",
+    "woeid": 2487956,
+    "country": "United States",
+    "country_code": "US",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424977
+  },
+  {
+    "kind": "place",
+    "id": "2488042",
+    "uri": "x://place/2488042",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "San Jose",
+    "woeid": 2488042,
+    "country": "United States",
+    "country_code": "US",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424977
+  },
+  {
+    "kind": "place",
+    "id": "2490383",
+    "uri": "x://place/2490383",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Seattle",
+    "woeid": 2490383,
+    "country": "United States",
+    "country_code": "US",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424977
+  },
+  {
+    "kind": "place",
+    "id": "2486982",
+    "uri": "x://place/2486982",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "St. Louis",
+    "woeid": 2486982,
+    "country": "United States",
+    "country_code": "US",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424977
+  },
+  {
+    "kind": "place",
+    "id": "2503713",
+    "uri": "x://place/2503713",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Tallahassee",
+    "woeid": 2503713,
+    "country": "United States",
+    "country_code": "US",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424977
+  },
+  {
+    "kind": "place",
+    "id": "2503863",
+    "uri": "x://place/2503863",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Tampa",
+    "woeid": 2503863,
+    "country": "United States",
+    "country_code": "US",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424977
+  },
+  {
+    "kind": "place",
+    "id": "2508428",
+    "uri": "x://place/2508428",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Tucson",
+    "woeid": 2508428,
+    "country": "United States",
+    "country_code": "US",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424977
+  },
+  {
+    "kind": "place",
+    "id": "23424977",
+    "uri": "x://place/23424977",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "United States",
+    "woeid": 23424977,
+    "country": "United States",
+    "country_code": "US",
+    "place_type": "Country",
+    "place_type_code": 12,
+    "parent_id": 1
+  },
+  {
+    "kind": "place",
+    "id": "2512636",
+    "uri": "x://place/2512636",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Virginia Beach",
+    "woeid": 2512636,
+    "country": "United States",
+    "country_code": "US",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424977
+  },
+  {
+    "kind": "place",
+    "id": "2514815",
+    "uri": "x://place/2514815",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Washington",
+    "woeid": 2514815,
+    "country": "United States",
+    "country_code": "US",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424977
+  },
+  {
+    "kind": "place",
+    "id": "395273",
+    "uri": "x://place/395273",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Barcelona",
+    "woeid": 395273,
+    "country": "Venezuela",
+    "country_code": "VE",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424982
+  },
+  {
+    "kind": "place",
+    "id": "468382",
+    "uri": "x://place/468382",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Barquisimeto",
+    "woeid": 468382,
+    "country": "Venezuela",
+    "country_code": "VE",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424982
+  },
+  {
+    "kind": "place",
+    "id": "395269",
+    "uri": "x://place/395269",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Caracas",
+    "woeid": 395269,
+    "country": "Venezuela",
+    "country_code": "VE",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424982
+  },
+  {
+    "kind": "place",
+    "id": "395275",
+    "uri": "x://place/395275",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Ciudad Guayana",
+    "woeid": 395275,
+    "country": "Venezuela",
+    "country_code": "VE",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424982
+  },
+  {
+    "kind": "place",
+    "id": "395270",
+    "uri": "x://place/395270",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Maracaibo",
+    "woeid": 395270,
+    "country": "Venezuela",
+    "country_code": "VE",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424982
+  },
+  {
+    "kind": "place",
+    "id": "395271",
+    "uri": "x://place/395271",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Maracay",
+    "woeid": 395271,
+    "country": "Venezuela",
+    "country_code": "VE",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424982
+  },
+  {
+    "kind": "place",
+    "id": "468384",
+    "uri": "x://place/468384",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Maturín",
+    "woeid": 468384,
+    "country": "Venezuela",
+    "country_code": "VE",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424982
+  },
+  {
+    "kind": "place",
+    "id": "395277",
+    "uri": "x://place/395277",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Turmero",
+    "woeid": 395277,
+    "country": "Venezuela",
+    "country_code": "VE",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424982
+  },
+  {
+    "kind": "place",
+    "id": "395272",
+    "uri": "x://place/395272",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Valencia",
+    "woeid": 395272,
+    "country": "Venezuela",
+    "country_code": "VE",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424982
+  },
+  {
+    "kind": "place",
+    "id": "23424982",
+    "uri": "x://place/23424982",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Venezuela",
+    "woeid": 23424982,
+    "country": "Venezuela",
+    "country_code": "VE",
+    "place_type": "Country",
+    "place_type_code": 12,
+    "parent_id": 1
+  },
+  {
+    "kind": "place",
+    "id": "1252351",
+    "uri": "x://place/1252351",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Can Tho",
+    "woeid": 1252351,
+    "country": "Vietnam",
+    "country_code": "VN",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424984
+  },
+  {
+    "kind": "place",
+    "id": "1252376",
+    "uri": "x://place/1252376",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Da Nang",
+    "woeid": 1252376,
+    "country": "Vietnam",
+    "country_code": "VN",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424984
+  },
+  {
+    "kind": "place",
+    "id": "1236690",
+    "uri": "x://place/1236690",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Hai Phong",
+    "woeid": 1236690,
+    "country": "Vietnam",
+    "country_code": "VN",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424984
+  },
+  {
+    "kind": "place",
+    "id": "1236594",
+    "uri": "x://place/1236594",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Hanoi",
+    "woeid": 1236594,
+    "country": "Vietnam",
+    "country_code": "VN",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424984
+  },
+  {
+    "kind": "place",
+    "id": "1252431",
+    "uri": "x://place/1252431",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Ho Chi Minh City",
+    "woeid": 1252431,
+    "country": "Vietnam",
+    "country_code": "VN",
+    "place_type": "Town",
+    "place_type_code": 7,
+    "parent_id": 23424984
+  },
+  {
+    "kind": "place",
+    "id": "23424984",
+    "uri": "x://place/23424984",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/available.json"
+    ],
+    "name": "Vietnam",
+    "woeid": 23424984,
+    "country": "Vietnam",
+    "country_code": "VN",
+    "place_type": "Country",
+    "place_type_code": 12,
+    "parent_id": 1
+  }
+]

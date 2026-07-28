@@ -1,0 +1,42 @@
+{
+  "kind": "tweet",
+  "id": "20",
+  "uri": "x://tweet/20",
+  "url": "https://x.com/jack/status/20",
+  "tier": 0,
+  "surfaces": [
+    "s1"
+  ],
+  "sources": [
+    "https://cdn.syndication.twimg.com/tweet-result?id=20"
+  ],
+  "text": "just setting up my twttr",
+  "created_at": "2006-03-21T20:50:14Z",
+  "lang": "en",
+  "author": {
+    "kind": "user",
+    "id": "jack",
+    "uri": "x://user/jack",
+    "url": "https://x.com/jack",
+    "tier": 0,
+    "surfaces": [
+      "s1"
+    ],
+    "sources": [
+      "https://cdn.syndication.twimg.com/tweet-result?id=20"
+    ],
+    "username": "jack",
+    "rest_id": "12",
+    "name": "jack",
+    "verified": true,
+    "verified_type": "blue",
+    "metrics": {},
+    "profile_image": "https://pbs.twimg.com/profile_images/1661201415899951105/azNjKOSH_normal.jpg",
+    "entities": {}
+  },
+  "metrics": {
+    "replies": 17962,
+    "likes": 307897
+  },
+  "entities": {}
+}

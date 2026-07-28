@@ -1,0 +1,942 @@
+[
+  {
+    "kind": "trend",
+    "id": "23424977/good tuesday",
+    "uri": "x://trend/23424977/good tuesday",
+    "url": "https://x.com/search?q=good+tuesday",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/place.json?id=23424977"
+    ],
+    "name": "Good Tuesday",
+    "query": "%22Good+Tuesday%22",
+    "search_url": "http://twitter.com/search?q=%22Good+Tuesday%22",
+    "woeid": 23424977,
+    "place_name": "United States",
+    "as_of": "2026-07-28T10:18:53Z",
+    "rank": 1
+  },
+  {
+    "kind": "trend",
+    "id": "23424977/#jossgawinconcert",
+    "uri": "x://trend/23424977/#jossgawinconcert",
+    "url": "https://x.com/search?q=%23jossgawinconcert",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/place.json?id=23424977"
+    ],
+    "name": "#JossGawinConcert",
+    "query": "%23JossGawinConcert",
+    "search_url": "http://twitter.com/search?q=%23JossGawinConcert",
+    "woeid": 23424977,
+    "place_name": "United States",
+    "as_of": "2026-07-28T10:18:53Z",
+    "rank": 2
+  },
+  {
+    "kind": "trend",
+    "id": "23424977/tosin",
+    "uri": "x://trend/23424977/tosin",
+    "url": "https://x.com/search?q=tosin",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/place.json?id=23424977"
+    ],
+    "name": "Tosin",
+    "query": "Tosin",
+    "search_url": "http://twitter.com/search?q=Tosin",
+    "woeid": 23424977,
+    "place_name": "United States",
+    "as_of": "2026-07-28T10:18:53Z",
+    "rank": 3
+  },
+  {
+    "kind": "trend",
+    "id": "23424977/kumamoto",
+    "uri": "x://trend/23424977/kumamoto",
+    "url": "https://x.com/search?q=kumamoto",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/place.json?id=23424977"
+    ],
+    "name": "Kumamoto",
+    "query": "Kumamoto",
+    "search_url": "http://twitter.com/search?q=Kumamoto",
+    "woeid": 23424977,
+    "place_name": "United States",
+    "as_of": "2026-07-28T10:18:53Z",
+    "rank": 4
+  },
+  {
+    "kind": "trend",
+    "id": "23424977/jungkook",
+    "uri": "x://trend/23424977/jungkook",
+    "url": "https://x.com/search?q=jungkook",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/place.json?id=23424977"
+    ],
+    "name": "jungkook",
+    "query": "jungkook",
+    "search_url": "http://twitter.com/search?q=jungkook",
+    "woeid": 23424977,
+    "place_name": "United States",
+    "as_of": "2026-07-28T10:18:53Z",
+    "rank": 5
+  },
+  {
+    "kind": "trend",
+    "id": "23424977/steve lacy",
+    "uri": "x://trend/23424977/steve lacy",
+    "url": "https://x.com/search?q=steve+lacy",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/place.json?id=23424977"
+    ],
+    "name": "Steve Lacy",
+    "query": "%22Steve+Lacy%22",
+    "search_url": "http://twitter.com/search?q=%22Steve+Lacy%22",
+    "woeid": 23424977,
+    "place_name": "United States",
+    "as_of": "2026-07-28T10:18:53Z",
+    "rank": 6
+  },
+  {
+    "kind": "trend",
+    "id": "23424977/delap",
+    "uri": "x://trend/23424977/delap",
+    "url": "https://x.com/search?q=delap",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/place.json?id=23424977"
+    ],
+    "name": "Delap",
+    "query": "Delap",
+    "search_url": "http://twitter.com/search?q=Delap",
+    "woeid": 23424977,
+    "place_name": "United States",
+    "as_of": "2026-07-28T10:18:53Z",
+    "rank": 7
+  },
+  {
+    "kind": "trend",
+    "id": "23424977/#spidermanbrandnewday",
+    "uri": "x://trend/23424977/#spidermanbrandnewday",
+    "url": "https://x.com/search?q=%23spidermanbrandnewday",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/place.json?id=23424977"
+    ],
+    "name": "#SpiderManBrandNewDay",
+    "query": "%23SpiderManBrandNewDay",
+    "search_url": "http://twitter.com/search?q=%23SpiderManBrandNewDay",
+    "woeid": 23424977,
+    "place_name": "United States",
+    "as_of": "2026-07-28T10:18:53Z",
+    "rank": 8
+  },
+  {
+    "kind": "trend",
+    "id": "23424977/barrett",
+    "uri": "x://trend/23424977/barrett",
+    "url": "https://x.com/search?q=barrett",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/place.json?id=23424977"
+    ],
+    "name": "Barrett",
+    "query": "Barrett",
+    "search_url": "http://twitter.com/search?q=Barrett",
+    "woeid": 23424977,
+    "place_name": "United States",
+    "as_of": "2026-07-28T10:18:53Z",
+    "rank": 9
+  },
+  {
+    "kind": "trend",
+    "id": "23424977/billy the kid",
+    "uri": "x://trend/23424977/billy the kid",
+    "url": "https://x.com/search?q=billy+the+kid",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/place.json?id=23424977"
+    ],
+    "name": "Billy the Kid",
+    "query": "%22Billy+the+Kid%22",
+    "search_url": "http://twitter.com/search?q=%22Billy+the+Kid%22",
+    "woeid": 23424977,
+    "place_name": "United States",
+    "as_of": "2026-07-28T10:18:53Z",
+    "rank": 10
+  },
+  {
+    "kind": "trend",
+    "id": "23424977/#wweraw",
+    "uri": "x://trend/23424977/#wweraw",
+    "url": "https://x.com/search?q=%23wweraw",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/place.json?id=23424977"
+    ],
+    "name": "#WWERaw",
+    "query": "%23WWERaw",
+    "search_url": "http://twitter.com/search?q=%23WWERaw",
+    "woeid": 23424977,
+    "place_name": "United States",
+    "as_of": "2026-07-28T10:18:53Z",
+    "rank": 11
+  },
+  {
+    "kind": "trend",
+    "id": "23424977/#gamdom",
+    "uri": "x://trend/23424977/#gamdom",
+    "url": "https://x.com/search?q=%23gamdom",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/place.json?id=23424977"
+    ],
+    "name": "#Gamdom",
+    "query": "%23Gamdom",
+    "search_url": "http://twitter.com/search?q=%23Gamdom",
+    "woeid": 23424977,
+    "place_name": "United States",
+    "as_of": "2026-07-28T10:18:53Z",
+    "rank": 12
+  },
+  {
+    "kind": "trend",
+    "id": "23424977/red corner",
+    "uri": "x://trend/23424977/red corner",
+    "url": "https://x.com/search?q=red+corner",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/place.json?id=23424977"
+    ],
+    "name": "Red Corner",
+    "query": "%22Red+Corner%22",
+    "search_url": "http://twitter.com/search?q=%22Red+Corner%22",
+    "woeid": 23424977,
+    "place_name": "United States",
+    "as_of": "2026-07-28T10:18:53Z",
+    "rank": 13
+  },
+  {
+    "kind": "trend",
+    "id": "23424977/hannity",
+    "uri": "x://trend/23424977/hannity",
+    "url": "https://x.com/search?q=hannity",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/place.json?id=23424977"
+    ],
+    "name": "Hannity",
+    "query": "Hannity",
+    "search_url": "http://twitter.com/search?q=Hannity",
+    "woeid": 23424977,
+    "place_name": "United States",
+    "as_of": "2026-07-28T10:18:53Z",
+    "rank": 14
+  },
+  {
+    "kind": "trend",
+    "id": "23424977/morgan freeman",
+    "uri": "x://trend/23424977/morgan freeman",
+    "url": "https://x.com/search?q=morgan+freeman",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/place.json?id=23424977"
+    ],
+    "name": "Morgan Freeman",
+    "query": "%22Morgan+Freeman%22",
+    "search_url": "http://twitter.com/search?q=%22Morgan+Freeman%22",
+    "woeid": 23424977,
+    "place_name": "United States",
+    "as_of": "2026-07-28T10:18:53Z",
+    "rank": 15
+  },
+  {
+    "kind": "trend",
+    "id": "23424977/raquel",
+    "uri": "x://trend/23424977/raquel",
+    "url": "https://x.com/search?q=raquel",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/place.json?id=23424977"
+    ],
+    "name": "Raquel",
+    "query": "Raquel",
+    "search_url": "http://twitter.com/search?q=Raquel",
+    "woeid": 23424977,
+    "place_name": "United States",
+    "as_of": "2026-07-28T10:18:53Z",
+    "rank": 16
+  },
+  {
+    "kind": "trend",
+    "id": "23424977/flint",
+    "uri": "x://trend/23424977/flint",
+    "url": "https://x.com/search?q=flint",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/place.json?id=23424977"
+    ],
+    "name": "Flint",
+    "query": "Flint",
+    "search_url": "http://twitter.com/search?q=Flint",
+    "woeid": 23424977,
+    "place_name": "United States",
+    "as_of": "2026-07-28T10:18:53Z",
+    "rank": 17
+  },
+  {
+    "kind": "trend",
+    "id": "23424977/yash",
+    "uri": "x://trend/23424977/yash",
+    "url": "https://x.com/search?q=yash",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/place.json?id=23424977"
+    ],
+    "name": "Yash",
+    "query": "Yash",
+    "search_url": "http://twitter.com/search?q=Yash",
+    "woeid": 23424977,
+    "place_name": "United States",
+    "as_of": "2026-07-28T10:18:53Z",
+    "rank": 18
+  },
+  {
+    "kind": "trend",
+    "id": "23424977/isfahan",
+    "uri": "x://trend/23424977/isfahan",
+    "url": "https://x.com/search?q=isfahan",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/place.json?id=23424977"
+    ],
+    "name": "Isfahan",
+    "query": "Isfahan",
+    "search_url": "http://twitter.com/search?q=Isfahan",
+    "woeid": 23424977,
+    "place_name": "United States",
+    "as_of": "2026-07-28T10:18:53Z",
+    "rank": 19
+  },
+  {
+    "kind": "trend",
+    "id": "23424977/dewine",
+    "uri": "x://trend/23424977/dewine",
+    "url": "https://x.com/search?q=dewine",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/place.json?id=23424977"
+    ],
+    "name": "DeWine",
+    "query": "DeWine",
+    "search_url": "http://twitter.com/search?q=DeWine",
+    "woeid": 23424977,
+    "place_name": "United States",
+    "as_of": "2026-07-28T10:18:53Z",
+    "rank": 20
+  },
+  {
+    "kind": "trend",
+    "id": "23424977/cardi",
+    "uri": "x://trend/23424977/cardi",
+    "url": "https://x.com/search?q=cardi",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/place.json?id=23424977"
+    ],
+    "name": "Cardi",
+    "query": "Cardi",
+    "search_url": "http://twitter.com/search?q=Cardi",
+    "woeid": 23424977,
+    "place_name": "United States",
+    "as_of": "2026-07-28T10:18:53Z",
+    "rank": 21
+  },
+  {
+    "kind": "trend",
+    "id": "23424977/x money",
+    "uri": "x://trend/23424977/x money",
+    "url": "https://x.com/search?q=x+money",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/place.json?id=23424977"
+    ],
+    "name": "X Money",
+    "query": "%22X+Money%22",
+    "search_url": "http://twitter.com/search?q=%22X+Money%22",
+    "woeid": 23424977,
+    "place_name": "United States",
+    "as_of": "2026-07-28T10:18:53Z",
+    "rank": 22
+  },
+  {
+    "kind": "trend",
+    "id": "23424977/sadie",
+    "uri": "x://trend/23424977/sadie",
+    "url": "https://x.com/search?q=sadie",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/place.json?id=23424977"
+    ],
+    "name": "Sadie",
+    "query": "Sadie",
+    "search_url": "http://twitter.com/search?q=Sadie",
+    "woeid": 23424977,
+    "place_name": "United States",
+    "as_of": "2026-07-28T10:18:53Z",
+    "rank": 23
+  },
+  {
+    "kind": "trend",
+    "id": "23424977/remote",
+    "uri": "x://trend/23424977/remote",
+    "url": "https://x.com/search?q=remote",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/place.json?id=23424977"
+    ],
+    "name": "Remote",
+    "query": "Remote",
+    "search_url": "http://twitter.com/search?q=Remote",
+    "woeid": 23424977,
+    "place_name": "United States",
+    "as_of": "2026-07-28T10:18:53Z",
+    "rank": 24
+  },
+  {
+    "kind": "trend",
+    "id": "23424977/danhausen",
+    "uri": "x://trend/23424977/danhausen",
+    "url": "https://x.com/search?q=danhausen",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/place.json?id=23424977"
+    ],
+    "name": "Danhausen",
+    "query": "Danhausen",
+    "search_url": "http://twitter.com/search?q=Danhausen",
+    "woeid": 23424977,
+    "place_name": "United States",
+    "as_of": "2026-07-28T10:18:53Z",
+    "rank": 25
+  },
+  {
+    "kind": "trend",
+    "id": "23424977/fede",
+    "uri": "x://trend/23424977/fede",
+    "url": "https://x.com/search?q=fede",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/place.json?id=23424977"
+    ],
+    "name": "Fede",
+    "query": "Fede",
+    "search_url": "http://twitter.com/search?q=Fede",
+    "woeid": 23424977,
+    "place_name": "United States",
+    "as_of": "2026-07-28T10:18:53Z",
+    "rank": 26
+  },
+  {
+    "kind": "trend",
+    "id": "23424977/sol ruca",
+    "uri": "x://trend/23424977/sol ruca",
+    "url": "https://x.com/search?q=sol+ruca",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/place.json?id=23424977"
+    ],
+    "name": "Sol Ruca",
+    "query": "%22Sol+Ruca%22",
+    "search_url": "http://twitter.com/search?q=%22Sol+Ruca%22",
+    "woeid": 23424977,
+    "place_name": "United States",
+    "as_of": "2026-07-28T10:18:53Z",
+    "rank": 27
+  },
+  {
+    "kind": "trend",
+    "id": "23424977/jean grey",
+    "uri": "x://trend/23424977/jean grey",
+    "url": "https://x.com/search?q=jean+grey",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/place.json?id=23424977"
+    ],
+    "name": "Jean Grey",
+    "query": "%22Jean+Grey%22",
+    "search_url": "http://twitter.com/search?q=%22Jean+Grey%22",
+    "woeid": 23424977,
+    "place_name": "United States",
+    "as_of": "2026-07-28T10:18:53Z",
+    "rank": 28
+  },
+  {
+    "kind": "trend",
+    "id": "23424977/frank ocean",
+    "uri": "x://trend/23424977/frank ocean",
+    "url": "https://x.com/search?q=frank+ocean",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/place.json?id=23424977"
+    ],
+    "name": "frank ocean",
+    "query": "%22frank+ocean%22",
+    "search_url": "http://twitter.com/search?q=%22frank+ocean%22",
+    "woeid": 23424977,
+    "place_name": "United States",
+    "as_of": "2026-07-28T10:18:53Z",
+    "rank": 29
+  },
+  {
+    "kind": "trend",
+    "id": "23424977/peter parker",
+    "uri": "x://trend/23424977/peter parker",
+    "url": "https://x.com/search?q=peter+parker",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/place.json?id=23424977"
+    ],
+    "name": "Peter Parker",
+    "query": "%22Peter+Parker%22",
+    "search_url": "http://twitter.com/search?q=%22Peter+Parker%22",
+    "woeid": 23424977,
+    "place_name": "United States",
+    "as_of": "2026-07-28T10:18:53Z",
+    "rank": 30
+  },
+  {
+    "kind": "trend",
+    "id": "23424977/#lacasadelosfamososméxico",
+    "uri": "x://trend/23424977/#lacasadelosfamososméxico",
+    "url": "https://x.com/search?q=%23lacasadelosfamososm%C3%A9xico",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/place.json?id=23424977"
+    ],
+    "name": "#LaCasaDeLosFamososMéxico",
+    "query": "%23LaCasaDeLosFamososM%C3%A9xico",
+    "search_url": "http://twitter.com/search?q=%23LaCasaDeLosFamososM%C3%A9xico",
+    "woeid": 23424977,
+    "place_name": "United States",
+    "as_of": "2026-07-28T10:18:53Z",
+    "rank": 31
+  },
+  {
+    "kind": "trend",
+    "id": "23424977/ryan garcia",
+    "uri": "x://trend/23424977/ryan garcia",
+    "url": "https://x.com/search?q=ryan+garcia",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/place.json?id=23424977"
+    ],
+    "name": "Ryan Garcia",
+    "query": "%22Ryan+Garcia%22",
+    "search_url": "http://twitter.com/search?q=%22Ryan+Garcia%22",
+    "woeid": 23424977,
+    "place_name": "United States",
+    "as_of": "2026-07-28T10:18:53Z",
+    "rank": 32
+  },
+  {
+    "kind": "trend",
+    "id": "23424977/kospi",
+    "uri": "x://trend/23424977/kospi",
+    "url": "https://x.com/search?q=kospi",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/place.json?id=23424977"
+    ],
+    "name": "KOSPI",
+    "query": "KOSPI",
+    "search_url": "http://twitter.com/search?q=KOSPI",
+    "woeid": 23424977,
+    "place_name": "United States",
+    "as_of": "2026-07-28T10:18:53Z",
+    "rank": 33
+  },
+  {
+    "kind": "trend",
+    "id": "23424977/imai",
+    "uri": "x://trend/23424977/imai",
+    "url": "https://x.com/search?q=imai",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/place.json?id=23424977"
+    ],
+    "name": "Imai",
+    "query": "Imai",
+    "search_url": "http://twitter.com/search?q=Imai",
+    "woeid": 23424977,
+    "place_name": "United States",
+    "as_of": "2026-07-28T10:18:53Z",
+    "rank": 34
+  },
+  {
+    "kind": "trend",
+    "id": "23424977/boy george",
+    "uri": "x://trend/23424977/boy george",
+    "url": "https://x.com/search?q=boy+george",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/place.json?id=23424977"
+    ],
+    "name": "Boy George",
+    "query": "%22Boy+George%22",
+    "search_url": "http://twitter.com/search?q=%22Boy+George%22",
+    "woeid": 23424977,
+    "place_name": "United States",
+    "as_of": "2026-07-28T10:18:53Z",
+    "rank": 35
+  },
+  {
+    "kind": "trend",
+    "id": "23424977/kevin feige",
+    "uri": "x://trend/23424977/kevin feige",
+    "url": "https://x.com/search?q=kevin+feige",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/place.json?id=23424977"
+    ],
+    "name": "Kevin Feige",
+    "query": "%22Kevin+Feige%22",
+    "search_url": "http://twitter.com/search?q=%22Kevin+Feige%22",
+    "woeid": 23424977,
+    "place_name": "United States",
+    "as_of": "2026-07-28T10:18:53Z",
+    "rank": 36
+  },
+  {
+    "kind": "trend",
+    "id": "23424977/dario",
+    "uri": "x://trend/23424977/dario",
+    "url": "https://x.com/search?q=dario",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/place.json?id=23424977"
+    ],
+    "name": "Dario",
+    "query": "Dario",
+    "search_url": "http://twitter.com/search?q=Dario",
+    "woeid": 23424977,
+    "place_name": "United States",
+    "as_of": "2026-07-28T10:18:53Z",
+    "rank": 37
+  },
+  {
+    "kind": "trend",
+    "id": "23424977/air bud",
+    "uri": "x://trend/23424977/air bud",
+    "url": "https://x.com/search?q=air+bud",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/place.json?id=23424977"
+    ],
+    "name": "Air Bud",
+    "query": "%22Air+Bud%22",
+    "search_url": "http://twitter.com/search?q=%22Air+Bud%22",
+    "woeid": 23424977,
+    "place_name": "United States",
+    "as_of": "2026-07-28T10:18:53Z",
+    "rank": 38
+  },
+  {
+    "kind": "trend",
+    "id": "23424977/joe hendry",
+    "uri": "x://trend/23424977/joe hendry",
+    "url": "https://x.com/search?q=joe+hendry",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/place.json?id=23424977"
+    ],
+    "name": "Joe Hendry",
+    "query": "%22Joe+Hendry%22",
+    "search_url": "http://twitter.com/search?q=%22Joe+Hendry%22",
+    "woeid": 23424977,
+    "place_name": "United States",
+    "as_of": "2026-07-28T10:18:53Z",
+    "rank": 39
+  },
+  {
+    "kind": "trend",
+    "id": "23424977/roxanne",
+    "uri": "x://trend/23424977/roxanne",
+    "url": "https://x.com/search?q=roxanne",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/place.json?id=23424977"
+    ],
+    "name": "Roxanne",
+    "query": "Roxanne",
+    "search_url": "http://twitter.com/search?q=Roxanne",
+    "woeid": 23424977,
+    "place_name": "United States",
+    "as_of": "2026-07-28T10:18:53Z",
+    "rank": 40
+  },
+  {
+    "kind": "trend",
+    "id": "23424977/seth rollins",
+    "uri": "x://trend/23424977/seth rollins",
+    "url": "https://x.com/search?q=seth+rollins",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/place.json?id=23424977"
+    ],
+    "name": "Seth Rollins",
+    "query": "%22Seth+Rollins%22",
+    "search_url": "http://twitter.com/search?q=%22Seth+Rollins%22",
+    "woeid": 23424977,
+    "place_name": "United States",
+    "as_of": "2026-07-28T10:18:53Z",
+    "rank": 41
+  },
+  {
+    "kind": "trend",
+    "id": "23424977/no way home",
+    "uri": "x://trend/23424977/no way home",
+    "url": "https://x.com/search?q=no+way+home",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/place.json?id=23424977"
+    ],
+    "name": "No Way Home",
+    "query": "%22No+Way+Home%22",
+    "search_url": "http://twitter.com/search?q=%22No+Way+Home%22",
+    "woeid": 23424977,
+    "place_name": "United States",
+    "as_of": "2026-07-28T10:18:53Z",
+    "rank": 42
+  },
+  {
+    "kind": "trend",
+    "id": "23424977/doval",
+    "uri": "x://trend/23424977/doval",
+    "url": "https://x.com/search?q=doval",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/place.json?id=23424977"
+    ],
+    "name": "Doval",
+    "query": "Doval",
+    "search_url": "http://twitter.com/search?q=Doval",
+    "woeid": 23424977,
+    "place_name": "United States",
+    "as_of": "2026-07-28T10:18:53Z",
+    "rank": 43
+  },
+  {
+    "kind": "trend",
+    "id": "23424977/braun",
+    "uri": "x://trend/23424977/braun",
+    "url": "https://x.com/search?q=braun",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/place.json?id=23424977"
+    ],
+    "name": "Braun",
+    "query": "Braun",
+    "search_url": "http://twitter.com/search?q=Braun",
+    "woeid": 23424977,
+    "place_name": "United States",
+    "as_of": "2026-07-28T10:18:53Z",
+    "rank": 44
+  },
+  {
+    "kind": "trend",
+    "id": "23424977/anthony volpe",
+    "uri": "x://trend/23424977/anthony volpe",
+    "url": "https://x.com/search?q=anthony+volpe",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/place.json?id=23424977"
+    ],
+    "name": "Anthony Volpe",
+    "query": "%22Anthony+Volpe%22",
+    "search_url": "http://twitter.com/search?q=%22Anthony+Volpe%22",
+    "woeid": 23424977,
+    "place_name": "United States",
+    "as_of": "2026-07-28T10:18:53Z",
+    "rank": 45
+  },
+  {
+    "kind": "trend",
+    "id": "23424977/6% apy",
+    "uri": "x://trend/23424977/6% apy",
+    "url": "https://x.com/search?q=6%25+apy",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/place.json?id=23424977"
+    ],
+    "name": "6% APY",
+    "query": "%226%25+APY%22",
+    "search_url": "http://twitter.com/search?q=%226%25+APY%22",
+    "woeid": 23424977,
+    "place_name": "United States",
+    "as_of": "2026-07-28T10:18:53Z",
+    "rank": 46
+  },
+  {
+    "kind": "trend",
+    "id": "23424977/#lcdlfmx4",
+    "uri": "x://trend/23424977/#lcdlfmx4",
+    "url": "https://x.com/search?q=%23lcdlfmx4",
+    "tier": 0,
+    "surfaces": [
+      "s5"
+    ],
+    "sources": [
+      "https://api.x.com/1.1/trends/place.json?id=23424977"
+    ],
+    "name": "#LCDLFMX4",
+    "query": "%23LCDLFMX4",
+    "search_url": "http://twitter.com/search?q=%23LCDLFMX4",
+    "woeid": 23424977,
+    "place_name": "United States",
+    "as_of": "2026-07-28T10:18:53Z",
+    "rank": 47
+  }
+]
