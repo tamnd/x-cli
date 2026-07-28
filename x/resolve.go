@@ -39,17 +39,32 @@ func needGraphQL(cap string) error {
 	return &NeedAuthError{Msg: cap + " needs the GraphQL tier — pass --guest, or run `x auth import` to use your own session"}
 }
 
-// Tweet resolves one tweet, preferring Tier 0 syndication.
+// Tweet resolves one tweet.
+//
+// Tier 0 is two surfaces. Syndication gives the typed tweet with its entities
+// and media; the x.com page gives the bookmark count, the views, and the
+// author's follower counts. The tool reads both and merges, because neither
+// one is a superset and picking a winner would drop real data.
 func (e *Engine) Tweet(ctx context.Context, id string) (*Tweet, error) {
 	switch e.cfg.Tier {
 	case "guest", "session":
 		return e.g.TweetByID(ctx, id)
 	case "syndication":
 		return TweetByID(ctx, e.c, id)
+	case "web":
+		return e.TweetFromWeb(ctx, id)
 	}
 	t, err := TweetByID(ctx, e.c, id)
 	if err == nil {
+		// A failure here costs nothing: the syndication answer already
+		// stands on its own and the page is a bonus.
+		if w, werr := e.TweetFromWeb(ctx, id); werr == nil {
+			t = MergeTweet(t, w)
+		}
 		return t, nil
+	}
+	if w, werr := e.TweetFromWeb(ctx, id); werr == nil {
+		return w, nil
 	}
 	if e.canGraphQL() {
 		if t2, err2 := e.g.TweetByID(ctx, id); err2 == nil {
@@ -57,6 +72,35 @@ func (e *Engine) Tweet(ctx context.Context, id string) (*Tweet, error) {
 		}
 	}
 	return nil, err
+}
+
+// TweetFromWeb reads one tweet off its x.com status page, which is surface 8
+// and needs no credential.
+func (e *Engine) TweetFromWeb(ctx context.Context, id string) (*Tweet, error) {
+	p, err := e.c.FetchPage(ctx, StatusPageURL(id))
+	if err != nil {
+		return nil, err
+	}
+	return p.TweetFromPage(id)
+}
+
+// UserFromWeb reads one profile off its x.com page.
+func (e *Engine) UserFromWeb(ctx context.Context, handle string) (*User, error) {
+	p, err := e.c.FetchPage(ctx, UserURL(handle))
+	if err != nil {
+		return nil, err
+	}
+	return p.UserFromPage(handle)
+}
+
+// TimelineFromWeb reads the postings the x.com profile page renders. It is
+// fewer tweets than the syndication widget returns, and it costs no credential.
+func (e *Engine) TimelineFromWeb(ctx context.Context, handle string) ([]*Tweet, error) {
+	p, err := e.c.FetchPage(ctx, UserURL(handle))
+	if err != nil {
+		return nil, err
+	}
+	return p.Postings(), nil
 }
 
 // User resolves a profile, preferring Tier 0 syndication for a handle.
@@ -67,10 +111,21 @@ func (e *Engine) User(ctx context.Context, ref string, isID bool) (*User, error)
 		}
 		return e.g.UserByName(ctx, ref)
 	}
+	if e.cfg.Tier == "web" && !isID {
+		return e.UserFromWeb(ctx, ref)
+	}
 	if !isID && e.cfg.Tier != "session" {
-		if u, err := UserByNameSyndication(ctx, e.c, ref); err == nil {
+		u, err := UserByNameSyndication(ctx, e.c, ref)
+		if err == nil {
+			if w, werr := e.UserFromWeb(ctx, ref); werr == nil {
+				u = MergeUser(u, w)
+			}
 			return u, nil
-		} else if !e.canGraphQL() {
+		}
+		if w, werr := e.UserFromWeb(ctx, ref); werr == nil {
+			return w, nil
+		}
+		if !e.canGraphQL() {
 			return nil, err
 		}
 	}
@@ -85,32 +140,52 @@ func (e *Engine) User(ctx context.Context, ref string, isID bool) (*User, error)
 
 // Timeline streams a user's tweets, using Tier 0 for the recent window and the
 // GraphQL tiers to page deeper.
+//
+// Tier 0 has two surfaces here too. The syndication widget returns the ~100
+// most recent, which is the better answer whenever it is available; the x.com
+// profile page carries the visible timeline, which is fewer tweets but keeps
+// the command working when the widget's window is exhausted.
 func (e *Engine) Timeline(ctx context.Context, ref string, isID bool, o TimelineOpts, emit func(*Tweet) error) error {
-	// Tier 0: the profile-timeline widget returns the ~100 most recent.
-	if e.cfg.Tier == "" || e.cfg.Tier == "syndication" {
-		if !isID {
-			tweets, err := ProfileTimeline(ctx, e.c, ref, o.Limit)
-			if err == nil && len(tweets) > 0 && !e.canGraphQL() {
-				return streamTweets(tweets, o, emit)
-			}
-			if err == nil && len(tweets) > 0 && e.cfg.Tier == "syndication" {
-				return streamTweets(tweets, o, emit)
-			}
-		}
-		if e.cfg.Tier == "syndication" {
+	if e.cfg.Tier == "web" {
+		if isID {
 			return needGraphQL("a numeric-id timeline")
 		}
-	}
-	if !e.canGraphQL() {
-		// Fall back to the Tier 0 window if we have a handle.
-		if !isID {
-			tweets, err := ProfileTimeline(ctx, e.c, ref, o.Limit)
-			if err != nil {
-				return err
-			}
-			return streamTweets(tweets, o, emit)
+		tweets, err := e.TimelineFromWeb(ctx, ref)
+		if err != nil {
+			return err
 		}
-		return needGraphQL("a numeric-id timeline")
+		return streamTweets(tweets, o, emit)
+	}
+	// Tier 0 is the whole answer when there is no GraphQL tier to fall through
+	// to, and it is the preferred answer when the caller asked for it by name.
+	tier0 := !e.canGraphQL() || e.cfg.Tier == "syndication"
+	if tier0 || e.cfg.Tier == "" {
+		if isID {
+			if tier0 {
+				return needGraphQL("a numeric-id timeline")
+			}
+		} else {
+			tweets, err := ProfileTimeline(ctx, e.c, ref, o.Limit)
+			if len(tweets) == 0 {
+				// The widget said nothing, so read the page before giving up.
+				// An exhausted widget window is the common case and the page is
+				// not on the same budget.
+				if w, werr := e.TimelineFromWeb(ctx, ref); werr == nil && len(w) > 0 {
+					tweets, err = w, nil
+				}
+			}
+			if tier0 {
+				if err != nil {
+					return err
+				}
+				return streamTweets(tweets, o, emit)
+			}
+			// A GraphQL tier is available, so Tier 0 only answers when it is
+			// enough on its own; otherwise page deeper below.
+			if err == nil && len(tweets) >= o.Limit && o.Limit > 0 {
+				return streamTweets(tweets, o, emit)
+			}
+		}
 	}
 	uid, err := e.g.resolveUserID(ctx, ref, isID)
 	if err != nil {
