@@ -169,7 +169,7 @@ func newMediaCmd() kit.Command {
 		Write: true, // --download writes files
 		Flags: func(f *kit.FlagSet) {
 			f.BoolVar(&byID, "id", false, "treat the argument as a numeric user id")
-			f.BoolVar(&tab, "tab", false, "read the profile's media tab (needs --guest or your session)")
+			f.BoolVar(&tab, "tab", false, "read the profile's media tab (session)")
 			f.StringVar(&download, "download", "", "save the bytes to this directory")
 			f.StringVar(&size, "size", x.DefaultMediaSize, "photo size: thumb|small|medium|large|orig")
 			f.StringVar(&variant, "variant", "", "video rendition, by resolution or bitrate (default: the best mp4)")
@@ -383,7 +383,7 @@ func newSearchCmd() kit.Command {
 	var product string
 	return kit.Command{
 		Use:   "search <query>",
-		Short: "Search tweets (needs --guest or your session)",
+		Short: "Search tweets (session)",
 		Args:  kit.MinimumNArgs(1),
 		Flags: func(f *kit.FlagSet) {
 			f.StringVar(&product, "product", "Latest", "Top|Latest|People|Photos|Videos")
@@ -571,11 +571,11 @@ func newCountsCmd() kit.Command {
 func newListCmd() kit.Command {
 	return kit.Command{
 		Use:   "list <list-id>",
-		Short: "Tweets in an X List (needs --guest or your session)",
+		Short: "Tweets in an X List (session)",
 		Args:  kit.ExactArgs(1),
 		Run: func(ctx context.Context, args []string) error {
 			a := appFromCtx(ctx)
-			if err := a.needGraphQL("listing tweets"); err != nil {
+			if err := a.needSession("listing tweets"); err != nil {
 				return a.done(err)
 			}
 			return a.done(a.streamTweets(func(emit func(*x.Tweet) error) error {

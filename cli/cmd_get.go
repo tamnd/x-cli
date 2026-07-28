@@ -110,7 +110,7 @@ func (a *App) read(out *render.Renderer, kind, id string) error {
 	case x.KindSearch:
 		return a.searchInto(out, id)
 	case x.KindList:
-		if err := a.needGraphQL("listing tweets"); err != nil {
+		if err := a.needSession("listing tweets"); err != nil {
 			return err
 		}
 		return a.streamInto(out, func(emit func(*x.Tweet) error) error {

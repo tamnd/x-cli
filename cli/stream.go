@@ -19,15 +19,6 @@ func (a *App) needSession(action string) error {
 	return x.ErrNeedUser(action + " needs your own session, run `x auth import`")
 }
 
-// needGraphQL returns a need-auth error when no GraphQL tier is available.
-func (a *App) needGraphQL(action string) error {
-	cfg := a.config()
-	if cfg.HasSession() || cfg.AllowGuest || cfg.Tier == "guest" || cfg.Tier == "session" {
-		return nil
-	}
-	return x.ErrNeedAuth(action + " needs the GraphQL tier: pass --guest, or run `x auth import`")
-}
-
 // sampleFix names the way out of a ranked selection, and there is not always
 // one.
 //

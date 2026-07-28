@@ -73,12 +73,19 @@ func (e Edge) Target() NodeKind {
 	}
 }
 
-// needsGraphQL reports whether an edge can only be followed with a GraphQL tier.
-// The Tier-0 edges are reachable straight from the syndication object; the rest
-// need a guest token or the user's session.
-func (e Edge) needsGraphQL() bool {
+// needsSession reports whether an edge can only be followed with the user's own
+// session.
+//
+// The tier-0 edges are reachable straight from the syndication object or off the
+// status page; the rest are GraphQL operations X denies a guest token, so a
+// guest token buys none of them and the message says session.
+//
+// EdgeReplies is not on this list, and used to be. The replies under a tweet
+// come off the status page now, at tier 0, so dropping that edge from an
+// anonymous walk cost the walk its whole downward half for nothing.
+func (e Edge) needsSession() bool {
 	switch e {
-	case EdgeReplies, EdgeLiker, EdgeRetweeter, EdgeQuotedBy, EdgeFollowing, EdgeFollowers, EdgeLikes:
+	case EdgeLiker, EdgeRetweeter, EdgeQuotedBy, EdgeFollowing, EdgeFollowers, EdgeLikes:
 		return true
 	default:
 		return false
@@ -287,11 +294,12 @@ type WalkOptions struct {
 // grapher is the slice of the engine the walker needs. *Engine satisfies it; a
 // test supplies a fake. Every method matches *Engine exactly.
 type grapher interface {
-	CanGraphQL() bool
+	HasSession() bool
 	Tweet(ctx context.Context, id string) (*Tweet, error)
 	User(ctx context.Context, ref string, isID bool) (*User, error)
 	Timeline(ctx context.Context, ref string, isID bool, o TimelineOpts, emit func(*Tweet) error) error
 	Thread(ctx context.Context, id string, limit int, emit func(*Tweet) error) error
+	Replies(ctx context.Context, id string, limit int, emit func(*Tweet) error) (*int, error)
 	Followers(ctx context.Context, ref string, isID bool, limit int, emit func(*User) error) error
 	Following(ctx context.Context, ref string, isID bool, limit int, emit func(*User) error) error
 	Likers(ctx context.Context, tweetID string, limit int, emit func(*User) error) error
@@ -351,20 +359,20 @@ func (w *Walker) Walk(ctx context.Context, seeds []Seed, opts WalkOptions, emit 
 	if edges == nil {
 		edges = DefaultEdges()
 	}
-	if !w.g.CanGraphQL() {
+	if !w.g.HasSession() {
 		var dropped []Edge
 		for _, e := range edges.List() {
-			if e.needsGraphQL() {
+			if e.needsSession() {
 				delete(edges, e)
 				dropped = append(dropped, e)
 			}
 		}
 		if len(dropped) > 0 && opts.Note != nil {
-			opts.Note("skipping edges that need a tier (" + joinEdges(dropped) +
-				"); pass --guest or run `x auth import` to follow them")
+			opts.Note("skipping edges that need your own session (" + joinEdges(dropped) +
+				"); run `x auth import` to follow them")
 		}
 		if opts.Depth > 0 && len(edges) == 0 {
-			return needGraphQL("every selected edge")
+			return needSession("every selected edge")
 		}
 	}
 
@@ -493,13 +501,15 @@ func (w *Walker) neighbors(ctx context.Context, n *Node, edges EdgeSet, opts Wal
 			}
 		}
 		if edges.Has(EdgeReplies) {
-			w.note(opts, w.g.Thread(ctx, t.ID, cap, func(r *Tweet) error {
-				if r.ID == t.ID {
-					return nil // the focal tweet is the node itself
-				}
+			// Replies and not Thread. Thread also walks upward, and an ancestor
+			// arriving on the `replies` edge would be an edge that points the
+			// wrong way: the upward hop is EdgeReply, and it is already followed
+			// from in_reply_to above.
+			_, err := w.g.Replies(ctx, t.ID, cap, func(r *Tweet) error {
 				addTweet(EdgeReplies, r.ID, r)
 				return nil
-			}))
+			})
+			w.note(opts, err)
 		}
 		if edges.Has(EdgeLiker) {
 			w.note(opts, w.g.Likers(ctx, t.ID, cap, func(u *User) error {
@@ -564,3 +574,11 @@ func (w *Walker) note(opts WalkOptions, err error) {
 // CanGraphQL reports whether a GraphQL tier is available. It exports the internal
 // check so the walker (and any other consumer) can read the engine's capability.
 func (e *Engine) CanGraphQL() bool { return e.canGraphQL() }
+
+// HasSession reports whether the user's own session is configured. It is what
+// the walker asks, because every edge the walker can be denied is denied to a
+// guest token too, and a --tier ceiling below the session tier means the walker
+// should not count on one either.
+func (e *Engine) HasSession() bool {
+	return e.cfg.HasSession() && e.cfg.Tier != "syndication" && e.cfg.Tier != "web" && e.cfg.Tier != "guest"
+}

@@ -74,14 +74,14 @@ func userListCmd(use, short string, run func(a *App, e *x.Engine, ref string, is
 }
 
 func newFollowersCmd() kit.Command {
-	return userListCmd("followers <user>", "Accounts following a user (needs --guest or session)",
+	return userListCmd("followers <user>", "Accounts following a user (session)",
 		func(a *App, e *x.Engine, ref string, isID bool, emit func(*x.User) error) error {
 			return e.Followers(a.ctx(), ref, isID, a.limit, emit)
 		})
 }
 
 func newFollowingCmd() kit.Command {
-	return userListCmd("following <user>", "Accounts a user follows (needs --guest or session)",
+	return userListCmd("following <user>", "Accounts a user follows (session)",
 		func(a *App, e *x.Engine, ref string, isID bool, emit func(*x.User) error) error {
 			return e.Following(a.ctx(), ref, isID, a.limit, emit)
 		})
@@ -91,7 +91,7 @@ func newLikesCmd() kit.Command {
 	var byID bool
 	return kit.Command{
 		Use:   "likes <user>",
-		Short: "Tweets a user has liked (needs --guest or session)",
+		Short: "Tweets a user has liked (session)",
 		Args:  kit.ExactArgs(1),
 		Flags: func(f *kit.FlagSet) {
 			f.BoolVar(&byID, "id", false, "treat the argument as a numeric user id")
@@ -113,7 +113,7 @@ func newLikesCmd() kit.Command {
 func newRetweetersCmd() kit.Command {
 	return kit.Command{
 		Use:   "retweeters <ref>",
-		Short: "Accounts that retweeted a tweet (needs --guest or session)",
+		Short: "Accounts that retweeted a tweet (session)",
 		Args:  kit.ExactArgs(1),
 		Run: func(ctx context.Context, args []string) error {
 			a := appFromCtx(ctx)
@@ -132,7 +132,7 @@ func newRetweetersCmd() kit.Command {
 func newLikersCmd() kit.Command {
 	return kit.Command{
 		Use:   "likers <ref>",
-		Short: "Accounts that liked a tweet (needs --guest or session)",
+		Short: "Accounts that liked a tweet (session)",
 		Args:  kit.ExactArgs(1),
 		Run: func(ctx context.Context, args []string) error {
 			a := appFromCtx(ctx)
