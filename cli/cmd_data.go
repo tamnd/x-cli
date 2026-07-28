@@ -57,8 +57,8 @@ func newDiscoverCmd() kit.Command {
 			"outward, hop by hop, streaming every node it reaches. Choose what to follow\n" +
 			"with --follow (a preset like content/thread/engagement/network, or a list of\n" +
 			"edges), how far with --depth, and how wide per edge with --fanout. The walk\n" +
-			"stays on Tier 0 by default; engagement and network edges need --guest or a\n" +
-			"session. Add --store to also persist nodes and edges into the local store.",
+			"stays on Tier 0 by default; engagement and network edges need a session.\n" +
+			"Add --store to also persist nodes and edges into the local store.",
 		Args: kit.MinimumNArgs(1),
 		Flags: func(f *kit.FlagSet) {
 			f.IntVar(&depth, "depth", 1, "how many hops to follow from each seed")

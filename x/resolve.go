@@ -39,12 +39,24 @@ func (e *Engine) canGraphQL() bool {
 
 // needGraphQL returns the actionable need-auth error for a GraphQL-only call.
 // A guest token clears it, so this is tier 1 rather than tier 2.
+//
+// Reserve it for the calls a guest token actually clears. Measured 2026-07-28,
+// that is three operations: UserByScreenName, UserByRestId, and UserTweets.
+// Everything else on the GraphQL surface answers a guest token with a 404 and an
+// empty body, and telling that caller to pass --guest sends them through a
+// wasted request to a second exit 4 with a different message. Use needSession
+// for those.
 func needGraphQL(cap string) error {
 	return &NeedAuthError{
 		Msg:  cap + " needs the GraphQL tier: pass --guest, or run `x auth import` to use your own session",
 		Tier: 1,
 	}
 }
+
+// needSession is the same thing for a call no anonymous credential reaches. It
+// is the message the surface itself would return one request later, said before
+// the request rather than after it.
+func needSession(cap string) error { return NeedTier(cap, 2) }
 
 // Tweet resolves one tweet.
 //
@@ -389,7 +401,7 @@ func streamTweets(tweets []*Tweet, o TimelineOpts, emit func(*Tweet) error) erro
 // Search streams search results (GraphQL only).
 func (e *Engine) Search(ctx context.Context, q SearchQuery, emit func(*Tweet) error) error {
 	if !e.canGraphQL() {
-		return needGraphQL("search")
+		return needSession("search")
 	}
 	return e.g.Search(ctx, q, emit)
 }
@@ -525,13 +537,13 @@ func (e *Engine) Following(ctx context.Context, ref string, isID bool, limit int
 }
 func (e *Engine) Likers(ctx context.Context, tweetID string, limit int, emit func(*User) error) error {
 	if !e.canGraphQL() {
-		return needGraphQL("likers")
+		return needSession("likers")
 	}
 	return e.g.Likers(ctx, tweetID, limit, emit)
 }
 func (e *Engine) Retweeters(ctx context.Context, tweetID string, limit int, emit func(*User) error) error {
 	if !e.canGraphQL() {
-		return needGraphQL("retweeters")
+		return needSession("retweeters")
 	}
 	return e.g.Retweeters(ctx, tweetID, limit, emit)
 }
@@ -559,7 +571,7 @@ func (e *Engine) Places(ctx context.Context, query, country, placeType string, l
 
 func (e *Engine) userID(ctx context.Context, ref string, isID bool, cap string) (string, error) {
 	if !e.canGraphQL() {
-		return "", needGraphQL(cap)
+		return "", needSession(cap)
 	}
 	return e.g.resolveUserID(ctx, ref, isID)
 }

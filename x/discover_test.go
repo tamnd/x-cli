@@ -53,8 +53,8 @@ func TestEdgeMeta(t *testing.T) {
 	if EdgeAuthor.Target() != KindUser || EdgeQuoted.Target() != KindTweet {
 		t.Error("Edge.Target classified wrong")
 	}
-	if !EdgeLiker.needsGraphQL() || EdgeAuthor.needsGraphQL() {
-		t.Error("Edge.needsGraphQL classified wrong")
+	if !EdgeLiker.needsSession() || EdgeAuthor.needsSession() || EdgeReplies.needsSession() {
+		t.Error("Edge.needsSession classified wrong")
 	}
 }
 
@@ -94,7 +94,7 @@ type fakeGraph struct {
 	search     map[string][]*Tweet
 }
 
-func (f *fakeGraph) CanGraphQL() bool { return f.can }
+func (f *fakeGraph) HasSession() bool { return f.can }
 
 func (f *fakeGraph) Tweet(_ context.Context, id string) (*Tweet, error) {
 	if t, ok := f.tweets[id]; ok {
@@ -139,6 +139,18 @@ func (f *fakeGraph) Timeline(_ context.Context, ref string, _ bool, o TimelineOp
 }
 func (f *fakeGraph) Thread(_ context.Context, id string, limit int, emit func(*Tweet) error) error {
 	return emitTweets(f.thread[id], limit, emit)
+}
+
+// Replies is the thread without the tweet itself, which is what the walk wants:
+// the focal tweet is already the node the edge starts from.
+func (f *fakeGraph) Replies(_ context.Context, id string, limit int, emit func(*Tweet) error) (*int, error) {
+	var out []*Tweet
+	for _, t := range f.thread[id] {
+		if t.ID != id {
+			out = append(out, t)
+		}
+	}
+	return nil, emitTweets(out, limit, emit)
 }
 func (f *fakeGraph) Likes(_ context.Context, ref string, _ bool, limit int, emit func(*Tweet) error) error {
 	return emitTweets(f.likes[strings.ToLower(ref)], limit, emit)
