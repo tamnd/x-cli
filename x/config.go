@@ -141,8 +141,53 @@ func Resolve(o Overrides) Config {
 		c.QueryIDs[k] = v
 	}
 	c.LoadStoredSession()
+	c.applyCap()
 	return c
 }
+
+// applyCap is the numeric half of --tier. The named values pin a surface, which
+// is a thing you do when you want to see what one plane says; a number caps the
+// credential, which is a thing you do when you want to see what a reader without
+// one gets. `x tweet 20 --tier 0` on a machine with a session imported has to
+// read the way it would on a machine without one.
+//
+// It works by taking the credential away rather than by adding a check, because
+// a check is a thing every read has to remember and a missing credential is a
+// thing none of them can get wrong. Nothing downstream knows the flag exists.
+//
+// This runs after LoadStoredSession on purpose: the session is loaded and then
+// dropped, which means --tier 0 covers a session from the store, from the
+// environment, and from a flag alike.
+func (c *Config) applyCap() {
+	switch c.Tier {
+	case "0":
+		c.AuthToken, c.CT0 = "", ""
+		c.AllowGuest = false
+	case "1":
+		c.AuthToken, c.CT0 = "", ""
+		c.AllowGuest = true
+	}
+	// "2" is a cap that caps nothing, and it is still worth accepting: a script
+	// that computes the tier it wants should not have to special-case the top.
+}
+
+// Tiers a --tier value can name. The numbers cap what a run may use, the names
+// pin which surface answers.
+var tierValues = []string{"0", "1", "2", "syndication", "oembed", "web", "guest", "session"}
+
+// ValidTier reports whether s is one a run can ask for. An empty string is the
+// default and is not something a caller passed.
+func ValidTier(s string) bool {
+	for _, v := range tierValues {
+		if s == v {
+			return true
+		}
+	}
+	return false
+}
+
+// TierValues is the list a caller can pass to --tier, for a usage message.
+func TierValues() []string { return append([]string(nil), tierValues...) }
 
 // DefaultConfig returns the built-in defaults before any file, environment, or
 // flag overlay. It touches no disk and carries no credentials.
@@ -251,8 +296,10 @@ func (c Config) TierNum() int {
 		return 2
 	case "guest":
 		return 1
-	case "syndication", "web", "oembed":
+	case "syndication", "web", "oembed", "0":
 		return 0
+	case "1":
+		return 1
 	}
 	switch {
 	case c.HasSession():
