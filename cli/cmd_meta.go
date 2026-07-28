@@ -26,7 +26,6 @@ func metaCommands() []kit.Command {
 		newCacheCmd(),
 		newOpenCmd(),
 		newDownloadCmd(),
-		newInfoCmd(),
 		newVersionCmd(),
 	}
 }
@@ -242,27 +241,6 @@ func newDownloadCmd() kit.Command {
 				return mapErr(errNoResults)
 			}
 			return nil
-		},
-	}
-}
-
-func newInfoCmd() kit.Command {
-	return kit.Command{
-		Use:   "info",
-		Short: "Show resolved tiers and capabilities",
-		Run: func(ctx context.Context, args []string) error {
-			a := appFromCtx(ctx)
-			cfg := a.config()
-			gql := cfg.HasSession() || cfg.AllowGuest || cfg.Tier == "guest" || cfg.Tier == "session"
-			caps := map[string]string{
-				"tier0_syndication": "yes (no auth)",
-				"tier1_guest":       yn(cfg.AllowGuest || cfg.Tier == "guest"),
-				"tier2_session":     yn(cfg.HasSession()),
-				"search":            yn(gql),
-				"followers/likes":   yn(gql),
-				"home/bookmarks":    yn(cfg.HasSession()),
-			}
-			return a.printKVString(caps)
 		},
 	}
 }
