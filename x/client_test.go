@@ -14,10 +14,10 @@ import (
 func testClient(t *testing.T) *Client {
 	t.Helper()
 	return NewClient(Config{
-		Timeout:  10 * time.Second,
-		Retries:  3,
-		NoCache:  true,
-		CacheDir: t.TempDir(),
+		Timeout: 10 * time.Second,
+		Retries: 3,
+		NoCache: true,
+		Paths:   Paths{Cache: t.TempDir()},
 	})
 }
 
@@ -101,7 +101,7 @@ func TestPreemptiveCooldownGivesUpInsteadOfWaiting(t *testing.T) {
 // is. It also has to survive the first call: a zero nextOK used to push the
 // next slot decades into the past and the delay was never applied again.
 func TestGlobalRateGateSurvivesTheFirstCall(t *testing.T) {
-	c := NewClient(Config{Timeout: time.Second, NoCache: true, CacheDir: t.TempDir(), Rate: 40 * time.Millisecond})
+	c := NewClient(Config{Timeout: time.Second, NoCache: true, Paths: Paths{Cache: t.TempDir()}, Rate: 40 * time.Millisecond})
 	ctx := context.Background()
 	if err := c.throttle(ctx, "probe"); err != nil {
 		t.Fatalf("first throttle: %v", err)

@@ -70,44 +70,30 @@ func appFromCtx(ctx context.Context) *App {
 	return a
 }
 
-// xConfig builds the resolved x.Config from defaults, the environment, and the
-// kit globals folded on top. kit's defaults differ from x's (rate 0, retries -1,
-// timeout 0 all mean "unset"), so each is applied only when the user set it; the
-// x defaults (1s, 3, 30s) otherwise stand.
+// xConfig folds the kit globals into an x.Overrides and lets x.Resolve build the
+// config. kit's defaults differ from x's (rate 0, retries -1, timeout 0 all mean
+// "unset"), and x.Resolve reads them the same way, so the x defaults (1s, 3,
+// 30s) stand unless the user said otherwise.
+//
+// The session store is read by Resolve, last, once --data-dir has settled where
+// it is. That ordering is the fix for the defect in doc 06 section 4.
 func xConfig(kc kit.Config) x.Config {
-	cfg := x.DefaultConfig()
-	cfg.FromEnv()
-	if kc.Rate > 0 {
-		cfg.Rate = kc.Rate
-	}
-	if kc.Retries >= 0 {
-		cfg.Retries = kc.Retries
-	}
-	if kc.Timeout > 0 {
-		cfg.Timeout = kc.Timeout
-	}
-	if kc.NoCache {
-		cfg.NoCache = true
-	}
-	if kc.DataDir != "" {
-		cfg.DataDir = kc.DataDir
-		cfg.CacheDir = filepath.Join(kc.DataDir, "cache")
-	}
-	if flagGuest {
-		cfg.AllowGuest = true
-	}
-	if flagTier != "" {
-		cfg.Tier = flagTier
+	o := x.Overrides{
+		DataDir:    kc.DataDir,
+		NoCache:    kc.NoCache,
+		Rate:       kc.Rate,
+		Retries:    kc.Retries,
+		Timeout:    kc.Timeout,
+		AllowGuest: flagGuest,
+		Tier:       flagTier,
+		QueryIDs:   map[string]string{},
 	}
 	for _, kv := range flagQueryIDs {
 		if k, v, ok := strings.Cut(kv, "="); ok {
-			if cfg.QueryIDs == nil {
-				cfg.QueryIDs = map[string]string{}
-			}
-			cfg.QueryIDs[strings.TrimSpace(k)] = strings.TrimSpace(v)
+			o.QueryIDs[strings.TrimSpace(k)] = strings.TrimSpace(v)
 		}
 	}
-	return cfg
+	return x.Resolve(o)
 }
 
 // ctx returns the run context (carries cancellation from the signal handler).
@@ -157,17 +143,11 @@ func (a *App) out() (*render.Renderer, error) {
 	})
 }
 
-// StorePath is the fixed location of the typed local store, under the data dir.
-// The crawl, queue, db, and export commands read and write this rich schema. It
-// is deliberately not kit's generic --db sink: that store carries a different
-// schema and serves the (currently empty) record-op surface.
-func (a *App) StorePath() string {
-	dir := a.cfg.DataDir
-	if dir == "" {
-		dir = "."
-	}
-	return filepath.Join(dir, "x.db")
-}
+// StorePath is where the typed local store lives for this run, under the data
+// dir. The crawl, queue, db, and export commands read and write this rich
+// schema. It is deliberately not kit's generic --db sink: that store carries a
+// different schema and serves the (currently empty) record-op surface.
+func (a *App) StorePath() string { return a.cfg.StorePath() }
 
 // openStore opens (creating the data dir) the typed local store at the fixed
 // path. The data-group commands need it; it no longer depends on a --db flag.

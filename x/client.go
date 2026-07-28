@@ -39,7 +39,7 @@ func NewClient(cfg Config) *Client {
 	return &Client{
 		cfg:    cfg,
 		hc:     &http.Client{Timeout: cfg.Timeout},
-		cache:  NewCache(cfg.CacheDir, !cfg.NoCache),
+		cache:  NewCache(cfg.Paths.Cache, !cfg.NoCache),
 		limits: map[string]rateLimit{},
 	}
 }

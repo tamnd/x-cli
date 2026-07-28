@@ -31,11 +31,14 @@ type Creds struct {
 }
 
 // Session is the runtime authentication state shared by the GraphQL tiers. It
-// carries the credentials (if any) plus the cached guest token.
+// carries the credentials (if any) plus the cached guest token. It holds the
+// run's Paths so the guest token is cached beside the session it belongs to,
+// which is under --data-dir when the caller set one.
 type Session struct {
 	AuthToken string
 	CT0       string
 	Handle    string
+	paths     Paths
 
 	mu         sync.Mutex
 	guestToken string
@@ -44,7 +47,7 @@ type Session struct {
 
 // NewSession builds a runtime session from a config's credentials.
 func NewSession(cfg Config) *Session {
-	return &Session{AuthToken: cfg.AuthToken, CT0: cfg.CT0}
+	return &Session{AuthToken: cfg.AuthToken, CT0: cfg.CT0, paths: cfg.Paths}
 }
 
 // IsUser reports whether this session carries the user's own cookies (Tier 2).
@@ -66,7 +69,7 @@ func (s *Session) ensureGuest(ctx context.Context, c *Client) (string, error) {
 
 	// Reuse a token a previous run cached on disk. Minting is what X rate-limits
 	// per IP, so a single invocation storm must not re-mint on every call.
-	if tok, at, ok := loadGuestToken(); ok && time.Since(at) < guestTTL {
+	if tok, at, ok := s.loadGuestToken(); ok && time.Since(at) < guestTTL {
 		s.mu.Lock()
 		s.guestToken, s.guestAt = tok, at
 		s.mu.Unlock()
@@ -95,7 +98,7 @@ func (s *Session) ensureGuest(ctx context.Context, c *Client) (string, error) {
 	s.guestToken = out.GuestToken
 	s.guestAt = now
 	s.mu.Unlock()
-	saveGuestToken(out.GuestToken, now)
+	s.saveGuestToken(out.GuestToken, now)
 	return out.GuestToken, nil
 }
 
@@ -106,7 +109,7 @@ func (s *Session) invalidateGuest() {
 	s.guestToken = ""
 	s.guestAt = time.Time{}
 	s.mu.Unlock()
-	_ = os.Remove(GuestStorePath())
+	_ = os.Remove(s.paths.Guest())
 }
 
 // guestRecord is the on-disk shape of the cached guest token.
@@ -115,8 +118,8 @@ type guestRecord struct {
 	MintedAt time.Time `json:"minted_at"`
 }
 
-func loadGuestToken() (string, time.Time, bool) {
-	b, err := os.ReadFile(GuestStorePath())
+func (s *Session) loadGuestToken() (string, time.Time, bool) {
+	b, err := os.ReadFile(s.paths.Guest())
 	if err != nil {
 		return "", time.Time{}, false
 	}
@@ -127,8 +130,8 @@ func loadGuestToken() (string, time.Time, bool) {
 	return r.Token, r.MintedAt, true
 }
 
-func saveGuestToken(tok string, at time.Time) {
-	p := GuestStorePath()
+func (s *Session) saveGuestToken(tok string, at time.Time) {
+	p := s.paths.Guest()
 	if err := os.MkdirAll(filepath.Dir(p), 0o700); err != nil {
 		return
 	}
@@ -178,9 +181,11 @@ func (s *Session) authHeaders(ctx context.Context, c *Client) (http.Header, erro
 	return h, nil
 }
 
-// LoadSession reads the persisted credentials written by `x auth import`.
-func LoadSession() (Creds, bool) {
-	b, err := os.ReadFile(SessionStorePath())
+// LoadSession reads the persisted credentials written by `x auth import`, from
+// the data dir this run resolved rather than from wherever the home directory
+// happens to be.
+func (p Paths) LoadSession() (Creds, bool) {
+	b, err := os.ReadFile(p.Session())
 	if err != nil {
 		return Creds{}, false
 	}
@@ -192,21 +197,21 @@ func LoadSession() (Creds, bool) {
 }
 
 // SaveSession persists the user's imported credentials (file fallback; 0600).
-func SaveSession(s Creds) error {
-	p := SessionStorePath()
-	if err := os.MkdirAll(filepath.Dir(p), 0o700); err != nil {
+func (p Paths) SaveSession(s Creds) error {
+	f := p.Session()
+	if err := os.MkdirAll(filepath.Dir(f), 0o700); err != nil {
 		return err
 	}
 	b, err := json.MarshalIndent(s, "", "  ")
 	if err != nil {
 		return err
 	}
-	return os.WriteFile(p, b, 0o600)
+	return os.WriteFile(f, b, 0o600)
 }
 
 // ForgetSession removes the persisted session.
-func ForgetSession() error {
-	err := os.Remove(SessionStorePath())
+func (p Paths) ForgetSession() error {
+	err := os.Remove(p.Session())
 	if os.IsNotExist(err) {
 		return nil
 	}
