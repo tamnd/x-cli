@@ -33,7 +33,7 @@ const (
 	webUA = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 " +
 		"(KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36"
 
-	webPageTTL = 5 * time.Minute
+	webPageTTL = ttlPage
 )
 
 // Page is one x.com HTML page, already split into its two data planes.

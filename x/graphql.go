@@ -88,14 +88,23 @@ func (g *GraphQL) fieldToggles(op string) string {
 	return defaultFieldToggles[op]
 }
 
-// getCacheTTL is the read cache window for a GraphQL GET. Single objects cache
-// longer; timelines/searches cache short so re-runs stay fresh.
-func gqlTTL(op string) time.Duration {
+// gqlTTL is the read cache window for a GraphQL GET, from the same table as
+// every other surface. A tweet is cached by its own age, which is why this
+// needs the variables and not just the operation name.
+func gqlTTL(op string, variables map[string]any) time.Duration {
 	switch op {
-	case "TweetResultByRestId", "UserByScreenName", "UserByRestId", "AudioSpaceById":
-		return time.Hour
+	case "TweetResultByRestId", "TweetDetail":
+		if id, ok := variables["tweetId"].(string); ok {
+			return tweetTTL(id)
+		}
+		if id, ok := variables["focalTweetId"].(string); ok {
+			return tweetTTL(id)
+		}
+		return ttlTweet
+	case "UserByScreenName", "UserByRestId", "AudioSpaceById":
+		return ttlProfile
 	default:
-		return 2 * time.Minute
+		return ttlTimeline
 	}
 }
 
@@ -130,7 +139,7 @@ func (g *GraphQL) get(ctx context.Context, op string, variables map[string]any) 
 				h.Set("x-client-transaction-id", tid)
 			}
 		}
-		b, err := g.c.Do(ctx, Req{URL: u, Endpoint: "graphql." + op, Header: h, CacheTTL: gqlTTL(op)})
+		b, err := g.c.Do(ctx, Req{URL: u, Endpoint: "graphql." + op, Header: h, CacheTTL: gqlTTL(op, variables)})
 		if err == nil {
 			return b, u, nil
 		}
