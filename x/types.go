@@ -36,6 +36,16 @@ type Tweet struct {
 	IsRetweet      bool      `json:"is_retweet,omitempty"`
 	IsQuote        bool      `json:"is_quote,omitempty"`
 	IsReply        bool      `json:"is_reply,omitempty"`
+
+	// Sample says this tweet arrived in a set X ranked rather than a set X
+	// walked backwards in time (spec 3003 doc 03 section 2.4).
+	//
+	// It is a fact about how the record was obtained, not about the tweet, and
+	// it is on the tweet because the tweet is what a caller holds. Filtering
+	// "the last week" over a ranked set answers a question nobody asked: the
+	// widget handed back @jack's most-liked posts from 2006 to 2025, in like
+	// order, and the last week of them is not the last week of anything.
+	Sample bool `json:"sample,omitempty"`
 }
 
 // Metrics are the engagement counts on a tweet.

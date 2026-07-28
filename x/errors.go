@@ -3,6 +3,7 @@ package x
 import (
 	"context"
 	"errors"
+	"fmt"
 	"net"
 	"net/http"
 	"net/url"
@@ -78,6 +79,37 @@ type RateLimitedError struct {
 }
 
 func (e *RateLimitedError) Error() string { return e.Msg }
+
+// PartialError marks a walk that delivered rows and then stopped on something
+// other than the end of the data.
+//
+// A cursor walk can run for hundreds of records and hit the window halfway
+// through. The rows it already streamed are real and are not withdrawn, but the
+// walk did not finish, and a caller who asked for a thousand tweets and got
+// seven hundred has to be able to tell that from an account with seven hundred
+// tweets. It wraps its cause, so the exit code is whatever stopped it: 5 for a
+// spent window, 8 for a dropped connection.
+type PartialError struct {
+	Got   int    // records delivered before the stop
+	Kind  string // what they were, plural: "tweets", "accounts"
+	Cause error
+}
+
+func (e *PartialError) Error() string {
+	return fmt.Sprintf("stopped after %d %s: %s", e.Got, e.Kind, e.Cause.Error())
+}
+
+func (e *PartialError) Unwrap() error { return e.Cause }
+
+// partial wraps a mid-walk failure, and returns nil when nothing was delivered
+// so the caller returns the plain error instead: an empty result that failed is
+// just a failure, and "stopped after 0 tweets" says less than the cause does.
+func partial(n int, kind string, cause error) error {
+	if n == 0 || cause == nil {
+		return cause
+	}
+	return &PartialError{Got: n, Kind: kind, Cause: cause}
+}
 
 // UnsupportedError marks something no surface serves at any tier (exit code 7).
 // It is deliberately not a NeedAuthError, because there is nothing to go and get.

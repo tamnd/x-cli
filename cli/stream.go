@@ -58,6 +58,12 @@ func (a *App) streamInto(out *render.Renderer, run func(emit func(*x.Tweet) erro
 			return nil
 		}
 		sp.stop() // clear the spinner before the first row reaches stdout
+		a.warnMissed(t.Meta)
+		if t.Sample {
+			// The rows carry `sample`, but the caveat is the kind that has to
+			// arrive before somebody reads the dates off the top of the list.
+			a.warnOnce("X returned a ranked selection from the whole account, not the most recent tweets; pass --guest for a walk in time order")
+		}
 		if e := out.Emit(tweetRow(t)); e != nil {
 			return e
 		}

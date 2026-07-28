@@ -386,8 +386,53 @@ func ProfileTimeline(ctx context.Context, c *Client, handle string, _ int) ([]*T
 	if len(out) == 0 {
 		return nil, &NotFoundError{Kind: "timeline", Ref: handle}
 	}
+	markSample(out)
 	stampTweets(out, 2, u)
 	return out, nil
+}
+
+// markSample flags a set the widget ranked rather than walked (doc 02 section
+// 1.4, doc 03 section 2.4).
+//
+// The widget returns one of two things and does not say which. @NASA came back
+// as 20 entries in strict id order covering one week of posting, which is a
+// window. @jack came back as 101 entries spanning 2006 to 2025 roughly in like
+// order, which is a ranked sample. Both carry a `sort_index` that descends by
+// exactly one, so that field distinguishes nothing.
+//
+// The ids do. A snowflake sorts by time, so a set that does not descend by id
+// was not walked backwards from now, whatever order the entries are in. This is
+// a measurement of the payload in hand rather than a guess about the account,
+// which matters because the same account answers either way depending on how
+// much it has posted lately.
+//
+// One inversion is not enough to call it. A window with a pinned or promoted
+// post lifted to the front is still a window, and one displaced entry produces
+// one inversion. A ranking produces many: @jack's had 45 in 100 steps.
+func markSample(tweets []*Tweet) {
+	inversions := 0
+	for i := 1; i < len(tweets); i++ {
+		if idLess(tweets[i-1].ID, tweets[i].ID) {
+			inversions++
+		}
+	}
+	if inversions < 2 {
+		return
+	}
+	for _, t := range tweets {
+		t.Sample = true
+	}
+}
+
+// idLess compares two snowflake ids as numbers, without parsing them. They are
+// digit strings, so a longer one is larger and equal lengths compare
+// lexicographically. That saves an error path on a value that cannot usefully
+// fail, and it keeps working past whatever int64 does.
+func idLess(a, b string) bool {
+	if len(a) != len(b) {
+		return len(a) < len(b)
+	}
+	return a < b
 }
 
 // extractNextData pulls the __NEXT_DATA__ JSON island out of a widget page.

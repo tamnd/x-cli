@@ -707,19 +707,43 @@ func (g *GraphQL) Likes(ctx context.Context, userID string, limit int, emit func
 	}, limit, emit)
 }
 
-// pageTweets is the shared cursor loop for every tweet timeline. It streams rows
-// as they arrive, stops at limit, and breaks when a page yields nothing new.
+// emptyPages is how many consecutive pages with nothing new on them the walk
+// will follow before it calls that the end.
+//
+// It is not zero, because a short page is not the end (doc 01 section 4.3): the
+// count in the variables is a hint, X decides the page size, and a walk of
+// @NASA returned pages of 5, 9 and 20 tweets in the same run. A page can also
+// come back with only cursor entries on it. Stopping at the first one truncates
+// an archive at a random depth and calls it complete. It is not unbounded
+// either, because the cursor keeps advancing and something has to end a walk
+// that is being handed pages forever.
+const emptyPages = 3
+
+// walkEnded reports whether a cursor walk has run out of timeline: X offered no
+// bottom cursor, or handed back the one it was given, or emptyPages pages in a
+// row carried nothing new.
+//
+// The number of records on the last page is deliberately not part of this.
+func walkEnded(next, cursor string, empty int) bool {
+	return next == "" || next == cursor || empty >= emptyPages
+}
+
+// pageTweets is the shared cursor loop for every tweet timeline (doc 01 section
+// 4.3). It streams rows as they arrive and stops at limit.
+//
+// The walk ends when X stops offering a bottom cursor, or hands back the one it
+// was given, or when emptyPages pages in a row carry nothing new. It does not
+// end on a short page. A page's size is X's choice and carries no meaning.
 func (g *GraphQL) pageTweets(ctx context.Context, op string, vars func(cursor string) map[string]any, limit int, emit func(*Tweet) error) error {
 	seen := map[string]bool{}
 	cursor := ""
-	n := 0
+	n, empty := 0, 0
 	for {
 		b, src, err := g.get(ctx, op, vars(cursor))
 		if err != nil {
-			if n > 0 {
-				return nil // partial result already streamed
-			}
-			return err
+			// The rows already streamed are real and stay. What the caller must
+			// not be told is that the walk reached the end of the account.
+			return partial(n, "tweets", err)
 		}
 		tweets, next := collectTweets(b)
 		stampTweets(tweets, g.surface(), src)
@@ -738,7 +762,12 @@ func (g *GraphQL) pageTweets(ctx context.Context, op string, vars func(cursor st
 				return nil
 			}
 		}
-		if next == "" || next == cursor || fresh == 0 {
+		if fresh == 0 {
+			empty++
+		} else {
+			empty = 0
+		}
+		if walkEnded(next, cursor, empty) {
 			return nil
 		}
 		cursor = next
@@ -774,7 +803,7 @@ func (g *GraphQL) Retweeters(ctx context.Context, tweetID string, limit int, emi
 func (g *GraphQL) pageUsers(ctx context.Context, op, kind, id, idKey string, extra map[string]any, limit int, emit func(*User) error) error {
 	seen := map[string]bool{}
 	cursor := ""
-	n := 0
+	n, empty := 0, 0
 	for {
 		vars := map[string]any{
 			idKey:                    id,
@@ -785,10 +814,7 @@ func (g *GraphQL) pageUsers(ctx context.Context, op, kind, id, idKey string, ext
 		maps.Copy(vars, extra)
 		b, src, err := g.get(ctx, op, vars)
 		if err != nil {
-			if n > 0 {
-				return nil
-			}
-			return err
+			return partial(n, "accounts", err)
 		}
 		users, next := collectUsers(b)
 		for _, u := range users {
@@ -810,7 +836,12 @@ func (g *GraphQL) pageUsers(ctx context.Context, op, kind, id, idKey string, ext
 				return nil
 			}
 		}
-		if next == "" || next == cursor || fresh == 0 {
+		if fresh == 0 {
+			empty++
+		} else {
+			empty = 0
+		}
+		if walkEnded(next, cursor, empty) {
 			return nil
 		}
 		cursor = next

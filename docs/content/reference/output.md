@@ -107,6 +107,39 @@ two mean different things: one is a fact about the account, the other is a fact
 about the last fifteen minutes. x prints the same line on standard error as a
 `warn:`, which `--quiet` suppresses.
 
+## Timelines that are not in time order
+
+X sometimes answers a profile timeline with a selection ranked by popularity
+rather than the most recent posts, drawn from the whole account. Those records
+carry `sample`:
+
+```bash
+x timeline jack -o json | jq -r '.[] | "\(.created_at) \(.sample)"'
+2024-09-11T19:31:57Z true
+2020-04-07T20:04:19Z true
+2019-10-30T20:05:08Z true
+```
+
+Filtering "the last week" over a set like that answers a question nobody asked.
+Pass `--guest` for a walk in time order. x also warns once on standard error
+when a run produces sampled records.
+
+## A walk that stopped early
+
+Paging deep can hit a rate window or lose the connection partway. The rows
+already printed stay on standard output, and the run ends with the reason and
+how far it got:
+
+```bash
+x timeline nasa --guest -n 2000
+...
+Stopped after 612 tweets: rate limited by X on graphql.UserTweets
+```
+
+The exit code is whatever stopped it, `5` here, not `0`. Six hundred rows and a
+zero exit would say the account has six hundred tweets. On `jsonl` the last line
+is the failure record with the same `reason`.
+
 ## Exit codes
 
 x uses distinct exit codes so scripts can branch on the outcome:

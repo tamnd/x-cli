@@ -52,6 +52,8 @@ type App struct {
 	// its argument. The failure record names it, so a caller reading a stream of
 	// them can tell which request went wrong.
 	target string
+	// warned is the set of missed-surface notes already printed this run.
+	warned map[string]bool
 }
 
 // appFromCtx assembles the run's App from the resolved kit State. It folds the
@@ -266,8 +268,22 @@ func (a *App) logf(format string, args ...any) {
 // the same thing out of `missed` in the JSON.
 func (a *App) warnMissed(m x.Meta) {
 	for _, note := range m.Missed {
-		a.logf("warn: %s", note)
+		a.warnOnce(note)
 	}
+}
+
+// warnOnce prints a warning the first time this run raises it. A timeline is a
+// hundred records that all went without the same surface, and a hundred
+// identical warnings is a way of not being read.
+func (a *App) warnOnce(note string) {
+	if a.warned[note] {
+		return
+	}
+	if a.warned == nil {
+		a.warned = map[string]bool{}
+	}
+	a.warned[note] = true
+	a.logf("warn: %s", note)
 }
 
 // mapErr converts a library error into the kit error kind that carries the
@@ -284,21 +300,32 @@ func mapErr(err error) error {
 	var nf *x.NotFoundError
 	var un *x.UnsupportedError
 	var ne *x.NetworkError
+	// A walk that stopped halfway is classified by whatever stopped it, but the
+	// message on stderr has to be the one that says how far it got. Without it
+	// the terminal says the request timed out and not a word about the two
+	// hundred rows that went to stdout first.
+	said := func(inner error) string {
+		var pe *x.PartialError
+		if errors.As(err, &pe) {
+			return pe.Error()
+		}
+		return inner.Error()
+	}
 	switch {
 	case err == nil:
 		return nil
 	case errors.Is(err, errNoResults):
 		return errs.NoResults("no results")
 	case errors.As(err, &na):
-		return errs.NeedAuth("%s", na.Error())
+		return errs.NeedAuth("%s", said(na))
 	case errors.As(err, &rl):
-		return errs.RateLimited("%s", rl.Error())
+		return errs.RateLimited("%s", said(rl))
 	case errors.As(err, &nf):
-		return errs.NotFound("%s", nf.Error())
+		return errs.NotFound("%s", said(nf))
 	case errors.As(err, &un):
-		return errs.Unsupported("%s", un.Error())
+		return errs.Unsupported("%s", said(un))
 	case errors.As(err, &ne):
-		return errs.Network("%s", ne.Error())
+		return errs.Network("%s", said(ne))
 	}
 	// A transport failure that never went through the client, such as a direct
 	// media download, still gets code 8.
