@@ -123,7 +123,7 @@ func (g *GraphQL) get(ctx context.Context, op string, variables map[string]any) 
 			// hashes url.pathname, never the ?variables&features query string.
 			// Hashing RequestURI() (path+query) yields a TID X rejects with an
 			// empty-body 404 on its stricter endpoints (search, the follow graph)
-			// while laxer ones (likes, media) wave it through — which looked like
+			// while laxer ones (likes, media) wave it through, which looked like
 			// a per-operation outage until the path was the common cause.
 			if tid := g.transactionID(ctx, http.MethodGet, pu.Path); tid != "" {
 				h.Set("x-client-transaction-id", tid)
@@ -156,7 +156,7 @@ func gqlError(err error) error {
 	}
 	switch he.Status {
 	case 401, 403:
-		return &NeedAuthError{Msg: "X rejected this request — pass --guest or run `x auth import` to use your own session", User: true}
+		return &NeedAuthError{Msg: "X rejected this request: pass --guest or run `x auth import` to use your own session", User: true}
 	case 429:
 		return &RateLimitedError{Msg: "rate limited by X; try again later or slow down with --rate"}
 	case 404:

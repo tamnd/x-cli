@@ -17,7 +17,7 @@ const UserAgent = "x-cli/" + "dev" + " (+https://github.com/tamnd/x-cli)"
 
 // Client is the shared HTTP client for every tier: one rate limiter, retry
 // policy, disk cache, and per-endpoint rate-limit accounting (the nitter
-// lesson, spec §13.2 — minus the account pool).
+// lesson, spec §13.2, minus the account pool).
 type Client struct {
 	cfg   Config
 	hc    *http.Client

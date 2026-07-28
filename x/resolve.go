@@ -36,7 +36,7 @@ func (e *Engine) canGraphQL() bool {
 
 // needGraphQL returns the actionable need-auth error for a GraphQL-only call.
 func needGraphQL(cap string) error {
-	return &NeedAuthError{Msg: cap + " needs the GraphQL tier — pass --guest, or run `x auth import` to use your own session"}
+	return &NeedAuthError{Msg: cap + " needs the GraphQL tier: pass --guest, or run `x auth import` to use your own session"}
 }
 
 // Tweet resolves one tweet.
@@ -194,6 +194,21 @@ func (e *Engine) Timeline(ctx context.Context, ref string, isID bool, o Timeline
 	return e.g.UserTweets(ctx, uid, o, emit)
 }
 
+// focalFirst moves the tweet the page is about to the front. The page renders
+// the replies before it, which is right for a page and wrong for a thread.
+func focalFirst(tweets []*Tweet, id string) []*Tweet {
+	for i, t := range tweets {
+		if t.ID != id {
+			continue
+		}
+		out := make([]*Tweet, 0, len(tweets))
+		out = append(out, t)
+		out = append(out, tweets[:i]...)
+		return append(out, tweets[i+1:]...)
+	}
+	return tweets
+}
+
 // streamTweets applies the timeline filters and limit to an in-memory slice.
 func streamTweets(tweets []*Tweet, o TimelineOpts, emit func(*Tweet) error) error {
 	n := 0
@@ -223,12 +238,24 @@ func (e *Engine) Search(ctx context.Context, q SearchQuery, emit func(*Tweet) er
 	return e.g.Search(ctx, q, emit)
 }
 
-// Thread streams a conversation, falling back to Tier 0 self-thread.
+// Thread streams a conversation.
+//
+// At tier 0 the status page is the whole answer: it renders the focal tweet
+// and the replies X chose to show, each with its author and its counters. That
+// is not the full tree and it is not paged, but it is a conversation and it
+// costs no credential, which is more than the syndication endpoint gives.
 func (e *Engine) Thread(ctx context.Context, id string, limit int, emit func(*Tweet) error) error {
-	if e.canGraphQL() && e.cfg.Tier != "syndication" {
+	if e.canGraphQL() && e.cfg.Tier != "syndication" && e.cfg.Tier != "web" {
 		return e.g.Thread(ctx, id, limit, emit)
 	}
-	// Tier 0: the focal tweet plus its embedded parent chain, best-effort.
+	if e.cfg.Tier != "syndication" {
+		if p, err := e.c.FetchPage(ctx, StatusPageURL(id)); err == nil {
+			if posts := p.Postings(); len(posts) > 0 {
+				return streamTweets(focalFirst(posts, id), TimelineOpts{Replies: true, Limit: limit}, emit)
+			}
+		}
+	}
+	// The page had nothing, so fall back to the focal tweet on its own.
 	t, err := TweetByID(ctx, e.c, id)
 	if err != nil {
 		return err

@@ -37,7 +37,7 @@ func Export(s *Store, username, outDir string) (int, error) {
 	sort.Strings(months)
 
 	var idx strings.Builder
-	fmt.Fprintf(&idx, "# @%s — %d tweets\n\n", username, len(tweets))
+	fmt.Fprintf(&idx, "# @%s, %d tweets\n\n", username, len(tweets))
 	for _, m := range months {
 		fmt.Fprintf(&idx, "- [%s](%s.md) (%d)\n", m, m, len(byMonth[m]))
 		if err := writeMonth(outDir, m, byMonth[m]); err != nil {
@@ -57,7 +57,7 @@ func writeMonth(outDir, month string, tweets []*Tweet) error {
 		ts := t.CreatedAt.Format(time.RFC3339)
 		fmt.Fprintf(&b, "### %s\n\n", ts)
 		fmt.Fprintf(&b, "%s\n\n", t.Text)
-		fmt.Fprintf(&b, "♥ %d  ↺ %d  💬 %d — [%s](%s)\n\n",
+		fmt.Fprintf(&b, "♥ %d  ↺ %d  💬 %d  [%s](%s)\n\n",
 			t.Metrics.Likes, t.Metrics.Retweets, t.Metrics.Replies, t.ID, t.URL)
 		for _, m := range t.Media {
 			u := m.URL

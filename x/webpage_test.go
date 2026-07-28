@@ -282,3 +282,38 @@ func TestStatusPageURL(t *testing.T) {
 		t.Errorf("StatusPageURL = %q", got)
 	}
 }
+
+// A status page renders the replies before the tweet they reply to, which is
+// right for a page and wrong for a thread.
+func TestFocalFirst(t *testing.T) {
+	posts := statusPage(t).Postings()
+	if len(posts) < 2 {
+		t.Fatalf("got %d postings, want the focal tweet and its replies", len(posts))
+	}
+	if posts[0].ID == "20" {
+		t.Skip("the capture already leads with the focal tweet, so this proves nothing")
+	}
+	got := focalFirst(posts, "20")
+	if got[0].ID != "20" {
+		t.Errorf("thread leads with %s, want the focal tweet", got[0].ID)
+	}
+	if len(got) != len(posts) {
+		t.Errorf("reordering dropped a tweet: %d became %d", len(posts), len(got))
+	}
+	seen := map[string]bool{}
+	for _, p := range got {
+		if seen[p.ID] {
+			t.Errorf("reordering duplicated %s", p.ID)
+		}
+		seen[p.ID] = true
+	}
+}
+
+// A tweet that is not in the list leaves the order alone rather than panicking.
+func TestFocalFirstWithNoFocalTweet(t *testing.T) {
+	posts := statusPage(t).Postings()
+	got := focalFirst(posts, "does-not-exist")
+	if len(got) != len(posts) || got[0].ID != posts[0].ID {
+		t.Error("an unknown id should leave the order untouched")
+	}
+}
