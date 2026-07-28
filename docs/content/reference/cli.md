@@ -185,10 +185,18 @@ are for.
 | `download <ref>` | Download a tweet's media to disk | `-O`/`--out` |
 | `open <ref>` | Open a tweet or profile in your browser | |
 | `info` | Show resolved tiers and capabilities | |
+| `capture <ref>...` | Record what a surface says now, into a fixture file | `--out` |
 | `serve` | Serve the operations over HTTP (NDJSON) | `--addr` |
 | `mcp` | Run as an MCP server over stdio | |
 | `version` | Print version info | |
 | `completion <shell>` | Generate a shell completion script | |
+
+`capture` is how `x/testdata` gets refreshed, and why no fixture in this repo is
+hand-written. It asks every surface that serves a reference, sends the reader's
+own request down to the headers, and writes each answer gzipped under the name
+the tests already load. A surface that will not answer gets a row saying so
+rather than aborting the run, so a rate limit on one of them does not cost you
+the two that worked. `x capture 20 jack` rewrites five fixtures.
 
 `serve` exposes the reads over HTTP as NDJSON, one route each under `/v1/`, and
 `mcp` exposes the same set as MCP tools for an agent. Both take the global flags,
