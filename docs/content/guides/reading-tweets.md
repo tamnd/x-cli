@@ -42,12 +42,18 @@ x timeline nasa               # recent window, Tier 0
 x timeline nasa --guest -n 50 # deeper, guest tier
 x timeline nasa --media       # only tweets with media
 x timeline nasa --replies     # include the user's replies
-x replies nasa --guest        # a user's tweets including replies
+x replies nasa                # the same thing, said shorter
+x replies 1903142823316049977 # the replies to a tweet
 ```
 
 `x timeline` returns a recent window on Tier 0 and pages further back with
-`--guest` or a session. `x replies` is the replies-inclusive view; X denies it
-to guest tokens, so it needs your own session.
+`--guest` or a session.
+
+`x replies` reads whichever of the two things you handed it. A handle is that
+account's timeline with the replies left in. A tweet is the replies to that
+tweet, which at Tier 0 means the handful X renders on the status page: there is
+no cursor there, so the command says how many it got out of how many exist and
+points at `x auth import` for the rest.
 
 Two things about tier 0 here. The syndication widget answers an account that
 posts often with the last hundred or so posts, and an account that posts rarely
@@ -93,8 +99,18 @@ right answer for a player and the wrong one for a file on disk.
 x thread <ref>                # the conversation around a tweet
 ```
 
-`x thread` reconstructs the conversation a tweet belongs to. Like `replies` and
-`media`, X reserves it for a real session.
+`x thread` reconstructs the conversation a tweet belongs to, root first, and it
+works with no credential at all.
+
+Going up is free because the syndication endpoint expands a reply's parent in
+full, one level deep. That is enough to halve the walk: asking for a tweet hands
+back the tweet and its parent, so the next request asks for the grandparent. A
+chain of three costs two requests. Going down is the expensive direction, and at
+Tier 0 it is whatever the status page rendered, which is usually three.
+
+The upward half also pays for itself in another way. A tweet fetched on its own
+carries no retweet count, and the same tweet arriving as somebody's parent
+carries one.
 
 ## Quotes and mentions
 
@@ -136,9 +152,9 @@ cuts the budget from 180 requests per fifteen minutes to 15.
 |---|---|---|---|
 | `tweet`, `user`, `poll` | yes | yes | yes |
 | `timeline` | recent window | deeper | deeper |
-| `replies` | no | denied by X | yes |
+| `replies` | what the page renders | same, plus the user reading | the whole tree |
 | `media` | no | denied by X | yes |
-| `thread` | no | denied by X | yes |
+| `thread` | ancestors, plus what the page renders | same | the whole tree |
 | `quotes`, `mentions` | no | yes | yes |
 | `trends`, `places` | yes | same read | same read |
 

@@ -87,28 +87,65 @@ func newTimelineCmd() kit.Command {
 	}
 }
 
+// newRepliesCmd is `x replies`, which takes a tweet or a profile the way
+// `x media` does, because both readings of the word are things people actually
+// want and neither is a stretch. A tweet means the replies to it. A handle means
+// that account's own replies, which is its timeline with the replies left in.
 func newRepliesCmd() kit.Command {
 	var byID bool
 	return kit.Command{
-		Use:   "replies <user>",
-		Short: "A user's tweets including replies",
+		Use:   "replies <ref>",
+		Short: "Replies to a tweet, or a user's own replies",
 		Args:  kit.ExactArgs(1),
 		Flags: func(f *kit.FlagSet) {
 			f.BoolVar(&byID, "id", false, "treat the argument as a numeric user id")
 		},
 		Run: func(ctx context.Context, args []string) error {
 			a := appFromCtx(ctx)
-			ref, isID, err := userRef(args[0], byID)
+			kind, ref, err := tweetOrUserRef("replies", args[0], byID)
 			if err != nil {
 				return err
 			}
 			a.target = ref
-			o := x.TimelineOpts{Replies: true, Limit: a.limit}
-			return a.done(a.streamTweets(func(emit func(*x.Tweet) error) error {
-				return a.engine().Timeline(a.ctx(), ref, isID, o, emit)
-			}))
+			if kind == x.KindUser {
+				o := x.TimelineOpts{Replies: true, Limit: a.limit}
+				return a.done(a.streamTweets(func(emit func(*x.Tweet) error) error {
+					return a.engine().Timeline(a.ctx(), ref, byID, o, emit)
+				}))
+			}
+			var got int
+			var total *int
+			err = a.streamTweets(func(emit func(*x.Tweet) error) error {
+				total, err = a.engine().Replies(a.ctx(), ref, a.limit, func(t *x.Tweet) error {
+					got++
+					return emit(t)
+				})
+				return err
+			})
+			if err == nil && got == 0 {
+				return a.done(errNoResults)
+			}
+			// The warning goes out after the records, so a reader sees the
+			// number it is talking about, and to stderr, so a pipe does not.
+			a.warnPartialReplies(got, total)
+			return a.done(err)
 		},
 	}
+}
+
+// warnPartialReplies says how much of the conversation was not read.
+//
+// It only fires when X's own counter says there is more, so a tweet with three
+// replies and three replies read stays quiet. The counter is
+// `conversation_count`, which counts the whole conversation rather than the
+// direct replies, so the comparison is deliberately loose: the point is to stop
+// somebody treating three replies as the argument, not to be exact about a
+// number X keeps to itself.
+func (a *App) warnPartialReplies(got int, total *int) {
+	if total == nil || got == 0 || *total <= got {
+		return
+	}
+	a.warnOnce(fmt.Sprintf("this tier gives %d of about %d replies; X only renders a few on the page, and the rest need a session (x auth import)", got, *total))
 }
 
 // newMediaCmd reads the pictures and video (spec 3003 doc 05, `x media`).
@@ -147,7 +184,7 @@ func newMediaCmd() kit.Command {
 			if err := x.CheckSize(size); err != nil {
 				return errs.Usage("%s", err.Error())
 			}
-			kind, ref, err := mediaRef(args[0], byID)
+			kind, ref, err := tweetOrUserRef("media", args[0], byID)
 			if err != nil {
 				return err
 			}
@@ -181,10 +218,12 @@ func newMediaCmd() kit.Command {
 	}
 }
 
-// mediaRef classifies the argument. --id is the escape hatch for a numeric user
-// id, which would otherwise read as a tweet id, because that is what a bare run
-// of digits means everywhere else in the tool.
-func mediaRef(arg string, byID bool) (kind, ref string, err error) {
+// tweetOrUserRef classifies an argument for a command that reads either. --id is
+// the escape hatch for a numeric user id, which would otherwise read as a tweet
+// id, because that is what a bare run of digits means everywhere else in the
+// tool. cmd names the command in the error, so the message says what was being
+// asked rather than which function refused.
+func tweetOrUserRef(cmd, arg string, byID bool) (kind, ref string, err error) {
 	if byID {
 		r, _, err := userRef(arg, true)
 		return x.KindUser, r, err
@@ -197,7 +236,7 @@ func mediaRef(arg string, byID bool) (kind, ref string, err error) {
 	case x.KindTweet, x.KindUser:
 		return kind, ref, nil
 	}
-	return "", "", errs.Usage("media reads a tweet or a profile, and %s is a %s", arg, kind)
+	return "", "", errs.Usage("%s reads a tweet or a profile, and %s is a %s", cmd, arg, kind)
 }
 
 // streamMedia emits one record per media item, with the URL resolved to the

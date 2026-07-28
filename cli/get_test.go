@@ -71,7 +71,7 @@ func TestMediaRefTakesATweetOrAProfile(t *testing.T) {
 		{arg: "https://example.com/x", wantExit: 2},
 		{arg: "", wantExit: 2},
 	} {
-		kind, ref, err := mediaRef(c.arg, c.byID)
+		kind, ref, err := tweetOrUserRef("media", c.arg, c.byID)
 		if got := errs.ExitCode(err); got != c.wantExit {
 			t.Errorf("%q: exit %d, want %d (err %v)", c.arg, got, c.wantExit, err)
 			continue

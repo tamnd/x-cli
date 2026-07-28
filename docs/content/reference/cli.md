@@ -20,10 +20,10 @@ map. A `<ref>` is a tweet id, status URL, or anything x can resolve to a tweet; 
 | `tweet <ref>` | Show a single tweet | (Tier 0) |
 | `user <user>` | Show a profile | `--id` |
 | `timeline <user>` | A user's tweets (recent window; deeper with `--guest`/session) | `--id`, `--replies`, `--media` |
-| `replies <user>` | A user's tweets including replies (session) | `--id` |
+| `replies <ref>` | Replies to a tweet, or a user's own replies | `--id` |
 | `media <ref>` | The media on a tweet, or on a user's tweets | `--id`, `--tab`, `--download`, `--size`, `--variant` |
 | `embed <ref>` | Print a tweet's oEmbed blockquote, verbatim | |
-| `thread <ref>` | A conversation thread around a tweet (session) | |
+| `thread <ref>` | A conversation thread around a tweet | (Tier 0) |
 | `poll <ref>` | A tweet's poll options and tallies | |
 | `search <query>` | Search tweets (needs `--guest` or session) | `--product` |
 | `counts <query>` | Per-day tweet counts for a search | `--product` |

@@ -57,46 +57,74 @@ func floatToBase36(v float64) string {
 
 // TweetByID fetches one tweet via the public syndication endpoint (Tier B).
 func TweetByID(ctx context.Context, c *Client, id string) (*Tweet, error) {
+	raw, src, err := fetchSynTweet(ctx, c, id)
+	if err != nil {
+		return nil, err
+	}
+	t := raw.toTweet()
+	stampTweet(t, 1, src)
+	return t, nil
+}
+
+// fetchSynTweet is the surface 1 read before it is flattened onto a record. It
+// exists because the answer carries more than one tweet: a reply comes back with
+// its parent expanded in full, and TweetByID drops that. The thread walk is the
+// caller that wants it, and paying for the request twice to get it would be
+// silly.
+func fetchSynTweet(ctx context.Context, c *Client, id string) (*synTweet, string, error) {
 	u := fmt.Sprintf("https://cdn.syndication.twimg.com/tweet-result?id=%s&token=%s&lang=en",
 		url.QueryEscape(id), syndicationToken(id))
 	b, err := c.Do(ctx, Req{URL: u, Endpoint: "syndication.tweet", CacheTTL: tweetTTL(id)})
 	if err != nil {
 		if nf := asNotFound(err, "tweet", id); nf != nil {
-			return nil, nf
+			return nil, "", nf
 		}
-		return nil, err
+		return nil, "", err
 	}
 	var raw synTweet
 	if err := json.Unmarshal(b, &raw); err != nil {
-		return nil, fmt.Errorf("parse syndication response: %w", err)
+		return nil, "", fmt.Errorf("parse syndication response: %w", err)
 	}
 	if raw.IDStr == "" {
 		// The endpoint returns {} or a tombstone for missing/protected tweets.
-		return nil, &NotFoundError{Kind: "tweet", Ref: id}
+		return nil, "", &NotFoundError{Kind: "tweet", Ref: id}
 	}
-	t := raw.toTweet()
-	stampTweet(t, 1, u)
-	return t, nil
+	return &raw, u, nil
 }
 
 // synTweet is the syndication wire shape (only the fields we map).
 type synTweet struct {
-	IDStr             string      `json:"id_str"`
-	Text              string      `json:"text"`
-	CreatedAt         string      `json:"created_at"`
-	Lang              string      `json:"lang"`
-	FavoriteCount     *int        `json:"favorite_count"`
-	ConversationCount *int        `json:"conversation_count"`
-	Sensitive         bool        `json:"possibly_sensitive"`
-	InReplyToScreen   string      `json:"in_reply_to_screen_name"`
-	InReplyToStatus   string      `json:"in_reply_to_status_id_str"`
-	User              synUser     `json:"user"`
-	Entities          synEntities `json:"entities"`
-	Photos            []synPhoto  `json:"photos"`
-	MediaDetails      []synMedia  `json:"mediaDetails"`
-	Video             *synVideo   `json:"video"`
-	QuotedTweet       *synTweet   `json:"quoted_tweet"`
-	Parent            *synTweet   `json:"parent"`
+	IDStr             string `json:"id_str"`
+	Text              string `json:"text"`
+	CreatedAt         string `json:"created_at"`
+	Lang              string `json:"lang"`
+	FavoriteCount     *int   `json:"favorite_count"`
+	ConversationCount *int   `json:"conversation_count"`
+
+	// ReplyCount and RetweetCount arrive only on an inlined `parent`, never on
+	// the tweet actually asked for. Doc 01 section 1.3 says surface 1 has no
+	// retweet count, and that is true of the focal tweet and false of its
+	// parent: 1903142823316049977 carried a parent with retweet_count 100 and
+	// reply_count 143, and the same tweet fetched on its own carried neither.
+	//
+	// So a reply is worth more than a tweet here. Ask for the child and X hands
+	// over a counter it will not give you directly.
+	//
+	// reply_count and conversation_count are the same number on every capture
+	// where both were visible, despite the names suggesting the second counts
+	// the whole tree, so Replies takes whichever one turned up.
+	ReplyCount      *int        `json:"reply_count"`
+	RetweetCount    *int        `json:"retweet_count"`
+	Sensitive       bool        `json:"possibly_sensitive"`
+	InReplyToScreen string      `json:"in_reply_to_screen_name"`
+	InReplyToStatus string      `json:"in_reply_to_status_id_str"`
+	User            synUser     `json:"user"`
+	Entities        synEntities `json:"entities"`
+	Photos          []synPhoto  `json:"photos"`
+	MediaDetails    []synMedia  `json:"mediaDetails"`
+	Video           *synVideo   `json:"video"`
+	QuotedTweet     *synTweet   `json:"quoted_tweet"`
+	Parent          *synTweet   `json:"parent"`
 }
 
 type synUser struct {
@@ -164,7 +192,11 @@ func (s *synTweet) toTweet() *Tweet {
 		ReplyTo:     s.InReplyToStatus,
 		ReplyToUser: s.InReplyToScreen,
 		IsReply:     s.InReplyToStatus != "",
-		Metrics:     Metrics{Likes: s.FavoriteCount, Replies: s.ConversationCount},
+		Metrics: Metrics{
+			Likes:    s.FavoriteCount,
+			Replies:  firstNum(s.ReplyCount, s.ConversationCount),
+			Retweets: s.RetweetCount,
+		},
 	}
 	t.CreatedAt, _ = time.Parse(time.RFC3339, s.CreatedAt)
 	t.Author = &User{
