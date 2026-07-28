@@ -3,6 +3,8 @@ package cli
 import (
 	"context"
 	"fmt"
+	"io"
+	"os"
 	"sort"
 	"time"
 
@@ -17,6 +19,7 @@ func readCommands() []kit.Command {
 		newTimelineCmd(),
 		newRepliesCmd(),
 		newMediaCmd(),
+		newEmbedCmd(),
 		newThreadCmd(),
 		newSearchCmd(),
 		newQuotesCmd(),
@@ -150,6 +153,41 @@ func newMediaCmd() kit.Command {
 				return a.done(errNoResults)
 			}
 			return nil
+		},
+	}
+}
+
+// newEmbedCmd prints the oEmbed blockquote (spec 3003 doc 02 section 6).
+//
+// It is a byte command: the bytes X returns are the answer, because the point of
+// the surface is that you paste them into a page. Reformatting them into a
+// record would be this tool deciding it knows better than the thing it asked.
+//
+// The parsed fields plane F reads out of the same blockquote are on the tweet
+// record, which is where `x tweet 20 -o json` already shows them.
+func newEmbedCmd() kit.Command {
+	return kit.Command{
+		Use:   "embed <ref>",
+		Short: "Print a tweet's oEmbed blockquote, verbatim",
+		Args:  kit.ExactArgs(1),
+		Run: func(ctx context.Context, args []string) error {
+			a := appFromCtx(ctx)
+			if err := a.rawOutput("embed"); err != nil {
+				return err
+			}
+			id, err := tweetRef(args[0])
+			if err != nil {
+				return err
+			}
+			a.target = id
+			sp := a.progress("fetching embed")
+			o, err := a.engine().OEmbed(a.ctx(), id)
+			sp.stop()
+			if err != nil {
+				return mapErr(err)
+			}
+			_, err = io.WriteString(os.Stdout, o.HTML)
+			return err
 		},
 	}
 }

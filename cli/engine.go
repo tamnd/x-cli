@@ -159,6 +159,31 @@ func (a *App) format() render.Format {
 	return format
 }
 
+// rawOutput is the guard on a byte command (spec 3003 doc 05 section 1): x
+// embed, x media --download, x rdf, x export and x cat write bytes rather than
+// records, so the record flags have nothing to act on.
+//
+// It is a usage error rather than a silent no-op, because `x embed 20 -o json`
+// is somebody expecting json, and giving them html with a zero exit code is the
+// tool agreeing with a question it did not answer.
+func (a *App) rawOutput(cmd string) error {
+	if a.st == nil {
+		return nil
+	}
+	o := a.st.Output
+	// "the X command", not "x X": kit title-cases the first word of a message,
+	// and a command name is one word that should not come back capitalised.
+	switch {
+	case o.Format != "" && render.Format(o.Format) != render.Auto:
+		return errs.Usage("the %s command writes bytes, not records, so there is nothing for -o to format", cmd)
+	case o.Template != "":
+		return errs.Usage("the %s command writes bytes, not records, so there is nothing for --template to render", cmd)
+	case len(o.Fields) > 0:
+		return errs.Usage("the %s command writes bytes, not records, so there are no --fields to pick from", cmd)
+	}
+	return nil
+}
+
 // fail is the error path of a read: it writes the failure record from doc 03
 // section 11 to stdout, then hands the error to mapErr for the exit code.
 //
