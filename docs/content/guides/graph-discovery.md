@@ -51,16 +51,16 @@ The full edge vocabulary:
 | `mention` | tweet → user | 0 | accounts it @-mentions |
 | `pinned` | user → tweet | 0 | the account's pinned tweet |
 | `timeline` | user → tweet | 0 | the account's recent tweets |
-| `replies` | tweet → tweet | guest/session | the replies under it |
-| `liker` | tweet → user | guest/session | accounts that liked it |
-| `retweeter` | tweet → user | guest/session | accounts that retweeted it |
-| `quotedby` | tweet → tweet | guest/session | tweets that quote it |
-| `following` | user → user | guest/session | accounts it follows |
-| `followers` | user → user | guest/session | accounts that follow it |
-| `likes` | user → tweet | guest/session | tweets it liked |
+| `replies` | tweet → tweet | 0 | the replies the status page renders |
+| `liker` | tweet → user | session | accounts that liked it |
+| `retweeter` | tweet → user | session | accounts that retweeted it |
+| `quotedby` | tweet → tweet | session | tweets that quote it |
+| `following` | user → user | session | accounts it follows |
+| `followers` | user → user | session | accounts that follow it |
+| `likes` | user → tweet | session | tweets it liked |
 
-The Tier-0 edges work with nothing. The rest read the GraphQL surface, so they
-need `--guest` or your own session (`x auth import`). When you ask for an edge
+The Tier-0 edges work with nothing. The rest read the GraphQL surface, which X
+answers for your own session (`x auth import`) and not for a guest token. When you ask for an edge
 you have no tier for, `x discover` drops it with a one-line note on stderr and
 keeps going on what it can reach, rather than failing the whole walk. The one
 exception is when *every* edge you asked for needs a tier: then there is nothing
@@ -95,7 +95,7 @@ the same way. The JSON forms carry the full node, with the nested tweet or user:
 
 ```bash
 x discover <ref> -o json | jq -r '.via + " -> " + (.tweet.id // .user.username)'
-x discover <user> --follow network --guest -o jsonl | jq -r '.user.username' | sort -u
+x discover <user> --follow network -o jsonl | jq -r '.user.username' | sort -u
 x discover <ref> --fields depth,via,who,url -o table
 ```
 
@@ -105,7 +105,7 @@ Add `--store` to write every node and edge into the local store as the walk
 streams, so you keep the graph as well as see it:
 
 ```bash
-x discover nasa --follow network --depth 2 --guest --store
+x discover nasa --follow network --depth 2 --store
 x db query "select kind, count(*) from edges group by 1 order by 2 desc"
 ```
 

@@ -21,7 +21,7 @@ Documentation: <https://x-cli.tamnd.com> (mirror: <https://tamnd.github.io/x-cli
 x tweet 20                         # a single tweet
 x user nasa                        # a profile
 x timeline nasa --guest -n 20      # a user's recent tweets
-x search "from:nasa filter:media" --guest -o jsonl
+x thread 1903142823316049977       # the conversation around it, root first
 x media https://x.com/nasa/status/2064422103416238295 --download .
 x timeline nasa -o url | xargs -n1 x get
 ```
@@ -34,7 +34,9 @@ uses, across three tiers. It picks the cheapest one that can answer each call:
 - **Tier 0, syndication.** The public embed/syndication endpoint. No auth at
   all. Serves single tweets, profiles, and the recent timeline window.
 - **Tier 1, guest GraphQL.** An opt-in (`--guest`) guest token, minted the same
-  way the web client mints one. Pages deeper into timelines and resolves more.
+  way the web client mints one. X has narrowed what it answers for one: as of
+  July 2026 it pages deeper into timelines and resolves a profile, and that is
+  the whole of it.
 - **Tier 2, session GraphQL.** Your own browser session cookies, imported with
   `x auth import`. Unlocks reads X reserves for logged-in clients: search,
   followers/following, your home timeline, and bookmarks.
@@ -64,7 +66,7 @@ Shell completion is built in: `x completion bash|zsh|fish|powershell`.
 ## Commands
 
 The everyday reads. The tier column shows the cheapest tier that can answer:
-Tier 0 needs nothing, `g` needs `--guest` or a session, `s` needs a session.
+Tier 0 needs nothing, `g` needs `--guest`, `s` needs a session.
 
 | Command | Reads | Tier |
 | --- | --- | --- |
@@ -72,17 +74,17 @@ Tier 0 needs nothing, `g` needs `--guest` or a session, `s` needs a session.
 | `x tweet <ref>` | a single tweet | 0 |
 | `x user <user>` | a profile | 0 |
 | `x timeline <user>` | a user's tweets (deeper with `--guest`) | 0 |
-| `x thread <ref>` | the conversation around a tweet | g |
-| `x replies <user>` | a user's tweets including replies | s |
+| `x thread <ref>` | the conversation around a tweet, root first | 0 |
+| `x replies <ref>` | the replies to a tweet, or a user's own replies | 0 |
 | `x media <ref>` | the pictures and video on a tweet or a profile, `--download` for the bytes | 0 |
-| `x search <query>` | search tweets | g |
-| `x counts <query>` | per-day tweet counts for a search | g |
-| `x followers <user>` / `x following <user>` | the follow graph | g |
-| `x likers <ref>` / `x retweeters <ref>` | who liked or retweeted | g |
+| `x search <query>` | search tweets | s |
+| `x counts <query>` | per-day tweet counts for a search | s |
+| `x followers <user>` / `x following <user>` | the follow graph | s |
+| `x likers <ref>` / `x retweeters <ref>` | who liked or retweeted | s |
 | `x home` / `x bookmarks` | your home timeline, your bookmarks | s |
 | `x embed <ref>` | a tweet's oEmbed blockquote, verbatim | 0 |
 | `x download <ref>` | a tweet's media to disk | 0 |
-| `x crawl <seed>...` | breadth-first crawl into the local store | g |
+| `x crawl <seed>...` | breadth-first crawl into the local store | 0 |
 | `x db <query>` | query what you have collected | local |
 
 `x serve` exposes every read over HTTP as NDJSON and `x mcp` exposes the same

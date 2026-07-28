@@ -25,11 +25,11 @@ think about them. They differ in what they can reach and what they cost you.
   tweets, profiles, and a recent window of a user's timeline. It is the default
   and it is enough for a lot of day-to-day lookups.
 - **Tier 1, guest GraphQL.** Opt in with `--guest`. x mints a guest token, which
-  lets it page deeper into timelines and reach followers, following, likers,
-  retweeters, likes, lists, and search. The token is cached on disk between runs
-  so repeated commands do not re-mint it and trip X's rate limits. A few
-  endpoints (replies, media, thread, search, followers) are denied to guest
-  tokens by X and need your own session instead.
+  is cached on disk between runs so repeated commands do not re-mint it and trip
+  X's rate limits. It buys less than it used to: measured on 2026-07-28 it
+  reaches the profile read and the deeper timeline walk, and X denies it
+  everything else on the GraphQL surface. So `--guest` is worth adding to
+  `x timeline` and to little else.
 - **Tier 2, session GraphQL.** Your own browser cookies, imported once with
   `x auth import`. This reaches the reads X reserves for a logged-in client:
   search, followers and following, your home timeline, and your bookmarks. x is

@@ -52,7 +52,7 @@ clean. `--quiet` turns it off.
 
 ```bash
 x timeline nasa --fields id,text
-x followers nasa --guest --fields username,name -o csv
+x followers nasa --fields username,name -o csv
 ```
 
 The names are the JSON keys of a row, the same keys the `jsonl` and `json`
