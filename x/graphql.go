@@ -110,8 +110,15 @@ func gqlTTL(op string, variables map[string]any) time.Duration {
 			return tweetTTL(id)
 		}
 		return ttlTweet
-	case "UserByScreenName", "UserByRestId", "AudioSpaceById":
+	case "UserByScreenName", "UserByRestId":
 		return ttlProfile
+	case "AudioSpaceById":
+		// A Space that is Running is a live event: the roster and the listener
+		// count move while you watch. A finished one never changes again, but
+		// the TTL is chosen before the answer arrives, so it is picked for the
+		// live case and the finished one just gets refetched more often than it
+		// needs to be.
+		return ttlTimeline
 	default:
 		return ttlTimeline
 	}

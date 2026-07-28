@@ -34,7 +34,7 @@ var Surfaces = []Surface{
 	{6, "media cdn", "pbs.twimg.com, video.twimg.com", 0, "none observed", "", false, "forever",
 		"the bytes; the URL carries a content hash"},
 	{7, "session graphql", "x.com/i/api/graphql", 2, "50 to 500 per operation", "15 min", true, "varies",
-		"search, followers, likers, threads, lists, spaces, your bookmarks"},
+		"search, followers, likers, threads, lists, your bookmarks"},
 	{8, "x.com html", "x.com", 0, "none published", "", false, "5m",
 		"the page's own data planes; two routes carry data and the rest are a shell"},
 }
@@ -51,8 +51,8 @@ type Tier struct {
 // about X.
 var Tiers = []Tier{
 	{0, "none", "tweet, user, timeline sample, list tweets, replies, media, oembed, bookmark and view counts, trends, places"},
-	{1, "guest token", "adds source and the paged archive"},
-	{2, "session cookies", "adds search, whole threads, followers, likers, lists, spaces, your bookmarks"},
+	{1, "guest token", "adds source, the paged archive, and Spaces"},
+	{2, "session cookies", "adds search, whole threads, followers, likers, lists, your bookmarks"},
 }
 
 // Route says which surface answers one question at each tier. An empty string
@@ -94,6 +94,7 @@ var Routes = []Route{
 	{"likers, reposters", "", "", "surface 7"},
 	{"a user's likes", "", "", "surface 7"},
 	{"bookmarks", "", "", "surface 7, your own only"},
+	{"one Space", "", "surface 4 AudioSpaceById, the whole record", "the same read"},
 }
 
 // LowestTier returns the cheapest tier that answers a question, and false when

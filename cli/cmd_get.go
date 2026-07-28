@@ -109,6 +109,14 @@ func (a *App) read(out *render.Renderer, kind, id string) error {
 		return a.searchInto(out, "$"+id)
 	case x.KindSearch:
 		return a.searchInto(out, id)
+	case x.KindSpace:
+		sp := a.progress("fetching space")
+		s, err := e.Space(a.ctx(), id)
+		sp.stop()
+		if err != nil {
+			return err
+		}
+		return out.Emit(spaceRow(s))
 	case x.KindList:
 		if err := a.needSession("listing tweets"); err != nil {
 			return err
@@ -156,9 +164,9 @@ func (a *App) searchInto(out *render.Renderer, q string) error {
 // which of the two reasons it is.
 //
 // A media key, a link and a place are not pages: nothing fetches them on their
-// own at any tier, which is what code 7 means. A space, a broadcast, a community
-// and a trend are real records that x has not built a reader for yet, so the
-// message says that rather than blaming X for it. Both are 7 because no
+// own at any tier, which is what code 7 means. A broadcast, a community and a
+// trend are real records that x has not built a reader for yet, so the message
+// says that rather than blaming X for it. Both are 7 because no
 // credential changes either one, which is the distinction the taxonomy draws
 // between 7 and 4.
 func noReaderFor(kind string) error {

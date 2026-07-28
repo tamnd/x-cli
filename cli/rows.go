@@ -44,6 +44,37 @@ func userRow(u *x.User) Row {
 	return Row{Cols: cols, Vals: vals, Value: u}
 }
 
+// spaceRow renders one audio Space. The columns answer "what was this, and did
+// it happen": a Scheduled Space has a time in the future and nobody in the room,
+// one that Ended or TimedOut has both.
+//
+// when is the start if it started and the scheduled start if it did not, because
+// a Space that never ran still has a time worth printing and two columns for it
+// would be a column of blanks either way.
+func spaceRow(s *x.Space) Row {
+	host := ""
+	if s.Creator != nil {
+		host = s.Creator.Username
+	}
+	when := s.StartedAt
+	if when.IsZero() {
+		when = s.ScheduledStart
+	}
+	stamp := ""
+	if !when.IsZero() {
+		stamp = when.Format("2006-01-02 15:04")
+	}
+	return Row{
+		Cols: []string{"id", "state", "when", "host", "speakers", "live", "replays", "title", "url"},
+		Vals: []string{
+			s.ID, s.State, stamp, host,
+			itoa(len(s.Speakers)), itoa(s.LiveListeners), itoa(s.ReplayWatched),
+			oneline(s.Title), s.URL,
+		},
+		Value: s,
+	}
+}
+
 // nodeRow renders a graph node discovered by `x discover` / `x crawl`. The
 // curated columns read the walk at a glance (how deep, by which edge, and a
 // one-line who/what) while the full typed node (with the nested tweet or user)

@@ -221,21 +221,61 @@ type List struct {
 }
 
 // Space is an audio Space.
+//
+// The fields are what AudioSpaceById sends, measured on a finished Space. An
+// earlier draft had Lang, Ticketed, Topics and a subscriber count, none of which
+// appear on the wire, and host ids where X sends whole profiles.
 type Space struct {
 	Meta
 
-	State          string    `json:"state"` // live|scheduled|ended
-	Title          string    `json:"title,omitempty"`
-	HostIDs        []string  `json:"host_ids,omitempty"`
-	SpeakerIDs     []string  `json:"speaker_ids,omitempty"`
-	Participants   int       `json:"participant_count,omitempty"`
-	Subscribers    int       `json:"subscriber_count,omitempty"`
-	StartedAt      time.Time `json:"started_at,omitzero"`
+	// State is X's own word, capitalised as X capitalises it: Running,
+	// Scheduled, Ended, TimedOut, Canceled. It is not normalised, because a
+	// Space that timed out and a Space the host ended are not the same event and
+	// only X knows which happened.
+	State string `json:"state"`
+
+	Title string `json:"title,omitempty"`
+
+	// Creator is who made the Space, which is not always who hosted it. Hosts
+	// are the admins in the room.
+	Creator   *User   `json:"creator,omitempty"`
+	Hosts     []*User `json:"hosts,omitempty"`
+	Speakers  []*User `json:"speakers,omitempty"`
+	Listeners []*User `json:"listeners,omitempty"`
+
+	// Participants is X's own count of the room, and it does not have to agree
+	// with the lengths of the three lists above: a finished Space reports the
+	// roster it kept and a total of its own.
+	Participants int `json:"participant_count,omitempty"`
+
+	// LiveListeners is how many heard it live, ReplayWatched how many played it
+	// back afterwards.
+	LiveListeners int `json:"live_listeners,omitempty"`
+	ReplayWatched int `json:"replay_watched,omitempty"`
+
+	// MediaKey addresses the audio itself. It is the handle a replay is fetched
+	// by, and it is not a tweet id.
+	MediaKey string `json:"media_key,omitempty"`
+
+	// ReplayStart is how far into the recording the replay begins, in
+	// milliseconds. It is the one duration in a record of timestamps, so it is
+	// named for what it is rather than joining the times below.
+	ReplayStart int `json:"replay_start_ms,omitempty"`
+
+	// Replayable is whether the recording can be played back at all, Clippable
+	// whether listeners may cut pieces out of it. They are separate switches
+	// and a host can turn either off.
+	Replayable   bool `json:"replayable,omitempty"`
+	Clippable    bool `json:"clippable,omitempty"`
+	Locked       bool `json:"locked,omitempty"`
+	EmployeeOnly bool `json:"employee_only,omitempty"`
+	DisallowJoin bool `json:"disallow_join,omitempty"`
+
+	CreatedAt      time.Time `json:"created_at,omitzero"`
 	ScheduledStart time.Time `json:"scheduled_start,omitzero"`
+	StartedAt      time.Time `json:"started_at,omitzero"`
 	EndedAt        time.Time `json:"ended_at,omitzero"`
-	Lang           string    `json:"lang,omitempty"`
-	Ticketed       bool      `json:"is_ticketed,omitempty"`
-	Topics         []string  `json:"topics,omitempty"`
+	UpdatedAt      time.Time `json:"updated_at,omitzero"`
 }
 
 // Trend is one trending topic in one place at one moment. All three parts

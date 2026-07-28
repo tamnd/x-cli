@@ -35,6 +35,7 @@ map. A `<ref>` is a tweet id, status URL, or anything x can resolve to a tweet; 
 | `retweeters <ref>` | Accounts that retweeted a tweet (session) | |
 | `likes <user>` | Tweets a user has liked (session) | `--id` |
 | `list <list-id>` | Tweets in an X List (session) | |
+| `space <ref>` | An audio Space: hosts, speakers, times, and audience (`--guest`) | |
 | `home` | Your reverse-chron home timeline (session) | |
 | `bookmarks` | Your bookmarks (session) | |
 | `trends [woeid]` | What is trending in a place, worldwide by default | |
@@ -45,6 +46,13 @@ map. A `<ref>` is a tweet id, status URL, or anything x can resolve to a tweet; 
 `--media` keeps only tweets with media. `--replies` stays on Tier 0 even with
 `--guest`, because the guest tier answers that read with an empty timeline
 rather than refusing it; only a session pages it deeper.
+
+`space` takes the id or the `x.com/i/spaces/` link and reads the whole record:
+who created it, the admins and the speakers, when it was scheduled, started and
+ended, and how many people heard it live or played the replay. The table
+summarises the rosters as counts, and `-o json` has the participants themselves,
+each with the numeric account id you need to look them up. It is one of the four
+reads `--guest` is worth passing for.
 
 `get` classifies each argument the way `x classify` does and dispatches: a tweet
 id or status link reads the tweet, a handle reads the profile, a hashtag or a

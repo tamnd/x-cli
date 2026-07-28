@@ -17,6 +17,7 @@ func TestEveryKindHasAnAnswer(t *testing.T) {
 		x.KindTweet: true, x.KindCard: true, x.KindNote: true, x.KindPoll: true,
 		x.KindUser: true, x.KindConversation: true, x.KindHashtag: true,
 		x.KindCashtag: true, x.KindSearch: true, x.KindList: true,
+		x.KindSpace: true,
 	}
 	for _, kind := range x.Kinds {
 		if readable[kind] {
@@ -37,8 +38,8 @@ func TestEveryKindHasAnAnswer(t *testing.T) {
 // catches it only in company with the live checks, so it stays a reminder of
 // which kinds the dispatch owns.
 func TestNoReaderNamesTheKind(t *testing.T) {
-	err := noReaderFor(x.KindSpace)
-	if !strings.Contains(err.Error(), "space") {
+	err := noReaderFor(x.KindBroadcast)
+	if !strings.Contains(err.Error(), "broadcast") {
 		t.Errorf("the message should name the kind, got %q", err)
 	}
 	// The three that are not pages get their own reason rather than the

@@ -40,6 +40,18 @@ func TestNoUnmodeledKeys(t *testing.T) {
 			stop: []string{"core.user_results.result", "quoted_status_result.result",
 				"legacy.retweeted_status_result.result"}},
 		{fixture: "s4_usertweets_nasa.json.gz", at: userResults, into: gqlUserResult{}},
+		{fixture: "s4_space_1dRJZEpyjlNGB.json.gz", at: whole, into: gqlSpace{},
+			stop: []string{"data.audioSpace.metadata.creator_results.result",
+				"data.audioSpace.participants.admins[].user_results.result",
+				"data.audioSpace.participants.speakers[].user_results.result",
+				"data.audioSpace.participants.listeners[].user_results.result"}},
+		{fixture: "s4_space_1dRJZEpyjlNGB.json.gz", at: userResults, into: gqlUserResult{}},
+		{fixture: "s4_space_1MnxnMDeQLeJO.json.gz", at: whole, into: gqlSpace{},
+			stop: []string{"data.audioSpace.metadata.creator_results.result",
+				"data.audioSpace.participants.admins[].user_results.result",
+				"data.audioSpace.participants.speakers[].user_results.result",
+				"data.audioSpace.participants.listeners[].user_results.result"}},
+		{fixture: "s4_space_1MnxnMDeQLeJO.json.gz", at: userResults, into: gqlUserResult{}},
 		{fixture: "s5_trends_us.json.gz", at: elements, into: trendsResp{}},
 		{fixture: "s5_places.json.gz", at: elements, into: wirePlace{}},
 	} {
@@ -106,7 +118,9 @@ var unreadKeys = keySet(
 	// it is the same empty answer every time.
 	`follow_request_sent super_followed_by super_following
 	 relationship_perspectives legacy.follow_request_sent legacy.notifications
-	 legacy.bookmarked legacy.favorited legacy.retweeted`,
+	 legacy.bookmarked legacy.favorited legacy.retweeted
+	 legacy.blocked_by legacy.blocking legacy.muting legacy.following
+	 legacy.followed_by legacy.can_dm legacy.can_media_tag`,
 
 	// What can be sold here. A tip jar, a subscription, who may send a DM.
 	`business_account creator_subscriptions_count super_follow_eligible
@@ -123,6 +137,7 @@ var unreadKeys = keySet(
 	 legacy.needs_phone_verification legacy.possibly_sensitive_editable
 	 grok_analysis_button is_translatable unmention_data views.state
 	 news_action_type user.highlighted_label user.profile_image_shape
+	 has_nft_avatar identity_profile_labels_highlighted_label
 	 __typename`,
 
 	// Dead since the REST v1.1 days. X still sends them and they are still null.
