@@ -78,6 +78,7 @@ change your account. `likes`, `likers`, `followers`, and `bookmarks` only read.
 |---|---|---|
 | `edges <ref>...` | The graph claims one record makes, without walking anywhere | `--conflicts` |
 | `graph <ref>...` | Those claims and the nodes they address, as one document | |
+| `rdf <ref>...` | The same graph as RDF, in schema.org's vocabulary | `--format`, `--provenance` |
 | `discover <seed>...` | Breadth-first walk of the graph linked from a tweet or user (alias `walk`) | `--follow`, `--depth`, `--fanout`, `--budget`, `--store`, `-n` |
 | `crawl <seed>...` | The same walk, persisted into the local store | `--follow`, `--depth`, `--fanout`, `--budget`, `--max` |
 | `db stats` | Row counts per table | |
@@ -107,6 +108,33 @@ $ x graph 1903142823316049977 -o table
  GRAPH                          NODES  READ  EDGES  PREDICATES
  x://tweet/1903142823316049977  5      2     5      authored mentions replies_to
 ```
+
+`rdf` is `graph` said in somebody else's vocabulary: schema.org wherever a term
+exists, and `x:` where none does. That is not a taste call. X publishes
+schema.org microdata on its own status and profile pages, so a tweet already has
+a vendor-blessed RDF shape and this tool agrees with it rather than inventing a
+parallel one, which is what lets the output be checked against the source. Every
+`x:` term is defined at [the namespace URL](/ns/).
+
+```console
+$ x rdf 20 --format ttl | head -8
+@prefix rdf:    <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix schema: <https://schema.org/> .
+@prefix x:      <https://x-cli.tamnd.com/ns#> .
+@prefix xsd:    <http://www.w3.org/2001/XMLSchema#> .
+
+<x://tweet/20>
+  a schema:SocialMediaPosting ;
+  schema:identifier "20" ;
+```
+
+`--format` is `nt`, `ttl`, `jsonld`, or `nq` (default `ttl`). `nq` carries the
+URL each claim was read from as the graph name, and `jsonld` as one named graph
+per source, which is how provenance survives a merge of two crawls. `nt` and
+`ttl` have nowhere to put it, so `--provenance` adds reified statements there; it
+is off by default because reification costs five lines per claim and outnumbers
+the data. `rdf` writes bytes rather than records, so `-o` and `--template` do not
+apply to it.
 
 `discover` and `crawl` share the same walk: `--follow` is a preset (`content`,
 `thread`, `engagement`, `network`, `timeline`, `all`) or a comma-separated hop

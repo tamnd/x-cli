@@ -55,6 +55,18 @@ here, and nodes that were only named come with just an address. That is the
 honest shape: a mention is a claim about an account nobody fetched, and dropping
 it would lose four fifths of the graph a single request just paid for.
 
+The same graph in RDF is `x rdf`, which is what to reach for when it has to
+travel:
+
+```bash
+x rdf 1903142823316049977 --format nq
+```
+
+The vocabulary is schema.org where a term exists and `x:` where none does, and
+[the namespace page](/ns/) defines every `x:` term. `nq` and `jsonld` carry the
+URL each claim was read from, so two crawls can be merged without losing which
+read said what.
+
 A hop is not an edge, and the difference matters once you start walking. An edge
 is a claim, pointing the way the claim points. A hop is a direction of travel,
 and half of them run against the arrow: the `liker` hop goes from a tweet out to

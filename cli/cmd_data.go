@@ -15,7 +15,7 @@ import (
 // stop even when the user does not pass -n. `x crawl` has its own --max default.
 const defaultDiscoverBudget = 500
 
-// dataCommands returns the graph and local-store workflow: edges, graph,
+// dataCommands returns the graph and local-store workflow: edges, graph, rdf,
 // discover, crawl, queue, db, query, export. The store lives at a fixed path under the data dir (App.StorePath); it
 // is not the generic kit --db sink.
 func dataCommands() []kit.Command {
@@ -23,6 +23,7 @@ func dataCommands() []kit.Command {
 		newDiscoverCmd(),
 		newEdgesCmd(),
 		newGraphCmd(),
+		newRDFCmd(),
 		newQueryCmd(),
 		newCrawlCmd(),
 		newQueueCmd(),
