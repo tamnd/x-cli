@@ -4,13 +4,15 @@ import (
 	"database/sql"
 	"encoding/json"
 	"fmt"
+	"strings"
 	"time"
 
 	_ "modernc.org/sqlite"
 )
 
 // Store is the local SQLite dataset (spec §4.6), pure-Go so the binary stays
-// CGO-free. It holds tweets/users/media/edges and a crawl queue.
+// CGO-free. It holds tweets/users/media, the addressed nodes and edges of spec
+// 3003 doc 04 section 5, and a crawl queue.
 type Store struct {
 	db *sql.DB
 }
@@ -29,8 +31,14 @@ CREATE TABLE IF NOT EXISTS users (
 CREATE TABLE IF NOT EXISTS media (
   key TEXT PRIMARY KEY, tweet_id TEXT, type TEXT, url TEXT, width INT, height INT,
   duration_ms INT, alt_text TEXT, raw TEXT);
+CREATE TABLE IF NOT EXISTS nodes (
+  uri TEXT PRIMARY KEY, kind TEXT NOT NULL, id TEXT NOT NULL,
+  tier INTEGER NOT NULL, record TEXT NOT NULL, captured TIMESTAMP NOT NULL);
 CREATE TABLE IF NOT EXISTS edges (
-  src TEXT, dst TEXT, kind TEXT, PRIMARY KEY (src, dst, kind));
+  from_uri TEXT NOT NULL, predicate TEXT NOT NULL, to_uri TEXT NOT NULL,
+  source TEXT NOT NULL, tier INTEGER NOT NULL, captured TIMESTAMP NOT NULL,
+  PRIMARY KEY (from_uri, predicate, to_uri, source));
+CREATE INDEX IF NOT EXISTS edges_to ON edges (to_uri, predicate);
 CREATE TABLE IF NOT EXISTS queue (
   url TEXT PRIMARY KEY, kind TEXT, priority INT, state TEXT,
   enqueued_at TIMESTAMP, done_at TIMESTAMP);
@@ -45,11 +53,38 @@ func OpenStore(path string) (*Store, error) {
 	if err != nil {
 		return nil, err
 	}
+	if err := retireHopEdges(db); err != nil {
+		_ = db.Close()
+		return nil, err
+	}
 	if _, err := db.Exec(storeSchema); err != nil {
 		_ = db.Close()
 		return nil, err
 	}
 	return &Store{db: db}, nil
+}
+
+// retireHopEdges moves an older store's edge table out of the way.
+//
+// Until spec 3003 doc 04 landed, `edges` was (src, dst, kind) and kind held a
+// hop name, which is the direction the walk travelled rather than the claim the
+// records make. The new table is the doc's, and the two shapes cannot share a
+// name. The old rows are renamed rather than dropped, because they are somebody
+// else's crawl and this is not the code that gets to decide they are worthless.
+func retireHopEdges(db *sql.DB) error {
+	var ddl string
+	err := db.QueryRow(`SELECT sql FROM sqlite_master WHERE type='table' AND name='edges'`).Scan(&ddl)
+	if err == sql.ErrNoRows {
+		return nil
+	}
+	if err != nil {
+		return err
+	}
+	if !strings.Contains(ddl, "src") {
+		return nil
+	}
+	_, err = db.Exec(`ALTER TABLE edges RENAME TO edges_hops`)
+	return err
 }
 
 // Close closes the store.
@@ -124,24 +159,80 @@ func (s *Store) UpsertMedia(tweetID string, m Media) error {
 }
 
 // UpsertNode persists a discovered graph node by dispatching on its kind, so the
-// discover/crawl walkers have one call to store whatever they reached.
+// discover/crawl walkers have one call to store whatever they reached. It writes
+// the typed table, the addressed `nodes` row, and every edge the record asserts,
+// because those three are one fact about one read and splitting them across
+// three calls is how a store ends up with a node nothing points at.
 func (s *Store) UpsertNode(n *Node) error {
-	switch n.Kind {
-	case KindTweet:
-		return s.UpsertTweet(n.Tweet)
-	case KindUser:
-		return s.UpsertUser(n.User)
-	}
-	return nil
-}
-
-// UpsertEdge records a graph edge (follow/like/retweet/quote/reply/mention).
-func (s *Store) UpsertEdge(src, dst, kind string) error {
-	if src == "" || dst == "" {
+	if n == nil {
 		return nil
 	}
-	_, err := s.db.Exec(`INSERT OR IGNORE INTO edges (src,dst,kind) VALUES (?,?,?)`, src, dst, kind)
+	var err error
+	switch n.Kind {
+	case KindTweet:
+		if n.Tweet == nil {
+			return nil
+		}
+		err = s.UpsertTweet(n.Tweet)
+		if err == nil {
+			err = s.PutRecord(URI(KindTweet, n.Tweet.ID), KindTweet, n.Tweet.ID, n.Tweet.Meta.Tier, n.Tweet)
+		}
+	case KindUser:
+		if n.User == nil {
+			return nil
+		}
+		err = s.UpsertUser(n.User)
+		if err == nil {
+			err = s.PutRecord(userURI(n.User.Username), KindUser, n.User.Username, n.User.Meta.Tier, n.User)
+		}
+	default:
+		return nil
+	}
+	if err != nil {
+		return err
+	}
+	return s.PutEdges(Edges(n))
+}
+
+// PutRecord writes one addressed node. Upsert keeps the higher-tier record,
+// because a tweet read with a session says strictly more than the same tweet
+// read anonymously and a crawl that overwrote the richer read with a thinner one
+// would lose data every time it revisited.
+func (s *Store) PutRecord(uri, kind, id string, tier int, rec any) error {
+	if uri == "" || id == "" {
+		return nil
+	}
+	raw, err := json.Marshal(rec)
+	if err != nil {
+		return err
+	}
+	_, err = s.db.Exec(`INSERT INTO nodes (uri,kind,id,tier,record,captured)
+	  VALUES (?,?,?,?,?,?)
+	  ON CONFLICT(uri) DO UPDATE SET
+	    tier=excluded.tier, record=excluded.record, captured=excluded.captured
+	  WHERE excluded.tier >= nodes.tier`,
+		uri, kind, id, tier, string(raw), nowUTC())
 	return err
+}
+
+// PutEdges records claims (spec 3003 doc 04 section 5). The primary key carries
+// the source, so two surfaces asserting the same thing stay two rows: that is
+// the agreement, and the disagreement, that `x edges --conflicts` reads.
+func (s *Store) PutEdges(es []Edge) error {
+	for _, e := range es {
+		if e.From == "" || e.To == "" || e.Predicate == "" {
+			continue
+		}
+		_, err := s.db.Exec(`INSERT INTO edges (from_uri,predicate,to_uri,source,tier,captured)
+		  VALUES (?,?,?,?,?,?)
+		  ON CONFLICT(from_uri,predicate,to_uri,source) DO UPDATE SET
+		    tier=excluded.tier, captured=excluded.captured`,
+			e.From, string(e.Predicate), e.To, e.Source, e.Tier, nowUTC())
+		if err != nil {
+			return err
+		}
+	}
+	return nil
 }
 
 // Enqueue adds a crawl target if not present.
@@ -205,7 +296,7 @@ func (s *Store) QueueCounts() (map[string]int, error) {
 // Stats returns row counts per table.
 func (s *Store) Stats() (map[string]int, error) {
 	out := map[string]int{}
-	for _, tbl := range []string{"tweets", "users", "media", "edges", "queue"} {
+	for _, tbl := range []string{"tweets", "users", "media", "nodes", "edges", "queue"} {
 		var n int
 		if err := s.db.QueryRow(`SELECT COUNT(*) FROM ` + tbl).Scan(&n); err != nil {
 			return nil, err

@@ -291,10 +291,16 @@ type WalkOptions struct {
 	Hops   HopSet // hops to follow (nil = DefaultHops)
 
 	// OnHop, if set, is called for every hop the walk traverses, before the
-	// neighbor is visited, with the two endpoints and the hop. The store sink
-	// uses it to record the graph; it fires even for an already-visited neighbor
-	// so the hop list stays complete.
-	OnHop func(src, dst string, hop Hop)
+	// neighbor is visited, with the two endpoints, the hop, and the neighbor's
+	// own provenance when the walk already holds the neighbor's record. The store
+	// sink uses it to record the graph; it fires even for an already-visited
+	// neighbor so the hop list stays complete.
+	//
+	// The meta is the listing's, not the source node's, which is what makes a
+	// liked or follows edge nameable: the URL that asserted it is the one the
+	// list came back on. It is nil for a hop that names a neighbor without
+	// fetching it, like a reply parent or a mention.
+	OnHop func(src, dst string, hop Hop, meta *Meta)
 
 	// Note, if set, surfaces a one-line advisory (a skipped tier-only hop set, a
 	// neighbor that could not be fetched). It never carries a fatal error.
@@ -471,18 +477,23 @@ func (w *Walker) neighbors(ctx context.Context, n *Node, hops HopSet, opts WalkO
 
 	addTweet := func(via Hop, id string, t *Tweet) {
 		dst := id
+		var meta *Meta
 		if t != nil {
-			dst = t.ID
+			dst, meta = t.ID, &t.Meta
 		}
 		if opts.OnHop != nil {
-			opts.OnHop(src, dst, via)
+			opts.OnHop(src, dst, via, meta)
 		}
 		out = append(out, frontier{kind: KindTweet, ref: id, depth: n.Depth + 1, via: via, parent: src, tweet: t})
 	}
 	addUser := func(via Hop, handle string, isID bool, u *User) {
 		dst := userEndpoint(u, handle)
+		var meta *Meta
+		if u != nil {
+			meta = &u.Meta
+		}
 		if opts.OnHop != nil {
-			opts.OnHop(src, dst, via)
+			opts.OnHop(src, dst, via, meta)
 		}
 		out = append(out, frontier{kind: KindUser, ref: handle, isID: isID, depth: n.Depth + 1, via: via, parent: src, user: u})
 	}
