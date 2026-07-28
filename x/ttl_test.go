@@ -2,6 +2,7 @@ package x
 
 import (
 	"strconv"
+	"strings"
 	"testing"
 	"time"
 )
@@ -64,5 +65,67 @@ func TestGraphQLCachesATweetByItsOwnAge(t *testing.T) {
 	}
 	if got := gqlTTL("SearchTimeline", nil); got != ttlTimeline {
 		t.Errorf("a search caches for %v, want %v", got, ttlTimeline)
+	}
+}
+
+// X answers 400 with `{"error":"Bad request."}` for an id it will not even look
+// up, and only 404 for one it looked up and did not find. That put an id past
+// the snowflake range at exit 1 with a line of JSON in the message, where the
+// reader wanted "no such tweet" at exit 6, and it cost four requests to get
+// there.
+//
+// The id is read rather than the status mapped, on purpose. Mapping 400 to
+// not-found would mean that the day the token in the syndication URL stops being
+// accepted, every tweet on X reports as deleted at exit 6 and nothing says
+// otherwise.
+func TestAnIDThatCouldNotNameATweet(t *testing.T) {
+	for _, c := range []struct {
+		id   string
+		want bool
+		why  string
+	}{
+		{"20", true, "the first tweet, from before snowflakes"},
+		{"1", true, "a sequential id, which carries no timestamp to disbelieve"},
+		{"1833951636005552366", true, "a real tweet from 2024"},
+		{"2082201201714614765", true, "a real tweet from 2026"},
+		{"12345678901234567890", false, "fits in 64 bits and is minted decades from now"},
+		{"99999999999999999999", false, "does not fit in 64 bits at all"},
+		{"", false, "empty"},
+		{"jack", false, "a handle, not an id"},
+		{"-20", false, "negative"},
+		{"0x14", false, "hex"},
+	} {
+		if got := possibleTweetID(c.id); got != c.want {
+			t.Errorf("possibleTweetID(%q) = %v, want %v: %s", c.id, got, c.want, c.why)
+		}
+	}
+}
+
+// The bound moves with the clock rather than sitting at a hardcoded id, so an id
+// minted a second from now is fine and one minted next year is not.
+func TestTheFutureBoundIsTheClock(t *testing.T) {
+	if !possibleTweetID(snowflakeAt(time.Now().Add(time.Hour))) {
+		t.Error("an id an hour ahead is inside the slack and should pass")
+	}
+	if possibleTweetID(snowflakeAt(time.Now().AddDate(1, 0, 0))) {
+		t.Error("an id a year ahead should not")
+	}
+}
+
+// The two not-found reasons are different facts and have to read differently.
+// "deleted, suspended, or protected" is what X said when it was asked. An id it
+// would never have minted was never asked about, and telling a reader with a
+// typo that the tweet used to be there sends them looking for an archive.
+func TestNotFoundSaysWhichKindOfNotFound(t *testing.T) {
+	asked := (&NotFoundError{Kind: "tweet", Ref: "1"}).Error()
+	if !strings.Contains(asked, "deleted, suspended, or protected") {
+		t.Errorf("a tweet X was asked about reads as %q", asked)
+	}
+	refused := (&NotFoundError{Kind: "tweet", Ref: "12345678901234567890", Why: notATweetID}).Error()
+	if !strings.Contains(refused, notATweetID) {
+		t.Errorf("an impossible id reads as %q", refused)
+	}
+	if strings.Contains(refused, "deleted") {
+		t.Errorf("an impossible id should not claim the tweet was deleted: %q", refused)
 	}
 }
