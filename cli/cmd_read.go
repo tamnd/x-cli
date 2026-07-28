@@ -34,6 +34,40 @@ func readCommands() []kit.Command {
 		newPollCmd(),
 		newCountsCmd(),
 		newListCmd(),
+		newSpaceCmd(),
+	}
+}
+
+// newSpaceCmd reads one audio Space.
+//
+// It is a GraphQL read that a guest token reaches, which makes it one of the
+// four operations `--guest` is worth passing for. That was not obvious: the bare
+// capability probe answers 422 on this route rather than the 404 the walled
+// operations answer, so it read as denied until a well-formed request went out.
+func newSpaceCmd() kit.Command {
+	return kit.Command{
+		Use:   "space <ref>",
+		Short: "Show an audio Space (needs --guest or your session)",
+		Long: "space reads one audio Space by id or by its x.com/i/spaces/ link: who created it, " +
+			"who was on the microphone, when it ran, and how many heard it live or played the " +
+			"replay. The rosters ride in the record, so -o json has the participants that the " +
+			"table's counts summarise.",
+		Args: kit.ExactArgs(1),
+		Run: func(ctx context.Context, args []string) error {
+			a := appFromCtx(ctx)
+			id, err := x.ParseSpaceRef(args[0])
+			if err != nil {
+				return errs.Usage("%s", err.Error())
+			}
+			a.target = id
+			sp := a.progress("fetching space")
+			s, err := a.engine().Space(a.ctx(), id)
+			sp.stop()
+			if err != nil {
+				return a.done(err)
+			}
+			return a.done(a.emitOne(spaceRow(s)))
+		},
 	}
 }
 

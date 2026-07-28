@@ -82,6 +82,7 @@ Tier 0 needs nothing, `g` needs `--guest`, `s` needs a session.
 | `x followers <user>` / `x following <user>` | the follow graph | s |
 | `x likers <ref>` / `x retweeters <ref>` | who liked or retweeted | s |
 | `x home` / `x bookmarks` | your home timeline, your bookmarks | s |
+| `x space <ref>` | an audio Space: hosts, speakers, times, audience | g |
 | `x embed <ref>` | a tweet's oEmbed blockquote, verbatim | 0 |
 | `x download <ref>` | a tweet's media to disk | 0 |
 | `x crawl <seed>...` | breadth-first crawl into the local store | 0 |

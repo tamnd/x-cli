@@ -54,6 +54,33 @@ func ParseUserRef(s string, forceID bool) (ref string, isID bool, err error) {
 	return s, false, nil
 }
 
+// spaceIDRe is X's own id shape for a Space: base 62, no punctuation, thirteen
+// characters on every one measured. It is not a snowflake and it is not a
+// handle, and nothing in the string says which it is, so this only rules out the
+// references that cannot be an id at all.
+var spaceIDRe = regexp.MustCompile(`^[0-9A-Za-z]+$`)
+
+// ParseSpaceRef normalizes a Space reference to its id. It takes the bare id or
+// any x.com/i/spaces/<id> link, including the /peek the web client hangs off a
+// shared one.
+func ParseSpaceRef(s string) (string, error) {
+	s = strings.TrimSpace(s)
+	if s == "" {
+		return "", fmt.Errorf("empty space reference")
+	}
+	if strings.Contains(s, "/") {
+		kind, id, err := Classify(s)
+		if err != nil || kind != KindSpace {
+			return "", fmt.Errorf("not a Space id or a spaces URL: %q", s)
+		}
+		return id, nil
+	}
+	if !spaceIDRe.MatchString(s) {
+		return "", fmt.Errorf("not a Space id or a spaces URL: %q", s)
+	}
+	return s, nil
+}
+
 func stripHost(s string) string {
 	s = strings.TrimPrefix(s, "https://")
 	s = strings.TrimPrefix(s, "http://")

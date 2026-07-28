@@ -47,3 +47,30 @@ func TestURLBuilders(t *testing.T) {
 		t.Errorf("UserURL = %q", got)
 	}
 }
+
+// A Space is addressed by an id that looks like nothing else X hands out, and
+// the links that carry it all go through /i/spaces. The one to get right is the
+// status URL: a tweet link is a valid reference to something, just not to this,
+// and taking its id would send a well-formed request for a Space that cannot
+// exist.
+func TestParseSpaceRef(t *testing.T) {
+	for _, c := range []struct {
+		in   string
+		want string
+	}{
+		{"1dRJZEpyjlNGB", "1dRJZEpyjlNGB"},
+		{" 1dRJZEpyjlNGB ", "1dRJZEpyjlNGB"},
+		{"https://x.com/i/spaces/1dRJZEpyjlNGB", "1dRJZEpyjlNGB"},
+		{"https://twitter.com/i/spaces/1dRJZEpyjlNGB/peek", "1dRJZEpyjlNGB"},
+	} {
+		got, err := ParseSpaceRef(c.in)
+		if err != nil || got != c.want {
+			t.Errorf("ParseSpaceRef(%q) = (%q, %v), want %q", c.in, got, err, c.want)
+		}
+	}
+	for _, in := range []string{"", "https://x.com/nasa/status/20", "https://x.com/nasa", "not an id"} {
+		if got, err := ParseSpaceRef(in); err == nil {
+			t.Errorf("ParseSpaceRef(%q) = %q, want an error", in, got)
+		}
+	}
+}

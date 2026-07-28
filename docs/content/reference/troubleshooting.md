@@ -14,11 +14,16 @@ calls come back 404 with an empty body even though the request was well-formed,
 which is how X says no to a credential it does not accept.
 
 Measured on 2026-07-28, running each command under `--tier guest`, a guest token
-reaches three operations and no others:
+reaches four operations and no others:
 
 - `x user <handle>`, the profile read
 - `x user <id> --id`, the same read by numeric account id
 - `x timeline`, the deeper walk back through an account, by handle or by `--id`
+- `x space`, the whole record of an audio Space
+
+`x space` is the one that took finding. Probing that route with no variables
+answers 422 rather than the 404 the walled operations answer, so it reads as
+denied until a well-formed request goes out and comes back with the Space.
 
 Everything else on the GraphQL surface was denied: the profile media tab,
 `search` and the commands built on it (`counts`, `quotes`, `mentions`),
@@ -52,9 +57,9 @@ message names the tier. Two fixes, depending on which it asks for:
 - It wants a **session**: run `x auth import` once, then re-run the command.
 
 Reads like `search`, `followers`, and `likes` want a session, and so do `home`
-and `bookmarks`. `--guest` only ever helps `x user` and `x timeline`, so those
-are the only two reads whose exit 4 mentions it. Anything else that exits 4 asks
-for a session, because that is the only thing that would fix it.
+and `bookmarks`. `--guest` only ever helps `x user`, `x timeline` and `x space`,
+so those are the only reads whose exit 4 mentions it. Anything else that exits 4
+asks for a session, because that is the only thing that would fix it.
 
 ## Rate-limited (exit 5)
 
