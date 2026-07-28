@@ -330,12 +330,14 @@ func readStdin() string {
 	return string(b)
 }
 
+// refURL is what `x open` opens. It goes through the same classifier as
+// `x url`, so a list link or a space link opens the right page instead of being
+// mistaken for a handle.
 func refURL(s string) string {
-	if id, err := x.ParseTweetRef(s); err == nil {
-		return x.TweetURL("i/web", id)
-	}
-	if ref, _, err := x.ParseUserRef(s, false); err == nil {
-		return x.UserURL(ref)
+	if kind, id, err := x.Classify(s); err == nil {
+		if u, err := x.Locate(kind, id); err == nil {
+			return u
+		}
 	}
 	return s
 }

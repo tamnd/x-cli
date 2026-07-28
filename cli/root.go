@@ -49,6 +49,9 @@ func New() *kit.App {
 	for _, c := range dataCommands() {
 		app.AddCommand(c)
 	}
+	for _, c := range identityCommands() {
+		app.AddCommand(c)
+	}
 	for _, c := range metaCommands() {
 		app.AddCommand(c)
 	}
