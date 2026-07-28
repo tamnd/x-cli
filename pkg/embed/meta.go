@@ -42,6 +42,15 @@ func HeadMeta(doc string) (*Meta, error) {
 		if n.Type == html.ElementNode {
 			switch n.Data {
 			case "meta":
+				if isNonce(attr(n, "name")) || isNonce(attr(n, "property")) {
+					// x.com ships <meta name="csp-nonce"> and it changes on
+					// every response. Keeping it would put a fresh random
+					// string in every record and make every capture comparison
+					// fail for a reason that has nothing to do with the data.
+					// The nonce attribute every other meta tag carries never
+					// gets read at all, because this only reads named keys.
+					break
+				}
 				content := attr(n, "content")
 				if p := attr(n, "property"); p != "" {
 					// A repeated property is a list in OpenGraph, and the
@@ -74,6 +83,9 @@ func HeadMeta(doc string) (*Meta, error) {
 	walk(root)
 	return m, nil
 }
+
+// isNonce reports whether a meta key is a per-response nonce rather than data.
+func isNonce(k string) bool { return strings.Contains(strings.ToLower(k), "nonce") }
 
 // Get returns the first of the given keys that is set, checking property
 // first and then name. Callers ask for og:title before twitter:title without
