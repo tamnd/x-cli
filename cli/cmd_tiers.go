@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"strconv"
+	"strings"
 
 	"github.com/tamnd/any-cli/kit"
 	"github.com/tamnd/any-cli/kit/errs"
@@ -23,6 +24,7 @@ func tableCommands() []kit.Command {
 		newTiersCmd(),
 		newRoutesCmd(),
 		newSurfacesCmd(),
+		newDoctorCmd(),
 	}
 }
 
@@ -92,8 +94,8 @@ func newRoutesCmd() kit.Command {
 				n, err := strconv.Atoi(only)
 				if err != nil || n < 0 || n > 2 {
 					// Not "--tier takes ...": kit title-cases the first token, and
-				// a flag name is one word that should not come back capitalised.
-				return errs.Usage("there are three tiers, 0, 1 and 2, and %q is not one of them", only)
+					// a flag name is one word that should not come back capitalised.
+					return errs.Usage("there are three tiers, 0, 1 and 2, and %q is not one of them", only)
 				}
 				want = n
 			}
@@ -192,4 +194,64 @@ func dash(s string) string {
 		return "-"
 	}
 	return s
+}
+
+// newDoctorCmd probes every surface live. It is the command that answers "is it
+// down, or did they change it", and it is the only one that goes to the network
+// on purpose without being asked for data.
+func newDoctorCmd() kit.Command {
+	return kit.Command{
+		Use:   "doctor",
+		Short: "Probe every surface live and report what answers today",
+		Run: func(ctx context.Context, args []string) error {
+			a := appFromCtx(ctx)
+			out, err := a.out()
+			if err != nil {
+				return err
+			}
+			cols := []string{"surface", "name", "status", "ms", "note"}
+			bad := 0
+			for _, p := range a.engine().Doctor(a.ctx()) {
+				note := p.Note
+				if p.Err != "" {
+					note = joinNote(p.Err, p.Note)
+					bad++
+				}
+				ms := ""
+				if p.Millis > 0 {
+					ms = strconv.Itoa(p.Millis)
+				}
+				if err := out.Emit(Row{
+					Cols: cols,
+					Vals: []string{strconv.Itoa(p.Surface), p.Name, p.Status, ms, note},
+					Value: map[string]any{
+						"surface": p.Surface, "name": p.Name, "status": p.Status,
+						"millis": p.Millis, "note": p.Note, "error": p.Err,
+					},
+				}); err != nil {
+					return err
+				}
+			}
+			if err := out.Flush(); err != nil {
+				return err
+			}
+			// A surface that is down is news, and news that exits 0 gets
+			// scripted over. It is not a usage error and not a missing object,
+			// so it is the generic failure, which is what 1 is for.
+			if bad > 0 {
+				return fmt.Errorf("%d of %d surfaces did not answer", bad, len(x.Surfaces))
+			}
+			return nil
+		},
+	}
+}
+
+func joinNote(parts ...string) string {
+	kept := make([]string, 0, len(parts))
+	for _, p := range parts {
+		if p != "" {
+			kept = append(kept, p)
+		}
+	}
+	return strings.Join(kept, "; ")
 }
