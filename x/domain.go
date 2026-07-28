@@ -3,7 +3,6 @@ package x
 import (
 	"context"
 	"errors"
-	"strings"
 
 	"github.com/tamnd/any-cli/kit"
 	"github.com/tamnd/any-cli/kit/errs"
@@ -40,33 +39,14 @@ func (Domain) Info() kit.DomainInfo {
 	}
 }
 
-// Register installs the Engine factory and every X operation onto app. A resolver
-// op (Single) names its own record type and answers `ant get`; a List op
-// enumerates a parent resource's members and answers `ant ls`.
+// Register installs the Engine factory and every X operation onto app. The
+// operations themselves are in ops.go, shared with the standalone binary, which
+// registers the same set with NoCLI so its hand-written commands keep the verbs.
+// Here they take the command line too, because in a host the operations are the
+// command line.
 func (Domain) Register(app *kit.App) {
 	app.SetClient(newEngine)
-
-	// Resolver ops: one record per id, the home of `ant get x://<type>/<id>`.
-	kit.Handle(app, kit.OpMeta{Name: "tweet", Group: "read", Single: true,
-		Summary: "Fetch a tweet by id or status URL", URIType: KindTweet, Resolver: true,
-		Args: []kit.Arg{{Name: "ref", Help: "tweet id or status URL"}}}, getStatus)
-	kit.Handle(app, kit.OpMeta{Name: "user", Group: "read", Single: true,
-		Summary: "Fetch a profile by @handle, id, or URL", URIType: KindUser, Resolver: true,
-		Args: []kit.Arg{{Name: "ref", Help: "@handle, user id, or profile URL"}}}, getUser)
-
-	// List ops: members of a parent resource, the home of `ant ls`.
-	kit.Handle(app, kit.OpMeta{Name: "timeline", Group: "read", List: true,
-		Summary: "List a user's recent tweets", URIType: KindUser,
-		Args: []kit.Arg{{Name: "ref", Help: "@handle, user id, or profile URL"}}}, listTimeline)
-	kit.Handle(app, kit.OpMeta{Name: "thread", Group: "read", List: true,
-		Summary: "List a conversation thread", URIType: KindTweet,
-		Args: []kit.Arg{{Name: "ref", Help: "tweet id or status URL"}}}, listThread)
-
-	// Search rounds out the surface; URIType tweet keeps it from claiming a
-	// second authority, since the tweet resolver already owns the Tweet type.
-	kit.Handle(app, kit.OpMeta{Name: "search", Group: "read", URIType: KindTweet,
-		Summary: "Search recent tweets",
-		Args:    []kit.Arg{{Name: "query", Help: "search terms", Variadic: true}}}, search)
+	RegisterOps(app, OpOptions{})
 }
 
 // newEngine builds the X engine from the host-resolved config, reusing the same
@@ -77,73 +57,6 @@ func newEngine(_ context.Context, cfg kit.Config) (any, error) {
 	o.DataDir = cfg.DataDir
 	o.NoCache = cfg.NoCache
 	return NewEngine(Resolve(o)), nil
-}
-
-// --- inputs ---
-
-type tweetRef struct {
-	Ref    string  `kit:"arg" help:"tweet id or status URL"`
-	Limit  int     `kit:"flag,inherit" help:"max results"`
-	Engine *Engine `kit:"inject"`
-}
-
-type userRef struct {
-	Ref    string  `kit:"arg" help:"@handle, user id, or profile URL"`
-	Limit  int     `kit:"flag,inherit" help:"max results"`
-	Engine *Engine `kit:"inject"`
-}
-
-type queryRef struct {
-	Query  []string `kit:"arg,variadic" help:"search terms"`
-	Limit  int      `kit:"flag,inherit" help:"max results"`
-	Engine *Engine  `kit:"inject"`
-}
-
-// --- handlers ---
-
-func getStatus(ctx context.Context, in tweetRef, emit func(*Tweet) error) error {
-	id, err := ParseTweetRef(in.Ref)
-	if err != nil {
-		return errs.Usage("%s", err.Error())
-	}
-	t, err := in.Engine.Tweet(ctx, id)
-	if err != nil {
-		return mapErr(err)
-	}
-	return emit(t)
-}
-
-func getUser(ctx context.Context, in userRef, emit func(*User) error) error {
-	ref, isID, err := ParseUserRef(in.Ref, true)
-	if err != nil {
-		return errs.Usage("%s", err.Error())
-	}
-	u, err := in.Engine.User(ctx, ref, isID)
-	if err != nil {
-		return mapErr(err)
-	}
-	return emit(u)
-}
-
-func listTimeline(ctx context.Context, in userRef, emit func(*Tweet) error) error {
-	ref, isID, err := ParseUserRef(in.Ref, true)
-	if err != nil {
-		return errs.Usage("%s", err.Error())
-	}
-	return mapErr(in.Engine.Timeline(ctx, ref, isID, TimelineOpts{Limit: in.Limit}, emit))
-}
-
-func listThread(ctx context.Context, in tweetRef, emit func(*Tweet) error) error {
-	id, err := ParseTweetRef(in.Ref)
-	if err != nil {
-		return errs.Usage("%s", err.Error())
-	}
-	return mapErr(in.Engine.Thread(ctx, id, in.Limit, emit))
-}
-
-func search(ctx context.Context, in queryRef, emit func(*Tweet) error) error {
-	q := SearchQuery{Raw: strings.Join(in.Query, " "), Limit: in.Limit}
-	return mapErr(in.Engine.Search(ctx, q, emit))
 }
 
 // --- Resolver: the URI-native string functions, reused from ref.go ---
@@ -172,17 +85,44 @@ func (Domain) Locate(uriType, id string) (string, error) {
 // mapErr converts a library error into the kit error kind that carries the right
 // exit code, so a host renders the same need-auth/rate-limited outcomes the
 // standalone binary does.
+//
+// It covers the whole taxonomy rather than the two that a host happened to need
+// first, because these handlers now answer over HTTP and to an agent as well.
+// Need-auth and unsupported are the pair worth getting right: one means find a
+// credential and this works, the other means no credential exists that would
+// help, and a caller that cannot tell them apart will go looking for a cookie
+// that was never the problem.
 func mapErr(err error) error {
 	var na *NeedAuthError
 	var rl *RateLimitedError
+	var nf *NotFoundError
+	var un *UnsupportedError
+	var ne *NetworkError
+	// A walk that stopped halfway is classified by whatever stopped it, and says
+	// how far it got in the message.
+	said := func(inner error) string {
+		var pe *PartialError
+		if errors.As(err, &pe) {
+			return pe.Error()
+		}
+		return inner.Error()
+	}
 	switch {
 	case err == nil:
 		return nil
 	case errors.As(err, &na):
-		return errs.NeedAuth("%s", na.Error())
+		return errs.NeedAuth("%s", said(na))
 	case errors.As(err, &rl):
-		return errs.RateLimited("%s", rl.Error())
-	default:
-		return err
+		return errs.RateLimited("%s", said(rl))
+	case errors.As(err, &nf):
+		return errs.NotFound("%s", said(nf))
+	case errors.As(err, &un):
+		return errs.Unsupported("%s", said(un))
+	case errors.As(err, &ne):
+		return errs.Network("%s", said(ne))
 	}
+	if n := AsNetwork(err); n != nil {
+		return errs.Network("%s", n.Error())
+	}
+	return err
 }

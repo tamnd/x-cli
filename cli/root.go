@@ -1,10 +1,12 @@
 package cli
 
 import (
+	"context"
 	"errors"
 	"time"
 
 	"github.com/tamnd/any-cli/kit"
+	"github.com/tamnd/x-cli/x"
 )
 
 // Build metadata, stamped via -ldflags (spec §7). goreleaser targets
@@ -61,6 +63,20 @@ func New() *kit.App {
 	for _, c := range metaCommands() {
 		app.AddCommand(c)
 	}
+
+	// The same reads again, as operations, which is what `x serve` and `x mcp`
+	// answer with (issue #18: both surfaces were empty because everything above
+	// is an escape hatch, and an escape hatch is a command and nothing else).
+	//
+	// NoCLI keeps them off the command line. They would otherwise shadow the
+	// commands above, and the difference is not cosmetic: the hand-written ones
+	// render a curated table of the fields a person wants, while a reflected
+	// Tweet is thirty-odd columns with JSON in the cells. So the operation
+	// serves and the command stays typed.
+	app.SetClient(func(_ context.Context, kc kit.Config) (any, error) {
+		return x.NewEngine(xConfig(kc)), nil
+	})
+	x.RegisterOps(app, x.OpOptions{NoCLI: true})
 	return app
 }
 
