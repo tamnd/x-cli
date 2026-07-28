@@ -87,6 +87,7 @@ Tier 0 needs nothing, `g` needs `--guest`, `s` needs a session.
 | `x download <ref>` | a tweet's media to disk | 0 |
 | `x edges <ref>...` | the graph claims a record makes, one read and no walking | 0 |
 | `x graph <ref>...` | those claims and the nodes they address, as one document | 0 |
+| `x rdf <ref>...` | the same graph as RDF: nt, ttl, jsonld, nq | 0 |
 | `x crawl <seed>...` | breadth-first crawl into the local store | 0 |
 | `x query <sql>` | query what you have collected | local |
 
