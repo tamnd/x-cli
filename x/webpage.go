@@ -113,6 +113,7 @@ func (p *Page) TweetFromPage(id string) (*Tweet, error) {
 	if item := p.posting(id); item != nil {
 		applyMicrodataTweet(t, item)
 	}
+	applyHeadTweet(t, p.Head)
 	// The store's rest_id wins over the id we asked with, which is how a
 	// redirected or edited status ends up under the id X itself uses.
 	if t.ID == "" {
@@ -424,6 +425,7 @@ func (p *Page) UserFromPage(handle string) (*User, error) {
 			}
 		}
 	}
+	applyHeadUser(u, p.Head)
 	if u.Username == "" && u.RestID == "" {
 		return nil, fmt.Errorf("no profile on %s", p.URL)
 	}

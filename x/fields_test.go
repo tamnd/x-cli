@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"flag"
 	"fmt"
+	"go/format"
 	"os"
 	"sort"
 	"strings"
@@ -118,9 +119,16 @@ func measureSurfaces(t *testing.T) map[string]map[string][]int {
 
 	// Surface 8, an x.com page. The status page carries the tweet, the profile
 	// page the user, and both are read out of the same embedded data planes.
-	if p, err := ParsePage(StatusPageURL("20"), capture(t, "status_20.html.gz")); err == nil {
-		if tw, err := p.TweetFromPage("20"); err == nil {
-			noteTweet(8, tw)
+	// Both status captures are measured, because only the media one shows what
+	// plane E contributes when there is a photo to describe.
+	for _, c := range []struct{ id, fixture string }{
+		{"20", "status_20.html.gz"},
+		{"2081860978694594863", "status_media.html.gz"},
+	} {
+		if p, err := ParsePage(StatusPageURL(c.id), capture(t, c.fixture)); err == nil {
+			if tw, err := p.TweetFromPage(c.id); err == nil {
+				noteTweet(8, tw)
+			}
 		}
 	}
 	if p, err := ParsePage("https://x.com/nasa", capture(t, "profile_nasa.html.gz")); err == nil {
@@ -243,7 +251,12 @@ var fieldSurfaces = map[string]map[string][]int{
 		b.WriteString("\t},\n")
 	}
 	b.WriteString("}\n")
-	return []byte(b.String())
+	// Through gofmt, so -update never leaves a diff that is only alignment.
+	out, err := format.Source([]byte(b.String()))
+	if err != nil {
+		return []byte(b.String())
+	}
+	return out
 }
 
 func joinInts(ns []int) string {
