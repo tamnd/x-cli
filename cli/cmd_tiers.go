@@ -24,6 +24,7 @@ func tableCommands() []kit.Command {
 		newTiersCmd(),
 		newRoutesCmd(),
 		newSurfacesCmd(),
+		newFieldsCmd(),
 		newDoctorCmd(),
 	}
 }
@@ -254,4 +255,90 @@ func joinNote(parts ...string) string {
 		}
 	}
 	return strings.Join(kept, "; ")
+}
+
+// newFieldsCmd prints the field census from doc 03 section 12: every field of a
+// record, its Go type, and the surfaces measured to fill it.
+//
+// The surfaces column is the answer to "does this tool give me the bookmark
+// count", and the tier column is the answer to "what does it cost me". Both come
+// from x.Fields, which is generated from the fixtures rather than written by
+// hand, so a field that stops arriving stops claiming a surface.
+//
+// --tier narrows the surfaces column to what that credential can reach, and does
+// not drop rows. A field you cannot get is the thing you most want the table to
+// tell you about, so hiding it would be the one wrong answer here.
+func newFieldsCmd() kit.Command {
+	var only string
+	return kit.Command{
+		Use:   "fields <kind>",
+		Short: "Show a record's fields, their types, and the surfaces that fill them",
+		Args:  kit.ExactArgs(1),
+		Flags: func(f *kit.FlagSet) {
+			f.StringVar(&only, "tier", "", "show only the surfaces this tier can reach (0, 1, or 2)")
+		},
+		Run: func(ctx context.Context, args []string) error {
+			a := appFromCtx(ctx)
+			fields := x.Fields(args[0])
+			if fields == nil {
+				return errs.Usage("no record kind %q; there is %s", args[0],
+					strings.Join(x.FieldKinds, " and "))
+			}
+			have := 2
+			if only != "" {
+				n, err := strconv.Atoi(only)
+				if err != nil || n < 0 || n > 2 {
+					return errs.Usage("there are three tiers, 0, 1 and 2, and %q is not one of them", only)
+				}
+				have = n
+			}
+			out, err := a.out()
+			if err != nil {
+				return err
+			}
+			cols := []string{"field", "type", "surfaces", "tier"}
+			for _, f := range fields {
+				tier, reachable := f.Tier()
+				reach := x.SurfacesUpTo(f.Surfaces, have)
+				val := map[string]any{"field": f.Name, "type": f.Type, "surfaces": reach}
+				if reachable {
+					val["tier"] = tier
+				}
+				if err := out.Emit(Row{
+					Cols:  cols,
+					Vals:  []string{f.Name, f.Type, surfaceCodes(reach), tierNote(tier, reachable)},
+					Value: val,
+				}); err != nil {
+					return err
+				}
+			}
+			return out.Flush()
+		},
+	}
+}
+
+// surfaceCodes renders the surface numbers the way the records do, so a reader
+// can match a column here against the `surfaces` and `via` on a record.
+func surfaceCodes(ns []int) string {
+	if len(ns) == 0 {
+		return ""
+	}
+	var parts []string
+	for _, n := range ns {
+		parts = append(parts, "s"+strconv.Itoa(n))
+	}
+	return strings.Join(parts, " ")
+}
+
+// tierNote says what it costs to get a field, and says nothing at all when no
+// fixture has ever shown it filled. Printing "free" there would be the table
+// promising something it has no evidence for.
+func tierNote(tier int, reachable bool) string {
+	if !reachable {
+		return "no surface yet"
+	}
+	if tier == 0 {
+		return "free"
+	}
+	return "needs tier " + strconv.Itoa(tier)
 }
