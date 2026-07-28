@@ -103,6 +103,19 @@ func measureSurfaces(t *testing.T) map[string]map[string][]int {
 		note(KindUser, 2, u)
 	}
 
+	// Surface 3, oEmbed. It is a thin record on purpose: plane F reads the three
+	// fields the blockquote states and does not guess at the rest.
+	for _, c := range []struct{ id, fixture string }{
+		{"20", "s3_oembed_20.json.gz"},
+		{"2081860978694594863", "s3_oembed_media.json.gz"},
+	} {
+		o, err := decodeOEmbed([]byte(capture(t, c.fixture)))
+		if err != nil {
+			t.Fatal(err)
+		}
+		noteTweet(3, o.ToTweet(c.id))
+	}
+
 	// Surface 4, guest GraphQL.
 	for _, o := range userResults([]byte(capture(t, "s4_user_nasa.json.gz"))) {
 		var ur gqlUserResult

@@ -102,19 +102,21 @@ func (e *Engine) probeSyndicationTimeline(ctx context.Context) Probe {
 
 func (e *Engine) probeOEmbed(ctx context.Context) Probe {
 	p := Probe{Surface: 3, Name: "oembed"}
-	u := "https://publish.x.com/oembed?url=" +
-		"https%3A%2F%2Fx.com%2F" + probeHandle + "%2Fstatus%2F" + probeTweet + "&omit_script=1"
 	start := time.Now()
-	b, err := e.c.Do(ctx, Req{URL: u, Endpoint: "oembed", CacheTTL: ttlOEmbed})
+	o, err := FetchOEmbed(ctx, e.c, probeTweet)
 	p.Millis = msSince(start)
 	switch {
 	case err != nil:
 		p.Status, p.Err = probeFail, err.Error()
-	case !strings.Contains(string(b), "blockquote"):
+	case !strings.Contains(o.HTML, "blockquote"):
 		p.Status, p.Err = probeFail, "answered without the embed html"
+	case o.Text == "" || o.Handle == "":
+		// The bytes arrived and plane F got nothing out of them, which is the
+		// shape change worth hearing about before a read quietly comes back thin.
+		p.Status, p.Err = probeFail, "the blockquote parsed to no text or no author"
 	default:
 		p.Status = probeOK
-		p.Note = joinNotes("blockquote html", e.limitNote("oembed"))
+		p.Note = joinNotes("blockquote html, @"+o.Handle, e.limitNote("oembed"))
 	}
 	return p
 }

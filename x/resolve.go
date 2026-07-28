@@ -57,6 +57,12 @@ func (e *Engine) Tweet(ctx context.Context, id string) (*Tweet, error) {
 		return TweetByID(ctx, e.c, id)
 	case "web":
 		return e.TweetFromWeb(ctx, id)
+	case "oembed":
+		o, err := FetchOEmbed(ctx, e.c, id)
+		if err != nil {
+			return nil, err
+		}
+		return o.ToTweet(id), nil
 	}
 	t, err := TweetByID(ctx, e.c, id)
 	if err == nil {
@@ -65,10 +71,10 @@ func (e *Engine) Tweet(ctx context.Context, id string) (*Tweet, error) {
 		if w, werr := e.TweetFromWeb(ctx, id); werr == nil {
 			t = MergeTweet(t, w)
 		}
-		return t, nil
+		return e.fillFromOEmbed(ctx, t, id), nil
 	}
 	if w, werr := e.TweetFromWeb(ctx, id); werr == nil {
-		return w, nil
+		return e.fillFromOEmbed(ctx, w, id), nil
 	}
 	if e.canGraphQL() {
 		if t2, err2 := e.g.TweetByID(ctx, id); err2 == nil {
@@ -76,6 +82,42 @@ func (e *Engine) Tweet(ctx context.Context, id string) (*Tweet, error) {
 		}
 	}
 	return nil, err
+}
+
+// OEmbed reads one tweet's embed HTML off surface 3. It is the whole of `x
+// embed`, and it is the only read that never touches another surface: the bytes
+// are the answer.
+func (e *Engine) OEmbed(ctx context.Context, id string) (*OEmbed, error) {
+	return FetchOEmbed(ctx, e.c, id)
+}
+
+// fillFromOEmbed is plane F, and it is the only plane that costs a request of
+// its own, so it asks first whether it has anything to add.
+//
+// On the ordinary day it has not: the syndication endpoint states the text, the
+// language and the author, and this returns without touching the network. It
+// earns its place on the day both of the surfaces above it come back thin, and
+// on any read of an /i/status/ URL where nobody has said who wrote the thing.
+//
+// A failure here is not a failure of the read. The caller already has an answer;
+// this was an attempt to make it a better one.
+func (e *Engine) fillFromOEmbed(ctx context.Context, t *Tweet, id string) *Tweet {
+	if !wantsOEmbed(t) {
+		return t
+	}
+	o, err := FetchOEmbed(ctx, e.c, id)
+	if err != nil {
+		return t
+	}
+	return MergeTweet(t, o.ToTweet(id))
+}
+
+// wantsOEmbed is whether surface 3 could still fill something surface 3 has.
+func wantsOEmbed(t *Tweet) bool {
+	if t == nil {
+		return false
+	}
+	return t.Text == "" || t.Lang == "" || t.Author == nil || t.Author.Username == ""
 }
 
 // TweetFromWeb reads one tweet off its x.com status page, which is surface 8

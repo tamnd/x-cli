@@ -13,7 +13,7 @@ package x
 // 7 is surface 4 with a session, so it fills at least what 4 does.
 var fieldSurfaces = map[string]map[string][]int{
 	"tweet": {
-		"author":          {1, 2, 4, 8},
+		"author":          {1, 2, 3, 4, 8},
 		"bookmarks":       {4, 8},
 		"conversation_id": {2, 4},
 		"created_at":      {1, 2, 4, 8},
@@ -21,7 +21,7 @@ var fieldSurfaces = map[string]map[string][]int{
 		"impressions":     {4, 8},
 		"is_reply":        {2, 4},
 		"is_retweet":      {4},
-		"lang":            {1, 2, 4},
+		"lang":            {1, 2, 3, 4},
 		"likes":           {1, 2, 4, 8},
 		"media":           {2, 4, 8},
 		"quotes":          {2, 4, 8},
@@ -31,7 +31,7 @@ var fieldSurfaces = map[string]map[string][]int{
 		"retweeted":       {4},
 		"retweets":        {2, 4, 8},
 		"source":          {4},
-		"text":            {1, 2, 4, 8},
+		"text":            {1, 2, 3, 4, 8},
 	},
 	"user": {
 		"created_at":     {2, 4, 8},
@@ -43,13 +43,13 @@ var fieldSurfaces = map[string]map[string][]int{
 		"listed":         {2, 4},
 		"location":       {4, 8},
 		"media":          {2, 4},
-		"name":           {1, 2, 4, 8},
+		"name":           {1, 2, 3, 4, 8},
 		"pinned_tweet":   {4},
 		"profile_banner": {2, 4},
 		"profile_image":  {1, 2, 4, 8},
 		"rest_id":        {1, 2, 4, 8},
 		"tweets":         {2, 4, 8},
-		"username":       {1, 2, 4, 8},
+		"username":       {1, 2, 3, 4, 8},
 		"verified":       {1, 4, 8},
 		"verified_type":  {1, 4, 8},
 		"website":        {2, 4},

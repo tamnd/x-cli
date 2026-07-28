@@ -78,6 +78,7 @@ Tier 0 needs nothing, `g` needs `--guest` or a session, `s` needs a session.
 | `x followers <user>` / `x following <user>` | the follow graph | g |
 | `x likers <ref>` / `x retweeters <ref>` | who liked or retweeted | g |
 | `x home` / `x bookmarks` | your home timeline, your bookmarks | s |
+| `x embed <ref>` | a tweet's oEmbed blockquote, verbatim | 0 |
 | `x download <ref>` | a tweet's media to disk | 0 |
 | `x crawl <seed>...` | breadth-first crawl into the local store | g |
 | `x db <query>` | query what you have collected | local |
