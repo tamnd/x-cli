@@ -37,6 +37,8 @@ map. A `<ref>` is a tweet id, status URL, or anything x can resolve to a tweet; 
 | `list <list-id>` | Tweets in an X List (needs `--guest` or session) | |
 | `home` | Your reverse-chron home timeline (session) | |
 | `bookmarks` | Your bookmarks (session) | |
+| `trends [woeid]` | What is trending in a place, worldwide by default | |
+| `places [query]` | The places X has trends for, and their woeids | `--country`, `--type` |
 
 `search --product` takes `Top|Latest|People|Photos|Videos` (default `Latest`).
 `counts --product` takes `Top|Latest`. `timeline --replies` includes replies and
@@ -50,6 +52,12 @@ for exits 7 rather than guessing. `media --size` takes
 rendition by resolution or bitrate (default: the highest-bitrate MP4). With
 `--download`, `media` writes files and prints their paths, so the record flags
 (`-o`, `--fields`, `--template`) do not apply.
+
+`trends` takes a woeid, which is the Yahoo! Where On Earth id X still keys its
+trend lists by, and it also takes a place name: `x trends tokyo` works, and an
+ambiguous name comes back as a usage error listing the candidates rather than a
+pick. `places` is how you find a woeid; it caches the directory for a week, so
+the name lookup costs one request ever. Both are Tier 0.
 
 x is read-only: there are no commands that post, like, follow, or otherwise
 change your account. `likes`, `likers`, `followers`, and `bookmarks` only read.

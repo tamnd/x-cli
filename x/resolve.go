@@ -421,6 +421,18 @@ func (e *Engine) Likes(ctx context.Context, ref string, isID bool, limit int, em
 	return e.g.Likes(ctx, uid, limit, emit)
 }
 
+// Trends reads what is trending in one place, off surface 5. There is no tier
+// to resolve: it is one route, it answers on the public bearer alone, and a
+// guest token would only shrink the budget, so the engine passes it through.
+func (e *Engine) Trends(ctx context.Context, woeid int64, limit int) ([]*Trend, error) {
+	return Trends(ctx, e.c, woeid, limit)
+}
+
+// Places reads the woeid directory, filtered.
+func (e *Engine) Places(ctx context.Context, query, country, placeType string, limit int) ([]*Place, error) {
+	return Places(ctx, e.c, query, country, placeType, limit)
+}
+
 func (e *Engine) userID(ctx context.Context, ref string, isID bool, cap string) (string, error) {
 	if !e.canGraphQL() {
 		return "", needGraphQL(cap)

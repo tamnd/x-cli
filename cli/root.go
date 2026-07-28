@@ -46,6 +46,9 @@ func New() *kit.App {
 	for _, c := range entityCommands() {
 		app.AddCommand(c)
 	}
+	for _, c := range trendCommands() {
+		app.AddCommand(c)
+	}
 	for _, c := range dataCommands() {
 		app.AddCommand(c)
 	}
