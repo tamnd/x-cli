@@ -44,6 +44,9 @@ func MergeTweet(dst, src *Tweet) *Tweet {
 	dst.IsReply = dst.IsReply || src.IsReply
 	dst.IsQuote = dst.IsQuote || src.IsQuote
 	dst.IsRetweet = dst.IsRetweet || src.IsRetweet
+	// Enriching a tweet from a ranked set with a second surface's counters does
+	// not make the set it came from chronological, so the flag survives.
+	dst.Sample = dst.Sample || src.Sample
 
 	m.num(&dst.Metrics.Likes, src.Metrics.Likes, "likes")
 	m.num(&dst.Metrics.Retweets, src.Metrics.Retweets, "retweets")

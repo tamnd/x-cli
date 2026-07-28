@@ -49,6 +49,25 @@ x replies nasa --guest        # a user's tweets including replies
 `--guest` or a session. `x replies` is the replies-inclusive view; X denies it
 to guest tokens, so it needs your own session.
 
+Two things about tier 0 here. The syndication widget answers an account that
+posts often with the last hundred or so posts, and an account that posts rarely
+with a ranked selection from its whole history: @jack's came back spanning 2006
+to 2025 in like order. x measures which it got and marks the ranked case
+`sample`, warning once on stderr. And the widget's window is 30 requests per
+fifteen minutes, so when it is spent the read falls back to x.com's own page,
+which is fewer tweets; the records name the surface they went without in
+`missed`.
+
+With `--guest`, x walks the cursor instead, which is chronological and pages
+back a long way. Measured on @NASA: 812 posts in one run, from the day of the
+read back eight months, no repeats. Ask for more than a window allows and the
+run stops with the reason and the count rather than pretending it reached the
+end:
+
+```bash
+x timeline nasa --guest -n 2000 -o jsonl > nasa.jsonl
+```
+
 ## Media
 
 ```bash

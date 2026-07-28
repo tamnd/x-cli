@@ -149,7 +149,9 @@ func (e *Engine) TimelineFromWeb(ctx context.Context, handle string) ([]*Tweet, 
 	if err != nil {
 		return nil, err
 	}
-	return p.Postings(), nil
+	posts := p.Postings()
+	markSample(posts)
+	return posts, nil
 }
 
 // User resolves a profile.
@@ -219,10 +221,16 @@ func (e *Engine) userTier0(ctx context.Context, handle string, missed error) (*U
 // Timeline streams a user's tweets, using Tier 0 for the recent window and the
 // GraphQL tiers to page deeper.
 //
-// Tier 0 has two surfaces here too. The syndication widget returns the ~100
-// most recent, which is the better answer whenever it is available; the x.com
-// profile page carries the visible timeline, which is fewer tweets but keeps
-// the command working when the widget's window is exhausted.
+// Tier 0 has two surfaces here too. The syndication widget returns up to a
+// hundred entries, which is the better answer whenever it is available; the
+// x.com profile page carries the visible timeline, which is fewer tweets but
+// keeps the command working when the widget's window is exhausted. Whichever
+// answered, a surface that was tried and did not is recorded on the records.
+//
+// The widget's answer is not always a timeline. It hands back a ranked sample
+// for some accounts (doc 02 section 1.4), and a sample is the wrong answer to
+// "the last twenty tweets" however many rows it has, so when a GraphQL tier is
+// available the cursor walk wins and the sample is only used as the fallback.
 func (e *Engine) Timeline(ctx context.Context, ref string, isID bool, o TimelineOpts, emit func(*Tweet) error) error {
 	if e.cfg.Tier == "web" {
 		if isID {
@@ -243,15 +251,7 @@ func (e *Engine) Timeline(ctx context.Context, ref string, isID bool, o Timeline
 				return needGraphQL("a numeric-id timeline")
 			}
 		} else {
-			tweets, err := ProfileTimeline(ctx, e.c, ref, o.Limit)
-			if len(tweets) == 0 {
-				// The widget said nothing, so read the page before giving up.
-				// An exhausted widget window is the common case and the page is
-				// not on the same budget.
-				if w, werr := e.TimelineFromWeb(ctx, ref); werr == nil && len(w) > 0 {
-					tweets, err = w, nil
-				}
-			}
+			tweets, err := e.timelineTier0(ctx, ref, o.Limit)
 			if tier0 {
 				if err != nil {
 					return err
@@ -259,8 +259,8 @@ func (e *Engine) Timeline(ctx context.Context, ref string, isID bool, o Timeline
 				return streamTweets(tweets, o, emit)
 			}
 			// A GraphQL tier is available, so Tier 0 only answers when it is
-			// enough on its own; otherwise page deeper below.
-			if err == nil && len(tweets) >= o.Limit && o.Limit > 0 {
+			// enough on its own and is a timeline; otherwise page deeper below.
+			if err == nil && o.Limit > 0 && len(tweets) >= o.Limit && !sampled(tweets) {
 				return streamTweets(tweets, o, emit)
 			}
 		}
@@ -270,6 +270,34 @@ func (e *Engine) Timeline(ctx context.Context, ref string, isID bool, o Timeline
 		return err
 	}
 	return e.g.UserTweets(ctx, uid, o, emit)
+}
+
+// timelineTier0 reads a timeline off the widget, falling back to the x.com page.
+//
+// The two are not interchangeable and the fallback is much thinner, so the
+// records say which one answered and name the one that did not. An exhausted
+// widget window is the common case here: it is 30 requests in fifteen minutes,
+// and without the note a five-tweet answer looks like an account that posted
+// five times.
+func (e *Engine) timelineTier0(ctx context.Context, handle string, limit int) ([]*Tweet, error) {
+	tweets, err := ProfileTimeline(ctx, e.c, handle, limit)
+	if len(tweets) > 0 {
+		return tweets, err
+	}
+	w, werr := e.TimelineFromWeb(ctx, handle)
+	if werr != nil || len(w) == 0 {
+		return tweets, err
+	}
+	for _, t := range w {
+		t.Miss(2, err)
+	}
+	return w, nil
+}
+
+// sampled reports whether a set came back ranked rather than walked. The flag
+// is on every record of such a set, so the first one answers for all of them.
+func sampled(tweets []*Tweet) bool {
+	return len(tweets) > 0 && tweets[0].Sample
 }
 
 // MediaTab streams the profile's media tab.
