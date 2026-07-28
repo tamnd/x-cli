@@ -2,6 +2,7 @@ package x
 
 import (
 	"encoding/json"
+	"strings"
 	"testing"
 )
 
@@ -84,6 +85,24 @@ func TestHealAddsAFlagOnceAndSendsItAsFalse(t *testing.T) {
 	// Healing must not lose what X already told us to send.
 	if m["view_counts_everywhere_api_enabled"] != true {
 		t.Error("the healed blob dropped a shipped flag")
+	}
+}
+
+// A source is an address, not a transcript of the request. The features blob is
+// five kilobytes long and would otherwise land in every record and every row of
+// the store.
+func TestASourceCitesTheOperationNotTheFeatureBlob(t *testing.T) {
+	got := gqlSource("681MIj51w00Aj6dY0GXnHw", "UserByScreenName", `{"screen_name":"nasa"}`)
+	if strings.Contains(got, "features=") {
+		t.Errorf("the source carries the feature blob: %s", got)
+	}
+	if len(got) > 200 {
+		t.Errorf("the source is %d bytes, which is not an address: %s", len(got), got)
+	}
+	for _, want := range []string{"UserByScreenName", "681MIj51w00Aj6dY0GXnHw", "nasa"} {
+		if !strings.Contains(got, want) {
+			t.Errorf("the source does not name %s: %s", want, got)
+		}
 	}
 }
 

@@ -117,6 +117,16 @@ func gqlTTL(op string, variables map[string]any) time.Duration {
 	}
 }
 
+// gqlSource is the address a record cites, which is not the URL that was sent.
+// The sent one carries the whole features blob, five kilobytes of request
+// boilerplate that says nothing about where the data came from and would be
+// repeated in every record and every row of the store. What identifies the read
+// is the operation and its variables, so cite those.
+func gqlSource(id, op, variables string) string {
+	return fmt.Sprintf("https://x.com/i/api/graphql/%s/%s?variables=%s",
+		id, op, url.QueryEscape(variables))
+}
+
 // get performs a read GraphQL GET, returning the decoded data tree.
 func (g *GraphQL) get(ctx context.Context, op string, variables map[string]any) ([]byte, string, error) {
 	id := g.queryID(op)
@@ -153,7 +163,7 @@ func (g *GraphQL) get(ctx context.Context, op string, variables map[string]any) 
 		}
 		b, err := g.c.Do(ctx, Req{URL: u, Endpoint: "graphql." + op, Header: h, CacheTTL: gqlTTL(op, variables)})
 		if err == nil {
-			return b, u, nil
+			return b, gqlSource(id, op, string(vb)), nil
 		}
 		if !minted && !g.s.IsUser() && isAuthReject(err) {
 			minted = true
