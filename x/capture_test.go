@@ -87,7 +87,7 @@ func TestSaveWritesGzipTheLoaderCanRead(t *testing.T) {
 	if err != nil {
 		t.Fatalf("open: %v", err)
 	}
-	defer f.Close()
+	defer func() { _ = f.Close() }()
 	gz, err := gzip.NewReader(f)
 	if err != nil {
 		t.Fatalf("the fixture is not gzip, so no test can read it: %v", err)

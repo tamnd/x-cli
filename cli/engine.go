@@ -204,7 +204,9 @@ func (a *App) fail(target string, err error) error {
 	}
 	if a.format() == render.JSONL {
 		if b, e := json.Marshal(a.failure(target, err)); e == nil {
-			fmt.Fprintln(os.Stdout, string(b))
+			// Nothing to do if stdout is gone: we are already on our way
+			// out with an error, and a broken pipe here would replace it.
+			_, _ = fmt.Fprintln(os.Stdout, string(b))
 		}
 	}
 	return mapErr(err)

@@ -20,7 +20,7 @@ func fixture(t *testing.T, name string) string {
 	if err != nil {
 		t.Fatalf("open fixture: %v", err)
 	}
-	defer f.Close()
+	defer func() { _ = f.Close() }()
 
 	var r io.Reader = f
 	if filepath.Ext(name) == ".gz" {
@@ -28,7 +28,7 @@ func fixture(t *testing.T, name string) string {
 		if err != nil {
 			t.Fatalf("gunzip %s: %v", name, err)
 		}
-		defer gz.Close()
+		defer func() { _ = gz.Close() }()
 		r = gz
 	}
 	b, err := io.ReadAll(r)

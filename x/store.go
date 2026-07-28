@@ -176,7 +176,7 @@ func (s *Store) UpsertNode(n *Node) error {
 		}
 		err = s.UpsertTweet(n.Tweet)
 		if err == nil {
-			err = s.PutRecord(URI(KindTweet, n.Tweet.ID), KindTweet, n.Tweet.ID, n.Tweet.Meta.Tier, n.Tweet)
+			err = s.PutRecord(URI(KindTweet, n.Tweet.ID), KindTweet, n.Tweet.ID, n.Tweet.Tier, n.Tweet)
 		}
 	case KindUser:
 		if n.User == nil {
@@ -184,7 +184,7 @@ func (s *Store) UpsertNode(n *Node) error {
 		}
 		err = s.UpsertUser(n.User)
 		if err == nil {
-			err = s.PutRecord(userURI(n.User.Username), KindUser, n.User.Username, n.User.Meta.Tier, n.User)
+			err = s.PutRecord(userURI(n.User.Username), KindUser, n.User.Username, n.User.Tier, n.User)
 		}
 	default:
 		return nil

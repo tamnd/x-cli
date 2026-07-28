@@ -2,7 +2,6 @@ package x
 
 import (
 	"fmt"
-	"sort"
 	"strconv"
 	"strings"
 	"time"
@@ -230,7 +229,7 @@ func (b *builder) record(n GraphNode) {
 }
 
 func (b *builder) tweet(s Term, t *Tweet) {
-	b.src = t.Meta.LastSource()
+	b.src = t.LastSource()
 	b.add(s, schema("identifier"), lit(t.ID))
 	// A plain literal rather than a language-tagged one, which is the
 	// weaker RDF and the right call: X states articleBody untagged in its
@@ -284,7 +283,7 @@ func (b *builder) media(s Term, m Media) {
 }
 
 func (b *builder) user(s Term, u *User) {
-	b.src = u.Meta.LastSource()
+	b.src = u.LastSource()
 	b.add(s, schema("identifier"), lit(u.RestID))
 	b.add(s, schema("name"), lit(u.Name))
 	b.add(s, schema("alternateName"), lit(u.Username))
@@ -307,7 +306,7 @@ func (b *builder) user(s Term, u *User) {
 }
 
 func (b *builder) space(s Term, sp *Space) {
-	b.src = sp.Meta.LastSource()
+	b.src = sp.LastSource()
 	b.add(s, schema("identifier"), lit(sp.ID))
 	b.add(s, schema("name"), lit(sp.Title))
 	b.add(s, schema("url"), iri(sp.URL))
@@ -324,7 +323,7 @@ func (b *builder) space(s Term, sp *Space) {
 }
 
 func (b *builder) list(s Term, l *List) {
-	b.src = l.Meta.LastSource()
+	b.src = l.LastSource()
 	b.add(s, schema("identifier"), lit(l.ID))
 	b.add(s, schema("name"), lit(l.Name))
 	b.add(s, schema("description"), lit(l.Description))
@@ -575,20 +574,4 @@ func escapeIRI(s string) string {
 		"{", "%7B", "}", "%7D", "|", "%7C", `\`, "%5C", "^", "%5E", "`", "%60",
 	)
 	return r.Replace(s)
-}
-
-// sortTriples orders statements for a stable file. It is not used by the
-// writers, which keep document order on purpose, but a test that diffs two runs
-// wants it.
-func sortTriples(ts []Triple) {
-	sort.SliceStable(ts, func(i, j int) bool {
-		a, b := ts[i], ts[j]
-		if x, y := ntTerm(a.S), ntTerm(b.S); x != y {
-			return x < y
-		}
-		if x, y := ntTerm(a.P), ntTerm(b.P); x != y {
-			return x < y
-		}
-		return ntTerm(a.O) < ntTerm(b.O)
-	})
 }

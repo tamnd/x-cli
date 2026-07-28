@@ -160,7 +160,7 @@ func decodeTrends(b []byte, woeid int64, src string, limit int) ([]*Trend, error
 		out = append(out, t)
 	}
 	if len(out) == 0 {
-		return nil, fmt.Errorf("X says nothing is trending in %s", place)
+		return nil, fmt.Errorf("nothing is trending in %s, X says", place)
 	}
 	return out, nil
 }
