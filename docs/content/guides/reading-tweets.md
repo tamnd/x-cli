@@ -75,6 +75,13 @@ end:
 x timeline nasa --guest -n 2000 -o jsonl > nasa.jsonl
 ```
 
+`--replies` is the exception: it stays on Tier 0 even with `--guest`, and only a
+session pages it deeper. The guest tier does not refuse that read, which would
+be fine, it answers it with an empty timeline and no error, which reads as an
+account that has never replied to anybody. Tier 0 has the replies, so x uses
+Tier 0. The one shape it cannot serve is `--id`, because no anonymous surface
+takes a numeric account id, and that combination asks for a session.
+
 ## Media
 
 ```bash
@@ -153,7 +160,8 @@ cuts the budget from 180 requests per fifteen minutes to 15.
 |---|---|---|---|
 | `tweet`, `user`, `poll` | yes | yes | yes |
 | `timeline` | recent window | deeper | deeper |
-| `replies` | what the page renders | same, plus the user reading | the whole tree |
+| `timeline --replies` | recent window | same read, guest buys nothing | deeper |
+| `replies` | what the page renders, or a user's own | same read | the whole tree |
 | `media` | a tweet, and a recent window | same | the media tab too |
 | `thread` | ancestors, plus what the page renders | same | the whole tree |
 | `quotes`, `mentions` | no | denied by X | yes |

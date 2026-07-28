@@ -42,7 +42,9 @@ map. A `<ref>` is a tweet id, status URL, or anything x can resolve to a tweet; 
 
 `search --product` takes `Top|Latest|People|Photos|Videos` (default `Latest`).
 `counts --product` takes `Top|Latest`. `timeline --replies` includes replies and
-`--media` keeps only tweets with media.
+`--media` keeps only tweets with media. `--replies` stays on Tier 0 even with
+`--guest`, because the guest tier answers that read with an empty timeline
+rather than refusing it; only a session pages it deeper.
 
 `get` classifies each argument the way `x classify` does and dispatches: a tweet
 id or status link reads the tweet, a handle reads the profile, a hashtag or a

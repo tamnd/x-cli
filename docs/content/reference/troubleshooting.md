@@ -34,6 +34,14 @@ through GraphQL: the conversation above a tweet comes off the syndication
 endpoint and the replies below it off the status page, so both work at Tier 0
 with no credential at all.
 
+One operation says no in a way that is easy to miss. `timeline --replies`, and
+`replies <handle>` which is the same read, goes to a call the guest tier neither
+serves nor refuses: it returns 200 with an empty timeline, which renders as an
+account that has never replied to anybody. So x does not send a guest token
+there at all. That read stays on Tier 0, where the replies actually are, until
+you have a session. The only shape Tier 0 cannot answer is `--id`, since no
+anonymous surface takes a numeric account id.
+
 ## Needs auth (exit 4)
 
 A command exits with code `4` when it needs a tier you have not enabled. The
