@@ -93,7 +93,7 @@ func withXDefaults(c *kit.Config) {
 // --rate, --retries, --timeout, --data-dir, --no-cache, -q/--quiet, -v, --color,
 // --dry-run, --db, and --profile, so x adds only these three.
 func bindXFlags(f *kit.FlagSet) {
-	f.StringVar(&flagTier, "tier", "", "force one surface: syndication|oembed|web|guest|session")
+	f.StringVar(&flagTier, "tier", "", "cap the tier (0|1|2) or force one surface (syndication|oembed|web|guest|session)")
 	f.BoolVar(&flagGuest, "guest", false, "enable the opt-in free guest-GraphQL tier")
 	f.StringSliceVar(&flagQueryIDs, "query-id", nil, "override a GraphQL query id (Op=hash)")
 }

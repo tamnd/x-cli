@@ -1,7 +1,6 @@
 package x
 
 import (
-	"encoding/json"
 	"strconv"
 	"strings"
 )
@@ -48,12 +47,18 @@ type Meta struct {
 	// banner because there is no banner, and only one of those is a fact about
 	// the account (spec 3003 doc 03 section 3.4).
 	Missed []string `json:"missed,omitempty"`
-
-	// Extra holds every upstream key this version does not model, verbatim.
-	// Nothing upstream is ever dropped on the floor; a key that turns up here is
-	// a field we have not got round to yet, and the fixture tests fail on it.
-	Extra map[string]json.RawMessage `json:"extra,omitempty"`
 }
+
+// There is no Extra field here, and doc 03 section 2 said there would be: every
+// decoder was to unmarshal into a map first, lift the keys it knows, and leave
+// the rest in an Extra bag that a fixture test then asserted was empty.
+//
+// The bag went, the promise stayed, and it is kept somewhere better. unmodeled.go
+// walks a captured response against the struct that decodes it and lists every
+// path nothing reads, at any depth, through any wrapper. TestNoUnmodeledKeys runs
+// that over every fixture, so an upstream addition is still a red build, without
+// each decoder paying for a second pass and without a bag that only ever fills up
+// for shapes somebody already thought about.
 
 // Identify sets the kind and id and derives the two addresses from them. The
 // URI is always derivable; the URL is not, because a media key and a place have

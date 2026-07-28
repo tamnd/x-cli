@@ -226,7 +226,7 @@ for defaults and [output formats](/reference/output/) for what `-o` produces.
 | `--no-header` | Omit the header row |
 | `--color` | `auto\|always\|never` (default auto) |
 | `--guest` | Enable the opt-in free guest-GraphQL tier |
-| `--tier` | Force a tier: `syndication\|guest\|session` |
+| `--tier` | Cap the tier (`0\|1\|2`) or pin one surface (`syndication\|oembed\|web\|guest\|session`) |
 | `--db` | Generic record sink provided by the framework; x's own typed store lives under `--data-dir`, not here |
 | `--data-dir` | Cache and store root |
 | `--query-id` | Override a GraphQL query id (`Op=hash`) |

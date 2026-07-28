@@ -127,6 +127,15 @@ func (a *App) engine() *x.Engine {
 // machine-readable. An explicit -o or --template always wins. The run's terminal
 // width still applies to any truncate columns.
 func (a *App) out() (*render.Renderer, error) {
+	// The one flag check that has to happen before anything reads. --tier is a
+	// string because half its values are surface names, so a typo used to be
+	// silent: `--tier sindication` set a tier nothing compares against, and the
+	// run went to the network and answered as if the flag were not there. Every
+	// command that emits a record comes through here, so this is where it stops.
+	if a.cfg.Tier != "" && !x.ValidTier(a.cfg.Tier) {
+		return nil, errs.Usage("no tier %q; there is %s", a.cfg.Tier,
+			strings.Join(x.TierValues(), ", "))
+	}
 	if a.st == nil {
 		return render.New(render.Options{Format: render.List, Writer: os.Stdout})
 	}

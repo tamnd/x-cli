@@ -99,3 +99,92 @@ func TestConfigFileStaysPut(t *testing.T) {
 		t.Errorf("config file = %s, want %s", got, want)
 	}
 }
+
+// A numeric --tier caps what a run may use, and the whole point is that it wins
+// over a credential that is already there. Before this, --tier 0 set a string
+// nothing compared against, so a machine with a session imported read at tier 2
+// and reported tier 0, which is worse than not having the flag: it is the flag
+// lying about the answer.
+func TestANumericTierTakesTheCredentialAway(t *testing.T) {
+	home := t.TempDir()
+	t.Setenv("HOME", home)
+	t.Setenv("XDG_DATA_HOME", filepath.Join(home, ".local", "share"))
+	t.Setenv("X_DATA_DIR", "")
+	t.Setenv("X_AUTH_TOKEN", "")
+	t.Setenv("X_CT0", "")
+	if err := DefaultPaths().SaveSession(Creds{AuthToken: "tok", CT0: "csrf"}); err != nil {
+		t.Fatal(err)
+	}
+
+	for _, c := range []struct {
+		tier    string
+		guest   bool
+		session bool
+		num     int
+	}{
+		{tier: "", session: true, num: 2},
+		{tier: "0", num: 0},
+		{tier: "1", guest: true, num: 1},
+		{tier: "2", session: true, num: 2},
+	} {
+		o := NoOverrides()
+		o.Tier = c.tier
+		cfg := Resolve(o)
+		if cfg.HasSession() != c.session {
+			t.Errorf("--tier %q: session %v, want %v", c.tier, cfg.HasSession(), c.session)
+		}
+		if cfg.AllowGuest != c.guest {
+			t.Errorf("--tier %q: guest %v, want %v", c.tier, cfg.AllowGuest, c.guest)
+		}
+		if got := cfg.TierNum(); got != c.num {
+			t.Errorf("--tier %q: reports tier %d, want %d", c.tier, got, c.num)
+		}
+	}
+}
+
+// --tier 1 turns the guest tier on rather than only capping it, because a cap
+// that leaves you below the number you asked for is not the thing you asked for.
+func TestTierOneTurnsGuestOn(t *testing.T) {
+	t.Setenv("HOME", t.TempDir())
+	t.Setenv("X_DATA_DIR", "")
+	t.Setenv("X_AUTH_TOKEN", "")
+	t.Setenv("X_CT0", "")
+	o := NoOverrides()
+	o.Tier = "1"
+	if cfg := Resolve(o); !cfg.AllowGuest {
+		t.Error("--tier 1 with no --guest did not enable the guest tier")
+	}
+}
+
+// The named values still pin a surface, and a cap must not have quietly turned
+// one of them into a no-op.
+func TestNamedTiersStillPin(t *testing.T) {
+	t.Setenv("HOME", t.TempDir())
+	t.Setenv("X_DATA_DIR", "")
+	t.Setenv("X_AUTH_TOKEN", "tok")
+	t.Setenv("X_CT0", "csrf")
+	for _, name := range []string{"syndication", "oembed", "web", "guest", "session"} {
+		o := NoOverrides()
+		o.Tier = name
+		cfg := Resolve(o)
+		if cfg.Tier != name {
+			t.Errorf("--tier %s came back as %q", name, cfg.Tier)
+		}
+		if !cfg.HasSession() {
+			t.Errorf("--tier %s dropped the session, and only a number should do that", name)
+		}
+	}
+}
+
+func TestValidTierKnowsEveryValueTheFlagAccepts(t *testing.T) {
+	for _, v := range TierValues() {
+		if !ValidTier(v) {
+			t.Errorf("%q is offered and rejected", v)
+		}
+	}
+	for _, v := range []string{"sindication", "3", "-1", "web ", "SESSION"} {
+		if ValidTier(v) {
+			t.Errorf("%q should not be a tier", v)
+		}
+	}
+}

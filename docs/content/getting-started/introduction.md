@@ -36,8 +36,10 @@ think about them. They differ in what they can reach and what they cost you.
   read-only, so the session is only ever used to fetch data, never to act.
 
 `x info` prints the tiers it has available and what each can do right now.
-Force a specific one with `--tier syndication|guest|session` when you want to
-be explicit.
+Cap a run with `--tier 0`, `--tier 1` or `--tier 2` when you want to see what a
+reader with that much credential gets, or pin one surface with
+`--tier syndication|oembed|web|guest|session` when you want to know what a
+single plane says.
 
 ## A browser-faithful client
 

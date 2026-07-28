@@ -25,8 +25,14 @@ By default x auto-selects the cheapest tier that can serve a command. Two flags
 override that:
 
 - `--guest` enables the opt-in guest-GraphQL tier (Tier 1) for the run.
-- `--tier syndication|guest|session` forces a specific tier, so you can pin a
-  command to one surface instead of letting x choose.
+- `--tier 0|1|2` caps what the run may use. `--tier 0` reads the way a machine
+  with no credential at all would, even if you have a session imported, which is
+  how you check a tier-0 claim for yourself.
+- `--tier syndication|oembed|web|guest|session` pins one surface instead of
+  letting x choose, which is what you want when you are checking a single plane.
+
+Anything else is a usage error naming the values, so a typo does not quietly
+read as if you had passed no flag.
 
 `x info` prints which tiers are available and what each can do right now.
 
