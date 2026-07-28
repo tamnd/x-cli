@@ -17,13 +17,11 @@ import (
 // not to *Engine directly, so the traversal is hermetically testable with a fake
 // graph and *Engine is just the production grapher.
 
-// NodeKind is the type of a node the walk visits.
-type NodeKind string
-
-const (
-	KindTweet NodeKind = "tweet"
-	KindUser  NodeKind = "user"
-)
+// NodeKind is the type of a node the walk visits. It is an alias rather than a
+// type of its own because the walk's vocabulary is a subset of the one in
+// identity.go, and two spellings of the same string would be one spelling too
+// many. The constants live there, with the other fourteen kinds.
+type NodeKind = string
 
 // Edge names a link the walk can follow. The string is the public vocabulary:
 // it is what the user types in --follow, what lands in the store's edges.kind

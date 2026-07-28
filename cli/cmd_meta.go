@@ -26,7 +26,6 @@ func metaCommands() []kit.Command {
 		newCacheCmd(),
 		newOpenCmd(),
 		newDownloadCmd(),
-		newInfoCmd(),
 		newVersionCmd(),
 	}
 }
@@ -60,10 +59,11 @@ func newAuthCmd() kit.Command {
 					if authToken == "" || ct0 == "" {
 						return fmt.Errorf("need both --auth-token and --ct0 (or paste your Cookie header on stdin)")
 					}
-					if err := x.SaveSession(x.Creds{AuthToken: authToken, CT0: ct0, Handle: handle}); err != nil {
+					paths := a.config().Paths
+					if err := paths.SaveSession(x.Creds{AuthToken: authToken, CT0: ct0, Handle: handle}); err != nil {
 						return err
 					}
-					a.logf("session saved to %s", x.SessionStorePath())
+					a.logf("session saved to %s", paths.Session())
 					return nil
 				},
 			},
@@ -74,12 +74,12 @@ func newAuthCmd() kit.Command {
 					a := appFromCtx(ctx)
 					cfg := a.config()
 					kv := map[string]string{
-						"session":     yn(cfg.HasSession()),
-						"guest":       yn(cfg.AllowGuest),
+						"session":     yesno(cfg.HasSession()),
+						"guest":       yesno(cfg.AllowGuest),
 						"forced_tier": orNone(cfg.Tier),
-						"store":       x.SessionStorePath(),
+						"store":       cfg.Paths.Session(),
 					}
-					if cr, ok := x.LoadSession(); ok && cr.Handle != "" {
+					if cr, ok := cfg.Paths.LoadSession(); ok && cr.Handle != "" {
 						kv["handle"] = "@" + cr.Handle
 					}
 					return a.printKVString(kv)
@@ -91,7 +91,7 @@ func newAuthCmd() kit.Command {
 				Write: true,
 				Run: func(ctx context.Context, args []string) error {
 					a := appFromCtx(ctx)
-					if err := x.ForgetSession(); err != nil {
+					if err := a.config().Paths.ForgetSession(); err != nil {
 						return err
 					}
 					a.logf("session forgotten")
@@ -111,7 +111,7 @@ func newConfigCmd() kit.Command {
 				Use:   "path",
 				Short: "Print the config file path",
 				Run: func(ctx context.Context, args []string) error {
-					_, err := fmt.Fprintln(os.Stdout, x.ConfigPath())
+					_, err := fmt.Fprintln(os.Stdout, appFromCtx(ctx).config().Paths.File())
 					return err
 				},
 			},
@@ -122,12 +122,12 @@ func newConfigCmd() kit.Command {
 					a := appFromCtx(ctx)
 					cfg := a.config()
 					return a.printKVString(map[string]string{
-						"config_path": x.ConfigPath(),
-						"data_dir":    cfg.DataDir,
-						"cache_dir":   cfg.CacheDir,
-						"store":       a.StorePath(),
-						"session":     yn(cfg.HasSession()),
-						"guest":       yn(cfg.AllowGuest),
+						"config_path": cfg.Paths.File(),
+						"data_dir":    cfg.Paths.Data,
+						"cache_dir":   cfg.Paths.Cache,
+						"store":       cfg.StorePath(),
+						"session":     yesno(cfg.HasSession()),
+						"guest":       yesno(cfg.AllowGuest),
 						"forced_tier": orNone(cfg.Tier),
 						"rate":        cfg.Rate.String(),
 						"retries":     fmt.Sprintf("%d", cfg.Retries),
@@ -148,7 +148,7 @@ func newCacheCmd() kit.Command {
 			cache := a.engine().Client().Cache()
 			bytes, files := cache.Size()
 			return a.printKVString(map[string]string{
-				"dir":   a.config().CacheDir,
+				"dir":   a.config().Paths.Cache,
 				"files": fmt.Sprintf("%d", files),
 				"bytes": fmt.Sprintf("%d", bytes),
 			})
@@ -246,27 +246,6 @@ func newDownloadCmd() kit.Command {
 	}
 }
 
-func newInfoCmd() kit.Command {
-	return kit.Command{
-		Use:   "info",
-		Short: "Show resolved tiers and capabilities",
-		Run: func(ctx context.Context, args []string) error {
-			a := appFromCtx(ctx)
-			cfg := a.config()
-			gql := cfg.HasSession() || cfg.AllowGuest || cfg.Tier == "guest" || cfg.Tier == "session"
-			caps := map[string]string{
-				"tier0_syndication": "yes (no auth)",
-				"tier1_guest":       yn(cfg.AllowGuest || cfg.Tier == "guest"),
-				"tier2_session":     yn(cfg.HasSession()),
-				"search":            yn(gql),
-				"followers/likes":   yn(gql),
-				"home/bookmarks":    yn(cfg.HasSession()),
-			}
-			return a.printKVString(caps)
-		},
-	}
-}
-
 func newVersionCmd() kit.Command {
 	return kit.Command{
 		Use:   "version",
@@ -330,12 +309,14 @@ func readStdin() string {
 	return string(b)
 }
 
+// refURL is what `x open` opens. It goes through the same classifier as
+// `x url`, so a list link or a space link opens the right page instead of being
+// mistaken for a handle.
 func refURL(s string) string {
-	if id, err := x.ParseTweetRef(s); err == nil {
-		return x.TweetURL("i/web", id)
-	}
-	if ref, _, err := x.ParseUserRef(s, false); err == nil {
-		return x.UserURL(ref)
+	if kind, id, err := x.Classify(s); err == nil {
+		if u, err := x.Locate(kind, id); err == nil {
+			return u
+		}
 	}
 	return s
 }

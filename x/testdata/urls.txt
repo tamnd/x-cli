@@ -1,0 +1,100 @@
+# The classification corpus (spec 3003 doc 04 section 1.1).
+#
+# One case per line: input, kind, id, separated by tabs. Every input here is a
+# shape a person can actually copy out of a browser or paste from a chat client.
+# The test expands each x.com line across twitter.com, www.x.com,
+# mobile.twitter.com and nitter.net, which all render the same graph and have to
+# normalise to the same node, so the corpus this exercises is a few hundred cases
+# rather than the hundred below.
+
+# bare forms
+20	tweet	20
+1833951636005552366	tweet	1833951636005552366
+jack	user	jack
+NASA	user	nasa
+@jack	user	jack
+@NASA	user	nasa
+#golang	hashtag	golang
+#GoLang	hashtag	golang
+$TSLA	cashtag	tsla
+$tsla	cashtag	tsla
+
+# profiles
+https://x.com/jack	user	jack
+https://x.com/NASA	user	nasa
+https://x.com/jack/	user	jack
+https://x.com/jack/with_replies	user	jack
+https://x.com/jack/media	user	jack
+https://x.com/jack/likes	user	jack
+https://x.com/jack/followers	user	jack
+https://x.com/jack/following	user	jack
+https://x.com/jack/photo	user	jack
+https://x.com/jack/header_photo	user	jack
+https://x.com/jack?ref_src=twsrc%5Etfw	user	jack
+
+# tweets
+https://x.com/jack/status/20	tweet	20
+https://x.com/jack/status/20/	tweet	20
+https://x.com/jack/status/20/photo/1	tweet	20
+https://x.com/jack/status/20/photo/4	tweet	20
+https://x.com/jack/status/20/video/1	tweet	20
+https://x.com/jack/status/20/likes	tweet	20
+https://x.com/jack/status/20/retweets	tweet	20
+https://x.com/jack/status/20/quotes	tweet	20
+https://x.com/jack/status/20/analytics	tweet	20
+https://x.com/jack/statuses/20	tweet	20
+https://x.com/i/status/20	tweet	20
+https://x.com/i/web/status/20	tweet	20
+https://x.com/jack/status/20?s=20	tweet	20
+https://x.com/jack/status/20?s=46&t=abcDEF	tweet	20
+https://x.com/NASA/status/1833951636005552366	tweet	1833951636005552366
+
+# search and tags
+https://x.com/hashtag/golang	hashtag	golang
+https://x.com/hashtag/GoLang?src=hashtag_click	hashtag	golang
+https://x.com/search?q=golang	search	golang
+https://x.com/search?q=golang&src=typed_query	search	golang
+https://x.com/search?q=%23golang	hashtag	golang
+https://x.com/search?q=%24TSLA	cashtag	tsla
+https://x.com/search?q=from%3Ajack+since%3A2024-01-01	search	from:jack since:2024-01-01
+
+# the /i routes
+https://x.com/i/lists/1418136314401153025	list	1418136314401153025
+https://x.com/i/spaces/1YpKkZWmvvvGj	space	1YpKkZWmvvvGj
+https://x.com/i/spaces/1YpKkZWmvvvGj/peek	space	1YpKkZWmvvvGj
+https://x.com/i/communities/1493446837214187523	community	1493446837214187523
+https://x.com/i/broadcasts/1zqKVvvvvvvvB	broadcast	1zqKVvvvvvvvB
+
+# media CDN
+https://pbs.twimg.com/media/HORBhKkWIAAFjOh.jpg	media	HORBhKkWIAAFjOh
+https://pbs.twimg.com/media/HORBhKkWIAAFjOh?format=jpg&name=large	media	HORBhKkWIAAFjOh
+https://pbs.twimg.com/media/HORBhKkWIAAFjOh.jpg:large	media	HORBhKkWIAAFjOh
+https://video.twimg.com/ext_tw_video/123/pu/vid/1280x720/x.mp4	media	123
+https://pbs.twimg.com/profile_images/1234567890/avatar_400x400.jpg	media	avatar_400x400
+
+# links
+https://t.co/abc123	link	https/t.co/abc123
+https://example.com/a	link	https/example.com/a
+http://example.com/a	link	http/example.com/a
+https://example.com/a?utm_source=x	link	https/example.com/a
+https://en.wikipedia.org/wiki/Twitter	link	https/en.wikipedia.org/wiki/Twitter
+https://x.com/home	link	https/x.com/home
+https://x.com/settings/account	link	https/x.com/settings/account
+
+# x:// addresses classify back to themselves
+x://tweet/20	tweet	20
+x://user/jack	user	jack
+x://conversation/1833951636005552366	conversation	1833951636005552366
+x://media/3_2080776588996563188	media	3_2080776588996563188
+x://poll/2081011830927806892	poll	2081011830927806892
+x://card/2081011830927806892	card	2081011830927806892
+x://hashtag/golang	hashtag	golang
+x://cashtag/tsla	cashtag	tsla
+x://link/https/example.com/a	link	https/example.com/a
+x://list/1418136314401153025	list	1418136314401153025
+x://space/1YpKkZWmvvvGj	space	1YpKkZWmvvvGj
+x://broadcast/1zqKVvvvvvvvB	broadcast	1zqKVvvvvvvvB
+x://trend/1/golang	trend	1/golang
+x://place/23424977	place	23424977
+x://note/2079993592798478689	note	2079993592798478689
+x://community/1493446837214187523	community	1493446837214187523

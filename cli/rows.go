@@ -109,11 +109,21 @@ func bucketRow(b x.Bucket) Row {
 
 func itoa(n int) string { return strconv.Itoa(n) }
 
+// yn is for a table column, where a blank cell is the readable spelling of no.
 func yn(b bool) string {
 	if b {
 		return "yes"
 	}
 	return ""
+}
+
+// yesno is for a key and value listing, where a blank value reads as missing
+// data rather than as an answer. `x auth status` says no out loud.
+func yesno(b bool) string {
+	if b {
+		return "yes"
+	}
+	return "no"
 }
 
 func oneline(s string) string {

@@ -3,7 +3,6 @@ package x
 import (
 	"context"
 	"errors"
-	"path/filepath"
 	"strings"
 
 	"github.com/tamnd/any-cli/kit"
@@ -74,16 +73,10 @@ func (Domain) Register(app *kit.App) {
 // data dir and environment the standalone binary uses so a lent session (the
 // user's own cookies) and the page cache are shared.
 func newEngine(_ context.Context, cfg kit.Config) (any, error) {
-	xcfg := DefaultConfig()
-	xcfg.FromEnv()
-	if cfg.DataDir != "" {
-		xcfg.DataDir = cfg.DataDir
-		xcfg.CacheDir = filepath.Join(cfg.DataDir, "cache")
-	}
-	if cfg.NoCache {
-		xcfg.NoCache = true
-	}
-	return NewEngine(xcfg), nil
+	o := NoOverrides()
+	o.DataDir = cfg.DataDir
+	o.NoCache = cfg.NoCache
+	return NewEngine(Resolve(o)), nil
 }
 
 // --- inputs ---

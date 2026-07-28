@@ -32,15 +32,19 @@ type rateLimit struct {
 	remaining int
 	reset     time.Time
 	limit     int
+	seen      time.Time
 }
 
 // NewClient builds a Client from a config.
 func NewClient(cfg Config) *Client {
 	return &Client{
-		cfg:    cfg,
-		hc:     &http.Client{Timeout: cfg.Timeout},
-		cache:  NewCache(cfg.CacheDir, !cfg.NoCache),
-		limits: map[string]rateLimit{},
+		cfg:   cfg,
+		hc:    &http.Client{Timeout: cfg.Timeout},
+		cache: NewCache(cfg.Paths.Cache, !cfg.NoCache),
+		// The buckets the last run was told about. A fresh process that knows
+		// nothing finds out the window is empty by walking into a 429, which
+		// costs a request and teaches X that we do that.
+		limits: cfg.Paths.loadBuckets(),
 	}
 }
 
@@ -73,6 +77,12 @@ func (c *Client) throttle(ctx context.Context, endpoint string) error {
 	}
 	// Pre-emptive per-endpoint backoff: if we know we are nearly out and the
 	// window has not reset, wait for the reset instead of provoking a 429.
+	if rl, ok := c.limits[endpoint]; ok && rl.remaining <= 0 && time.Now().Before(rl.reset) {
+		// Empty is empty. Spending the last request to be told so is the one
+		// call we can be sure will fail.
+		c.mu.Unlock()
+		return rateLimited(endpoint, rl.reset)
+	}
 	if rl, ok := c.limits[endpoint]; ok && rl.remaining <= 2 && time.Now().Before(rl.reset) {
 		cool := time.Until(rl.reset)
 		if cool > maxWait {
@@ -111,9 +121,15 @@ func (c *Client) noteRateLimit(endpoint string, h http.Header) {
 		}
 	}
 	rl.limit, _ = strconv.Atoi(h.Get("x-rate-limit-limit"))
+	rl.seen = time.Now()
 	c.mu.Lock()
 	c.limits[endpoint] = rl
+	snapshot := make(map[string]rateLimit, len(c.limits))
+	for k, v := range c.limits {
+		snapshot[k] = v
+	}
 	c.mu.Unlock()
+	c.cfg.Paths.saveBuckets(snapshot)
 }
 
 // Req is one HTTP request to make through the shared policy.
@@ -169,6 +185,11 @@ func (c *Client) Do(ctx context.Context, r Req) ([]byte, error) {
 	if he, ok := lastErr.(*HTTPError); ok && he.Status == 429 {
 		return nil, c.limitErr(r.Endpoint, lastErr)
 	}
+	// A transport failure gets its own exit code, because nothing about the
+	// request was wrong and the answer is to try again rather than to change it.
+	if ne := AsNetwork(lastErr); ne != nil {
+		return nil, ne
+	}
 	return nil, lastErr
 }
 
@@ -190,7 +211,10 @@ func rateLimited(endpoint string, reset time.Time) error {
 		msg += "; the window resets at " + reset.Local().Format("15:04:05") +
 			" (in " + time.Until(reset).Truncate(time.Second).String() + ")"
 	}
-	return &RateLimitedError{Msg: msg + "; slow down with --rate, or try again then"}
+	return &RateLimitedError{
+		Msg:      msg + "; slow down with --rate, or try again then",
+		Endpoint: endpoint,
+	}
 }
 
 func (c *Client) do1(ctx context.Context, r Req) ([]byte, bool, error) {
