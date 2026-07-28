@@ -116,3 +116,37 @@ func TestRateLimitFailureCarriesTheSurface(t *testing.T) {
 		t.Errorf("surface = %q, want the endpoint", f.Surface)
 	}
 }
+
+// A 404 is the record not existing, not an unclassified failure. Before
+// asNotFound existed, `x tweet <bad id>` came back with exit code 1 and a page
+// of X's HTML as the reason, because the tombstone check only catches the case
+// where X answers 200 with {}.
+func TestAsNotFoundClassifies404(t *testing.T) {
+	body := "<!DOCTYPE html><html lang=\"en\" class=\"dog\">"
+	got := asNotFound(&HTTPError{Status: 404, Body: body, URL: "https://cdn.syndication.twimg.com/tweet-result"}, "tweet", "999")
+	if got == nil {
+		t.Fatal("a 404 should be a not-found error")
+	}
+	var nf *NotFoundError
+	if !errors.As(got, &nf) || nf.Kind != "tweet" || nf.Ref != "999" {
+		t.Fatalf("got %v, want a tweet/999 not-found", got)
+	}
+	if f := FailureOf(got, "999", 0); f.Code != 6 {
+		t.Errorf("failure code = %d, want 6", f.Code)
+	}
+	if strings.Contains(got.Error(), "DOCTYPE") {
+		t.Error("the reason should describe the tweet, not hand back X's error page")
+	}
+	// Everything else stays alone, so a 403 does not get to claim the id is
+	// missing when the real answer is that the account is protected.
+	for _, err := range []error{
+		&HTTPError{Status: 403, URL: "https://x.com"},
+		&HTTPError{Status: 500, URL: "https://x.com"},
+		&NetworkError{Msg: "cannot resolve x.com"},
+		errors.New("something else"),
+	} {
+		if got := asNotFound(err, "tweet", "999"); got != nil {
+			t.Errorf("asNotFound(%v) = %v, want nil", err, got)
+		}
+	}
+}

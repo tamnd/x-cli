@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"net"
+	"net/http"
 	"net/url"
 )
 
@@ -56,6 +57,19 @@ func ErrNeedAuth(msg string) error { return &NeedAuthError{Msg: msg, Tier: 1} }
 
 // ErrNeedUser builds a need-auth error that only a session unlocks.
 func ErrNeedUser(msg string) error { return &NeedAuthError{Msg: msg, Tier: 2, User: true} }
+
+// asNotFound turns a 404 into the not-found error, and returns nil for anything
+// else. Every surface that addresses a record by id needs this: the tombstone
+// check further down only catches the case where X answers 200 with {}, and for
+// an id that never existed at all X answers 404 with a page of HTML. Without
+// this the caller gets an unclassified error carrying that HTML as its reason.
+func asNotFound(err error, kind, ref string) error {
+	var he *HTTPError
+	if errors.As(err, &he) && he.Status == http.StatusNotFound {
+		return &NotFoundError{Kind: kind, Ref: ref}
+	}
+	return nil
+}
 
 // RateLimitedError marks an exhausted upstream after retries (exit code 5).
 type RateLimitedError struct {

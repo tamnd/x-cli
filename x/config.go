@@ -238,3 +238,27 @@ func configDir() string {
 // ConfigPath returns the default config file path, for a caller with no
 // resolved config in hand.
 func ConfigPath() string { return DefaultPaths().File() }
+
+// TierNum is the highest tier this run is allowed to use, which is the tier a
+// failure gets reported against. A forced --tier wins, then a session, then the
+// opt-in guest switch, and 0 otherwise.
+//
+// It is the tier that was tried, which is not the tier that would have worked:
+// Failure keeps those apart, and need_tier is the one a reader acts on.
+func (c Config) TierNum() int {
+	switch c.Tier {
+	case "session":
+		return 2
+	case "guest":
+		return 1
+	case "syndication", "web":
+		return 0
+	}
+	switch {
+	case c.HasSession():
+		return 2
+	case c.AllowGuest:
+		return 1
+	}
+	return 0
+}

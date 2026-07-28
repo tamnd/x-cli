@@ -2,6 +2,7 @@ package cli
 
 import (
 	"context"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"os"
@@ -47,6 +48,10 @@ type App struct {
 	limit  int
 	quiet  bool
 	dryRun bool
+	// target is the thing this run was asked for, set once a command has parsed
+	// its argument. The failure record names it, so a caller reading a stream of
+	// them can tell which request went wrong.
+	target string
 }
 
 // appFromCtx assembles the run's App from the resolved kit State. It folds the
@@ -124,16 +129,8 @@ func (a *App) out() (*render.Renderer, error) {
 		return render.New(render.Options{Format: render.List, Writer: os.Stdout})
 	}
 	o := a.st.Output
-	format := render.Format(o.Format)
-	if o.Template == "" && (format == "" || format == render.Auto) {
-		if o.IsTTY {
-			format = render.List
-		} else {
-			format = render.JSONL
-		}
-	}
 	return render.New(render.Options{
-		Format:   format,
+		Format:   a.format(),
 		IsTTY:    o.IsTTY,
 		Color:    o.Color,
 		Fields:   o.Fields,
@@ -143,6 +140,64 @@ func (a *App) out() (*render.Renderer, error) {
 		Writer:   os.Stdout,
 	})
 }
+
+// format is the output format this run resolved to. It differs from kit's
+// default in one place: with no -o, x prints the readable list view on a
+// terminal and jsonl when piped, so scripts stay machine-readable.
+func (a *App) format() render.Format {
+	if a.st == nil {
+		return render.List
+	}
+	o := a.st.Output
+	format := render.Format(o.Format)
+	if o.Template == "" && (format == "" || format == render.Auto) {
+		if o.IsTTY {
+			return render.List
+		}
+		return render.JSONL
+	}
+	return format
+}
+
+// fail is the error path of a read: it writes the failure record from doc 03
+// section 11 to stdout, then hands the error to mapErr for the exit code.
+//
+// Only on jsonl, which is deliberate rather than a shortcut. jsonl is the format
+// a script gets when it pipes x, it is the one the spec names when it says a
+// caller needs to see what did not work without parsing stderr, and appending
+// one more line to it is always valid. json cannot take the record after its
+// array has closed, csv cannot take a row with different columns, and the human
+// formats already print a better message on stderr.
+//
+// The error still comes back mapped, so the exit code and the stderr message are
+// unchanged. The record is additional, never a replacement.
+func (a *App) fail(target string, err error) error {
+	if err == nil {
+		return nil
+	}
+	if a.format() == render.JSONL {
+		if b, e := json.Marshal(a.failure(target, err)); e == nil {
+			fmt.Fprintln(os.Stdout, string(b))
+		}
+	}
+	return mapErr(err)
+}
+
+// failure builds the record. errNoResults is a cli sentinel rather than an x
+// error, so x.FailureOf would call it unclassified; it gets code 3 here to match
+// the exit code the same error produces.
+func (a *App) failure(target string, err error) x.Failure {
+	if errors.Is(err, errNoResults) {
+		return x.Failure{Kind: "error", Target: target, Code: 3,
+			Reason: "no results", Tier: a.cfg.TierNum()}
+	}
+	return x.FailureOf(err, target, a.cfg.TierNum())
+}
+
+// done is the tail of every read: nil passes through, and anything else becomes
+// a failure record plus the mapped exit code, against whatever the command was
+// asked for.
+func (a *App) done(err error) error { return a.fail(a.target, err) }
 
 // StorePath is where the typed local store lives for this run, under the data
 // dir. The crawl, queue, db, and export commands read and write this rich
