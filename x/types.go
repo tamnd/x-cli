@@ -175,15 +175,36 @@ type PollOption struct {
 	Votes    int    `json:"votes"`
 }
 
-// Place is a geotag.
+// Place is somewhere on the map, and X publishes it in two shapes that share a
+// vocabulary and almost nothing else. A tweet's geotag has a full name and one
+// of X's own hex place ids; an entry in the trends directory has a woeid, a
+// parent, and no full name at all. They are one kind because X calls them both a
+// place and a caller asking for `x://place/23424977` should not have to know
+// which door it came through. Every field is optional, so a record shows what
+// its source published and stays quiet about the rest.
 type Place struct {
 	Meta
 
-	FullName    string `json:"full_name"`
-	Name        string `json:"name,omitempty"`
+	FullName string `json:"full_name,omitempty"`
+	Name     string `json:"name,omitempty"`
+
+	// WOEID is the Where On Earth ID, from the trends directory. Yahoo! ran the
+	// scheme and shut it down in 2019; X kept the numbers, so this is now an
+	// identifier with no authority behind it that nonetheless still works.
+	WOEID int64 `json:"woeid,omitempty"`
+
 	Country     string `json:"country,omitempty"`
 	CountryCode string `json:"country_code,omitempty"`
 	PlaceType   string `json:"place_type,omitempty"`
+
+	// PlaceTypeCode is the numeric form of PlaceType. It is worth keeping
+	// alongside the name because the directory sends two different codes, 9 and
+	// 22, both named "Unknown", and only the code tells them apart.
+	PlaceTypeCode int `json:"place_type_code,omitempty"`
+
+	// ParentID is the woeid this place sits inside, so a town points at its
+	// country. Worldwide has 0, which is the top.
+	ParentID int64 `json:"parent_id,omitempty"`
 }
 
 // List is an X List.
@@ -217,23 +238,42 @@ type Space struct {
 	Topics         []string  `json:"topics,omitempty"`
 }
 
-// Trend is one trending topic.
+// Trend is one trending topic in one place at one moment. All three parts
+// matter: the same name trending in Tokyo and in London is two different facts,
+// and either of them a week ago is a third.
 type Trend struct {
-	Name        string `json:"name"`
-	Query       string `json:"query,omitempty"`
-	TweetVolume int    `json:"tweet_volume,omitempty"`
-	URL         string `json:"url,omitempty"`
-	Location    string `json:"location,omitempty"`
-}
+	Meta
 
-// TrendLocation is a place trends can be asked for (a Yahoo! WOEID).
-type TrendLocation struct {
-	WOEID       int    `json:"woeid"`
-	Name        string `json:"name"`
-	Country     string `json:"country,omitempty"`
-	CountryCode string `json:"country_code,omitempty"`
-	PlaceType   string `json:"place_type,omitempty"`
-	ParentID    int    `json:"parentid,omitempty"`
+	Name string `json:"name"`
+
+	// Query is the search X wants run for this trend, percent-encoded, which is
+	// not always the name: a multi-word trend arrives quoted.
+	Query     string `json:"query,omitempty"`
+	SearchURL string `json:"search_url,omitempty"`
+
+	// Volume is how many posts X counted, and is absent rather than zero when X
+	// did not say. That distinction is the whole reason it is a pointer, and it
+	// earns its keep: tweet_volume came back null on all 294 trends across six
+	// places on the day this was written, so a zero here would be the record
+	// inventing a measurement for every trend on X.
+	Volume *int `json:"tweet_volume,omitempty"`
+
+	// Promoted says X sold this slot. Null on every capture so far, which is
+	// what an unauthenticated read would be expected to see.
+	Promoted bool `json:"promoted,omitempty"`
+
+	WOEID     int64  `json:"woeid"`
+	PlaceName string `json:"place_name,omitempty"`
+
+	// AsOf is when X computed the list, not when it was read. The two differ by
+	// however long the answer sat in a cache, X's or ours.
+	AsOf time.Time `json:"as_of,omitzero"`
+
+	// Rank is the position in the list X returned, counting from 1. It is not in
+	// the payload; the order is, and this is the order written down, because a
+	// stored trend with no rank only says that a thing was trending somewhere in
+	// a list of fifty.
+	Rank int `json:"rank"`
 }
 
 // Bucket is one time-bucketed tweet count (from x counts).

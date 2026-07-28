@@ -106,6 +106,30 @@ x mentions nasa               # tweets mentioning a user
 Both are search-backed: x runs a query under the hood, so they need a tier that
 can search, which means `--guest` or a session.
 
+## Trends and places
+
+```bash
+x trends                      # worldwide
+x trends tokyo                # by name
+x trends 23424977             # or by woeid, which is the same thing
+x places japan                # find a woeid
+x places --country US --type town
+```
+
+X keys its trend lists by woeid, the Yahoo! Where On Earth id, an identifier
+scheme whose owner shut down in 2019. X kept the numbers, so `x places` is how
+you find the one you want; the directory is 467 entries and x caches it for a
+week.
+
+A trend's id is its woeid and its name, because the same word trending in Tokyo
+and in London is two different facts. The `volume` column is empty on every
+capture taken: X sends `tweet_volume` null now, everywhere, and an empty cell is
+the honest rendering of a number nobody gave you.
+
+Both commands are Tier 0. They go to a v1.1 route that still answers on the
+public web bearer, and attaching a guest token to it is worse than useless: it
+cuts the budget from 180 requests per fifteen minutes to 15.
+
 ## Which tier each needs
 
 | Command | Tier 0 | Guest | Session |
@@ -116,6 +140,7 @@ can search, which means `--guest` or a session.
 | `media` | no | denied by X | yes |
 | `thread` | no | denied by X | yes |
 | `quotes`, `mentions` | no | yes | yes |
+| `trends`, `places` | yes | same read | same read |
 
 When a command needs a tier you have not enabled, x exits with code `4`
 (needs-auth) and names the tier. See

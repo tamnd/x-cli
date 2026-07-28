@@ -38,6 +38,8 @@ func TestNoUnmodeledKeys(t *testing.T) {
 			stop: []string{"core.user_results.result", "quoted_status_result.result",
 				"legacy.retweeted_status_result.result"}},
 		{fixture: "s4_usertweets_nasa.json.gz", at: userResults, into: gqlUserResult{}},
+		{fixture: "s5_trends_us.json.gz", at: elements, into: trendsResp{}},
+		{fixture: "s5_places.json.gz", at: elements, into: wirePlace{}},
 	} {
 		raw := []byte(capture(t, c.fixture))
 		objs := c.at(raw)
@@ -237,6 +239,17 @@ func sortStrings(s []string) []string {
 
 // whole is the fixture itself, for a surface that answers with one object.
 func whole(b []byte) []json.RawMessage { return []json.RawMessage{b} }
+
+// elements is each member of a top-level array, for the v1.1 routes, which
+// answer with one. trends/place.json wraps its single result in an array out of
+// REST-era habit and trends/available.json really is a list.
+func elements(b []byte) []json.RawMessage {
+	var out []json.RawMessage
+	if json.Unmarshal(b, &out) != nil {
+		return nil
+	}
+	return out
+}
 
 // tweetResults and userResults find every object in a response that a decoder
 // would be handed, by the same __typename test the decoders use. Walking rather

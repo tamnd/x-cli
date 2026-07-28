@@ -98,6 +98,29 @@ func pollOptionRow(p *x.Poll, o x.PollOption) Row {
 	}
 }
 
+// trendRow renders one trending topic. The volume column has been a column of
+// dashes on every capture taken, because X sends tweet_volume null; it stays
+// because a dash is the honest rendering of "X did not say" and dropping the
+// column would hide that X used to say.
+func trendRow(t *x.Trend) Row {
+	return Row{
+		Cols:  []string{"rank", "name", "volume", "place", "url"},
+		Vals:  []string{itoa(t.Rank), oneline(t.Name), count(t.Volume), t.PlaceName, t.URL},
+		Value: t,
+	}
+}
+
+// placeRow renders one entry of the woeid directory. The woeid comes first
+// because it is the thing the reader came for: they are going to paste it into
+// `x trends`.
+func placeRow(p *x.Place) Row {
+	return Row{
+		Cols:  []string{"woeid", "name", "country", "type"},
+		Vals:  []string{strconv.FormatInt(p.WOEID, 10), oneline(p.Name), p.Country, p.PlaceType},
+		Value: p,
+	}
+}
+
 func bucketRow(b x.Bucket) Row {
 	return Row{
 		Cols:  []string{"start", "end", "count"},

@@ -149,22 +149,17 @@ func (e *Engine) probeGuestGraphQL(ctx context.Context) Probe {
 	return p
 }
 
+// probeGuestV11 tests surface 5 the way the readers use it: the public web
+// bearer and no guest token. Attaching one is what the name of this surface used
+// to say, and it is what cuts the budget from 180 requests per fifteen minutes
+// to 15, so the probe would be measuring a route x deliberately does not take.
 func (e *Engine) probeGuestV11(ctx context.Context) Probe {
-	p := Probe{Surface: 5, Name: "guest v1.1"}
-	if !e.canGraphQL() {
-		p.Status, p.Note = probeSkip, "needs tier 1: pass --guest"
-		return p
-	}
-	h, err := e.s.authHeaders(ctx, e.c)
-	if err != nil {
-		p.Status, p.Err = probeFail, err.Error()
-		return p
-	}
+	p := Probe{Surface: 5, Name: "app-only v1.1"}
 	start := time.Now()
 	b, err := e.c.Do(ctx, Req{
-		URL:      "https://api.x.com/1.1/trends/available.json",
+		URL:      trendsAvailableURL,
 		Endpoint: "v11.trends.available",
-		Header:   h,
+		Header:   appHeaders(),
 		CacheTTL: ttlPlaces,
 	})
 	p.Millis = msSince(start)

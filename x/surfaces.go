@@ -29,8 +29,8 @@ var Surfaces = []Surface{
 		"the rendered blockquote, and the author handle"},
 	{4, "guest graphql", "x.com/i/api/graphql", 1, "50 to 500 per operation", "15 min", true, "varies",
 		"four operations survive the allowlist"},
-	{5, "guest v1.1", "api.x.com/1.1", 1, "15", "15 min", true, "5m to 7d",
-		"trends and the place directory"},
+	{5, "app-only v1.1", "api.x.com/1.1", 0, "180 place, 75 directory", "15 min", true, "5m to 7d",
+		"trends and the place directory; a guest token here cuts the budget to 15"},
 	{6, "media cdn", "pbs.twimg.com, video.twimg.com", 0, "none observed", "", false, "forever",
 		"the bytes; the URL carries a content hash"},
 	{7, "session graphql", "x.com/i/api/graphql", 2, "50 to 500 per operation", "15 min", true, "varies",
@@ -50,8 +50,8 @@ type Tier struct {
 // time from the config, because it is a statement about this machine rather than
 // about X.
 var Tiers = []Tier{
-	{0, "none", "tweet, user, timeline sample, list tweets, replies, media, oembed, bookmark and view counts"},
-	{1, "guest token", "adds source, the paged archive, trends, places"},
+	{0, "none", "tweet, user, timeline sample, list tweets, replies, media, oembed, bookmark and view counts, trends, places"},
+	{1, "guest token", "adds source and the paged archive"},
 	{2, "session cookies", "adds search, whole threads, followers, likers, lists, spaces, your bookmarks"},
 }
 
@@ -85,8 +85,8 @@ var Routes = []Route{
 	{"media urls", "surface 1 mediaDetails, or surface 8 og:image at original size",
 		"surface 4 extended_entities", "same"},
 	{"a list's tweets", "surface 2 /srv/list/{id}", "surface 2, the same read", "surface 7"},
-	{"trends", "", "surface 5", "surface 5"},
-	{"places", "", "surface 5", "surface 5"},
+	{"trends", "surface 5, on the public bearer alone", "the same read, and a guest token would only shrink the budget", "the same read"},
+	{"places", "surface 5, the whole woeid directory", "the same read", "the same read"},
 	{"replies to a tweet", "surface 8, three of them, not paged", "the same three",
 		"surface 7, the whole tree, paged"},
 	{"search", "", "", "surface 7"},
