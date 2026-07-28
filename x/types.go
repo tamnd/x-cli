@@ -13,14 +13,14 @@ import "time"
 // Tweet (a Post) is the central object. IDs are always strings: an X snowflake
 // does not fit in a JSON number without silent corruption in jq/JavaScript.
 type Tweet struct {
-	ID             string    `json:"id" kit:"id"`
-	URL            string    `json:"url"`
+	Meta
+
 	Text           string    `json:"text" kit:"body"`
-	CreatedAt      time.Time `json:"created_at"`
+	CreatedAt      time.Time `json:"created_at,omitzero"`
 	Lang           string    `json:"lang,omitempty"`
 	Author         *User     `json:"author,omitempty"`
-	ConversationID string    `json:"conversation_id,omitempty" kit:"link,kind=x/status,optional"`
-	ReplyTo        string    `json:"reply_to,omitempty" kit:"link,kind=x/status,optional"`
+	ConversationID string    `json:"conversation_id,omitempty" kit:"link,kind=x/tweet,optional"`
+	ReplyTo        string    `json:"reply_to,omitempty" kit:"link,kind=x/tweet,optional"`
 	ReplyToUser    string    `json:"reply_to_user,omitempty" kit:"link,kind=x/user,optional"`
 	Quoted         *Tweet    `json:"quoted,omitempty"`
 	Retweeted      *Tweet    `json:"retweeted,omitempty"`
@@ -36,18 +36,42 @@ type Tweet struct {
 	IsRetweet      bool      `json:"is_retweet,omitempty"`
 	IsQuote        bool      `json:"is_quote,omitempty"`
 	IsReply        bool      `json:"is_reply,omitempty"`
-	Provenance     string    `json:"provenance,omitempty"`
 }
 
-// Metrics are the engagement counts on a tweet. The public ones are present on
-// most tiers; impressions/bookmarks may be zero where a tier does not expose them.
+// Metrics are the engagement counts on a tweet.
+//
+// Every one is a pointer, because the surfaces disagree about which counters
+// they publish and a counter nobody published is not a counter of zero. The
+// syndication endpoint has never carried a bookmark count; a tweet nobody has
+// bookmarked has none. Written as plain ints both come out as 0, and a graph
+// built on that says the same false thing twice.
 type Metrics struct {
-	Replies     int `json:"replies"`
-	Retweets    int `json:"retweets"`
-	Likes       int `json:"likes"`
-	Quotes      int `json:"quotes"`
-	Bookmarks   int `json:"bookmarks"`
-	Impressions int `json:"impressions"`
+	Replies     *int `json:"replies,omitempty"`
+	Retweets    *int `json:"retweets,omitempty"`
+	Likes       *int `json:"likes,omitempty"`
+	Quotes      *int `json:"quotes,omitempty"`
+	Bookmarks   *int `json:"bookmarks,omitempty"`
+	Impressions *int `json:"impressions,omitempty"`
+}
+
+// Num wraps a count a surface published, so it can be told from one it did not.
+func Num(n int) *int { return &n }
+
+// Val reads a count, treating an unpublished one as zero. It is for arithmetic
+// and for a table cell, never for deciding whether the count is known.
+func Val(p *int) int {
+	if p == nil {
+		return 0
+	}
+	return *p
+}
+
+// setNum fills a counter from a surface that published one, and leaves a
+// counter another surface already filled alone.
+func setNum(dst **int, n int, ok bool) {
+	if ok && *dst == nil {
+		*dst = Num(n)
+	}
 }
 
 // Entities are the parsed surface features of a tweet or a bio.
@@ -60,33 +84,48 @@ type Entities struct {
 
 // User is an account/profile.
 type User struct {
-	ID            string      `json:"id" kit:"id"`
-	Username      string      `json:"username"`
+	Meta
+
+	// Username is the handle in the casing its owner chose. Meta.ID is the same
+	// handle lowercased, because X treats @NASA and @nasa as one account and a
+	// graph that keeps both is a graph with two nodes for one thing.
+	Username string `json:"username"`
+
+	// RestID is the numeric account id. Both are needed and neither replaces the
+	// other: the handle addresses the account, the numeric id is what UserTweets
+	// takes, and a handle can be given up and taken by someone else.
+	RestID string `json:"rest_id,omitempty"`
+
 	Name          string      `json:"name"`
-	CreatedAt     time.Time   `json:"created_at,omitempty"`
+	CreatedAt     time.Time   `json:"created_at,omitzero"`
 	Description   string      `json:"description,omitempty" kit:"body"`
 	Location      string      `json:"location,omitempty"`
-	URL           string      `json:"url,omitempty"`
+	Website       string      `json:"website,omitempty"`
 	Verified      bool        `json:"verified,omitempty"`
 	VerifiedType  string      `json:"verified_type,omitempty"`
 	Protected     bool        `json:"protected,omitempty"`
 	Metrics       UserMetrics `json:"metrics"`
 	ProfileImage  string      `json:"profile_image,omitempty"`
 	ProfileBanner string      `json:"profile_banner,omitempty"`
-	PinnedTweet   string      `json:"pinned_tweet,omitempty" kit:"link,kind=x/status,optional"`
+	PinnedTweet   string      `json:"pinned_tweet,omitempty" kit:"link,kind=x/tweet,optional"`
 	Entities      Entities    `json:"entities,omitempty"`
-	Kind          string      `json:"kind,omitempty"` // follower|following|liker|retweeter|... when in a list
-	Provenance    string      `json:"provenance,omitempty"`
+
+	// Role is why this user is in the answer: follower, following, liker,
+	// retweeter, member. It is a property of the listing, not of the account,
+	// which is why it is empty when the user was asked for directly.
+	Role string `json:"role,omitempty"`
 }
 
-// UserMetrics are the public counters on a profile.
+// UserMetrics are the public counters on a profile, pointers for the same
+// reason: the profile page states followers, following and tweets, and says
+// nothing at all about listed, likes or media.
 type UserMetrics struct {
-	Followers int `json:"followers"`
-	Following int `json:"following"`
-	Tweets    int `json:"tweets"`
-	Listed    int `json:"listed"`
-	Likes     int `json:"likes,omitempty"`
-	Media     int `json:"media,omitempty"`
+	Followers *int `json:"followers,omitempty"`
+	Following *int `json:"following,omitempty"`
+	Tweets    *int `json:"tweets,omitempty"`
+	Listed    *int `json:"listed,omitempty"`
+	Likes     *int `json:"likes,omitempty"`
+	Media     *int `json:"media,omitempty"`
 }
 
 // Media is one attached photo, video, or gif.
@@ -115,7 +154,7 @@ type Poll struct {
 	ID           string       `json:"id,omitempty"`
 	Options      []PollOption `json:"options"`
 	DurationMin  int          `json:"duration_minutes,omitempty"`
-	EndDateTime  time.Time    `json:"end_datetime,omitempty"`
+	EndDateTime  time.Time    `json:"end_datetime,omitzero"`
 	VotingStatus string       `json:"voting_status,omitempty"`
 }
 
@@ -128,7 +167,8 @@ type PollOption struct {
 
 // Place is a geotag.
 type Place struct {
-	ID          string `json:"id"`
+	Meta
+
 	FullName    string `json:"full_name"`
 	Name        string `json:"name,omitempty"`
 	Country     string `json:"country,omitempty"`
@@ -138,28 +178,30 @@ type Place struct {
 
 // List is an X List.
 type List struct {
-	ID          string    `json:"id"`
+	Meta
+
 	Name        string    `json:"name"`
 	Description string    `json:"description,omitempty"`
 	Owner       *User     `json:"owner,omitempty"`
 	Members     int       `json:"member_count"`
 	Followers   int       `json:"follower_count"`
 	Private     bool      `json:"private,omitempty"`
-	CreatedAt   time.Time `json:"created_at,omitempty"`
+	CreatedAt   time.Time `json:"created_at,omitzero"`
 }
 
 // Space is an audio Space.
 type Space struct {
-	ID             string    `json:"id"`
+	Meta
+
 	State          string    `json:"state"` // live|scheduled|ended
 	Title          string    `json:"title,omitempty"`
 	HostIDs        []string  `json:"host_ids,omitempty"`
 	SpeakerIDs     []string  `json:"speaker_ids,omitempty"`
 	Participants   int       `json:"participant_count,omitempty"`
 	Subscribers    int       `json:"subscriber_count,omitempty"`
-	StartedAt      time.Time `json:"started_at,omitempty"`
-	ScheduledStart time.Time `json:"scheduled_start,omitempty"`
-	EndedAt        time.Time `json:"ended_at,omitempty"`
+	StartedAt      time.Time `json:"started_at,omitzero"`
+	ScheduledStart time.Time `json:"scheduled_start,omitzero"`
+	EndedAt        time.Time `json:"ended_at,omitzero"`
 	Lang           string    `json:"lang,omitempty"`
 	Ticketed       bool      `json:"is_ticketed,omitempty"`
 	Topics         []string  `json:"topics,omitempty"`

@@ -16,7 +16,9 @@ func TestTweetsByAuthorCaseInsensitive(t *testing.T) {
 	}
 	defer func() { _ = st.Close() }()
 
-	tw := &Tweet{ID: "1", Text: "hi", Author: &User{ID: "11", Username: "NASA"}}
+	tw := NewTweet("1")
+	tw.Text, tw.Author = "hi", NewUser("NASA")
+	tw.Author.RestID = "11"
 	if err := st.UpsertTweet(tw); err != nil {
 		t.Fatal(err)
 	}

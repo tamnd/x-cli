@@ -23,7 +23,7 @@ func tweetRow(t *x.Tweet) Row {
 		Cols: []string{"id", "created", "author", "likes", "rt", "replies", "text", "url"},
 		Vals: []string{
 			t.ID, created, author,
-			itoa(t.Metrics.Likes), itoa(t.Metrics.Retweets), itoa(t.Metrics.Replies),
+			count(t.Metrics.Likes), count(t.Metrics.Retweets), count(t.Metrics.Replies),
 			oneline(t.Text), t.URL,
 		},
 		Value: t,
@@ -34,12 +34,12 @@ func userRow(u *x.User) Row {
 	cols := []string{"username", "name", "followers", "following", "tweets", "verified", "url"}
 	vals := []string{
 		u.Username, oneline(u.Name),
-		itoa(u.Metrics.Followers), itoa(u.Metrics.Following), itoa(u.Metrics.Tweets),
+		count(u.Metrics.Followers), count(u.Metrics.Following), count(u.Metrics.Tweets),
 		yn(u.Verified), x.UserURL(u.Username),
 	}
-	if u.Kind != "" {
-		cols = append([]string{"kind"}, cols...)
-		vals = append([]string{u.Kind}, vals...)
+	if u.Role != "" {
+		cols = append([]string{"role"}, cols...)
+		vals = append([]string{u.Role}, vals...)
 	}
 	return Row{Cols: cols, Vals: vals, Value: u}
 }
@@ -108,6 +108,15 @@ func bucketRow(b x.Bucket) Row {
 }
 
 func itoa(n int) string { return strconv.Itoa(n) }
+
+// count is for a counter no surface published, which prints as an empty cell.
+// Printing 0 there would be the table stating a number nobody gave it.
+func count(p *int) string {
+	if p == nil {
+		return ""
+	}
+	return strconv.Itoa(*p)
+}
 
 // yn is for a table column, where a blank cell is the readable spelling of no.
 func yn(b bool) string {

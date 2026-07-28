@@ -25,10 +25,10 @@ func TestClassifyLocate(t *testing.T) {
 	d := x.Domain{}
 
 	typ, id, err := d.Classify("https://x.com/jack/status/20")
-	if err != nil || typ != "status" || id != "20" {
+	if err != nil || typ != "tweet" || id != "20" {
 		t.Fatalf("Classify(status) = %q/%q/%v", typ, id, err)
 	}
-	loc, err := d.Locate("status", "20")
+	loc, err := d.Locate("tweet", "20")
 	if err != nil || loc != x.TweetURL("", "20") {
 		t.Errorf("Locate(status) = %q/%v", loc, err)
 	}
@@ -56,14 +56,10 @@ func TestHostMintLinksResolve(t *testing.T) {
 		t.Fatal("x not mounted on host")
 	}
 
-	tw := &x.Tweet{
-		ID:             "1500",
-		ConversationID: "1490",
-		ReplyTo:        "1490",
-		ReplyToUser:    "12",
-	}
+	tw := x.NewTweet("1500")
+	tw.ConversationID, tw.ReplyTo, tw.ReplyToUser = "1490", "1490", "12"
 	minted, err := h.Mint(tw)
-	if err != nil || minted.String() != "x://status/1500" {
+	if err != nil || minted.String() != "x://tweet/1500" {
 		t.Errorf("Mint = %q/%v", minted.String(), err)
 	}
 
@@ -71,21 +67,22 @@ func TestHostMintLinksResolve(t *testing.T) {
 	for _, u := range h.Links(tw) {
 		got[u.String()] = true
 	}
-	for _, want := range []string{"x://status/1490", "x://user/12"} {
+	for _, want := range []string{"x://tweet/1490", "x://user/12"} {
 		if !got[want] {
 			t.Errorf("Links missing %q (got %v)", want, got)
 		}
 	}
 
-	usr := &x.User{ID: "12", Username: "jack", PinnedTweet: "1500"}
+	usr := x.NewUser("jack")
+	usr.RestID, usr.PinnedTweet = "12", "1500"
 	mu, err := h.Mint(usr)
-	if err != nil || mu.String() != "x://user/12" {
+	if err != nil || mu.String() != "x://user/jack" {
 		t.Errorf("Mint(user) = %q/%v", mu.String(), err)
 	}
 
 	// A bare numeric resolves to a tweet; a @handle URL to a user.
 	u, err := h.ResolveOn("x", "20")
-	if err != nil || u.String() != "x://status/20" {
+	if err != nil || u.String() != "x://tweet/20" {
 		t.Errorf("ResolveOn(bare) = %q/%v", u.String(), err)
 	}
 	u, err = h.Resolve("https://twitter.com/jack")

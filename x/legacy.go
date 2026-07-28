@@ -46,11 +46,11 @@ type legacyTweet struct {
 	Text                 string            `json:"text"`
 	CreatedAt            string            `json:"created_at"`
 	Lang                 string            `json:"lang"`
-	FavoriteCount        int               `json:"favorite_count"`
-	RetweetCount         int               `json:"retweet_count"`
-	ReplyCount           int               `json:"reply_count"`
-	QuoteCount           int               `json:"quote_count"`
-	BookmarkCount        int               `json:"bookmark_count"`
+	FavoriteCount        *int              `json:"favorite_count"`
+	RetweetCount         *int              `json:"retweet_count"`
+	ReplyCount           *int              `json:"reply_count"`
+	QuoteCount           *int              `json:"quote_count"`
+	BookmarkCount        *int              `json:"bookmark_count"`
 	ConversationIDStr    string            `json:"conversation_id_str"`
 	InReplyToStatusIDStr string            `json:"in_reply_to_status_id_str"`
 	InReplyToScreenName  string            `json:"in_reply_to_screen_name"`
@@ -115,12 +115,12 @@ type legacyUser struct {
 	URL             string         `json:"url"`
 	Verified        bool           `json:"verified"`
 	Protected       bool           `json:"protected"`
-	FollowersCount  int            `json:"followers_count"`
-	FriendsCount    int            `json:"friends_count"`
-	StatusesCount   int            `json:"statuses_count"`
-	ListedCount     int            `json:"listed_count"`
-	FavouritesCount int            `json:"favourites_count"`
-	MediaCount      int            `json:"media_count"`
+	FollowersCount  *int           `json:"followers_count"`
+	FriendsCount    *int           `json:"friends_count"`
+	StatusesCount   *int           `json:"statuses_count"`
+	ListedCount     *int           `json:"listed_count"`
+	FavouritesCount *int           `json:"favourites_count"`
+	MediaCount      *int           `json:"media_count"`
 	ProfileImage    string         `json:"profile_image_url_https"`
 	ProfileBanner   string         `json:"profile_banner_url"`
 	PinnedTweetIDs  []string       `json:"pinned_tweet_ids_str"`
@@ -142,8 +142,7 @@ func (lu *legacyUser) toUser(isBlueVerified bool) *User {
 		return nil
 	}
 	u := &User{
-		ID:            lu.IDStr,
-		Username:      lu.ScreenName,
+		RestID:        lu.IDStr,
 		Name:          lu.Name,
 		CreatedAt:     twitterTime(lu.CreatedAt),
 		Description:   lu.Description,
@@ -160,19 +159,21 @@ func (lu *legacyUser) toUser(isBlueVerified bool) *User {
 			Likes:     lu.FavouritesCount,
 			Media:     lu.MediaCount,
 		},
-		Provenance: "graphql",
 	}
+	u.setHandle(lu.ScreenName)
 	if isBlueVerified {
 		u.VerifiedType = "blue"
 	}
 	if len(lu.PinnedTweetIDs) > 0 {
 		u.PinnedTweet = lu.PinnedTweetIDs[0]
 	}
+	// The expanded destination if the payload carried it, the t.co if it did
+	// not. x never spends a redirect to find out which.
 	if lu.Entities != nil && len(lu.Entities.URL.URLs) > 0 {
-		u.URL = lu.Entities.URL.URLs[0].ExpandedURL
+		u.Website = lu.Entities.URL.URLs[0].ExpandedURL
 	}
-	if u.URL == "" {
-		u.URL = lu.URL
+	if u.Website == "" {
+		u.Website = lu.URL
 	}
 	return u
 }
@@ -183,7 +184,6 @@ func (lu *legacyUser) toUser(isBlueVerified bool) *User {
 func (lt *legacyTweet) toTweet(author *User, noteText string) *Tweet {
 	if author == nil && lt.User != nil {
 		author = lt.User.toUser(false)
-		author.Provenance = "syndication"
 	}
 	text := lt.FullText
 	if text == "" {
@@ -193,7 +193,6 @@ func (lt *legacyTweet) toTweet(author *User, noteText string) *Tweet {
 		text = noteText
 	}
 	t := &Tweet{
-		ID:             lt.IDStr,
 		Text:           text,
 		CreatedAt:      twitterTime(lt.CreatedAt),
 		Lang:           lt.Lang,
@@ -210,7 +209,6 @@ func (lt *legacyTweet) toTweet(author *User, noteText string) *Tweet {
 			Quotes:    lt.QuoteCount,
 			Bookmarks: lt.BookmarkCount,
 		},
-		Provenance: "graphql",
 	}
 	if lt.Source != "" {
 		t.Source = sourceName(lt.Source)
@@ -226,6 +224,7 @@ func (lt *legacyTweet) toTweet(author *User, noteText string) *Tweet {
 	} else {
 		t.URL = TweetURL("", lt.IDStr)
 	}
+	t.Identify(KindTweet, lt.IDStr)
 	for _, h := range lt.Entities.Hashtags {
 		t.Entities.Hashtags = append(t.Entities.Hashtags, h.Text)
 	}
