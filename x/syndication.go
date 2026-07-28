@@ -72,6 +72,9 @@ func TweetByID(ctx context.Context, c *Client, id string) (*Tweet, error) {
 // caller that wants it, and paying for the request twice to get it would be
 // silly.
 func fetchSynTweet(ctx context.Context, c *Client, id string) (*synTweet, string, error) {
+	if !possibleTweetID(id) {
+		return nil, "", &NotFoundError{Kind: "tweet", Ref: id, Why: notATweetID}
+	}
 	u := synTweetURL(id)
 	b, err := c.Do(ctx, Req{URL: u, Endpoint: "syndication.tweet", CacheTTL: tweetTTL(id)})
 	if err != nil {
@@ -486,10 +489,19 @@ func extractNextData(page []byte) (json.RawMessage, bool) {
 type NotFoundError struct {
 	Kind string
 	Ref  string
+	// Why replaces the default parenthetical. "deleted, suspended, or
+	// protected" is the right answer when X was asked and said no, and the
+	// wrong one when the id never could have named anything: a reader who
+	// mistyped an id should not be told the tweet used to be there.
+	Why string
 }
 
 func (e *NotFoundError) Error() string {
-	return fmt.Sprintf("%s not found: %s (deleted, suspended, or protected)", e.Kind, e.Ref)
+	why := e.Why
+	if why == "" {
+		why = "deleted, suspended, or protected"
+	}
+	return fmt.Sprintf("%s not found: %s (%s)", e.Kind, e.Ref, why)
 }
 
 // statusForBody is a tiny helper used by tests to detect tombstones.

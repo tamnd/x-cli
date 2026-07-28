@@ -55,6 +55,38 @@ func tweetAge(id string) (time.Duration, bool) {
 	return time.Since(minted), true
 }
 
+// notATweetID is why a read refused an id without asking X about it.
+const notATweetID = "not an id X could have minted"
+
+// possibleTweetID reports whether an id could name a tweet at all.
+//
+// It exists because of what surface 1 does with one that could not. X answers
+// 400 with `{"error":"Bad request."}` rather than 404, so `x tweet
+// 12345678901234567890` came back as an unclassified failure at exit 1 with a
+// line of JSON in it, where a reader wanted "no such tweet" at exit 6. The same
+// id then cost three more requests on the way down through the web page, oembed
+// and GraphQL, all of which were going to say the same thing.
+//
+// The check is the snowflake's own arithmetic rather than a mapping of 400 to
+// not-found, and that is deliberate. Mapping the status would mean that the day
+// the token in the URL stops being accepted, every tweet in the world reports as
+// deleted, quietly and at exit 6. Reading the id says only what the id says.
+//
+// A day of slack on the future bound, because the clock this runs on is not X's.
+func possibleTweetID(id string) bool {
+	n, err := strconv.ParseUint(id, 10, 64)
+	if err != nil {
+		return false
+	}
+	if n < firstSnowflake {
+		// The sequential ids from 2006 to 2010, of which tweet 20 is one. They
+		// carry no timestamp, so there is nothing here to disbelieve.
+		return true
+	}
+	minted := time.UnixMilli(int64(n>>22) + tweetEpoch)
+	return !minted.After(time.Now().Add(24 * time.Hour))
+}
+
 // tweetTTL is how long a tweet is worth caching, which depends on how old it
 // is. An hour after it was posted its counts have stopped being news.
 func tweetTTL(id string) time.Duration {

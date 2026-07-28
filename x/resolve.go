@@ -67,6 +67,12 @@ func needSession(cap string) error { return NeedTier(cap, 2) }
 // author's follower counts. The tool reads both and merges, because neither
 // one is a superset and picking a winner would drop real data.
 func (e *Engine) Tweet(ctx context.Context, id string) (*Tweet, error) {
+	// Ahead of the tier switch, because an id that could not name a tweet is
+	// not going to name one on any surface, and the fallback chain below would
+	// otherwise ask four of them in turn.
+	if !possibleTweetID(id) {
+		return nil, &NotFoundError{Kind: KindTweet, Ref: id, Why: notATweetID}
+	}
 	switch e.cfg.Tier {
 	case "guest", "session":
 		return e.g.TweetByID(ctx, id)
