@@ -268,6 +268,12 @@ type gqlResultWrap struct {
 	Result *gqlTweetResult `json:"result"`
 }
 
+// gqlUserResult is a profile as GraphQL returns it, which is mid-migration. X
+// is moving fields off the legacy object into small typed siblings, and it does
+// not leave a copy behind: a nasa profile in 2026 has no legacy.location, no
+// legacy.profile_image_url_https, no legacy.verified and no legacy.protected.
+// A reader that only knows the legacy shape drops all four silently, which is
+// what unmodeled.go was written to catch and did.
 type gqlUserResult struct {
 	Typename       string      `json:"__typename"`
 	RestID         string      `json:"rest_id"`
@@ -278,10 +284,30 @@ type gqlUserResult struct {
 		ScreenName string `json:"screen_name"`
 		CreatedAt  string `json:"created_at"`
 	} `json:"core"`
+	Location *struct {
+		Location string `json:"location"`
+	} `json:"location"`
+	Avatar *struct {
+		ImageURL string `json:"image_url"`
+	} `json:"avatar"`
+	Banner *struct {
+		ImageURL string `json:"image_url"`
+	} `json:"banner"`
+	Privacy *struct {
+		Protected bool `json:"protected"`
+	} `json:"privacy"`
+	Verification *struct {
+		Verified     bool   `json:"verified"`
+		VerifiedType string `json:"verified_type"`
+	} `json:"verification"`
+	ProfileBio *struct {
+		Description string         `json:"description"`
+		Entities    *legacyUserEnt `json:"entities"`
+	} `json:"profile_bio"`
 }
 
 func (ur gqlUserResult) toUser() *User {
-	if ur.Legacy == nil && ur.Core == nil {
+	if ur.Legacy == nil && ur.Core == nil && ur.ProfileBio == nil {
 		return nil
 	}
 	lu := ur.Legacy
@@ -301,6 +327,37 @@ func (ur gqlUserResult) toUser() *User {
 		}
 		if u.CreatedAt.IsZero() {
 			u.CreatedAt = twitterTime(ur.Core.CreatedAt)
+		}
+	}
+	// The siblings win over legacy where both are present. They are where X is
+	// keeping the value now, and legacy is the copy that stops being updated.
+	if ur.Location != nil && ur.Location.Location != "" {
+		u.Location = ur.Location.Location
+	}
+	if ur.Avatar != nil && ur.Avatar.ImageURL != "" {
+		u.ProfileImage = ur.Avatar.ImageURL
+	}
+	if ur.Banner != nil && ur.Banner.ImageURL != "" {
+		u.ProfileBanner = ur.Banner.ImageURL
+	}
+	if ur.Privacy != nil {
+		u.Protected = u.Protected || ur.Privacy.Protected
+	}
+	if ur.ProfileBio != nil {
+		if u.Description == "" {
+			u.Description = ur.ProfileBio.Description
+		}
+		if u.Website == "" && ur.ProfileBio.Entities != nil && len(ur.ProfileBio.Entities.URL.URLs) > 0 {
+			u.Website = ur.ProfileBio.Entities.URL.URLs[0].ExpandedURL
+		}
+	}
+	if ur.Verification != nil {
+		u.Verified = u.Verified || ur.Verification.Verified
+		// "Government" beats "blue". The blue flag says the account pays for a
+		// checkmark, the type says what the checkmark means, and reporting a
+		// government account as blue is the tool inventing an answer.
+		if ur.Verification.VerifiedType != "" {
+			u.VerifiedType = strings.ToLower(ur.Verification.VerifiedType)
 		}
 	}
 	return u

@@ -61,6 +61,14 @@ type legacyTweet struct {
 	RetweetedStatusIDStr string            `json:"retweeted_status_id_str"`
 	QuotedStatusIDStr    string            `json:"quoted_status_id_str"`
 	Source               string            `json:"source"`
+
+	// RetweetedStatus is what GraphQL sends instead of retweeted_status_id_str,
+	// which is no longer on the wire at all: a nasa timeline in 2026 has six of
+	// these and not one of the id form, and until this field existed every one
+	// of those six came out as an ordinary tweet by nasa. The wrapper is a
+	// GraphQL type even though the field sits on the shared legacy shape,
+	// because it is the whole retweeted tweet and not an id.
+	RetweetedStatus *gqlResultWrap `json:"retweeted_status_result"`
 }
 
 type legacyEntities struct {
@@ -214,6 +222,10 @@ func (lt *legacyTweet) toTweet(author *User, noteText string) *Tweet {
 		t.Source = sourceName(lt.Source)
 	}
 	if lt.RetweetedStatusIDStr != "" {
+		t.IsRetweet = true
+	}
+	if lt.RetweetedStatus != nil && lt.RetweetedStatus.Result != nil {
+		t.Retweeted = lt.RetweetedStatus.Result.build()
 		t.IsRetweet = true
 	}
 	if lt.QuotedStatusIDStr != "" {
