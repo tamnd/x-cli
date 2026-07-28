@@ -8,6 +8,7 @@ import (
 	"net/http"
 	"net/url"
 	"strconv"
+	"strings"
 	"time"
 )
 
@@ -137,7 +138,7 @@ func (g *GraphQL) get(ctx context.Context, op string, variables map[string]any) 
 			g.s.invalidateGuest()
 			continue
 		}
-		return nil, gqlError(err)
+		return nil, gqlError(op, err)
 	}
 }
 
@@ -149,17 +150,36 @@ func isAuthReject(err error) bool {
 }
 
 // gqlError maps an HTTP failure to a typed error the CLI turns into an exit code.
-func gqlError(err error) error {
+//
+// The 404 case is the one that matters. A guest-blocked operation answers 404
+// with a zero-length body; a resolved operation given a bad request answers 422
+// with a GRAPHQL_VALIDATION_FAILED body, and a genuinely missing object answers
+// 404 with a JSON error in it. Doc 01 section 4.2 has the measurement across six
+// id vintages. Without the discriminator every tier wall reports as a missing
+// object, which is the defect doc 06 section 4 exists to fix.
+func gqlError(op string, err error) error {
 	he, ok := err.(*HTTPError)
 	if !ok {
+		if ne := AsNetwork(err); ne != nil {
+			return ne
+		}
 		return err
 	}
 	switch he.Status {
 	case 401, 403:
-		return &NeedAuthError{Msg: "X rejected this request: pass --guest or run `x auth import` to use your own session", User: true}
+		return &NeedAuthError{
+			Msg:  "X rejected this request: pass --guest, or run `x auth import` to use your own session",
+			Tier: 2, User: true,
+		}
 	case 429:
-		return &RateLimitedError{Msg: "rate limited by X; try again later or slow down with --rate"}
+		return &RateLimitedError{
+			Msg:      "rate limited by X on " + op + "; try again later or slow down with --rate",
+			Endpoint: "graphql." + op,
+		}
 	case 404:
+		if strings.TrimSpace(he.Body) == "" {
+			return NeedTier(op, 2)
+		}
 		return &NotFoundError{Kind: "object", Ref: ""}
 	}
 	return err

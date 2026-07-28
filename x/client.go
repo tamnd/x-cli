@@ -169,6 +169,11 @@ func (c *Client) Do(ctx context.Context, r Req) ([]byte, error) {
 	if he, ok := lastErr.(*HTTPError); ok && he.Status == 429 {
 		return nil, c.limitErr(r.Endpoint, lastErr)
 	}
+	// A transport failure gets its own exit code, because nothing about the
+	// request was wrong and the answer is to try again rather than to change it.
+	if ne := AsNetwork(lastErr); ne != nil {
+		return nil, ne
+	}
 	return nil, lastErr
 }
 
@@ -190,7 +195,10 @@ func rateLimited(endpoint string, reset time.Time) error {
 		msg += "; the window resets at " + reset.Local().Format("15:04:05") +
 			" (in " + time.Until(reset).Truncate(time.Second).String() + ")"
 	}
-	return &RateLimitedError{Msg: msg + "; slow down with --rate, or try again then"}
+	return &RateLimitedError{
+		Msg:      msg + "; slow down with --rate, or try again then",
+		Endpoint: endpoint,
+	}
 }
 
 func (c *Client) do1(ctx context.Context, r Req) ([]byte, bool, error) {

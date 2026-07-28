@@ -187,13 +187,19 @@ func (a *App) logf(format string, args ...any) {
 }
 
 // mapErr converts a library error into the kit error kind that carries the
-// matching exit code, so kit prints and exits the same way the old hand-rolled
-// exitCode map did: no-results 3, need-auth 4, rate-limited 5, not-found 6.
-// Every escape-hatch Run wraps its returned error in this.
+// matching exit code (spec 3003 doc 03 section 11): no-results 3, need-auth 4,
+// rate-limited 5, not-found 6, unsupported 7, network 8. Every escape-hatch Run
+// wraps its returned error in this.
+//
+// 4 and 7 are the pair that matter. 4 means get a session and this works, and
+// the message names which tier. 7 means nothing serves this at any tier, so
+// there is no credential to go and find.
 func mapErr(err error) error {
 	var na *x.NeedAuthError
 	var rl *x.RateLimitedError
 	var nf *x.NotFoundError
+	var un *x.UnsupportedError
+	var ne *x.NetworkError
 	switch {
 	case err == nil:
 		return nil
@@ -205,7 +211,15 @@ func mapErr(err error) error {
 		return errs.RateLimited("%s", rl.Error())
 	case errors.As(err, &nf):
 		return errs.NotFound("%s", nf.Error())
-	default:
-		return err
+	case errors.As(err, &un):
+		return errs.Unsupported("%s", un.Error())
+	case errors.As(err, &ne):
+		return errs.Network("%s", ne.Error())
 	}
+	// A transport failure that never went through the client, such as a direct
+	// media download, still gets code 8.
+	if n := x.AsNetwork(err); n != nil {
+		return errs.Network("%s", n.Error())
+	}
+	return err
 }

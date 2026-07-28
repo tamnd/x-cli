@@ -35,8 +35,12 @@ func (e *Engine) canGraphQL() bool {
 }
 
 // needGraphQL returns the actionable need-auth error for a GraphQL-only call.
+// A guest token clears it, so this is tier 1 rather than tier 2.
 func needGraphQL(cap string) error {
-	return &NeedAuthError{Msg: cap + " needs the GraphQL tier: pass --guest, or run `x auth import` to use your own session"}
+	return &NeedAuthError{
+		Msg:  cap + " needs the GraphQL tier: pass --guest, or run `x auth import` to use your own session",
+		Tier: 1,
+	}
 }
 
 // Tweet resolves one tweet.
