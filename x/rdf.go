@@ -394,9 +394,31 @@ func WriteRDF(format string, ts []Triple, opts RDFOptions) (string, error) {
 	case "ttl", "turtle":
 		return writeTTL(ts, opts), nil
 	case "jsonld", "json-ld":
-		return writeJSONLD(ts)
+		return writeJSONLD(distinct(ts, true))
 	}
 	return "", fmt.Errorf("unknown RDF format %q: use nt, ttl, jsonld, or nq", format)
+}
+
+// distinct drops repeats. Two surfaces asserting the same thing is two rows in
+// the store on purpose, and in N-Quads and JSON-LD they stay two statements
+// because the graph name keeps them apart. N-Triples and Turtle have no graph
+// name, so the same statement twice is just the same statement twice, and
+// printing it twice says nothing extra while looking like a bug.
+func distinct(ts []Triple, keepGraph bool) []Triple {
+	out := make([]Triple, 0, len(ts))
+	seen := map[string]bool{}
+	for _, t := range ts {
+		k := ntTerm(t.S) + " " + ntTerm(t.P) + " " + ntTerm(t.O)
+		if keepGraph {
+			k += " " + t.Graph
+		}
+		if seen[k] {
+			continue
+		}
+		seen[k] = true
+		out = append(out, t)
+	}
+	return out
 }
 
 // RDFFormats is every serialisation, for a flag's help and for a test that
@@ -408,13 +430,18 @@ var RDFFormats = []string{"nt", "ttl", "jsonld", "nq"}
 // of two crawls keeps knowing which read said what.
 func writeNT(ts []Triple, opts RDFOptions, quads bool) string {
 	var b strings.Builder
-	for i, t := range ts {
+	for _, t := range distinct(ts, quads) {
 		b.WriteString(ntTerm(t.S) + " " + ntTerm(t.P) + " " + ntTerm(t.O))
 		if quads && t.Graph != "" {
 			b.WriteString(" <" + escapeIRI(t.Graph) + ">")
 		}
 		b.WriteString(" .\n")
-		if opts.Provenance && !quads {
+	}
+	// Reification runs over every triple rather than the distinct ones, because
+	// the whole point of it is the source, and two sources for one statement is
+	// the case worth writing down.
+	if opts.Provenance && !quads {
+		for i, t := range ts {
 			b.WriteString(reifyNT(t, i))
 		}
 	}
@@ -460,7 +487,7 @@ func writeTTL(ts []Triple, opts RDFOptions) string {
 	b.WriteString("@prefix x:      <" + NSX + "> .\n")
 	b.WriteString("@prefix xsd:    <" + NSXSD + "> .\n\n")
 
-	order, bySubject := groupBySubject(ts)
+	order, bySubject := groupBySubject(distinct(ts, false))
 	for _, s := range order {
 		g := bySubject[s]
 		b.WriteString(ttlTerm(g[0].S) + "\n")

@@ -86,7 +86,7 @@ change your account. `likes`, `likers`, `followers`, and `bookmarks` only read.
 | `query <sql>` | The same query, one word shallower | |
 | `queue` | Show the crawl queue | |
 | `queue clear` | Empty the crawl queue | |
-| `export <user> <out-dir>` | Render a stored user's tweets as Markdown | |
+| `export [<user> <out-dir>]` | Render a stored user's tweets as Markdown, or the whole store as RDF | `--format`, `--kind`, `--since`, `--provenance` |
 
 `edges` is one read per reference and no walking at all. It prints the claims a
 record already makes about other nodes, as `from predicate to` with the URL it
@@ -160,6 +160,17 @@ A hop is not an edge. A hop is a direction the walk travels and an edge is a
 claim a record makes, and half the hops run against the arrow: the `liker` hop
 goes from a tweet to the accounts that liked it, and the edge under it points
 from each account back to the tweet.
+
+`export` writes what the store already holds and never makes a request. With
+`--format` it writes the whole store as RDF on stdout, the same vocabulary and
+the same four serializations as `x rdf`, so a crawl becomes a file you can load
+into a triple store. `--kind` keeps the records of one kind and every claim with
+one of them at either end, which is why `--kind tweet` still tells you who wrote
+them. `--since` is when a record was captured rather than when a tweet was
+posted: the question an export answers is what you have learned lately, and a
+2006 tweet read this morning was learned this morning. Without `--format` it
+renders one account's stored tweets as Markdown, which is what the two arguments
+are for.
 
 ## Meta
 
