@@ -315,19 +315,38 @@ func (e *Engine) MediaTab(ctx context.Context, ref string, isID bool, limit int,
 	return e.g.UserTweets(ctx, uid, TimelineOpts{Media: true, Limit: limit}, emit)
 }
 
-// focalFirst moves the tweet the page is about to the front. The page renders
-// the replies before it, which is right for a page and wrong for a thread.
-func focalFirst(tweets []*Tweet, id string) []*Tweet {
-	for i, t := range tweets {
-		if t.ID != id {
+// pageReplies separates the tweet a status page is about from the replies to it.
+//
+// The page is a conversation and not a reply list: it renders what is above the
+// tweet as well as what is below, and Postings hands the focal tweet back last,
+// so position tells you nothing about which is which. The page for
+// 1903142823316049977 came back as [its parent, three replies, the tweet], and
+// the page carries no in-reply-to ids to sort it out with.
+//
+// The ids sort it out. A snowflake counts upward with time, so anything older
+// than the focal tweet was written before it and cannot be a reply to it. That
+// drops the ancestors, and a quoted tweet too if one is rendered, which is the
+// right answer in both cases. Descendants deeper than one level stay, because
+// the conversation under a tweet is what somebody asking for its replies means.
+//
+// A page that does not carry its own focal tweet is possible, because the
+// renderer can drop it. The split still works: the comparison is against the id
+// asked for, which the caller has either way, and not against a tweet the page
+// may not have rendered.
+func pageReplies(tweets []*Tweet, id string) (focal *Tweet, replies []*Tweet) {
+	for _, t := range tweets {
+		if t.ID == id {
+			if focal == nil {
+				focal = t
+			}
 			continue
 		}
-		out := make([]*Tweet, 0, len(tweets))
-		out = append(out, t)
-		out = append(out, tweets[:i]...)
-		return append(out, tweets[i+1:]...)
+		if idLess(t.ID, id) {
+			continue
+		}
+		replies = append(replies, t)
 	}
-	return tweets
+	return focal, replies
 }
 
 // streamTweets applies the timeline filters and limit to an in-memory slice.
@@ -359,29 +378,118 @@ func (e *Engine) Search(ctx context.Context, q SearchQuery, emit func(*Tweet) er
 	return e.g.Search(ctx, q, emit)
 }
 
-// Thread streams a conversation.
+// wantsConversationAPI reports whether to read the conversation with
+// TweetDetail rather than by walking it.
 //
-// At tier 0 the status page is the whole answer: it renders the focal tweet
-// and the replies X chose to show, each with its author and its counters. That
-// is not the full tree and it is not paged, but it is a conversation and it
-// costs no credential, which is more than the syndication endpoint gives.
+// It asks for a session rather than for GraphQL, which the rest of the engine
+// asks for, because TweetDetail is one of the calls X refuses a guest token:
+// `x thread --guest` used to answer "TweetDetail needs tier 2" while the same
+// command with no credential at all answered with the thread. A guest token is
+// worth nothing here, so it changes nothing here.
+//
+// --tier syndication and --tier web are honoured as ceilings, as everywhere.
+func (e *Engine) wantsConversationAPI() bool {
+	return e.cfg.HasSession() && e.cfg.Tier != "syndication" && e.cfg.Tier != "web"
+}
+
+// Thread streams a conversation, root first.
+//
+// A thread is the ancestors of a tweet and then the tweet, which surface 1
+// gives away at every tier, followed by whatever replies the tier can see below
+// it. The upward half is the part that is always right: it is the actual chain,
+// in order, however deep. The downward half is three replies at tier 0 and 1 and
+// the tree at tier 2, and `x replies` is where that distinction gets said out
+// loud.
+//
+// Ordering matters more here than in a timeline. A thread read root first is a
+// conversation; the same tweets in page order are a screenshot of a web page.
 func (e *Engine) Thread(ctx context.Context, id string, limit int, emit func(*Tweet) error) error {
-	if e.canGraphQL() && e.cfg.Tier != "syndication" && e.cfg.Tier != "web" {
+	if e.wantsConversationAPI() {
 		return e.g.Thread(ctx, id, limit, emit)
 	}
-	if e.cfg.Tier != "syndication" {
-		if p, err := e.c.FetchPage(ctx, StatusPageURL(id)); err == nil {
-			if posts := p.Postings(); len(posts) > 0 {
-				return streamTweets(focalFirst(posts, id), TimelineOpts{Replies: true, Limit: limit}, emit)
-			}
+	chain, cerr := ParentChain(ctx, e.c, id, limit)
+	if len(chain) == 0 {
+		return cerr
+	}
+	// The status page renders the ancestors as well as the replies, so the two
+	// halves of the walk overlap and the overlap has to be dropped. A thread
+	// that prints a tweet twice reads as a bug even when both copies are right.
+	said := map[string]bool{}
+	n := 0
+	say := func(t *Tweet) (bool, error) {
+		if said[t.ID] {
+			return true, nil
+		}
+		said[t.ID] = true
+		if err := emit(t); err != nil {
+			return false, err
+		}
+		n++
+		return limit <= 0 || n < limit, nil
+	}
+	for _, t := range chain {
+		more, err := say(t)
+		if err != nil || !more {
+			return err
 		}
 	}
-	// The page had nothing, so fall back to the focal tweet on its own.
-	t, err := TweetByID(ctx, e.c, id)
-	if err != nil {
-		return err
+	if cerr != nil {
+		return cerr
 	}
-	return emit(t)
+	if e.cfg.Tier == "syndication" {
+		// --tier syndication asked for surface 1 and nothing else, and the
+		// replies live on the status page.
+		return nil
+	}
+	_, replies, err := RepliesFromPage(ctx, e.c, id)
+	if err != nil {
+		// The ancestors are a real answer, so a page that would not load is a
+		// thinner thread rather than a failed command.
+		return nil
+	}
+	for _, t := range replies {
+		more, err := say(t)
+		if err != nil || !more {
+			return err
+		}
+	}
+	return nil
+}
+
+// Replies streams the replies to a tweet, which is the direction X charges for.
+//
+// The focal tweet is not emitted: `x replies 20` was asked for the replies, and
+// `x thread 20` is the command that wants the tweet as well. What the focal
+// tweet is for is its reply counter, which comes back alongside so the caller
+// can say three of how many.
+//
+// The count is X's `conversation_count`, which counts the whole conversation
+// rather than the direct replies, so it is an over-count of what was asked for.
+// It is still the only denominator any tier-0 surface publishes, and a warning
+// that says "3 of 17964" is useful in a way that "3" is not.
+func (e *Engine) Replies(ctx context.Context, id string, limit int, emit func(*Tweet) error) (total *int, err error) {
+	if e.wantsConversationAPI() {
+		// TweetDetail returns the focal tweet with the tree under it, so the
+		// filter drops the one the caller already has.
+		return nil, e.g.Thread(ctx, id, limit, func(t *Tweet) error {
+			if t.ID == id {
+				return nil
+			}
+			return emit(t)
+		})
+	}
+	if e.cfg.Tier == "syndication" {
+		return nil, Unsupported("replies to a tweet on surface 1",
+			"the syndication endpoint carries a tweet's parent but never its replies")
+	}
+	focal, replies, err := RepliesFromPage(ctx, e.c, id)
+	if err != nil {
+		return nil, err
+	}
+	if focal != nil {
+		total = focal.Metrics.Replies
+	}
+	return total, streamTweets(replies, TimelineOpts{Replies: true, Limit: limit}, emit)
 }
 
 // Followers / Following / Likers / Retweeters (GraphQL only).

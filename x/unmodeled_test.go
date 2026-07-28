@@ -31,6 +31,8 @@ func TestNoUnmodeledKeys(t *testing.T) {
 		stop []string
 	}{
 		{fixture: "s1_tweet_20.json.gz", at: whole, into: synTweet{}},
+		{fixture: "s1_reply_with_parent.json.gz", at: whole, into: synTweet{}, stop: []string{"parent"}},
+		{fixture: "s1_reply_with_parent.json.gz", at: parents, into: synTweet{}},
 		{fixture: "s3_oembed_20.json.gz", at: whole, into: oembedResp{}},
 		{fixture: "s3_oembed_media.json.gz", at: whole, into: oembedResp{}},
 		{fixture: "s4_user_nasa.json.gz", at: userResults, into: gqlUserResult{}},
@@ -131,7 +133,13 @@ var unreadKeys = keySet(
 	// the record names them by handle, and the quote flag when the quoted
 	// tweet's own presence says it.
 	`id legacy.user_id_str legacy.in_reply_to_user_id_str
-	 legacy.is_quote_status`,
+	 legacy.is_quote_status in_reply_to_user_id_str
+	 entities.user_mentions[].id_str entities.user_mentions[].name`,
+
+	// Offsets into the text, on surface 1's own entity shape. Same reason as
+	// the GraphQL ones below: the text is on the record, so a position in it is
+	// something a reader computes.
+	`entities.user_mentions[].indices`,
 
 	// Kept on legacy for readers that have not migrated to the siblings X moved
 	// these to. Reading both would mean picking a winner on every field, and the
@@ -249,6 +257,21 @@ func elements(b []byte) []json.RawMessage {
 		return nil
 	}
 	return out
+}
+
+// parents is the tweet a reply replies to, which surface 1 expands in full. It
+// is checked on its own because it is the same shape as its child and reporting
+// its keys through the child would prefix every path with "parent." and miss the
+// entries below.
+func parents(b []byte) []json.RawMessage {
+	var obj map[string]json.RawMessage
+	if json.Unmarshal(b, &obj) != nil {
+		return nil
+	}
+	if p, ok := obj["parent"]; ok && string(p) != "null" {
+		return []json.RawMessage{p}
+	}
+	return nil
 }
 
 // tweetResults and userResults find every object in a response that a decoder

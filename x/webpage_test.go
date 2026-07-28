@@ -288,37 +288,65 @@ func TestStatusPageURL(t *testing.T) {
 	}
 }
 
-// A status page renders the replies before the tweet they reply to, which is
-// right for a page and wrong for a thread.
-func TestFocalFirst(t *testing.T) {
+// A status page mixes the tweet in with the conversation around it, and
+// pageReplies is what pulls the two apart. The halves it returns are what
+// `x thread` and `x replies` each want.
+//
+// Tweet 20 is the root of its conversation, so everything else on its page is
+// below it and the split only has to lift the tweet out.
+func TestPageReplies(t *testing.T) {
 	posts := statusPage(t).Postings()
 	if len(posts) < 2 {
 		t.Fatalf("got %d postings, want the focal tweet and its replies", len(posts))
 	}
-	if posts[0].ID == "20" {
-		t.Skip("the capture already leads with the focal tweet, so this proves nothing")
+	focal, replies := pageReplies(posts, "20")
+	if focal == nil || focal.ID != "20" {
+		t.Fatalf("got focal %v, want tweet 20", focal)
 	}
-	got := focalFirst(posts, "20")
-	if got[0].ID != "20" {
-		t.Errorf("thread leads with %s, want the focal tweet", got[0].ID)
+	if len(replies) != len(posts)-1 {
+		t.Errorf("splitting %d postings left %d replies, want %d", len(posts), len(replies), len(posts)-1)
 	}
-	if len(got) != len(posts) {
-		t.Errorf("reordering dropped a tweet: %d became %d", len(posts), len(got))
-	}
-	seen := map[string]bool{}
-	for _, p := range got {
-		if seen[p.ID] {
-			t.Errorf("reordering duplicated %s", p.ID)
+	for _, r := range replies {
+		if r.ID == "20" {
+			t.Error("the focal tweet came back among its own replies")
 		}
-		seen[p.ID] = true
 	}
 }
 
-// A tweet that is not in the list leaves the order alone rather than panicking.
-func TestFocalFirstWithNoFocalTweet(t *testing.T) {
+// The page for a reply also renders what the reply is replying to, and that is
+// not a reply to it. Nothing on the page says so, so the split goes by id: the
+// parent was posted first, so its snowflake is smaller.
+func TestPageRepliesDropsWhatIsAboveTheTweet(t *testing.T) {
+	p, err := ParsePage(StatusPageURL("1903142823316049977"), capture(t, "status_reply.html.gz"))
+	if err != nil {
+		t.Fatalf("ParsePage: %v", err)
+	}
+	posts := p.Postings()
+	if !hasTweet(posts, "1903136743634723031") {
+		t.Fatal("the page no longer renders the parent, so this test is not testing anything")
+	}
+	focal, replies := pageReplies(posts, "1903142823316049977")
+	if focal == nil {
+		t.Fatal("the page did not yield its own tweet")
+	}
+	if hasTweet(replies, "1903136743634723031") {
+		t.Error("the tweet's parent came back as a reply to it")
+	}
+	if len(replies) != len(posts)-2 {
+		t.Errorf("split %d postings into %d replies, want %d: the tweet and its parent both come out", len(posts), len(replies), len(posts)-2)
+	}
+}
+
+// The renderer can drop the focal tweet, and the split still works, because it
+// compares against the id asked for rather than against a tweet that may not be
+// on the page.
+func TestPageRepliesWithNoFocalTweet(t *testing.T) {
 	posts := statusPage(t).Postings()
-	got := focalFirst(posts, "does-not-exist")
-	if len(got) != len(posts) || got[0].ID != posts[0].ID {
-		t.Error("an unknown id should leave the order untouched")
+	focal, replies := pageReplies(posts, "19")
+	if focal != nil {
+		t.Errorf("found a focal tweet %s that is not on the page", focal.ID)
+	}
+	if len(replies) != len(posts) {
+		t.Errorf("got %d replies from %d postings, want all of them", len(replies), len(posts))
 	}
 }
