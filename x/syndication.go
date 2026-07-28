@@ -13,9 +13,6 @@ import (
 	"time"
 )
 
-// syndicationTTL is generous: a single tweet's content rarely changes.
-const syndicationTTL = 24 * time.Hour
-
 // syndicationToken derives the non-secret token the embed widget computes from a
 // tweet ID: ((id / 1e15) * pi) in base 36, with '0' and '.' stripped. No
 // credential is involved; this is exactly what X's own embed JavaScript does.
@@ -62,7 +59,7 @@ func floatToBase36(v float64) string {
 func TweetByID(ctx context.Context, c *Client, id string) (*Tweet, error) {
 	u := fmt.Sprintf("https://cdn.syndication.twimg.com/tweet-result?id=%s&token=%s&lang=en",
 		url.QueryEscape(id), syndicationToken(id))
-	b, err := c.Do(ctx, Req{URL: u, Endpoint: "syndication.tweet", CacheTTL: syndicationTTL})
+	b, err := c.Do(ctx, Req{URL: u, Endpoint: "syndication.tweet", CacheTTL: tweetTTL(id)})
 	if err != nil {
 		return nil, err
 	}
@@ -240,7 +237,7 @@ func (s *synTweet) toTweet() *Tweet {
 // widget. Returns a NotFoundError if the handle yields nothing.
 func UserByNameSyndication(ctx context.Context, c *Client, handle string) (*User, error) {
 	u := "https://syndication.twitter.com/srv/timeline-profile/screen-name/" + url.PathEscape(handle)
-	b, err := c.Do(ctx, Req{URL: u, Endpoint: "syndication.profile", CacheTTL: time.Hour})
+	b, err := c.Do(ctx, Req{URL: u, Endpoint: "syndication.profile", CacheTTL: ttlProfile})
 	if err != nil {
 		return nil, err
 	}
@@ -351,7 +348,7 @@ func extractProfileFromNextData(page []byte) (*User, bool) {
 // blob whose timeline entries are legacy tweets; one legacy parser maps them.
 func ProfileTimeline(ctx context.Context, c *Client, handle string, _ int) ([]*Tweet, error) {
 	u := "https://syndication.twitter.com/srv/timeline-profile/screen-name/" + url.PathEscape(handle)
-	b, err := c.Do(ctx, Req{URL: u, Endpoint: "syndication.profile", CacheTTL: 5 * time.Minute})
+	b, err := c.Do(ctx, Req{URL: u, Endpoint: "syndication.profile", CacheTTL: ttlTimeline})
 	if err != nil {
 		return nil, err
 	}

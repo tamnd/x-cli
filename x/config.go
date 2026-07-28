@@ -77,6 +77,7 @@ type Config struct {
 	Retries int
 	Timeout time.Duration
 	NoCache bool
+	Verbose int // -v: how much the tool says about its own workings
 	Paths   Paths
 	Store   string // path to the SQLite store, when the caller names one
 
@@ -95,6 +96,7 @@ type Overrides struct {
 	Rate       time.Duration
 	Retries    int
 	Timeout    time.Duration
+	Verbose    int
 	AllowGuest bool
 	Tier       string
 	QueryIDs   map[string]string
@@ -122,6 +124,9 @@ func Resolve(o Overrides) Config {
 	}
 	if o.Timeout > 0 {
 		c.Timeout = o.Timeout
+	}
+	if o.Verbose > 0 {
+		c.Verbose = o.Verbose
 	}
 	if o.AllowGuest {
 		c.AllowGuest = true

@@ -105,7 +105,7 @@ func (e *Engine) probeOEmbed(ctx context.Context) Probe {
 	u := "https://publish.x.com/oembed?url=" +
 		"https%3A%2F%2Fx.com%2F" + probeHandle + "%2Fstatus%2F" + probeTweet + "&omit_script=1"
 	start := time.Now()
-	b, err := e.c.Do(ctx, Req{URL: u, Endpoint: "oembed", CacheTTL: time.Hour})
+	b, err := e.c.Do(ctx, Req{URL: u, Endpoint: "oembed", CacheTTL: ttlOEmbed})
 	p.Millis = msSince(start)
 	switch {
 	case err != nil:
@@ -163,7 +163,7 @@ func (e *Engine) probeGuestV11(ctx context.Context) Probe {
 		URL:      "https://api.x.com/1.1/trends/available.json",
 		Endpoint: "v11.trends.available",
 		Header:   h,
-		CacheTTL: 7 * 24 * time.Hour,
+		CacheTTL: ttlPlaces,
 	})
 	p.Millis = msSince(start)
 	switch {
