@@ -5,6 +5,7 @@ import (
 	"path/filepath"
 	"strings"
 	"testing"
+	"time"
 )
 
 // TweetsByAuthor must match handles case-insensitively: the store keeps X's
@@ -175,4 +176,147 @@ func tempStore(t *testing.T) *Store {
 	}
 	t.Cleanup(func() { _ = st.Close() })
 	return st
+}
+
+// The store is a graph, and this is the read that proves it. A crawl writes
+// nodes and edges and `x export --format` walks them back out with no network
+// at all, so what goes in has to come out whole.
+func TestTheStoreReadsBackAsAGraph(t *testing.T) {
+	st := tempStore(t)
+	tw := NewTweet("20")
+	tw.Text, tw.Author = "just setting up my twttr", NewUser("jack")
+	if err := st.UpsertNode(&Node{Kind: KindTweet, Tweet: tw}); err != nil {
+		t.Fatal(err)
+	}
+
+	doc, err := st.Document(Filter{})
+	if err != nil {
+		t.Fatal(err)
+	}
+	byURI := map[string]GraphNode{}
+	for _, n := range doc.Nodes {
+		byURI[n.URI] = n
+	}
+	if _, ok := byURI["x://tweet/20"]; !ok {
+		t.Fatalf("the tweet is not in the document: %v", byURI)
+	}
+	if _, ok := byURI["x://tweet/20"].Record.(*Tweet); !ok {
+		t.Errorf("the tweet came back without its record, as %T", byURI["x://tweet/20"].Record)
+	}
+	if len(doc.Edges) == 0 {
+		t.Error("the document has no edges, so nothing was claimed")
+	}
+	if len(Triples(doc)) == 0 {
+		t.Error("the document makes no triples, so an export would write an empty file")
+	}
+}
+
+// Every endpoint an edge names is addressed, even when nobody fetched it. An
+// export that dropped them would write triples whose object has no type, which
+// is a graph with holes where the interesting parts are.
+func TestAnEdgeNeverPointsAtNothing(t *testing.T) {
+	st := tempStore(t)
+	if err := st.PutEdges([]Edge{{
+		From: URI(KindTweet, "20"), Predicate: PredMentions, To: userURI("nasa"), Source: "test",
+	}}); err != nil {
+		t.Fatal(err)
+	}
+
+	doc, err := st.Document(Filter{})
+	if err != nil {
+		t.Fatal(err)
+	}
+	want := map[string]string{"x://tweet/20": KindTweet, "x://user/nasa": KindUser}
+	for _, n := range doc.Nodes {
+		if want[n.URI] != n.Kind {
+			t.Errorf("node %s has kind %q, want %q", n.URI, n.Kind, want[n.URI])
+		}
+		delete(want, n.URI)
+	}
+	if len(want) != 0 {
+		t.Errorf("the edge names %v and the document does not address them", want)
+	}
+}
+
+// --kind keeps the claims with that kind at one end. Narrowing to the subject
+// instead would drop authorship, which runs from the account to the post, and an
+// export of tweets with no author on any of them is not worth writing.
+func TestAKindFilterKeepsEveryClaimTouchingThatKind(t *testing.T) {
+	st := tempStore(t)
+	tw := NewTweet("20")
+	tw.Text, tw.Author = "hi", NewUser("jack")
+	if err := st.UpsertNode(&Node{Kind: KindTweet, Tweet: tw}); err != nil {
+		t.Fatal(err)
+	}
+	u := NewUser("jack")
+	u.RestID, u.PinnedTweet = "12", "20"
+	if err := st.UpsertNode(&Node{Kind: KindUser, User: u}); err != nil {
+		t.Fatal(err)
+	}
+
+	doc, err := st.Document(Filter{Kind: KindTweet})
+	if err != nil {
+		t.Fatal(err)
+	}
+	for _, n := range doc.Nodes {
+		if n.Kind != KindTweet && n.Record != nil {
+			t.Errorf("--kind tweet came back with a %s record for %s", n.Kind, n.URI)
+		}
+	}
+	var authored bool
+	for _, e := range doc.Edges {
+		from, _, _ := SplitURI(e.From)
+		to, _, _ := SplitURI(e.To)
+		if from != KindTweet && to != KindTweet {
+			t.Errorf("--kind tweet kept %s %s %s, which touches no tweet", e.From, e.Predicate, e.To)
+		}
+		if e.Predicate == PredAuthored {
+			authored = true
+		}
+	}
+	if !authored {
+		t.Error("--kind tweet dropped authorship, so the export would not say who wrote anything")
+	}
+}
+
+// --since is when the record was captured. A tweet from 2006 read this morning
+// is something learned this morning, and an export answering "what is new" that
+// filtered on datePublished would never show it.
+func TestSinceFiltersOnWhenTheRecordWasCaptured(t *testing.T) {
+	st := tempStore(t)
+	old := NewTweet("20")
+	old.Text, old.Author = "old news", NewUser("jack")
+	if err := st.UpsertNode(&Node{Kind: KindTweet, Tweet: old}); err != nil {
+		t.Fatal(err)
+	}
+	backdate := time.Date(2020, 1, 1, 0, 0, 0, 0, time.UTC)
+	for _, table := range []string{"nodes", "edges"} {
+		if _, err := st.DB().Exec(`UPDATE `+table+` SET captured=?`, backdate); err != nil {
+			t.Fatal(err)
+		}
+	}
+	fresh := NewTweet("21")
+	fresh.Text, fresh.Author = "new news", NewUser("jack")
+	if err := st.UpsertNode(&Node{Kind: KindTweet, Tweet: fresh}); err != nil {
+		t.Fatal(err)
+	}
+
+	doc, err := st.Document(Filter{Since: time.Date(2024, 1, 1, 0, 0, 0, 0, time.UTC)})
+	if err != nil {
+		t.Fatal(err)
+	}
+	for _, n := range doc.Nodes {
+		if n.URI == "x://tweet/20" && n.Record != nil {
+			t.Error("--since brought back the record captured in 2020")
+		}
+	}
+	var found bool
+	for _, n := range doc.Nodes {
+		if n.URI == "x://tweet/21" && n.Record != nil {
+			found = true
+		}
+	}
+	if !found {
+		t.Error("--since dropped the record captured just now")
+	}
 }

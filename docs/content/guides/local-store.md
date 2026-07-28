@@ -1,6 +1,6 @@
 ---
 title: "The local store"
-description: "Keep a local SQLite copy of the graph: crawl breadth-first, persist a discover walk with --store, inspect with db stats and db query, manage the queue, and export to Markdown."
+description: "Keep a local SQLite copy of the graph: crawl breadth-first, persist a discover walk with --store, inspect with db stats and db query, manage the queue, and export to Markdown or RDF."
 weight: 50
 ---
 
@@ -95,13 +95,55 @@ $ x query "select predicate, count(*) n from edges group by predicate order by n
 
 Neither one touches the network. Crawl once and the graph is yours.
 
+## Export the graph as RDF
+
+```bash
+x export --db nasa.db --format nq > nasa.nq
+x export --db nasa.db --format ttl --kind tweet --since 2026-07-01
+```
+
+`x export --format` walks the whole store into RDF, in the same schema.org
+vocabulary `x rdf` writes and the same four serializations. Nothing here goes
+back to the network, so the crawl you paid for once is a graph forever, and
+`nasa.nq` loads into a triple store beside data that has nothing to do with X.
+
+```console
+$ x export --db nasa.db --format ttl | head -12
+@prefix rdf:    <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix schema: <https://schema.org/> .
+@prefix x:      <https://x-cli.tamnd.com/ns#> .
+@prefix xsd:    <http://www.w3.org/2001/XMLSchema#> .
+
+<x://tweet/1903136743634723031>
+  a schema:SocialMediaPosting ;
+  schema:identifier "1903136743634723031" ;
+  schema:articleBody "@jack This is 2025, if you see this in 2040 bill me for anything i will pay. Pretty sure i will be rich" ;
+  schema:datePublished "2025-03-21T17:28:52Z"^^xsd:dateTime ;
+  schema:inLanguage "en" ;
+  schema:url <https://x.com/marmoushEra/status/1903136743634723031> ;
+```
+
+`--kind` keeps the records of one kind and every claim with one of them at
+either end. Filtering on the subject alone would read better right up until you
+noticed it had dropped authorship, which runs from the account to the post.
+
+`--since` is when a record was captured, not when a tweet was posted. It is
+stored alongside the record, and it is the useful one: an export is how you ask
+what you have learned lately, and a 2006 tweet you read this morning is
+something you learned this morning.
+
+`nq` and `jsonld` carry the URL each claim came from, so a merge of two crawls
+keeps knowing which read said what. `nt` and `ttl` have nowhere to put it and
+take `--provenance`, which reifies every statement and costs about five lines
+per claim.
+
 ## Export to Markdown
 
 ```bash
 x export nasa ./out
 ```
 
-`x export` renders a stored user's tweets as Markdown files under the output
-directory. It reads only from the local store, so crawl or persist the user
-first, then export. The result is a plain, readable archive you can keep,
-search, or publish.
+With no `--format`, `x export` renders a stored user's tweets as Markdown files
+under the output directory. It reads only from the local store, so crawl or
+persist the user first, then export. The result is a plain, readable archive you
+can keep, search, or publish.

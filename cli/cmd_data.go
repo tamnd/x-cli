@@ -3,8 +3,11 @@ package cli
 import (
 	"context"
 	"fmt"
+	"io"
+	"os"
 	"sort"
 	"strings"
+	"time"
 
 	"github.com/tamnd/any-cli/kit"
 	"github.com/tamnd/any-cli/kit/errs"
@@ -391,12 +394,36 @@ func cellString(v any) string {
 	return strings.NewReplacer("\n", " ", "\t", " ").Replace(s)
 }
 
+// newExportCmd is both halves of doc 05's export: a readable archive of one
+// account, and the whole store as RDF.
+//
+// They are one command because they are one idea, walking what you already have
+// without touching the network, and they are told apart by --format. Without it
+// you get Markdown for one account and have to say which account and where;
+// with it you get the graph on stdout and the two positional arguments would
+// have nothing to mean.
 func newExportCmd() kit.Command {
+	var format, kind, since string
+	var provenance bool
 	return kit.Command{
-		Use:   "export <user> <out-dir>",
-		Short: "Render a stored user's tweets as Markdown",
-		Args:  kit.ExactArgs(2),
+		Use:   "export [<user> <out-dir>]",
+		Short: "Walk the local store into Markdown or RDF",
+		Long: "export reads the local store and writes it out, and never makes a request: " +
+			"crawl once and the graph is yours.\n\n" +
+			"With --format it writes the whole store as RDF on stdout, narrowed by --kind " +
+			"and --since. --since is when a record was captured rather than when a tweet " +
+			"was posted, because the question an export answers is what you have learned " +
+			"lately, and a 2006 tweet read this morning was learned this morning.\n\n" +
+			"Without --format it renders one account's stored tweets as Markdown files " +
+			"under an output directory, which takes the two arguments.",
+		Args:  kit.MaximumNArgs(2),
 		Write: true,
+		Flags: func(f *kit.FlagSet) {
+			f.StringVar(&format, "format", "", "write the store as RDF instead: "+strings.Join(x.RDFFormats, ", "))
+			f.StringVar(&kind, "kind", "", "only records of this kind, and the claims touching them")
+			f.StringVar(&since, "since", "", "only records captured on or after this date (YYYY-MM-DD)")
+			f.BoolVar(&provenance, "provenance", false, "carry the source of every claim, reified, in nt and ttl")
+		},
 		Run: func(ctx context.Context, args []string) error {
 			a := appFromCtx(ctx)
 			st, err := a.openStore()
@@ -404,6 +431,36 @@ func newExportCmd() kit.Command {
 				return err
 			}
 			defer func() { _ = st.Close() }()
+
+			if format != "" {
+				if len(args) > 0 {
+					return errs.Usage("export --format writes the whole store to stdout, so it takes no arguments")
+				}
+				if err := a.rawOutput("export --format"); err != nil {
+					return err
+				}
+				filter, err := storeFilter(kind, since)
+				if err != nil {
+					return err
+				}
+				doc, err := st.Document(filter)
+				if err != nil {
+					return err
+				}
+				if len(doc.Nodes) == 0 {
+					return mapErr(errNoResults)
+				}
+				out, err := x.WriteRDF(format, x.Triples(doc), x.RDFOptions{Provenance: provenance})
+				if err != nil {
+					return errs.Usage("%s", err.Error())
+				}
+				_, err = io.WriteString(os.Stdout, out)
+				return err
+			}
+
+			if len(args) != 2 {
+				return errs.Usage("export takes a user and an output directory, or --format to write the whole store as RDF")
+			}
 			ref, _, err := userRef(args[0], false)
 			if err != nil {
 				return err
@@ -416,6 +473,21 @@ func newExportCmd() kit.Command {
 			return nil
 		},
 	}
+}
+
+// storeFilter reads the two narrowing flags. A date is a date: an export is
+// filtered by day, and asking for a timestamp would be precision the capture
+// column does not really carry.
+func storeFilter(kind, since string) (x.Filter, error) {
+	f := x.Filter{Kind: kind}
+	if since != "" {
+		t, err := time.Parse("2006-01-02", since)
+		if err != nil {
+			return f, errs.Usage("could not read --since %q: give a date like 2026-07-01", since)
+		}
+		f.Since = t
+	}
+	return f, nil
 }
 
 // printKV renders a small map as sorted key/value rows.

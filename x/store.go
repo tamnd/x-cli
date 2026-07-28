@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"encoding/json"
 	"fmt"
+	"sort"
 	"strings"
 	"time"
 
@@ -335,3 +336,145 @@ func b2i(b bool) int {
 }
 
 func nowUTC() time.Time { return time.Now().UTC() }
+
+// Filter narrows what an export reads out of the store (spec 3003 doc 04
+// section 4.3: `x export --db graph.db --since 2026-07-01 --kind tweet`).
+//
+// Both fields are about the crawl rather than about X. Since is when a record
+// was captured, not when a tweet was posted, because the question an export
+// answers is "what have I learned lately" and a 2006 tweet read this morning is
+// a thing learned this morning.
+type Filter struct {
+	Kind  string
+	Since time.Time
+}
+
+// Document reads the store back as a graph (spec 3003 doc 04 section 5). It
+// makes no request: a crawl once is a graph forever, and this is the forever.
+//
+// A node whose record does not decode into one of the four types this tool
+// models comes back addressed and empty rather than not at all. That is the same
+// rule `x graph` uses for a node nobody fetched, and it means a store written by
+// a newer version does not lose rows to an older one.
+func (s *Store) Document(f Filter) (Document, error) {
+	var doc Document
+	where, args := f.clause("captured", "kind")
+	rows, err := s.db.Query(`SELECT uri, kind, id, record FROM nodes`+where+` ORDER BY uri`, args...)
+	if err != nil {
+		return doc, err
+	}
+	defer func() { _ = rows.Close() }()
+	for rows.Next() {
+		var n GraphNode
+		var raw string
+		if err := rows.Scan(&n.URI, &n.Kind, &n.ID, &raw); err != nil {
+			return doc, err
+		}
+		n.Record = decodeRecord(n.Kind, raw)
+		doc.Nodes = append(doc.Nodes, n)
+	}
+	if err := rows.Err(); err != nil {
+		return doc, err
+	}
+
+	// The kind filter reaches the edges through either endpoint, so `--kind
+	// tweet` is every claim with a tweet at one end of it. Filtering on the
+	// subject alone reads better until you notice it drops authorship: the
+	// claim runs from the account to the post, and an export of tweets with no
+	// author on any of them is not an export of anything.
+	kept := map[string]bool{}
+	for _, n := range doc.Nodes {
+		kept[n.URI] = true
+	}
+	ewhere, eargs := f.clause("captured", "")
+	erows, err := s.db.Query(`SELECT from_uri, predicate, to_uri, source, tier FROM edges`+ewhere+
+		` ORDER BY from_uri, predicate, to_uri`, eargs...)
+	if err != nil {
+		return doc, err
+	}
+	defer func() { _ = erows.Close() }()
+	for erows.Next() {
+		var e Edge
+		if err := erows.Scan(&e.From, &e.Predicate, &e.To, &e.Source, &e.Tier); err != nil {
+			return doc, err
+		}
+		if f.Kind != "" && !kept[e.From] && !kept[e.To] {
+			continue
+		}
+		doc.Edges = append(doc.Edges, e)
+	}
+	if err := erows.Err(); err != nil {
+		return doc, err
+	}
+
+	// An edge whose other end is not in the nodes table, or was filtered out of
+	// it, still gets addressed. Graph does the same thing for the same reason: a
+	// claim about something the export does not otherwise name is still a claim,
+	// and dropping the address leaves the RDF with an untyped subject.
+	doc.Nodes = append(doc.Nodes, address(doc.Edges, kept)...)
+	sort.Slice(doc.Nodes, func(i, j int) bool { return doc.Nodes[i].URI < doc.Nodes[j].URI })
+	return doc, nil
+}
+
+// address turns the endpoints an edge names into empty nodes, skipping the ones
+// already present.
+func address(edges []Edge, have map[string]bool) []GraphNode {
+	var out []GraphNode
+	seen := map[string]bool{}
+	for _, e := range edges {
+		for _, uri := range [2]string{e.From, e.To} {
+			if uri == "" || have[uri] || seen[uri] {
+				continue
+			}
+			seen[uri] = true
+			kind, id, ok := SplitURI(uri)
+			if !ok {
+				continue
+			}
+			out = append(out, GraphNode{URI: uri, Kind: kind, ID: id})
+		}
+	}
+	return out
+}
+
+// clause builds the shared WHERE for both tables. The kind column is named
+// because only the nodes table has one.
+func (f Filter) clause(captured, kind string) (string, []any) {
+	var parts []string
+	var args []any
+	if !f.Since.IsZero() {
+		parts = append(parts, captured+" >= ?")
+		args = append(args, f.Since.UTC())
+	}
+	if f.Kind != "" && kind != "" {
+		parts = append(parts, kind+" = ?")
+		args = append(args, f.Kind)
+	}
+	if len(parts) == 0 {
+		return "", nil
+	}
+	return " WHERE " + strings.Join(parts, " AND "), args
+}
+
+// decodeRecord reads a stored record back into the type its kind names. An
+// unknown kind, or a record from a shape this build does not understand, comes
+// back nil, because half a record is worse than an honest address.
+func decodeRecord(kind, raw string) any {
+	var into any
+	switch kind {
+	case KindTweet:
+		into = &Tweet{}
+	case KindUser:
+		into = &User{}
+	case KindSpace:
+		into = &Space{}
+	case KindList:
+		into = &List{}
+	default:
+		return nil
+	}
+	if json.Unmarshal([]byte(raw), into) != nil {
+		return nil
+	}
+	return into
+}
