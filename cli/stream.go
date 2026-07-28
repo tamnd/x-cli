@@ -15,7 +15,7 @@ func (a *App) needSession(action string) error {
 	if a.config().HasSession() {
 		return nil
 	}
-	return x.ErrNeedUser(action + " needs your own session — run `x auth import`")
+	return x.ErrNeedUser(action + " needs your own session, run `x auth import`")
 }
 
 // needGraphQL returns a need-auth error when no GraphQL tier is available.
@@ -24,7 +24,7 @@ func (a *App) needGraphQL(action string) error {
 	if cfg.HasSession() || cfg.AllowGuest || cfg.Tier == "guest" || cfg.Tier == "session" {
 		return nil
 	}
-	return x.ErrNeedAuth(action + " needs the GraphQL tier — pass --guest, or run `x auth import`")
+	return x.ErrNeedAuth(action + " needs the GraphQL tier: pass --guest, or run `x auth import`")
 }
 
 // errStop unwinds an emit callback once the row limit is hit; it is swallowed
