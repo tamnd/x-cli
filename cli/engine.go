@@ -259,6 +259,17 @@ func (a *App) logf(format string, args ...any) {
 	}
 }
 
+// warnMissed says on stderr what the record already says in its envelope: a
+// surface was tried, did not answer, and the read carried on without it. It
+// matters because the result of carrying on is a field that is absent, and an
+// absent field otherwise reads as a fact about the account. A pipeline reads
+// the same thing out of `missed` in the JSON.
+func (a *App) warnMissed(m x.Meta) {
+	for _, note := range m.Missed {
+		a.logf("warn: %s", note)
+	}
+}
+
 // mapErr converts a library error into the kit error kind that carries the
 // matching exit code (spec 3003 doc 03 section 11): no-results 3, need-auth 4,
 // rate-limited 5, not-found 6, unsupported 7, network 8. Every escape-hatch Run

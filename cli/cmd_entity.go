@@ -42,6 +42,7 @@ func newUserCmd() kit.Command {
 			if err != nil {
 				return a.done(err)
 			}
+			a.warnMissed(u.Meta)
 			return a.done(a.emitOne(userRow(u)))
 		},
 	}

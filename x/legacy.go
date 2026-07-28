@@ -114,15 +114,21 @@ type legacyMedia struct {
 
 // legacyUser is the legacy user JSON (only the fields x maps).
 type legacyUser struct {
-	IDStr           string         `json:"id_str"`
-	ScreenName      string         `json:"screen_name"`
-	Name            string         `json:"name"`
-	CreatedAt       string         `json:"created_at"`
-	Description     string         `json:"description"`
-	Location        string         `json:"location"`
-	URL             string         `json:"url"`
-	Verified        bool           `json:"verified"`
-	Protected       bool           `json:"protected"`
+	IDStr       string `json:"id_str"`
+	ScreenName  string `json:"screen_name"`
+	Name        string `json:"name"`
+	CreatedAt   string `json:"created_at"`
+	Description string `json:"description"`
+	Location    string `json:"location"`
+	URL         string `json:"url"`
+	Verified    bool   `json:"verified"`
+	Protected   bool   `json:"protected"`
+	// The syndication widget keeps these two on the user object itself, where
+	// GraphQL keeps them on the wrapper around it. Both are worth having: a
+	// government account reads as unverified without verified_type, because the
+	// blue tick and the grey one are different fields and @NASA has the grey one.
+	VerifiedType    string         `json:"verified_type"`
+	IsBlueVerified  bool           `json:"is_blue_verified"`
 	FollowersCount  *int           `json:"followers_count"`
 	FriendsCount    *int           `json:"friends_count"`
 	StatusesCount   *int           `json:"statuses_count"`
@@ -143,12 +149,14 @@ type legacyUserEnt struct {
 	} `json:"url"`
 }
 
-// toUser converts a legacy user. isBlueVerified comes from the GraphQL wrapper
-// (it is not on the legacy object itself), so callers pass it through.
+// toUser converts a legacy user. isBlueVerified comes from the GraphQL wrapper,
+// which is where GraphQL puts it, so callers pass it through; the widget shape
+// puts it on the object and that one is read here.
 func (lu *legacyUser) toUser(isBlueVerified bool) *User {
 	if lu == nil {
 		return nil
 	}
+	isBlueVerified = isBlueVerified || lu.IsBlueVerified
 	u := &User{
 		RestID:        lu.IDStr,
 		Name:          lu.Name,
@@ -169,7 +177,11 @@ func (lu *legacyUser) toUser(isBlueVerified bool) *User {
 		},
 	}
 	u.setHandle(lu.ScreenName)
-	if isBlueVerified {
+	// What the tick means beats the fact that there is one, so a stated type
+	// wins over the blue flag rather than the other way round.
+	if lu.VerifiedType != "" {
+		u.VerifiedType = strings.ToLower(lu.VerifiedType)
+	} else if isBlueVerified {
 		u.VerifiedType = "blue"
 	}
 	if len(lu.PinnedTweetIDs) > 0 {
@@ -182,6 +194,13 @@ func (lu *legacyUser) toUser(isBlueVerified bool) *User {
 	}
 	if u.Website == "" {
 		u.Website = lu.URL
+	}
+	// The link is a fact about the bio as well as a field of its own, and
+	// surface 8 already files it under entities. Filing it in one place on one
+	// surface and another place on another is how two records of the same
+	// account end up looking like two accounts.
+	if u.Website != "" {
+		u.Entities.URLs = append(u.Entities.URLs, u.Website)
 	}
 	return u
 }

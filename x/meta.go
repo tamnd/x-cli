@@ -41,6 +41,14 @@ type Meta struct {
 	// number came from where.
 	Via map[string]string `json:"via,omitempty"`
 
+	// Missed names a surface x wanted, could not read, and carried on without,
+	// with the reason. A record is allowed to be thin, but the reader has to be
+	// able to tell a thin record apart from a complete one: @nasa with no banner
+	// because surface 2's window was spent looks exactly like @nasa with no
+	// banner because there is no banner, and only one of those is a fact about
+	// the account (spec 3003 doc 03 section 3.4).
+	Missed []string `json:"missed,omitempty"`
+
 	// Extra holds every upstream key this version does not model, verbatim.
 	// Nothing upstream is ever dropped on the floor; a key that turns up here is
 	// a field we have not got round to yet, and the fixture tests fail on it.
@@ -90,6 +98,20 @@ func (m *Meta) Note(field string, surface int) {
 		m.Via = map[string]string{}
 	}
 	m.Via[field] = code
+}
+
+// Miss records that a surface was tried and did not answer. The reason is the
+// error as the user would have seen it, because "rate limited until 16:45" and
+// "no such account" ask for different things from whoever is reading.
+func (m *Meta) Miss(surface int, err error) {
+	code := SurfaceCode(surface)
+	if code == "" || err == nil {
+		return
+	}
+	note := code + ": " + err.Error()
+	if !hasStr(m.Missed, note) {
+		m.Missed = append(m.Missed, note)
+	}
 }
 
 // Surface is the one surface a record came from, or 0 when it came from more

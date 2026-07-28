@@ -23,6 +23,18 @@ x poll <ref>          # a tweet's poll options and current tallies
 `x tweet` and `x user` work straight off syndication. `x poll` reads the same
 tweet and prints each option with its vote count.
 
+A profile at tier 0 is not a cut-down profile: the syndication widget states the
+counters, the banner, the website and what the verified tick means, the same
+fields the guest tier gives. What tier 0 costs is two requests instead of one and
+a smaller window, 30 profile reads per fifteen minutes against 150. With
+`--guest`, `x user` takes the one-request route and says so in `surfaces`. When
+the widget's window is spent it falls back to x.com's own page, which has fewer
+fields, and the record says which surface it went without:
+
+```bash
+x user nasa -o json | jq '{surfaces, missed}'
+```
+
 ## Timelines and replies
 
 ```bash

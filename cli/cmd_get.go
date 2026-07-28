@@ -97,6 +97,7 @@ func (a *App) read(out *render.Renderer, kind, id string) error {
 		if err != nil {
 			return err
 		}
+		a.warnMissed(u.Meta)
 		return out.Emit(userRow(u))
 	case x.KindConversation:
 		return a.streamInto(out, func(emit func(*x.Tweet) error) error {

@@ -36,7 +36,7 @@ var fieldSurfaces = map[string]map[string][]int{
 	"user": {
 		"created_at":     {2, 4, 8},
 		"description":    {2, 4, 8},
-		"entities":       {8},
+		"entities":       {2, 4, 8},
 		"followers":      {2, 4, 8},
 		"following":      {2, 4, 8},
 		"likes":          {2, 4},
@@ -50,8 +50,8 @@ var fieldSurfaces = map[string]map[string][]int{
 		"rest_id":        {1, 2, 4, 8},
 		"tweets":         {2, 4, 8},
 		"username":       {1, 2, 3, 4, 8},
-		"verified":       {1, 4, 8},
-		"verified_type":  {1, 4, 8},
-		"website":        {2, 4},
+		"verified":       {1, 2, 4, 8},
+		"verified_type":  {1, 2, 4, 8},
+		"website":        {2, 4, 8},
 	},
 }

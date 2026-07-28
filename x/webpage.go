@@ -308,11 +308,19 @@ func applyMicrodataUser(u *User, person *embed.Item) {
 	fillStr(&u.RestID, person.Str("identifier"))
 	// A Person on a profile page carries the handle as additionalName; the
 	// author of a posting carries it as alternateName. Take whichever is there.
-	if u.Username == "" {
-		u.setHandle(person.Str("additionalName"))
-	}
-	if u.Username == "" {
-		u.setHandle(person.Str("alternateName"))
+	//
+	// It wins even when the record already has a handle, as long as it is the
+	// same account: the page states the casing its owner chose, and the handle
+	// the record came in with is the casing whoever typed the command chose. Two
+	// surfaces disagreeing about whether @nasa is @NASA is not a fact about X.
+	for _, stated := range []string{person.Str("additionalName"), person.Str("alternateName")} {
+		if stated == "" {
+			continue
+		}
+		if u.Username == "" || handleID(stated) == u.ID {
+			u.setHandle(stated)
+			break
+		}
 	}
 	fillStr(&u.Name, person.Str("name"))
 	fillStr(&u.Description, person.Str("description"))
@@ -340,9 +348,14 @@ func applyMicrodataUser(u *User, person *embed.Item) {
 	count(&u.Metrics.Tweets, "agentInteractionStatistic", "WriteAction")
 	// sameAs is the site the account links from its bio, which belongs with the
 	// rest of its entities rather than in URL: that field is the profile itself.
+	// It is also the expanded destination, already resolved, so it fills website
+	// too and this surface stops being the one tier-0 read that has no website.
 	for _, v := range person.Props["sameAs"] {
 		if s, ok := v.(string); ok && s != "" && !hasStr(u.Entities.URLs, s) {
 			u.Entities.URLs = append(u.Entities.URLs, s)
+			if u.Website == "" {
+				u.Website = s
+			}
 		}
 	}
 }

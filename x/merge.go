@@ -168,6 +168,11 @@ func (m merger) done(src Meta) {
 			m.to.Note(field, surfaceNum(code))
 		}
 	}
+	for _, note := range src.Missed {
+		if !hasStr(m.to.Missed, note) {
+			m.to.Missed = append(m.to.Missed, note)
+		}
+	}
 }
 
 func mergeEntities(dst, src Entities) Entities {
