@@ -179,6 +179,21 @@ func Locate(kind, id string) (string, error) {
 // alone, so two surfaces that disagree about everything else still agree here.
 func URI(kind, id string) string { return URIScheme + kind + "/" + id }
 
+// SplitURI takes an address back apart. It splits on the first slash after the
+// scheme, not the last, because a link id and a trend id both carry slashes of
+// their own and only the leading segment is the kind.
+func SplitURI(uri string) (kind, id string, ok bool) {
+	rest, ok := cutPrefixFold(uri, URIScheme)
+	if !ok {
+		return "", "", false
+	}
+	kind, id, ok = strings.Cut(rest, "/")
+	if !ok || kind == "" || id == "" {
+		return "", "", false
+	}
+	return kind, id, true
+}
+
 // ---- internals ----
 
 func looksLikeURL(s string) bool {

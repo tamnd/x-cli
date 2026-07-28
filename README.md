@@ -86,8 +86,9 @@ Tier 0 needs nothing, `g` needs `--guest`, `s` needs a session.
 | `x embed <ref>` | a tweet's oEmbed blockquote, verbatim | 0 |
 | `x download <ref>` | a tweet's media to disk | 0 |
 | `x edges <ref>...` | the graph claims a record makes, one read and no walking | 0 |
+| `x graph <ref>...` | those claims and the nodes they address, as one document | 0 |
 | `x crawl <seed>...` | breadth-first crawl into the local store | 0 |
-| `x db <query>` | query what you have collected | local |
+| `x query <sql>` | query what you have collected | local |
 
 `x serve` exposes every read over HTTP as NDJSON and `x mcp` exposes the same
 set as MCP tools. See the [CLI reference](https://x-cli.tamnd.com/reference/cli/)
@@ -142,7 +143,7 @@ what you have collected.
 x timeline nasa --guest -n 200 --db x.db
 x crawl nasa --depth 1 --db x.db
 x db stats --db x.db
-x db query "select username, count(*) from tweets group by author" --db x.db
+x query "select predicate, count(*) from edges group by 1 order by 2 desc"
 ```
 
 ## Guides

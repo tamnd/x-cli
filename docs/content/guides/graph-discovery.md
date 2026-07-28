@@ -42,6 +42,19 @@ much you trust each claim. `--conflicts` narrows the output to claims two source
 cannot both be right about, printing both sides with a marker on the one that
 wins on provenance instead of quietly picking a side.
 
+Those same five claims plus the five nodes they address come back as one value
+from `x graph`, which is the shape to hand to something that wants a graph
+rather than a table:
+
+```bash
+x graph 1903142823316049977 -o json
+```
+
+Nodes the read carried whole come with their record, the tweet and its author
+here, and nodes that were only named come with just an address. That is the
+honest shape: a mention is a claim about an account nobody fetched, and dropping
+it would lose four fifths of the graph a single request just paid for.
+
 A hop is not an edge, and the difference matters once you start walking. An edge
 is a claim, pointing the way the claim points. A hop is a direction of travel,
 and half of them run against the arrow: the `liker` hop goes from a tweet out to
