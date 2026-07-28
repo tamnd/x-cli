@@ -92,11 +92,25 @@ type fakeGraph struct {
 	likes      map[string][]*Tweet
 	timeline   map[string][]*Tweet
 	search     map[string][]*Tweet
+
+	// reqs counts what the fake would have put on the wire, so a budget test can
+	// watch the walk stop.
+	reqs int
+
+	// fail is what a given tweet id or lowercased handle answers with instead of
+	// a record.
+	fail map[string]error
 }
 
 func (f *fakeGraph) HasSession() bool { return f.can }
 
+func (f *fakeGraph) Spent() int { return f.reqs }
+
 func (f *fakeGraph) Tweet(_ context.Context, id string) (*Tweet, error) {
+	f.reqs++
+	if err, ok := f.fail[id]; ok {
+		return nil, err
+	}
 	if t, ok := f.tweets[id]; ok {
 		return t, nil
 	}
@@ -104,6 +118,10 @@ func (f *fakeGraph) Tweet(_ context.Context, id string) (*Tweet, error) {
 }
 
 func (f *fakeGraph) User(_ context.Context, ref string, _ bool) (*User, error) {
+	f.reqs++
+	if err, ok := f.fail[strings.ToLower(ref)]; ok {
+		return nil, err
+	}
 	if u, ok := f.users[strings.ToLower(ref)]; ok {
 		return u, nil
 	}
@@ -350,5 +368,50 @@ func TestWalkUserSeedNetwork(t *testing.T) {
 	}
 	if !found {
 		t.Errorf("missing following edge in %v", edges)
+	}
+}
+
+// Doc 04 section 3 asks the crawler to count before it spends. A walk given a
+// budget of two requests stops after two, and says what it left behind, because
+// a partial crawl and a finished one are different results.
+func TestTheWalkStopsOnItsRequestBudget(t *testing.T) {
+	g := sampleGraph(true)
+	var stopped string
+	var unexpanded int
+	set, _ := ParseHops("all")
+	nodes, _, err := collect(t, g, []Seed{{Kind: KindTweet, Ref: "1"}}, WalkOptions{
+		Depth: 2, Hops: set, Budget: 1,
+		Left: func(n int, why string) { unexpanded, stopped = n, why },
+	})
+	if err != nil {
+		t.Fatal(err)
+	}
+	if g.reqs > 1 {
+		t.Errorf("spent %d requests on a budget of 1", g.reqs)
+	}
+	if unexpanded == 0 || !strings.Contains(stopped, "budget") {
+		t.Fatalf("stopped with %d unexpanded, why %q, want the budget named and work left", unexpanded, stopped)
+	}
+	if len(nodes) == 0 {
+		t.Error("a budgeted walk still emits what it paid for")
+	}
+}
+
+// An empty rate-limit window is not one node's problem, it is every node's
+// problem. The walk stops on it rather than grinding through the queue
+// collecting the same error, and the error is the one that exits 5.
+func TestAnEmptyWindowStopsTheWalk(t *testing.T) {
+	g := sampleGraph(true)
+	g.fail = map[string]error{"bob": &RateLimitedError{Msg: "syndication.profile is empty until 12:00"}}
+	var why string
+	_, _, err := collect(t, g, []Seed{{Kind: KindTweet, Ref: "1"}},
+		WalkOptions{Depth: 2, Hops: newHopSet(HopQuoted, HopAuthor, HopMention),
+			Left: func(_ int, w string) { why = w }})
+	var rl *RateLimitedError
+	if !errors.As(err, &rl) {
+		t.Fatalf("err = %v, want the rate limit to end the walk", err)
+	}
+	if why != "rate limited" {
+		t.Errorf("stopped because %q, want the walk to say it was rate limited", why)
 	}
 }

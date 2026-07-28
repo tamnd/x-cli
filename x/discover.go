@@ -2,6 +2,7 @@ package x
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"strings"
 )
@@ -305,12 +306,29 @@ type WalkOptions struct {
 	// Note, if set, surfaces a one-line advisory (a skipped tier-only hop set, a
 	// neighbor that could not be fetched). It never carries a fatal error.
 	Note func(string)
+
+	// Budget caps the upstream requests the walk may spend (0 = no cap). Doc 04
+	// section 3 asks the crawler to count before it spends, and this is the
+	// count: the walk checks what it has already put on the wire before pulling
+	// the next node rather than discovering the ceiling by hitting it.
+	//
+	// It is requests, not nodes, because a node can cost anywhere from nothing
+	// (a list read handed it over whole) to one per hop, and the number the rate
+	// limits are written in is requests.
+	Budget int
+
+	// Left, if set, is called once when the walk stops with work still queued,
+	// with how many nodes were never expanded and why. A partial crawl and a
+	// finished one are different results, and a tool that does not say which one
+	// it produced is lying by omission.
+	Left func(n int, why string)
 }
 
 // grapher is the slice of the engine the walker needs. *Engine satisfies it; a
 // test supplies a fake. Every method matches *Engine exactly.
 type grapher interface {
 	HasSession() bool
+	Spent() int
 	Tweet(ctx context.Context, id string) (*Tweet, error)
 	User(ctx context.Context, ref string, isID bool) (*User, error)
 	Timeline(ctx context.Context, ref string, isID bool, o TimelineOpts, emit func(*Tweet) error) error
@@ -410,10 +428,26 @@ func (w *Walker) Walk(ctx context.Context, seeds []Seed, opts WalkOptions, emit 
 		}
 		visited[f.key()] = true
 
+		// The budget is checked before the node is pulled, not after, so the
+		// walk stops one short of the ceiling rather than one over it.
+		if opts.Budget > 0 && f.needsFetch() && w.g.Spent() >= opts.Budget {
+			left(opts, len(queue)+1, fmt.Sprintf("request budget of %d spent", opts.Budget))
+			return nil
+		}
+
 		node, err := w.hydrate(ctx, f)
 		if err != nil {
 			if f.depth == 0 {
 				return err // a seed we cannot fetch is fatal, like a single read
+			}
+			// An empty window is not this node's problem, it is every node's
+			// problem, so the walk stops instead of grinding through the rest of
+			// the queue collecting the same error. Exit code 5, and the error
+			// names the bucket and when it comes back.
+			var rl *RateLimitedError
+			if errors.As(err, &rl) {
+				left(opts, len(queue)+1, "rate limited")
+				return err
 			}
 			if opts.Note != nil {
 				opts.Note(fmt.Sprintf("skip %s %s: %v", f.kind, f.ref, err))
@@ -427,6 +461,7 @@ func (w *Walker) Walk(ctx context.Context, seeds []Seed, opts WalkOptions, emit 
 		}
 		emitted++
 		if opts.Max > 0 && emitted >= opts.Max {
+			left(opts, len(queue), fmt.Sprintf("node budget of %d reached", opts.Max))
 			return nil
 		}
 		if f.depth >= opts.Depth {
@@ -439,6 +474,20 @@ func (w *Walker) Walk(ctx context.Context, seeds []Seed, opts WalkOptions, emit 
 		}
 	}
 	return nil
+}
+
+// left reports an early stop once, and says nothing when the queue is empty,
+// because a walk that ran out of graph did not stop early.
+func left(opts WalkOptions, n int, why string) {
+	if opts.Left != nil && n > 0 {
+		opts.Left(n, why)
+	}
+}
+
+// needsFetch reports whether popping this item costs a request. A list read
+// hands back whole records, so most of a wide walk is free.
+func (f frontier) needsFetch() bool {
+	return (f.kind == KindTweet && f.tweet == nil) || (f.kind == KindUser && f.user == nil)
 }
 
 // hydrate turns a frontier item into a Node, fetching the object when the item
@@ -595,6 +644,10 @@ func (w *Walker) note(opts WalkOptions, err error) {
 // CanGraphQL reports whether a GraphQL tier is available. It exports the internal
 // check so the walker (and any other consumer) can read the engine's capability.
 func (e *Engine) CanGraphQL() bool { return e.canGraphQL() }
+
+// Spent is how many requests this engine's client has put on the wire, which is
+// what the walk's --budget is counted in.
+func (e *Engine) Spent() int { return e.c.Spent() }
 
 // HasSession reports whether the user's own session is configured. It is what
 // the walker asks, because every hop the walker can be denied is denied to a
