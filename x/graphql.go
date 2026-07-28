@@ -349,6 +349,7 @@ func (ur gqlUserResult) toUser() *User {
 		}
 		if u.Website == "" && ur.ProfileBio.Entities != nil && len(ur.ProfileBio.Entities.URL.URLs) > 0 {
 			u.Website = ur.ProfileBio.Entities.URL.URLs[0].ExpandedURL
+			u.Entities.URLs = append(u.Entities.URLs, u.Website)
 		}
 	}
 	if ur.Verification != nil {

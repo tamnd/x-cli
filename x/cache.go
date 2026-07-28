@@ -17,8 +17,12 @@ type Cache struct {
 
 // NewCache returns a cache rooted at dir. When enabled is false every operation
 // is a no-op so callers need not special-case --no-cache.
+//
+// An empty dir counts as disabled. Without that, a client built without paths
+// caches to a relative path, which means it drops a two-character hash tree into
+// whatever directory the process was started in.
 func NewCache(dir string, enabled bool) *Cache {
-	return &Cache{dir: dir, enabled: enabled}
+	return &Cache{dir: dir, enabled: enabled && dir != ""}
 }
 
 func (c *Cache) path(key string) string {

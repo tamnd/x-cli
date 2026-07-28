@@ -88,6 +88,25 @@ every format, so they survive `jq`, CSV imports, and round-trips without losing
 precision. `x tweet 20 -o json | jq .id` is `"20"`, not `20`, and a 19-digit id
 comes back exactly as sent.
 
+## What a record could not read
+
+Every record says where it came from: `tier`, `surfaces`, `sources`, and `via`
+for the field-by-field breakdown when more than one surface contributed. When a
+surface was tried and did not answer, the record also carries `missed`:
+
+```bash
+x user nasa -o json | jq .missed
+[
+  "s2: rate limited by X on syndication.profile; the window resets at 16:45:41"
+]
+```
+
+A read that falls back still answers, with fewer fields. Without `missed` there
+is no way to tell that record from one where X had nothing more to say, and the
+two mean different things: one is a fact about the account, the other is a fact
+about the last fifteen minutes. x prints the same line on standard error as a
+`warn:`, which `--quiet` suppresses.
+
 ## Exit codes
 
 x uses distinct exit codes so scripts can branch on the outcome:
@@ -101,6 +120,8 @@ x uses distinct exit codes so scripts can branch on the outcome:
 | `4` | Needs auth (a tier you have not enabled) |
 | `5` | Rate-limited |
 | `6` | Not found |
+| `7` | Unsupported (x has no reader for that kind of thing) |
+| `8` | Network error |
 
 See [troubleshooting](/reference/troubleshooting/) for what to do about codes
 `4`, `5`, and `6`.

@@ -1,6 +1,9 @@
 package x
 
-import "context"
+import (
+	"context"
+	"errors"
+)
 
 // Engine wires the three tiers behind one capability surface (spec §4.2). It
 // resolves the cheapest free surface that can answer each call: Tier 0
@@ -149,39 +152,68 @@ func (e *Engine) TimelineFromWeb(ctx context.Context, handle string) ([]*Tweet, 
 	return p.Postings(), nil
 }
 
-// User resolves a profile, preferring Tier 0 syndication for a handle.
+// User resolves a profile.
+//
+// Nothing about a user needs tier 1 outright: surface 2 and surface 8 between
+// them have every field (spec 3003 doc 03 section 3.4). Tier 1 is still the
+// first choice when it is available, because it is one request rather than two
+// and its window is 150 in fifteen minutes where the profile widget's is 30.
+// Whichever answered, the record says so, and whatever was tried and did not
+// answer is recorded as a miss rather than left to look like an account with
+// nothing to say.
 func (e *Engine) User(ctx context.Context, ref string, isID bool) (*User, error) {
-	if e.cfg.Tier == "guest" || e.cfg.Tier == "session" {
-		if isID {
-			return e.g.UserByRestID(ctx, ref)
-		}
-		return e.g.UserByName(ctx, ref)
-	}
 	if e.cfg.Tier == "web" && !isID {
 		return e.UserFromWeb(ctx, ref)
 	}
-	if !isID && e.cfg.Tier != "session" {
-		u, err := UserByNameSyndication(ctx, e.c, ref)
-		if err == nil {
-			if w, werr := e.UserFromWeb(ctx, ref); werr == nil {
-				u = MergeUser(u, w)
-			}
-			return u, nil
-		}
-		if w, werr := e.UserFromWeb(ctx, ref); werr == nil {
-			return w, nil
-		}
-		if !e.canGraphQL() {
-			return nil, err
-		}
-	}
-	if !e.canGraphQL() {
-		return nil, needGraphQL("resolving a profile by id")
-	}
 	if isID {
+		// A numeric id addresses nothing at tier 0: neither the widget nor the
+		// profile page has a route that takes one.
+		if !e.canGraphQL() {
+			return nil, needGraphQL("resolving a profile by id")
+		}
 		return e.g.UserByRestID(ctx, ref)
 	}
-	return e.g.UserByName(ctx, ref)
+	var missed error
+	if e.canGraphQL() && e.cfg.Tier != "syndication" && e.cfg.Tier != "web" {
+		u, err := e.g.UserByName(ctx, ref)
+		if err == nil {
+			return u, nil
+		}
+		if e.cfg.Tier == "guest" || e.cfg.Tier == "session" {
+			// The tier was asked for by name, so falling back to a thinner one
+			// silently would answer a question nobody asked.
+			return nil, err
+		}
+		var nf *NotFoundError
+		if errors.As(err, &nf) {
+			// There is no such account, which is an answer and not a failure.
+			// Asking two more surfaces gets the same answer more slowly, and if
+			// one of them is rate limited it gets a worse one.
+			return nil, err
+		}
+		missed = err
+	}
+	return e.userTier0(ctx, ref, missed)
+}
+
+// userTier0 reads a profile off both tier-0 surfaces and merges them. Neither
+// is a superset of the other and neither is reliable on its own: the widget
+// window is 30 requests, and the profile page is whatever x.com served that
+// second. What did not answer goes in the envelope.
+func (e *Engine) userTier0(ctx context.Context, handle string, missed error) (*User, error) {
+	u, serr := UserByNameSyndication(ctx, e.c, handle)
+	w, werr := e.UserFromWeb(ctx, handle)
+	if u == nil && w == nil {
+		if serr != nil {
+			return nil, serr
+		}
+		return nil, werr
+	}
+	u = MergeUser(u, w)
+	u.Miss(4, missed)
+	u.Miss(2, serr)
+	u.Miss(8, werr)
+	return u, nil
 }
 
 // Timeline streams a user's tweets, using Tier 0 for the recent window and the
