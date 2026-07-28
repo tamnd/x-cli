@@ -28,6 +28,28 @@ func (a *App) needGraphQL(action string) error {
 	return x.ErrNeedAuth(action + " needs the GraphQL tier: pass --guest, or run `x auth import`")
 }
 
+// sampleFix names the way out of a ranked selection, and there is not always
+// one.
+//
+// The walk in time order is a GraphQL operation, so "pass --guest" is the right
+// advice at tier 0 and noise to somebody who already passed it. That case is
+// real: a replies read routes to tier 0 on purpose even with a guest token,
+// because guest UserTweetsAndReplies answers 200 with an empty envelope. Telling
+// that caller to pass the flag they just passed reads as the tool not listening.
+func (a *App) sampleFix() string {
+	cfg := a.config()
+	switch {
+	case cfg.Tier == "syndication" || cfg.Tier == "web":
+		return "drop --tier " + cfg.Tier + " to walk it in time order"
+	case cfg.HasSession():
+		return "there is no deeper read to fall back on here"
+	case cfg.AllowGuest || cfg.Tier == "guest":
+		return "run `x auth import` to walk it in time order"
+	default:
+		return "pass --guest to walk it in time order"
+	}
+}
+
 // errStop unwinds an emit callback once the row limit is hit; it is swallowed
 // by the stream helpers and never surfaces to the user.
 var errStop = errors.New("stop")
@@ -62,7 +84,7 @@ func (a *App) streamInto(out *render.Renderer, run func(emit func(*x.Tweet) erro
 		if t.Sample {
 			// The rows carry `sample`, but the caveat is the kind that has to
 			// arrive before somebody reads the dates off the top of the list.
-			a.warnOnce("X returned a ranked selection from the whole account, not the most recent tweets; pass --guest for a walk in time order")
+			a.warnOnce("X returned a ranked selection from the whole account, not the most recent tweets; " + a.sampleFix())
 		}
 		if e := out.Emit(tweetRow(t)); e != nil {
 			return e
