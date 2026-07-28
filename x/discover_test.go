@@ -162,12 +162,17 @@ func (f *fakeGraph) Retweeters(_ context.Context, tweetID string, limit int, emi
 // sampleGraph wires a small corpus: tweet 1 by alice quotes tweet 2 (by carol)
 // and mentions bob; alice pins tweet 1 and follows bob; bob liked tweet 1.
 func sampleGraph(can bool) *fakeGraph {
-	alice := &User{ID: "a", Username: "alice", PinnedTweet: "1"}
-	bob := &User{ID: "b", Username: "bob"}
-	carol := &User{ID: "c", Username: "carol"}
-	t2 := &Tweet{ID: "2", Text: "quoted", Author: carol}
-	t1 := &Tweet{ID: "1", Text: "hello @bob", Author: alice, Quoted: t2,
-		Entities: Entities{Mentions: []string{"bob"}}}
+	alice := NewUser("alice")
+	alice.RestID, alice.PinnedTweet = "a", "1"
+	bob := NewUser("bob")
+	bob.RestID = "b"
+	carol := NewUser("carol")
+	carol.RestID = "c"
+	t2 := NewTweet("2")
+	t2.Text, t2.Author = "quoted", carol
+	t1 := NewTweet("1")
+	t1.Text, t1.Author, t1.Quoted = "hello @bob", alice, t2
+	t1.Entities = Entities{Mentions: []string{"bob"}}
 	return &fakeGraph{
 		can:       can,
 		tweets:    map[string]*Tweet{"1": t1, "2": t2},

@@ -100,10 +100,10 @@ func gqlTTL(op string) time.Duration {
 }
 
 // get performs a read GraphQL GET, returning the decoded data tree.
-func (g *GraphQL) get(ctx context.Context, op string, variables map[string]any) ([]byte, error) {
+func (g *GraphQL) get(ctx context.Context, op string, variables map[string]any) ([]byte, string, error) {
 	id := g.queryID(op)
 	if id == "" {
-		return nil, fmt.Errorf("no query id for operation %q (set graphql.query_id.%s)", op, op)
+		return nil, "", fmt.Errorf("no query id for operation %q (set graphql.query_id.%s)", op, op)
 	}
 	vb, _ := json.Marshal(variables)
 	u := fmt.Sprintf("https://x.com/i/api/graphql/%s/%s?variables=%s&features=%s",
@@ -117,7 +117,7 @@ func (g *GraphQL) get(ctx context.Context, op string, variables map[string]any) 
 	for attempt := 0; ; attempt++ {
 		h, err := g.s.authHeaders(ctx, g.c)
 		if err != nil {
-			return nil, err
+			return nil, "", err
 		}
 		if pu, perr := url.Parse(u); perr == nil {
 			// The TID is verified against the request path only; the web client
@@ -132,13 +132,13 @@ func (g *GraphQL) get(ctx context.Context, op string, variables map[string]any) 
 		}
 		b, err := g.c.Do(ctx, Req{URL: u, Endpoint: "graphql." + op, Header: h, CacheTTL: gqlTTL(op)})
 		if err == nil {
-			return b, nil
+			return b, u, nil
 		}
 		if attempt == 0 && !g.s.IsUser() && isAuthReject(err) {
 			g.s.invalidateGuest()
 			continue
 		}
-		return nil, gqlError(op, err)
+		return nil, "", gqlError(op, err)
 	}
 }
 
@@ -250,11 +250,11 @@ func (ur gqlUserResult) toUser() *User {
 	}
 	u := lu.toUser(ur.IsBlueVerified)
 	if ur.RestID != "" {
-		u.ID = ur.RestID
+		u.RestID = ur.RestID
 	}
 	if ur.Core != nil {
 		if u.Username == "" {
-			u.Username = ur.Core.ScreenName
+			u.setHandle(ur.Core.ScreenName)
 		}
 		if u.Name == "" {
 			u.Name = ur.Core.Name
@@ -289,7 +289,7 @@ func (r *gqlTweetResult) build() *Tweet {
 	}
 	t := r.Legacy.toTweet(author, noteText)
 	if t.ID == "" {
-		t.ID = r.RestID
+		t.Identify(KindTweet, r.RestID)
 	}
 	if r.Views != nil {
 		t.Metrics.Impressions, _ = strconv.Atoi(r.Views.Count)
@@ -396,6 +396,16 @@ func buildUserFromMap(m map[string]any) *User {
 	return r.toUser()
 }
 
+// surface is which of doc 01's two GraphQL doors this read went through. The
+// operation is the same either way; what it costs is not, and a record that
+// does not say which one answered cannot be checked against the tier tables.
+func (g *GraphQL) surface() int {
+	if g.s.IsUser() {
+		return 7
+	}
+	return 4
+}
+
 // collectTweets / collectUsers decode a GraphQL response and return entities in
 // array order plus the bottom cursor for the next page.
 func collectTweets(b []byte) ([]*Tweet, string) {
@@ -424,7 +434,7 @@ func collectUsers(b []byte) ([]*User, string) {
 
 // TweetByID resolves one tweet via TweetResultByRestId.
 func (g *GraphQL) TweetByID(ctx context.Context, id string) (*Tweet, error) {
-	b, err := g.get(ctx, "TweetResultByRestId", map[string]any{
+	b, src, err := g.get(ctx, "TweetResultByRestId", map[string]any{
 		"tweetId":                id,
 		"withCommunity":          false,
 		"includePromotedContent": false,
@@ -437,12 +447,13 @@ func (g *GraphQL) TweetByID(ctx context.Context, id string) (*Tweet, error) {
 	if len(tweets) == 0 {
 		return nil, &NotFoundError{Kind: "tweet", Ref: id}
 	}
+	stampTweets(tweets, g.surface(), src)
 	return tweets[0], nil
 }
 
 // UserByName resolves a profile via UserByScreenName.
 func (g *GraphQL) UserByName(ctx context.Context, handle string) (*User, error) {
-	b, err := g.get(ctx, "UserByScreenName", map[string]any{
+	b, src, err := g.get(ctx, "UserByScreenName", map[string]any{
 		"screen_name": handle,
 	})
 	if err != nil {
@@ -452,12 +463,13 @@ func (g *GraphQL) UserByName(ctx context.Context, handle string) (*User, error) 
 	if len(users) == 0 {
 		return nil, &NotFoundError{Kind: "user", Ref: handle}
 	}
+	stampUser(users[0], g.surface(), src)
 	return users[0], nil
 }
 
 // UserByRestID resolves a profile by numeric id via UserByRestId.
 func (g *GraphQL) UserByRestID(ctx context.Context, id string) (*User, error) {
-	b, err := g.get(ctx, "UserByRestId", map[string]any{"userId": id})
+	b, src, err := g.get(ctx, "UserByRestId", map[string]any{"userId": id})
 	if err != nil {
 		return nil, err
 	}
@@ -465,6 +477,7 @@ func (g *GraphQL) UserByRestID(ctx context.Context, id string) (*User, error) {
 	if len(users) == 0 {
 		return nil, &NotFoundError{Kind: "user", Ref: id}
 	}
+	stampUser(users[0], g.surface(), src)
 	return users[0], nil
 }
 
@@ -477,7 +490,9 @@ func (g *GraphQL) resolveUserID(ctx context.Context, ref string, isID bool) (str
 	if err != nil {
 		return "", err
 	}
-	return u.ID, nil
+	// The numeric id, not the handle: UserTweets and the follow graph take the
+	// rest id, and a handle there comes back as an empty timeline.
+	return u.RestID, nil
 }
 
 // ---- paginated tweet timelines ----
@@ -600,7 +615,7 @@ func (g *GraphQL) pageTweets(ctx context.Context, op string, vars func(cursor st
 	cursor := ""
 	n := 0
 	for {
-		b, err := g.get(ctx, op, vars(cursor))
+		b, src, err := g.get(ctx, op, vars(cursor))
 		if err != nil {
 			if n > 0 {
 				return nil // partial result already streamed
@@ -608,6 +623,7 @@ func (g *GraphQL) pageTweets(ctx context.Context, op string, vars func(cursor st
 			return err
 		}
 		tweets, next := collectTweets(b)
+		stampTweets(tweets, g.surface(), src)
 		fresh := 0
 		for _, t := range tweets {
 			if t == nil || t.ID == "" || seen[t.ID] {
@@ -668,7 +684,7 @@ func (g *GraphQL) pageUsers(ctx context.Context, op, kind, id, idKey string, ext
 			"includePromotedContent": false,
 		}
 		maps.Copy(vars, extra)
-		b, err := g.get(ctx, op, vars)
+		b, src, err := g.get(ctx, op, vars)
 		if err != nil {
 			if n > 0 {
 				return nil
@@ -676,6 +692,9 @@ func (g *GraphQL) pageUsers(ctx context.Context, op, kind, id, idKey string, ext
 			return err
 		}
 		users, next := collectUsers(b)
+		for _, u := range users {
+			stampUser(u, g.surface(), src)
+		}
 		fresh := 0
 		for _, u := range users {
 			if u == nil || u.ID == "" || seen[u.ID] {
@@ -683,7 +702,7 @@ func (g *GraphQL) pageUsers(ctx context.Context, op, kind, id, idKey string, ext
 			}
 			seen[u.ID] = true
 			fresh++
-			u.Kind = kind
+			u.Role = kind
 			if err := emit(u); err != nil {
 				return err
 			}

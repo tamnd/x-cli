@@ -47,24 +47,24 @@ func (Domain) Register(app *kit.App) {
 	app.SetClient(newEngine)
 
 	// Resolver ops: one record per id, the home of `ant get x://<type>/<id>`.
-	kit.Handle(app, kit.OpMeta{Name: "status", Group: "read", Single: true,
-		Summary: "Fetch a tweet by id or status URL", URIType: "status", Resolver: true,
+	kit.Handle(app, kit.OpMeta{Name: "tweet", Group: "read", Single: true,
+		Summary: "Fetch a tweet by id or status URL", URIType: KindTweet, Resolver: true,
 		Args: []kit.Arg{{Name: "ref", Help: "tweet id or status URL"}}}, getStatus)
 	kit.Handle(app, kit.OpMeta{Name: "user", Group: "read", Single: true,
-		Summary: "Fetch a profile by @handle, id, or URL", URIType: "user", Resolver: true,
+		Summary: "Fetch a profile by @handle, id, or URL", URIType: KindUser, Resolver: true,
 		Args: []kit.Arg{{Name: "ref", Help: "@handle, user id, or profile URL"}}}, getUser)
 
 	// List ops: members of a parent resource, the home of `ant ls`.
 	kit.Handle(app, kit.OpMeta{Name: "timeline", Group: "read", List: true,
-		Summary: "List a user's recent tweets", URIType: "user",
+		Summary: "List a user's recent tweets", URIType: KindUser,
 		Args: []kit.Arg{{Name: "ref", Help: "@handle, user id, or profile URL"}}}, listTimeline)
 	kit.Handle(app, kit.OpMeta{Name: "thread", Group: "read", List: true,
-		Summary: "List a conversation thread", URIType: "status",
+		Summary: "List a conversation thread", URIType: KindTweet,
 		Args: []kit.Arg{{Name: "ref", Help: "tweet id or status URL"}}}, listThread)
 
-	// Search rounds out the surface; URIType "status" keeps it from claiming a
-	// second authority, since the status resolver already owns the Tweet type.
-	kit.Handle(app, kit.OpMeta{Name: "search", Group: "read", URIType: "status",
+	// Search rounds out the surface; URIType tweet keeps it from claiming a
+	// second authority, since the tweet resolver already owns the Tweet type.
+	kit.Handle(app, kit.OpMeta{Name: "search", Group: "read", URIType: KindTweet,
 		Summary: "Search recent tweets",
 		Args:    []kit.Arg{{Name: "query", Help: "search terms", Variadic: true}}}, search)
 }
@@ -148,30 +148,25 @@ func search(ctx context.Context, in queryRef, emit func(*Tweet) error) error {
 
 // --- Resolver: the URI-native string functions, reused from ref.go ---
 
-// Classify turns any accepted input into the canonical (type, id), so `ant
-// resolve` and `ant url` need no network. A bare numeric or a /status/ URL is a
-// tweet; anything else is read as a profile reference.
+// Classify turns any accepted input into the canonical (kind, id), so `ant
+// resolve` and `ant url` need no network. It is the same pure layer `x classify`
+// uses, because a host and the standalone binary disagreeing about what a link
+// names would put the same tweet in the graph twice.
 func (Domain) Classify(input string) (uriType, id string, err error) {
-	if tid, terr := ParseTweetRef(input); terr == nil {
-		return "status", tid, nil
-	}
-	ref, _, uerr := ParseUserRef(input, false)
-	if uerr != nil || ref == "" {
+	kind, id, cerr := Classify(input)
+	if cerr != nil {
 		return "", "", errs.Usage("unrecognized X reference: %q", input)
 	}
-	return "user", ref, nil
+	return kind, id, nil
 }
 
-// Locate is the inverse: the live page URL for a (type, id).
+// Locate is the inverse: the live page URL for a (kind, id).
 func (Domain) Locate(uriType, id string) (string, error) {
-	switch uriType {
-	case "status":
-		return TweetURL("", id), nil
-	case "user":
-		return UserURL(id), nil
-	default:
-		return "", errs.Usage("x has no resource type %q", uriType)
+	u, err := Locate(uriType, id)
+	if err != nil {
+		return "", errs.Usage("%s", err.Error())
 	}
+	return u, nil
 }
 
 // mapErr converts a library error into the kit error kind that carries the right

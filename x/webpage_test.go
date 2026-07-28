@@ -71,14 +71,17 @@ func TestTweetFromStatusPage(t *testing.T) {
 			t.Errorf("%s = %d, want %d", c.name, c.got, c.want)
 		}
 	}
-	if tw.Provenance != "s8" {
-		t.Errorf("provenance = %q, want s8", tw.Provenance)
+	if len(tw.Surfaces) != 1 || tw.Surfaces[0] != "s8" {
+		t.Errorf("surfaces = %v, want just s8", tw.Surfaces)
+	}
+	if tw.URI != "x://tweet/20" {
+		t.Errorf("uri = %q", tw.URI)
 	}
 
 	if tw.Author == nil {
 		t.Fatal("no author")
 	}
-	if tw.Author.Username != "jack" || tw.Author.ID != "12" {
+	if tw.Author.Username != "jack" || tw.Author.RestID != "12" {
 		t.Errorf("author = %+v", tw.Author)
 	}
 	if tw.Author.Metrics.Followers != 10548148 {
@@ -171,7 +174,7 @@ func TestUserFromProfilePage(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	if u.ID != "12" || u.Username != "jack" {
+	if u.RestID != "12" || u.ID != "jack" || u.Username != "jack" {
 		t.Errorf("user = %+v", u)
 	}
 	if u.Name == "" {
@@ -226,7 +229,7 @@ func TestUserFromProfilePageWithoutARelayRecord(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	if u.ID != "11348282" || u.Username != "nasa" || u.Name != "NASA" {
+	if u.RestID != "11348282" || u.ID != "nasa" || u.Name != "NASA" {
 		t.Errorf("user = %+v", u)
 	}
 	if u.Metrics.Followers < 90000000 {

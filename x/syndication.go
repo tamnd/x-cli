@@ -74,7 +74,9 @@ func TweetByID(ctx context.Context, c *Client, id string) (*Tweet, error) {
 		// The endpoint returns {} or a tombstone for missing/protected tweets.
 		return nil, &NotFoundError{Kind: "tweet", Ref: id}
 	}
-	return raw.toTweet(), nil
+	t := raw.toTweet()
+	stampTweet(t, 1, u)
+	return t, nil
 }
 
 // synTweet is the syndication wire shape (only the fields we map).
@@ -156,7 +158,6 @@ type synVideo struct {
 
 func (s *synTweet) toTweet() *Tweet {
 	t := &Tweet{
-		ID:          s.IDStr,
 		Text:        s.Text,
 		Lang:        s.Lang,
 		Sensitive:   s.Sensitive,
@@ -164,21 +165,20 @@ func (s *synTweet) toTweet() *Tweet {
 		ReplyToUser: s.InReplyToScreen,
 		IsReply:     s.InReplyToStatus != "",
 		Metrics:     Metrics{Likes: s.FavoriteCount, Replies: s.ConversationCount},
-		Provenance:  "syndication",
 	}
 	t.CreatedAt, _ = time.Parse(time.RFC3339, s.CreatedAt)
 	t.Author = &User{
-		ID:           s.User.IDStr,
-		Username:     s.User.ScreenName,
+		RestID:       s.User.IDStr,
 		Name:         s.User.Name,
 		Verified:     s.User.Verified || s.User.IsBlueVerified,
 		ProfileImage: s.User.ProfileImage,
-		Provenance:   "syndication",
 	}
+	t.Author.setHandle(s.User.ScreenName)
 	if s.User.IsBlueVerified {
 		t.Author.VerifiedType = "blue"
 	}
 	t.URL = TweetURL(s.User.ScreenName, s.IDStr)
+	t.Identify(KindTweet, s.IDStr)
 	// Entities.
 	for _, h := range s.Entities.Hashtags {
 		t.Entities.Hashtags = append(t.Entities.Hashtags, h.Text)
@@ -248,12 +248,12 @@ func UserByNameSyndication(ctx context.Context, c *Client, handle string) (*User
 	// standalone contextProvider.user; the current shape only has the author on
 	// each timeline entry, so fall back to that.
 	if usr, ok := extractProfileFromNextData(b); ok {
-		usr.Provenance = "syndication"
+		stampUser(usr, 2, u)
 		return usr, nil
 	}
 	if raw, ok := extractNextData(b); ok {
 		if usr, ok := profileFromTimeline(raw, handle); ok {
-			usr.Provenance = "syndication"
+			stampUser(usr, 2, u)
 			return usr, nil
 		}
 	}
@@ -329,9 +329,8 @@ func extractProfileFromNextData(page []byte) (*User, bool) {
 	if cu.ScreenName == "" {
 		return nil, false
 	}
-	return &User{
-		ID:           cu.IDStr,
-		Username:     cu.ScreenName,
+	usr := &User{
+		RestID:       cu.IDStr,
 		Name:         cu.Name,
 		Description:  cu.Description,
 		Location:     cu.Location,
@@ -342,7 +341,9 @@ func extractProfileFromNextData(page []byte) (*User, bool) {
 			Following: cu.FriendsCnt,
 			Tweets:    cu.StatusesCnt,
 		},
-	}, true
+	}
+	usr.setHandle(cu.ScreenName)
+	return usr, true
 }
 
 // ProfileTimeline returns a profile's recent public tweets from the
@@ -385,6 +386,7 @@ func ProfileTimeline(ctx context.Context, c *Client, handle string, _ int) ([]*T
 	if len(out) == 0 {
 		return nil, &NotFoundError{Kind: "timeline", Ref: handle}
 	}
+	stampTweets(out, 2, u)
 	return out, nil
 }
 

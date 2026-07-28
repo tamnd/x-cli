@@ -71,8 +71,10 @@ func stripHost(s string) string {
 
 // TweetURL builds the canonical permalink for a tweet.
 func TweetURL(author, id string) string {
+	// Without a handle the canonical form is /i/status/<id>, which is what
+	// Locate returns, so a tweet has one address whichever way it was built.
 	if author == "" {
-		author = "i/web"
+		author = "i"
 	}
 	return "https://x.com/" + author + "/status/" + id
 }

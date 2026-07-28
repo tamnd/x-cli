@@ -103,7 +103,7 @@ func ParsePage(url, body string) (*Page, error) {
 // disagree on keeps the store's answer, and the disagreement is worth knowing
 // about, which is what x edges --conflicts is for.
 func (p *Page) TweetFromPage(id string) (*Tweet, error) {
-	t := &Tweet{ID: id, Provenance: "s8"}
+	t := &Tweet{Meta: tweetMeta(id, 8, p.URL)}
 
 	if p.Store != nil {
 		if rec, ok := p.tweetRecord(id); ok {
@@ -113,6 +113,13 @@ func (p *Page) TweetFromPage(id string) (*Tweet, error) {
 	if item := p.posting(id); item != nil {
 		applyMicrodataTweet(t, item)
 	}
+	// The store's rest_id wins over the id we asked with, which is how a
+	// redirected or edited status ends up under the id X itself uses.
+	if t.ID == "" {
+		t.ID = id
+	}
+	t.Identify(KindTweet, t.ID)
+	stampTweet(t, 8, p.URL)
 	if t.Text == "" && t.Author == nil {
 		return nil, fmt.Errorf("no tweet %s on %s", id, p.URL)
 	}
@@ -246,13 +253,12 @@ func applyRelayTweet(t *Tweet, rec map[string]any) {
 
 // userFromRelay copies a Relay User record onto our model.
 func userFromRelay(rec map[string]any) *User {
-	u := &User{Provenance: "s8"}
+	u := &User{}
 	if v, ok := embed.DigStr(rec, "rest_id"); ok {
-		u.ID = v
+		u.RestID = v
 	}
 	if v, ok := embed.DigStr(rec, "core", "screen_name"); ok {
-		u.Username = v
-		u.URL = UserURL(v)
+		u.setHandle(v)
 	}
 	if v, ok := embed.DigStr(rec, "core", "name"); ok {
 		u.Name = v
@@ -303,11 +309,15 @@ func userFromRelay(rec map[string]any) *User {
 // only the one prop name is why a profile page used to report following 0 and
 // tweets 0 for an account whose page states both.
 func applyMicrodataUser(u *User, person *embed.Item) {
-	fillStr(&u.ID, person.Str("identifier"))
+	fillStr(&u.RestID, person.Str("identifier"))
 	// A Person on a profile page carries the handle as additionalName; the
 	// author of a posting carries it as alternateName. Take whichever is there.
-	fillStr(&u.Username, person.Str("additionalName"))
-	fillStr(&u.Username, person.Str("alternateName"))
+	if u.Username == "" {
+		u.setHandle(person.Str("additionalName"))
+	}
+	if u.Username == "" {
+		u.setHandle(person.Str("alternateName"))
+	}
 	fillStr(&u.Name, person.Str("name"))
 	fillStr(&u.Description, person.Str("description"))
 	if home := person.Item("homeLocation"); home != nil {
@@ -374,7 +384,7 @@ func applyMicrodataTweet(t *Tweet, it *embed.Item) {
 	}
 	if author := it.Item("author"); author != nil {
 		if t.Author == nil {
-			t.Author = &User{Provenance: "s8"}
+			t.Author = &User{}
 		}
 		applyMicrodataUser(t.Author, author)
 		fillStr(&t.Author.URL, author.Str("url"))
@@ -396,7 +406,8 @@ func applyMicrodataTweet(t *Tweet, it *embed.Item) {
 
 // UserFromPage builds a profile from a profile page.
 func (p *Page) UserFromPage(handle string) (*User, error) {
-	u := &User{Username: handle, Provenance: "s8"}
+	u := &User{}
+	u.setHandle(handle)
 
 	if p.Store != nil {
 		if f, ok := p.Store.Field("user_result_by_screen_name"); ok {
@@ -419,16 +430,16 @@ func (p *Page) UserFromPage(handle string) (*User, error) {
 			}
 		}
 	}
-	if u.Username == "" && u.ID == "" {
+	if u.Username == "" && u.RestID == "" {
 		return nil, fmt.Errorf("no profile on %s", p.URL)
 	}
 	if u.Username == "" {
-		u.Username = handle
+		u.setHandle(handle)
 	}
 	if u.URL == "" {
 		u.URL = UserURL(u.Username)
 	}
-	u.Provenance = "s8"
+	stampUser(u, 8, p.URL)
 	return u, nil
 }
 

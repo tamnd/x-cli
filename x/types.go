@@ -13,14 +13,14 @@ import "time"
 // Tweet (a Post) is the central object. IDs are always strings: an X snowflake
 // does not fit in a JSON number without silent corruption in jq/JavaScript.
 type Tweet struct {
-	ID             string    `json:"id" kit:"id"`
-	URL            string    `json:"url"`
+	Meta
+
 	Text           string    `json:"text" kit:"body"`
 	CreatedAt      time.Time `json:"created_at"`
 	Lang           string    `json:"lang,omitempty"`
 	Author         *User     `json:"author,omitempty"`
-	ConversationID string    `json:"conversation_id,omitempty" kit:"link,kind=x/status,optional"`
-	ReplyTo        string    `json:"reply_to,omitempty" kit:"link,kind=x/status,optional"`
+	ConversationID string    `json:"conversation_id,omitempty" kit:"link,kind=x/tweet,optional"`
+	ReplyTo        string    `json:"reply_to,omitempty" kit:"link,kind=x/tweet,optional"`
 	ReplyToUser    string    `json:"reply_to_user,omitempty" kit:"link,kind=x/user,optional"`
 	Quoted         *Tweet    `json:"quoted,omitempty"`
 	Retweeted      *Tweet    `json:"retweeted,omitempty"`
@@ -36,7 +36,6 @@ type Tweet struct {
 	IsRetweet      bool      `json:"is_retweet,omitempty"`
 	IsQuote        bool      `json:"is_quote,omitempty"`
 	IsReply        bool      `json:"is_reply,omitempty"`
-	Provenance     string    `json:"provenance,omitempty"`
 }
 
 // Metrics are the engagement counts on a tweet. The public ones are present on
@@ -60,23 +59,36 @@ type Entities struct {
 
 // User is an account/profile.
 type User struct {
-	ID            string      `json:"id" kit:"id"`
-	Username      string      `json:"username"`
+	Meta
+
+	// Username is the handle in the casing its owner chose. Meta.ID is the same
+	// handle lowercased, because X treats @NASA and @nasa as one account and a
+	// graph that keeps both is a graph with two nodes for one thing.
+	Username string `json:"username"`
+
+	// RestID is the numeric account id. Both are needed and neither replaces the
+	// other: the handle addresses the account, the numeric id is what UserTweets
+	// takes, and a handle can be given up and taken by someone else.
+	RestID string `json:"rest_id,omitempty"`
+
 	Name          string      `json:"name"`
 	CreatedAt     time.Time   `json:"created_at,omitempty"`
 	Description   string      `json:"description,omitempty" kit:"body"`
 	Location      string      `json:"location,omitempty"`
-	URL           string      `json:"url,omitempty"`
+	Website       string      `json:"website,omitempty"`
 	Verified      bool        `json:"verified,omitempty"`
 	VerifiedType  string      `json:"verified_type,omitempty"`
 	Protected     bool        `json:"protected,omitempty"`
 	Metrics       UserMetrics `json:"metrics"`
 	ProfileImage  string      `json:"profile_image,omitempty"`
 	ProfileBanner string      `json:"profile_banner,omitempty"`
-	PinnedTweet   string      `json:"pinned_tweet,omitempty" kit:"link,kind=x/status,optional"`
+	PinnedTweet   string      `json:"pinned_tweet,omitempty" kit:"link,kind=x/tweet,optional"`
 	Entities      Entities    `json:"entities,omitempty"`
-	Kind          string      `json:"kind,omitempty"` // follower|following|liker|retweeter|... when in a list
-	Provenance    string      `json:"provenance,omitempty"`
+
+	// Role is why this user is in the answer: follower, following, liker,
+	// retweeter, member. It is a property of the listing, not of the account,
+	// which is why it is empty when the user was asked for directly.
+	Role string `json:"role,omitempty"`
 }
 
 // UserMetrics are the public counters on a profile.
@@ -128,7 +140,8 @@ type PollOption struct {
 
 // Place is a geotag.
 type Place struct {
-	ID          string `json:"id"`
+	Meta
+
 	FullName    string `json:"full_name"`
 	Name        string `json:"name,omitempty"`
 	Country     string `json:"country,omitempty"`
@@ -138,7 +151,8 @@ type Place struct {
 
 // List is an X List.
 type List struct {
-	ID          string    `json:"id"`
+	Meta
+
 	Name        string    `json:"name"`
 	Description string    `json:"description,omitempty"`
 	Owner       *User     `json:"owner,omitempty"`
@@ -150,7 +164,8 @@ type List struct {
 
 // Space is an audio Space.
 type Space struct {
-	ID             string    `json:"id"`
+	Meta
+
 	State          string    `json:"state"` // live|scheduled|ended
 	Title          string    `json:"title,omitempty"`
 	HostIDs        []string  `json:"host_ids,omitempty"`

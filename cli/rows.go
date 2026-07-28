@@ -37,9 +37,9 @@ func userRow(u *x.User) Row {
 		itoa(u.Metrics.Followers), itoa(u.Metrics.Following), itoa(u.Metrics.Tweets),
 		yn(u.Verified), x.UserURL(u.Username),
 	}
-	if u.Kind != "" {
-		cols = append([]string{"kind"}, cols...)
-		vals = append([]string{u.Kind}, vals...)
+	if u.Role != "" {
+		cols = append([]string{"role"}, cols...)
+		vals = append([]string{u.Role}, vals...)
 	}
 	return Row{Cols: cols, Vals: vals, Value: u}
 }

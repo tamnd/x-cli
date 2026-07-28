@@ -23,7 +23,7 @@ CREATE TABLE IF NOT EXISTS tweets (
   is_retweet INT, is_quote INT, is_reply INT, possibly_sensitive INT,
   raw TEXT, fetched_at TIMESTAMP);
 CREATE TABLE IF NOT EXISTS users (
-  id TEXT PRIMARY KEY, username TEXT, name TEXT, description TEXT, location TEXT,
+  id TEXT PRIMARY KEY, rest_id TEXT, username TEXT, name TEXT, description TEXT, location TEXT,
   verified INT, followers INT, following INT, tweet_count INT, listed INT,
   created_at TIMESTAMP, raw TEXT, fetched_at TIMESTAMP);
 CREATE TABLE IF NOT EXISTS media (
@@ -95,14 +95,15 @@ func (s *Store) UpsertUser(u *User) error {
 	}
 	raw, _ := json.Marshal(u)
 	_, err := s.db.Exec(`INSERT INTO users
-	  (id,username,name,description,location,verified,followers,following,
+	  (id,rest_id,username,name,description,location,verified,followers,following,
 	   tweet_count,listed,created_at,raw,fetched_at)
-	  VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)
-	  ON CONFLICT(id) DO UPDATE SET username=excluded.username,name=excluded.name,
+	  VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+	  ON CONFLICT(id) DO UPDATE SET rest_id=excluded.rest_id,username=excluded.username,
+	   name=excluded.name,
 	   description=excluded.description,followers=excluded.followers,
 	   following=excluded.following,tweet_count=excluded.tweet_count,
 	   raw=excluded.raw,fetched_at=excluded.fetched_at`,
-		u.ID, u.Username, u.Name, u.Description, u.Location, b2i(u.Verified),
+		u.ID, u.RestID, u.Username, u.Name, u.Description, u.Location, b2i(u.Verified),
 		u.Metrics.Followers, u.Metrics.Following, u.Metrics.Tweets, u.Metrics.Listed,
 		u.CreatedAt, string(raw), nowUTC())
 	return err
