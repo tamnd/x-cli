@@ -26,6 +26,7 @@ type Client struct {
 	mu     sync.Mutex
 	nextOK time.Time            // global rate-limit gate
 	limits map[string]rateLimit // endpoint -> last seen rate-limit window
+	spent  int                  // requests actually put on the wire
 }
 
 type rateLimit struct {
@@ -157,6 +158,9 @@ func (c *Client) Do(ctx context.Context, r Req) ([]byte, error) {
 		if err := c.throttle(ctx, r.Endpoint); err != nil {
 			return nil, err
 		}
+		c.mu.Lock()
+		c.spent++
+		c.mu.Unlock()
 		b, retry, err := c.do1(ctx, r)
 		if err == nil {
 			if r.Method == "" || r.Method == http.MethodGet {
@@ -191,6 +195,15 @@ func (c *Client) Do(ctx context.Context, r Req) ([]byte, error) {
 		return nil, ne
 	}
 	return nil, lastErr
+}
+
+// Spent is how many requests this process has actually put on the wire. A cache
+// hit is not one of them, which is the point: a crawl's budget is a budget of
+// what it costs X, not of what it asks for.
+func (c *Client) Spent() int {
+	c.mu.Lock()
+	defer c.mu.Unlock()
+	return c.spent
 }
 
 // limitErr turns an exhausted window into the typed error the CLI maps to exit

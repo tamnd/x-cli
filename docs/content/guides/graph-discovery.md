@@ -105,12 +105,30 @@ x discover <ref> --depth 2            # follow two hops from the seed (default 1
 x discover <ref> --fanout 50          # up to 50 neighbors per hop (default 25)
 x discover <ref> --fanout 0           # no per-hop cap
 x discover <ref> -n 1000              # stop after 1000 nodes total (default 500)
+x discover <ref> --budget 20          # stop after 20 upstream requests
 ```
 
 `--depth` is how many hops to follow. `--fanout` caps how many neighbors each
 hop contributes per node, so one hop never pages a whole follower graph unless
 you raise it. `-n/--limit` is the total node budget, the hard stop on a deep or
 wide walk.
+
+`--budget` is the other kind of ceiling: requests rather than nodes. Nodes are
+not all the same price, since a list read hands back whole records and costs
+nothing extra to visit, while a mention costs a fetch. Requests are the unit the
+rate limits are written in, so that is the unit a careful walk counts:
+
+```text
+$ x discover 1903142823316049977 --follow thread --depth 2 --budget 2 -o url
+https://x.com/GuyFisherMoney/status/1903142823316049977
+https://x.com/GuyFisherMoney
+stopped early (request budget of 2 spent): 4 nodes left unexpanded
+```
+
+The last line goes to stderr, and it is the point of the flag: a walk that
+stopped short says what it left behind, so a partial crawl is never mistaken for
+a finished one. An exhausted rate-limit window ends a walk the same way, with
+exit `5` and the bucket named.
 
 ## Reading the output
 

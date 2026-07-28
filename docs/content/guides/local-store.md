@@ -35,7 +35,8 @@ x crawl 1234567890 --follow thread --depth 2
 more seeds (tweets or users), walks the graph breadth-first, and writes every
 node and edge it reaches, marking the frontier in the queue as it goes. The
 `--follow`, `--depth`, and `--fanout` knobs are the same as discover; `--max`
-stops after that many stored nodes (default `200`). The engagement and network
+stops after that many stored nodes and `--budget` after that many upstream
+requests. A crawl that stops on either says how many nodes it left unexpanded. The engagement and network
 hops need your session; `--guest` only pages past the syndication window.
 
 ## The queue

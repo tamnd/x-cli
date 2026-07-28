@@ -47,7 +47,7 @@ func parseSeeds(args []string) ([]x.Seed, error) {
 var followHelp = "hops to follow: " + x.HopHelp()
 
 func newDiscoverCmd() kit.Command {
-	var depth, fanout int
+	var depth, fanout, budget int
 	var follow string
 	var store bool
 	return kit.Command{
@@ -59,12 +59,15 @@ func newDiscoverCmd() kit.Command {
 			"with --follow (a preset like content/thread/engagement/network, or a list of\n" +
 			"hops), how far with --depth, and how wide per hop with --fanout. The walk\n" +
 			"stays on Tier 0 by default; engagement and network hops need a session.\n" +
+			"--budget caps what the walk spends upstream, counted in requests rather than\n" +
+			"nodes, and a walk that stops early says how many nodes it left unexpanded.\n" +
 			"Add --store to also persist nodes and edges into the local store.",
 		Args: kit.MinimumNArgs(1),
 		Flags: func(f *kit.FlagSet) {
 			f.IntVar(&depth, "depth", 1, "how many hops to follow from each seed")
 			f.IntVar(&fanout, "fanout", 25, "max neighbors to pull per hop (0 = unlimited)")
 			f.StringVar(&follow, "follow", "content", followHelp)
+			f.IntVar(&budget, "budget", 0, "stop after spending this many upstream requests (0 = no cap)")
 			f.BoolVar(&store, "store", false, "also persist discovered nodes and edges into the local store")
 		},
 		Run: func(ctx context.Context, args []string) error {
@@ -89,18 +92,23 @@ func newDiscoverCmd() kit.Command {
 				}
 				defer func() { _ = st.Close() }()
 			}
-			budget := a.limit
-			if budget <= 0 {
-				budget = defaultDiscoverBudget
+			nodes := a.limit
+			if nodes <= 0 {
+				nodes = defaultDiscoverBudget
 			}
 			sp := a.progress("discovering")
 			defer sp.stop()
 			opts := x.WalkOptions{
 				Depth:  depth,
-				Max:    budget,
+				Max:    nodes,
 				Fanout: fanout,
 				Hops:   hops,
+				Budget: budget,
 				Note:   func(s string) { sp.stop(); a.logf("note: %s", s) },
+				Left: func(n int, why string) {
+					sp.stop()
+					a.logf("stopped early (%s): %d nodes left unexpanded", why, n)
+				},
 			}
 			if st != nil {
 				opts.OnHop = func(src, dst string, e x.Hop, m *x.Meta) {
@@ -136,7 +144,7 @@ func newDiscoverCmd() kit.Command {
 }
 
 func newCrawlCmd() kit.Command {
-	var depth, max, fanout int
+	var depth, max, fanout, budget int
 	var follow string
 	return kit.Command{
 		Use:   "crawl <seed>...",
@@ -144,7 +152,8 @@ func newCrawlCmd() kit.Command {
 		Long: "crawl is discover that persists: it walks the graph from each seed and writes\n" +
 			"every node and edge into the local store under the data dir, marking the\n" +
 			"frontier in the queue as it goes. Use the same --follow/--depth/--fanout knobs\n" +
-			"as discover; --max bounds how many nodes it stores. Inspect the result with\n" +
+			"as discover; --max bounds how many nodes it stores and --budget how many\n" +
+			"requests it spends getting them. Inspect the result with\n" +
 			"`x db stats`, `x db query`, and `x queue`.",
 		Args:  kit.MinimumNArgs(1),
 		Write: true,
@@ -152,6 +161,7 @@ func newCrawlCmd() kit.Command {
 			f.IntVar(&depth, "depth", 1, "how many hops to follow from each seed")
 			f.IntVar(&max, "max", 200, "stop after storing this many nodes")
 			f.IntVar(&fanout, "fanout", 25, "max neighbors to pull per hop (0 = unlimited)")
+			f.IntVar(&budget, "budget", 0, "stop after spending this many upstream requests (0 = no cap)")
 			f.StringVar(&follow, "follow", "content", followHelp)
 		},
 		Run: func(ctx context.Context, args []string) error {
@@ -169,13 +179,15 @@ func newCrawlCmd() kit.Command {
 				return err
 			}
 			defer func() { _ = st.Close() }()
-			stored := 0
+			stored, left := 0, 0
 			opts := x.WalkOptions{
 				Depth:  depth,
 				Max:    max,
 				Fanout: fanout,
 				Hops:   hops,
+				Budget: budget,
 				Note:   func(s string) { a.logf("note: %s", s) },
+				Left:   func(n int, why string) { left = n; a.logf("stopped early (%s)", why) },
 				OnHop: func(src, dst string, e x.Hop, m *x.Meta) {
 					if edge, ok := x.HopEdge(e, src, dst, m); ok {
 						_ = st.PutEdges([]x.Edge{edge})
@@ -194,6 +206,10 @@ func newCrawlCmd() kit.Command {
 			})
 			if err != nil {
 				return mapErr(err)
+			}
+			if left > 0 {
+				a.logf("stored %d nodes, %d left unexpanded", stored, left)
+				return nil
 			}
 			a.logf("stored %d nodes", stored)
 			return nil

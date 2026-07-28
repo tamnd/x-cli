@@ -77,8 +77,8 @@ change your account. `likes`, `likers`, `followers`, and `bookmarks` only read.
 | Command | What it does | Key flags |
 |---|---|---|
 | `edges <ref>...` | The graph claims one record makes, without walking anywhere | `--conflicts` |
-| `discover <seed>...` | Breadth-first walk of the graph linked from a tweet or user (aliases `walk`, `graph`) | `--follow`, `--depth`, `--fanout`, `--store`, `-n` |
-| `crawl <seed>...` | The same walk, persisted into the local store | `--follow`, `--depth`, `--fanout`, `--max` |
+| `discover <seed>...` | Breadth-first walk of the graph linked from a tweet or user (aliases `walk`, `graph`) | `--follow`, `--depth`, `--fanout`, `--budget`, `--store`, `-n` |
+| `crawl <seed>...` | The same walk, persisted into the local store | `--follow`, `--depth`, `--fanout`, `--budget`, `--max` |
 | `db stats` | Row counts per table | |
 | `db query <sql>` | Run a read-only SQL query | |
 | `queue` | Show the crawl queue | |
@@ -99,7 +99,14 @@ list, `--depth` is how many hops to follow (default `1`), and `--fanout` caps
 neighbors per hop (default `25`). `discover` streams nodes and stops at `-n`
 (default `500`); add `--store` to also persist them. `crawl` always persists and
 stops at `--max` (default `200`). The store is a fixed `x.db` under `--data-dir`.
-Engagement and network hops need a session. See
+Engagement and network hops need a session.
+
+`--budget` caps what the walk spends upstream, counted in requests rather than
+nodes, because requests are the unit the rate limits are written in. A walk that
+stops early says so and names how many nodes it never expanded, on stderr, so a
+partial crawl is never mistaken for a finished one. An exhausted rate-limit
+window ends the walk the same way, with exit `5` and the bucket named: an empty
+window is not one node's problem, it is every node's. See
 [graph discovery](/guides/graph-discovery/).
 
 A hop is not an edge. A hop is a direction the walk travels and an edge is a
