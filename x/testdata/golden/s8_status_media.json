@@ -1,0 +1,322 @@
+{
+  "tweet": {
+    "kind": "tweet",
+    "id": "2081860978694594863",
+    "uri": "x://tweet/2081860978694594863",
+    "url": "https://x.com/NASA/status/2081860978694594863",
+    "tier": 0,
+    "surfaces": [
+      "s8"
+    ],
+    "sources": [
+      "https://x.com/i/status/2081860978694594863"
+    ],
+    "text": "The Andromeda galaxy isn't making stars like it used to. A new study using @NASAHubble data shows that star formation in Andromeda has been slowing down over the last 40 million years: https://t.co/nK1ndoydi7 https://t.co/1fmYXooDq2",
+    "created_at": "2026-07-27T21:55:11Z",
+    "author": {
+      "kind": "user",
+      "id": "nasa",
+      "uri": "x://user/nasa",
+      "url": "https://x.com/nasa",
+      "tier": 0,
+      "surfaces": [
+        "s8"
+      ],
+      "sources": [
+        "https://x.com/i/status/2081860978694594863"
+      ],
+      "username": "NASA",
+      "rest_id": "11348282",
+      "name": "NASA",
+      "description": "Making the seemingly impossible, possible. ✨",
+      "verified": true,
+      "verified_type": "Government",
+      "metrics": {
+        "followers": 92219419,
+        "following": 119,
+        "tweets": 74261
+      },
+      "profile_image": "https://pbs.twimg.com/profile_images/1321163587679784960/0ZxKlEKB_normal.jpg",
+      "entities": {}
+    },
+    "metrics": {
+      "replies": 175,
+      "retweets": 497,
+      "likes": 3156,
+      "quotes": 40,
+      "bookmarks": 181,
+      "impressions": 824381
+    },
+    "entities": {
+      "mentions": [
+        "NASAHubble"
+      ],
+      "urls": [
+        "https://go.nasa.gov/4yE0X5z"
+      ]
+    },
+    "media": [
+      {
+        "type": "photo",
+        "url": "https://pbs.twimg.com/media/HORBhKkWIAAFjOh.jpg",
+        "width": 7005,
+        "height": 4066,
+        "alt_text": "An image showing countless stars in the Andromeda galaxy, with two small portions labeled \"1\" and \"2\" inset on the left side. Squares at the top and bottom of the image, which were not covered in the survey, are displayed in black. Credits: Image: NASA, ESA, Benjamin Williams (UWashington), Zhuo Chen (UWashington), L. Clifton Johnson (Northwestern); Image Processing: Joseph DePasquale (STScI) "
+      }
+    ]
+  },
+  "postings": [
+    {
+      "kind": "tweet",
+      "id": "2081861296551571747",
+      "uri": "x://tweet/2081861296551571747",
+      "url": "https://x.com/MAGA_Aliens/status/2081861296551571747",
+      "tier": 0,
+      "surfaces": [
+        "s8"
+      ],
+      "sources": [
+        "https://x.com/i/status/2081860978694594863"
+      ],
+      "text": "@NASA @NASAHubble Show us the ALIENS!!",
+      "created_at": "2026-07-27T21:56:26Z",
+      "author": {
+        "kind": "user",
+        "id": "maga_aliens",
+        "uri": "x://user/maga_aliens",
+        "url": "https://x.com/maga_aliens",
+        "tier": 0,
+        "surfaces": [
+          "s8"
+        ],
+        "sources": [
+          "https://x.com/i/status/2081860978694594863"
+        ],
+        "username": "MAGA_Aliens",
+        "rest_id": "1635200305901056002",
+        "name": "Make Aliens Great Again",
+        "verified": true,
+        "metrics": {
+          "followers": 9944,
+          "following": 1360,
+          "tweets": 4489
+        },
+        "profile_image": "https://pbs.twimg.com/profile_images/2051007120523300864/5F3mpW9b_normal.jpg",
+        "entities": {}
+      },
+      "reply_to_user": "NASA",
+      "metrics": {
+        "replies": 3,
+        "retweets": 2,
+        "likes": 10,
+        "quotes": 0,
+        "bookmarks": 0,
+        "impressions": 369
+      },
+      "entities": {
+        "mentions": [
+          "NASA",
+          "NASAHubble"
+        ]
+      },
+      "media": [
+        {
+          "type": "photo",
+          "url": "https://pbs.twimg.com/media/HORBhKkWIAAFjOh.jpg:large",
+          "width": 7005,
+          "height": 4066
+        }
+      ]
+    },
+    {
+      "kind": "tweet",
+      "id": "2081861271587086516",
+      "uri": "x://tweet/2081861271587086516",
+      "url": "https://x.com/jessalanfields/status/2081861271587086516",
+      "tier": 0,
+      "surfaces": [
+        "s8"
+      ],
+      "sources": [
+        "https://x.com/i/status/2081860978694594863"
+      ],
+      "text": "@NASA @NASAHubble I mean God did pretty darn well though right, look up\n\nI think it’s okay for Him to slow the pace a bit",
+      "created_at": "2026-07-27T21:56:20Z",
+      "author": {
+        "kind": "user",
+        "id": "jessalanfields",
+        "uri": "x://user/jessalanfields",
+        "url": "https://x.com/jessalanfields",
+        "tier": 0,
+        "surfaces": [
+          "s8"
+        ],
+        "sources": [
+          "https://x.com/i/status/2081860978694594863"
+        ],
+        "username": "jessalanfields",
+        "rest_id": "16052860",
+        "name": "Jess Fields",
+        "verified": true,
+        "metrics": {
+          "followers": 29261,
+          "following": 7162,
+          "tweets": 39281
+        },
+        "profile_image": "https://pbs.twimg.com/profile_images/1969098427465142272/NZnQkd8n_normal.jpg",
+        "entities": {}
+      },
+      "reply_to_user": "NASA",
+      "metrics": {
+        "replies": 3,
+        "retweets": 0,
+        "likes": 9,
+        "quotes": 0,
+        "bookmarks": 0,
+        "impressions": 1486
+      },
+      "entities": {
+        "mentions": [
+          "NASA",
+          "NASAHubble"
+        ]
+      },
+      "media": [
+        {
+          "type": "photo",
+          "url": "https://pbs.twimg.com/media/HORBhKkWIAAFjOh.jpg:large",
+          "width": 7005,
+          "height": 4066
+        }
+      ]
+    },
+    {
+      "kind": "tweet",
+      "id": "2081861173427790328",
+      "uri": "x://tweet/2081861173427790328",
+      "url": "https://x.com/canraptor_/status/2081861173427790328",
+      "tier": 0,
+      "surfaces": [
+        "s8"
+      ],
+      "sources": [
+        "https://x.com/i/status/2081860978694594863"
+      ],
+      "text": "@NASA @NASAHubble unc dont got it no more",
+      "created_at": "2026-07-27T21:55:57Z",
+      "author": {
+        "kind": "user",
+        "id": "canraptor_",
+        "uri": "x://user/canraptor_",
+        "url": "https://x.com/canraptor_",
+        "tier": 0,
+        "surfaces": [
+          "s8"
+        ],
+        "sources": [
+          "https://x.com/i/status/2081860978694594863"
+        ],
+        "username": "canraptor_",
+        "rest_id": "1844740567559020544",
+        "name": "Canraptor ☄️",
+        "verified": true,
+        "metrics": {
+          "followers": 2189,
+          "following": 956,
+          "tweets": 18076
+        },
+        "profile_image": "https://pbs.twimg.com/profile_images/1966457458496286720/XPC7ynSr_normal.jpg",
+        "entities": {}
+      },
+      "reply_to_user": "NASA",
+      "metrics": {
+        "replies": 2,
+        "retweets": 0,
+        "likes": 5,
+        "quotes": 0,
+        "bookmarks": 0,
+        "impressions": 220
+      },
+      "entities": {
+        "mentions": [
+          "NASA",
+          "NASAHubble"
+        ]
+      },
+      "media": [
+        {
+          "type": "photo",
+          "url": "https://pbs.twimg.com/media/HORBhKkWIAAFjOh.jpg:large",
+          "width": 7005,
+          "height": 4066
+        }
+      ]
+    },
+    {
+      "kind": "tweet",
+      "id": "2081860978694594863",
+      "uri": "x://tweet/2081860978694594863",
+      "url": "https://x.com/NASA/status/2081860978694594863",
+      "tier": 0,
+      "surfaces": [
+        "s8"
+      ],
+      "sources": [
+        "https://x.com/i/status/2081860978694594863"
+      ],
+      "text": "The Andromeda galaxy isn't making stars like it used to. A new study using @NASAHubble data shows that star formation in Andromeda has been slowing down over the last 40 million years: https://t.co/nK1ndoydi7 https://t.co/1fmYXooDq2",
+      "created_at": "2026-07-27T21:55:11Z",
+      "author": {
+        "kind": "user",
+        "id": "nasa",
+        "uri": "x://user/nasa",
+        "url": "https://x.com/nasa",
+        "tier": 0,
+        "surfaces": [
+          "s8"
+        ],
+        "sources": [
+          "https://x.com/i/status/2081860978694594863"
+        ],
+        "username": "NASA",
+        "rest_id": "11348282",
+        "name": "NASA",
+        "description": "Making the seemingly impossible, possible. ✨",
+        "verified": true,
+        "verified_type": "Government",
+        "metrics": {
+          "followers": 92219419,
+          "following": 119,
+          "tweets": 74261
+        },
+        "profile_image": "https://pbs.twimg.com/profile_images/1321163587679784960/0ZxKlEKB_normal.jpg",
+        "entities": {}
+      },
+      "metrics": {
+        "replies": 175,
+        "retweets": 497,
+        "likes": 3156,
+        "quotes": 40,
+        "bookmarks": 181,
+        "impressions": 824381
+      },
+      "entities": {
+        "mentions": [
+          "NASAHubble"
+        ],
+        "urls": [
+          "https://go.nasa.gov/4yE0X5z"
+        ]
+      },
+      "media": [
+        {
+          "type": "photo",
+          "url": "https://pbs.twimg.com/media/HORBhKkWIAAFjOh.jpg",
+          "width": 7005,
+          "height": 4066,
+          "alt_text": "An image showing countless stars in the Andromeda galaxy, with two small portions labeled \"1\" and \"2\" inset on the left side. Squares at the top and bottom of the image, which were not covered in the survey, are displayed in black. Credits: Image: NASA, ESA, Benjamin Williams (UWashington), Zhuo Chen (UWashington), L. Clifton Johnson (Northwestern); Image Processing: Joseph DePasquale (STScI) "
+        }
+      ]
+    }
+  ]
+}

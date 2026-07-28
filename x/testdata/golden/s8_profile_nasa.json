@@ -1,0 +1,31 @@
+{
+  "kind": "user",
+  "id": "nasa",
+  "uri": "x://user/nasa",
+  "url": "https://x.com/nasa",
+  "tier": 0,
+  "surfaces": [
+    "s8"
+  ],
+  "sources": [
+    "https://x.com/nasa"
+  ],
+  "username": "NASA",
+  "rest_id": "11348282",
+  "name": "NASA",
+  "created_at": "2007-12-19T20:20:32Z",
+  "description": "Making the seemingly impossible, possible. ✨",
+  "location": "Pale Blue Dot",
+  "website": "http://www.nasa.gov/",
+  "metrics": {
+    "followers": 92219228,
+    "following": 119,
+    "tweets": 74261
+  },
+  "profile_image": "https://pbs.twimg.com/profile_images/1321163587679784960/0ZxKlEKB_normal.jpg",
+  "entities": {
+    "urls": [
+      "http://www.nasa.gov/"
+    ]
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "kind": "user",
+  "id": "jack",
+  "uri": "x://user/jack",
+  "url": "https://x.com/jack",
+  "tier": 0,
+  "surfaces": [
+    "s8"
+  ],
+  "sources": [
+    "https://x.com/jack"
+  ],
+  "username": "jack",
+  "rest_id": "12",
+  "name": "jack",
+  "created_at": "2006-03-21T20:50:14Z",
+  "description": "no state is the best state",
+  "website": "http://primal.net/jack",
+  "verified": true,
+  "metrics": {
+    "followers": 10582229,
+    "following": 3,
+    "tweets": 30799
+  },
+  "profile_image": "https://pbs.twimg.com/profile_images/1661201415899951105/azNjKOSH_normal.jpg",
+  "entities": {
+    "urls": [
+      "http://primal.net/jack"
+    ]
+  }
+}

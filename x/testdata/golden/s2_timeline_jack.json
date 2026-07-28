@@ -1,0 +1,5275 @@
+[
+  {
+    "kind": "tweet",
+    "id": "1833951636005552366",
+    "uri": "x://tweet/1833951636005552366",
+    "url": "https://x.com/jack/status/1833951636005552366",
+    "tier": 0,
+    "text": "We reject: kings, presidents, and voting.\nWe believe in: rough consensus and running code.\n\n—David Clark, 1992",
+    "created_at": "2024-09-11T19:31:57Z",
+    "lang": "en",
+    "author": {
+      "kind": "user",
+      "id": "jack",
+      "uri": "x://user/jack",
+      "url": "https://x.com/jack",
+      "tier": 0,
+      "username": "jack",
+      "rest_id": "12",
+      "name": "jack",
+      "created_at": "2006-03-21T20:50:14Z",
+      "description": "no state is the best state",
+      "website": "http://primal.net/jack",
+      "verified": true,
+      "verified_type": "blue",
+      "metrics": {
+        "followers": 10559851,
+        "following": 3,
+        "tweets": 30786,
+        "listed": 33162,
+        "likes": 39921,
+        "media": 2973
+      },
+      "profile_image": "https://pbs.twimg.com/profile_images/1661201415899951105/azNjKOSH_normal.jpg",
+      "profile_banner": "https://pbs.twimg.com/profile_banners/12/1742427520",
+      "entities": {
+        "urls": [
+          "http://primal.net/jack"
+        ]
+      }
+    },
+    "conversation_id": "1833951636005552366",
+    "metrics": {
+      "replies": 3902,
+      "retweets": 4374,
+      "likes": 27080,
+      "quotes": 715
+    },
+    "entities": {},
+    "sample": true
+  },
+  {
+    "kind": "tweet",
+    "id": "1247616214769086465",
+    "uri": "x://tweet/1247616214769086465",
+    "url": "https://x.com/jack/status/1247616214769086465",
+    "tier": 0,
+    "text": "I’m moving $1B of my Square equity (~28% of my wealth) to #startsmall LLC to fund global COVID-19 relief. After we disarm this pandemic, the focus will shift to girl’s health and education, and UBI. It will operate transparently, all flows tracked here: https://t.co/hVkUczDQmz",
+    "created_at": "2020-04-07T20:04:19Z",
+    "lang": "en",
+    "author": {
+      "kind": "user",
+      "id": "jack",
+      "uri": "x://user/jack",
+      "url": "https://x.com/jack",
+      "tier": 0,
+      "username": "jack",
+      "rest_id": "12",
+      "name": "jack",
+      "created_at": "2006-03-21T20:50:14Z",
+      "description": "no state is the best state",
+      "website": "http://primal.net/jack",
+      "verified": true,
+      "verified_type": "blue",
+      "metrics": {
+        "followers": 10559851,
+        "following": 3,
+        "tweets": 30786,
+        "listed": 33162,
+        "likes": 39921,
+        "media": 2973
+      },
+      "profile_image": "https://pbs.twimg.com/profile_images/1661201415899951105/azNjKOSH_normal.jpg",
+      "profile_banner": "https://pbs.twimg.com/profile_banners/12/1742427520",
+      "entities": {
+        "urls": [
+          "http://primal.net/jack"
+        ]
+      }
+    },
+    "conversation_id": "1247616214769086465",
+    "metrics": {
+      "replies": 29086,
+      "retweets": 61760,
+      "likes": 351787,
+      "quotes": 19207
+    },
+    "entities": {
+      "hashtags": [
+        "startsmall"
+      ],
+      "urls": [
+        "https://docs.google.com/spreadsheets/d/1-eGxq2mMoEGwgSpNVL5j2sa6ToojZUZ-Zun8h2oBAR4"
+      ]
+    },
+    "sample": true
+  },
+  {
+    "kind": "tweet",
+    "id": "1189634360472829952",
+    "uri": "x://tweet/1189634360472829952",
+    "url": "https://x.com/jack/status/1189634360472829952",
+    "tier": 0,
+    "text": "We’ve made the decision to stop all political advertising on Twitter globally. We believe political message reach should be earned, not bought. Why? A few reasons…🧵",
+    "created_at": "2019-10-30T20:05:08Z",
+    "lang": "en",
+    "author": {
+      "kind": "user",
+      "id": "jack",
+      "uri": "x://user/jack",
+      "url": "https://x.com/jack",
+      "tier": 0,
+      "username": "jack",
+      "rest_id": "12",
+      "name": "jack",
+      "created_at": "2006-03-21T20:50:14Z",
+      "description": "no state is the best state",
+      "website": "http://primal.net/jack",
+      "verified": true,
+      "verified_type": "blue",
+      "metrics": {
+        "followers": 10559851,
+        "following": 3,
+        "tweets": 30786,
+        "listed": 33162,
+        "likes": 39921,
+        "media": 2973
+      },
+      "profile_image": "https://pbs.twimg.com/profile_images/1661201415899951105/azNjKOSH_normal.jpg",
+      "profile_banner": "https://pbs.twimg.com/profile_banners/12/1742427520",
+      "entities": {
+        "urls": [
+          "http://primal.net/jack"
+        ]
+      }
+    },
+    "conversation_id": "1189634360472829952",
+    "metrics": {
+      "replies": 12472,
+      "retweets": 71863,
+      "likes": 306479,
+      "quotes": 32305
+    },
+    "entities": {},
+    "sample": true
+  },
+  {
+    "kind": "tweet",
+    "id": "20",
+    "uri": "x://tweet/20",
+    "url": "https://x.com/jack/status/20",
+    "tier": 0,
+    "text": "just setting up my twttr",
+    "created_at": "2006-03-21T20:50:14Z",
+    "lang": "en",
+    "author": {
+      "kind": "user",
+      "id": "jack",
+      "uri": "x://user/jack",
+      "url": "https://x.com/jack",
+      "tier": 0,
+      "username": "jack",
+      "rest_id": "12",
+      "name": "jack",
+      "created_at": "2006-03-21T20:50:14Z",
+      "description": "no state is the best state",
+      "website": "http://primal.net/jack",
+      "verified": true,
+      "verified_type": "blue",
+      "metrics": {
+        "followers": 10559851,
+        "following": 3,
+        "tweets": 30786,
+        "listed": 33162,
+        "likes": 39921,
+        "media": 2973
+      },
+      "profile_image": "https://pbs.twimg.com/profile_images/1661201415899951105/azNjKOSH_normal.jpg",
+      "profile_banner": "https://pbs.twimg.com/profile_banners/12/1742427520",
+      "entities": {
+        "urls": [
+          "http://primal.net/jack"
+        ]
+      }
+    },
+    "conversation_id": "20",
+    "metrics": {
+      "replies": 17966,
+      "retweets": 124859,
+      "likes": 307846,
+      "quotes": 6808
+    },
+    "entities": {},
+    "sample": true
+  },
+  {
+    "kind": "tweet",
+    "id": "1903073813236957455",
+    "uri": "x://tweet/1903073813236957455",
+    "url": "https://x.com/jack/status/1903073813236957455",
+    "tier": 0,
+    "text": "19 years",
+    "created_at": "2025-03-21T13:18:49Z",
+    "lang": "en",
+    "author": {
+      "kind": "user",
+      "id": "jack",
+      "uri": "x://user/jack",
+      "url": "https://x.com/jack",
+      "tier": 0,
+      "username": "jack",
+      "rest_id": "12",
+      "name": "jack",
+      "created_at": "2006-03-21T20:50:14Z",
+      "description": "no state is the best state",
+      "website": "http://primal.net/jack",
+      "verified": true,
+      "verified_type": "blue",
+      "metrics": {
+        "followers": 10559851,
+        "following": 3,
+        "tweets": 30786,
+        "listed": 33162,
+        "likes": 39921,
+        "media": 2973
+      },
+      "profile_image": "https://pbs.twimg.com/profile_images/1661201415899951105/azNjKOSH_normal.jpg",
+      "profile_banner": "https://pbs.twimg.com/profile_banners/12/1742427520",
+      "entities": {
+        "urls": [
+          "http://primal.net/jack"
+        ]
+      }
+    },
+    "conversation_id": "1903073813236957455",
+    "metrics": {
+      "replies": 6948,
+      "retweets": 16313,
+      "likes": 277362,
+      "quotes": 5374
+    },
+    "entities": {},
+    "is_quote": true,
+    "sample": true
+  },
+  {
+    "kind": "tweet",
+    "id": "1465347002426867720",
+    "uri": "x://tweet/1465347002426867720",
+    "url": "https://x.com/jack/status/1465347002426867720",
+    "tier": 0,
+    "text": "not sure anyone has heard but,\n\nI resigned from Twitter https://t.co/G5tUkSSxkl",
+    "created_at": "2021-11-29T15:48:44Z",
+    "lang": "en",
+    "author": {
+      "kind": "user",
+      "id": "jack",
+      "uri": "x://user/jack",
+      "url": "https://x.com/jack",
+      "tier": 0,
+      "username": "jack",
+      "rest_id": "12",
+      "name": "jack",
+      "created_at": "2006-03-21T20:50:14Z",
+      "description": "no state is the best state",
+      "website": "http://primal.net/jack",
+      "verified": true,
+      "verified_type": "blue",
+      "metrics": {
+        "followers": 10559851,
+        "following": 3,
+        "tweets": 30786,
+        "listed": 33162,
+        "likes": 39921,
+        "media": 2973
+      },
+      "profile_image": "https://pbs.twimg.com/profile_images/1661201415899951105/azNjKOSH_normal.jpg",
+      "profile_banner": "https://pbs.twimg.com/profile_banners/12/1742427520",
+      "entities": {
+        "urls": [
+          "http://primal.net/jack"
+        ]
+      }
+    },
+    "conversation_id": "1465347002426867720",
+    "metrics": {
+      "replies": 18705,
+      "retweets": 54956,
+      "likes": 263966,
+      "quotes": 34347
+    },
+    "entities": {},
+    "media": [
+      {
+        "key": "3_1465346776081256449",
+        "type": "photo",
+        "url": "https://pbs.twimg.com/media/FFX1IQ0WUAEqaLH.jpg",
+        "width": 1686,
+        "height": 1562
+      }
+    ],
+    "sample": true
+  },
+  {
+    "kind": "tweet",
+    "id": "1269077097294688256",
+    "uri": "x://tweet/1269077097294688256",
+    "url": "https://x.com/jack/status/1269077097294688256",
+    "tier": 0,
+    "text": "Not true and not illegal.\n\nThis was pulled because we got a DMCA complaint from copyright holder.",
+    "created_at": "2020-06-06T01:22:12Z",
+    "lang": "en",
+    "author": {
+      "kind": "user",
+      "id": "jack",
+      "uri": "x://user/jack",
+      "url": "https://x.com/jack",
+      "tier": 0,
+      "username": "jack",
+      "rest_id": "12",
+      "name": "jack",
+      "created_at": "2006-03-21T20:50:14Z",
+      "description": "no state is the best state",
+      "website": "http://primal.net/jack",
+      "verified": true,
+      "verified_type": "blue",
+      "metrics": {
+        "followers": 10559851,
+        "following": 3,
+        "tweets": 30786,
+        "listed": 33162,
+        "likes": 39921,
+        "media": 2973
+      },
+      "profile_image": "https://pbs.twimg.com/profile_images/1661201415899951105/azNjKOSH_normal.jpg",
+      "profile_banner": "https://pbs.twimg.com/profile_banners/12/1742427520",
+      "entities": {
+        "urls": [
+          "http://primal.net/jack"
+        ]
+      }
+    },
+    "conversation_id": "1269077097294688256",
+    "metrics": {
+      "replies": 6493,
+      "retweets": 47146,
+      "likes": 242146,
+      "quotes": 3396
+    },
+    "entities": {},
+    "is_quote": true,
+    "sample": true
+  },
+  {
+    "kind": "tweet",
+    "id": "1267621973300875265",
+    "uri": "x://tweet/1267621973300875265",
+    "url": "https://x.com/jack/status/1267621973300875265",
+    "tier": 0,
+    "text": "Police policy reform now.",
+    "created_at": "2020-06-02T01:00:04Z",
+    "lang": "pl",
+    "author": {
+      "kind": "user",
+      "id": "jack",
+      "uri": "x://user/jack",
+      "url": "https://x.com/jack",
+      "tier": 0,
+      "username": "jack",
+      "rest_id": "12",
+      "name": "jack",
+      "created_at": "2006-03-21T20:50:14Z",
+      "description": "no state is the best state",
+      "website": "http://primal.net/jack",
+      "verified": true,
+      "verified_type": "blue",
+      "metrics": {
+        "followers": 10559851,
+        "following": 3,
+        "tweets": 30786,
+        "listed": 33162,
+        "likes": 39921,
+        "media": 2973
+      },
+      "profile_image": "https://pbs.twimg.com/profile_images/1661201415899951105/azNjKOSH_normal.jpg",
+      "profile_banner": "https://pbs.twimg.com/profile_banners/12/1742427520",
+      "entities": {
+        "urls": [
+          "http://primal.net/jack"
+        ]
+      }
+    },
+    "conversation_id": "1267621973300875265",
+    "metrics": {
+      "replies": 9236,
+      "retweets": 26837,
+      "likes": 165393,
+      "quotes": 4509
+    },
+    "entities": {},
+    "sample": true
+  },
+  {
+    "kind": "tweet",
+    "id": "1675230141792886784",
+    "uri": "x://tweet/1675230141792886784",
+    "url": "https://x.com/jack/status/1675230141792886784",
+    "tier": 0,
+    "text": "https://t.co/NZrHRPvwuf",
+    "created_at": "2023-07-01T19:49:24Z",
+    "lang": "zxx",
+    "author": {
+      "kind": "user",
+      "id": "jack",
+      "uri": "x://user/jack",
+      "url": "https://x.com/jack",
+      "tier": 0,
+      "username": "jack",
+      "rest_id": "12",
+      "name": "jack",
+      "created_at": "2006-03-21T20:50:14Z",
+      "description": "no state is the best state",
+      "website": "http://primal.net/jack",
+      "verified": true,
+      "verified_type": "blue",
+      "metrics": {
+        "followers": 10559851,
+        "following": 3,
+        "tweets": 30786,
+        "listed": 33162,
+        "likes": 39921,
+        "media": 2973
+      },
+      "profile_image": "https://pbs.twimg.com/profile_images/1661201415899951105/azNjKOSH_normal.jpg",
+      "profile_banner": "https://pbs.twimg.com/profile_banners/12/1742427520",
+      "entities": {
+        "urls": [
+          "http://primal.net/jack"
+        ]
+      }
+    },
+    "conversation_id": "1675230141792886784",
+    "metrics": {
+      "replies": 9152,
+      "retweets": 19233,
+      "likes": 165389,
+      "quotes": 16331
+    },
+    "entities": {},
+    "media": [
+      {
+        "key": "3_1675230128941441025",
+        "type": "photo",
+        "url": "https://pbs.twimg.com/media/Fz-c7TCWIAEoZAX.jpg",
+        "width": 1536,
+        "height": 2048
+      }
+    ],
+    "sample": true
+  },
+  {
+    "kind": "tweet",
+    "id": "1265837138114830336",
+    "uri": "x://tweet/1265837138114830336",
+    "url": "https://x.com/jack/status/1265837138114830336",
+    "tier": 0,
+    "text": "Fact check: there is someone ultimately accountable for our actions as a company, and that’s me. Please leave our employees out of this. We’ll continue to point out incorrect or disputed information about elections globally. And we will admit to and own any mistakes we make.",
+    "created_at": "2020-05-28T02:47:46Z",
+    "lang": "en",
+    "author": {
+      "kind": "user",
+      "id": "jack",
+      "uri": "x://user/jack",
+      "url": "https://x.com/jack",
+      "tier": 0,
+      "username": "jack",
+      "rest_id": "12",
+      "name": "jack",
+      "created_at": "2006-03-21T20:50:14Z",
+      "description": "no state is the best state",
+      "website": "http://primal.net/jack",
+      "verified": true,
+      "verified_type": "blue",
+      "metrics": {
+        "followers": 10559851,
+        "following": 3,
+        "tweets": 30786,
+        "listed": 33162,
+        "likes": 39921,
+        "media": 2973
+      },
+      "profile_image": "https://pbs.twimg.com/profile_images/1661201415899951105/azNjKOSH_normal.jpg",
+      "profile_banner": "https://pbs.twimg.com/profile_banners/12/1742427520",
+      "entities": {
+        "urls": [
+          "http://primal.net/jack"
+        ]
+      }
+    },
+    "conversation_id": "1265837138114830336",
+    "metrics": {
+      "replies": 21236,
+      "retweets": 21164,
+      "likes": 154544,
+      "quotes": 6920
+    },
+    "entities": {},
+    "sample": true
+  },
+  {
+    "kind": "tweet",
+    "id": "1316897044972306440",
+    "uri": "x://tweet/1316897044972306440",
+    "url": "https://x.com/jack/status/1316897044972306440",
+    "tier": 0,
+    "text": "#EndSARS",
+    "created_at": "2020-10-16T00:21:36Z",
+    "lang": "qht",
+    "author": {
+      "kind": "user",
+      "id": "jack",
+      "uri": "x://user/jack",
+      "url": "https://x.com/jack",
+      "tier": 0,
+      "username": "jack",
+      "rest_id": "12",
+      "name": "jack",
+      "created_at": "2006-03-21T20:50:14Z",
+      "description": "no state is the best state",
+      "website": "http://primal.net/jack",
+      "verified": true,
+      "verified_type": "blue",
+      "metrics": {
+        "followers": 10559851,
+        "following": 3,
+        "tweets": 30786,
+        "listed": 33162,
+        "likes": 39921,
+        "media": 2973
+      },
+      "profile_image": "https://pbs.twimg.com/profile_images/1661201415899951105/azNjKOSH_normal.jpg",
+      "profile_banner": "https://pbs.twimg.com/profile_banners/12/1742427520",
+      "entities": {
+        "urls": [
+          "http://primal.net/jack"
+        ]
+      }
+    },
+    "conversation_id": "1316897044972306440",
+    "metrics": {
+      "replies": 9704,
+      "retweets": 131570,
+      "likes": 164437,
+      "quotes": 7854
+    },
+    "entities": {
+      "hashtags": [
+        "EndSARS"
+      ]
+    },
+    "sample": true
+  },
+  {
+    "kind": "tweet",
+    "id": "1593011838429822976",
+    "uri": "x://tweet/1593011838429822976",
+    "url": "https://x.com/jack/status/1593011838429822976",
+    "tier": 0,
+    "text": "nobody knows anything",
+    "created_at": "2022-11-16T22:43:13Z",
+    "lang": "en",
+    "author": {
+      "kind": "user",
+      "id": "jack",
+      "uri": "x://user/jack",
+      "url": "https://x.com/jack",
+      "tier": 0,
+      "username": "jack",
+      "rest_id": "12",
+      "name": "jack",
+      "created_at": "2006-03-21T20:50:14Z",
+      "description": "no state is the best state",
+      "website": "http://primal.net/jack",
+      "verified": true,
+      "verified_type": "blue",
+      "metrics": {
+        "followers": 10559851,
+        "following": 3,
+        "tweets": 30786,
+        "listed": 33162,
+        "likes": 39921,
+        "media": 2973
+      },
+      "profile_image": "https://pbs.twimg.com/profile_images/1661201415899951105/azNjKOSH_normal.jpg",
+      "profile_banner": "https://pbs.twimg.com/profile_banners/12/1742427520",
+      "entities": {
+        "urls": [
+          "http://primal.net/jack"
+        ]
+      }
+    },
+    "conversation_id": "1593011838429822976",
+    "metrics": {
+      "replies": 9780,
+      "retweets": 13639,
+      "likes": 121241,
+      "quotes": 3443
+    },
+    "entities": {},
+    "sample": true
+  },
+  {
+    "kind": "tweet",
+    "id": "1588913276980633600",
+    "uri": "x://tweet/1588913276980633600",
+    "url": "https://x.com/jack/status/1588913276980633600",
+    "tier": 0,
+    "text": "Folks at Twitter past and present are strong and resilient. They will always find a way no matter how difficult the moment. I realize many are angry with me. I own the responsibility for why everyone is in this situation: I grew the company size too quickly. I apologize for that.",
+    "created_at": "2022-11-05T15:17:00Z",
+    "lang": "en",
+    "author": {
+      "kind": "user",
+      "id": "jack",
+      "uri": "x://user/jack",
+      "url": "https://x.com/jack",
+      "tier": 0,
+      "username": "jack",
+      "rest_id": "12",
+      "name": "jack",
+      "created_at": "2006-03-21T20:50:14Z",
+      "description": "no state is the best state",
+      "website": "http://primal.net/jack",
+      "verified": true,
+      "verified_type": "blue",
+      "metrics": {
+        "followers": 10559851,
+        "following": 3,
+        "tweets": 30786,
+        "listed": 33162,
+        "likes": 39921,
+        "media": 2973
+      },
+      "profile_image": "https://pbs.twimg.com/profile_images/1661201415899951105/azNjKOSH_normal.jpg",
+      "profile_banner": "https://pbs.twimg.com/profile_banners/12/1742427520",
+      "entities": {
+        "urls": [
+          "http://primal.net/jack"
+        ]
+      }
+    },
+    "conversation_id": "1588913276980633600",
+    "metrics": {
+      "replies": 10332,
+      "retweets": 11914,
+      "likes": 98275,
+      "quotes": 6673
+    },
+    "entities": {},
+    "sample": true
+  },
+  {
+    "kind": "tweet",
+    "id": "1517968787609333760",
+    "uri": "x://tweet/1517968787609333760",
+    "url": "https://x.com/jack/status/1517968787609333760",
+    "tier": 0,
+    "text": "hi",
+    "created_at": "2022-04-23T20:48:56Z",
+    "lang": "qst",
+    "author": {
+      "kind": "user",
+      "id": "jack",
+      "uri": "x://user/jack",
+      "url": "https://x.com/jack",
+      "tier": 0,
+      "username": "jack",
+      "rest_id": "12",
+      "name": "jack",
+      "created_at": "2006-03-21T20:50:14Z",
+      "description": "no state is the best state",
+      "website": "http://primal.net/jack",
+      "verified": true,
+      "verified_type": "blue",
+      "metrics": {
+        "followers": 10559851,
+        "following": 3,
+        "tweets": 30786,
+        "listed": 33162,
+        "likes": 39921,
+        "media": 2973
+      },
+      "profile_image": "https://pbs.twimg.com/profile_images/1661201415899951105/azNjKOSH_normal.jpg",
+      "profile_banner": "https://pbs.twimg.com/profile_banners/12/1742427520",
+      "entities": {
+        "urls": [
+          "http://primal.net/jack"
+        ]
+      }
+    },
+    "conversation_id": "1517968787609333760",
+    "metrics": {
+      "replies": 9945,
+      "retweets": 3801,
+      "likes": 93590,
+      "quotes": 2097
+    },
+    "entities": {},
+    "sample": true
+  },
+  {
+    "kind": "tweet",
+    "id": "1445080782335365125",
+    "uri": "x://tweet/1445080782335365125",
+    "url": "https://x.com/jack/status/1445080782335365125",
+    "tier": 0,
+    "text": "@WhatsApp @obyezeks @Twitter thought this was supposed to be encrypted…",
+    "created_at": "2021-10-04T17:38:01Z",
+    "lang": "en",
+    "author": {
+      "kind": "user",
+      "id": "jack",
+      "uri": "x://user/jack",
+      "url": "https://x.com/jack",
+      "tier": 0,
+      "username": "jack",
+      "rest_id": "12",
+      "name": "jack",
+      "created_at": "2006-03-21T20:50:14Z",
+      "description": "no state is the best state",
+      "website": "http://primal.net/jack",
+      "verified": true,
+      "verified_type": "blue",
+      "metrics": {
+        "followers": 10559851,
+        "following": 3,
+        "tweets": 30786,
+        "listed": 33162,
+        "likes": 39921,
+        "media": 2973
+      },
+      "profile_image": "https://pbs.twimg.com/profile_images/1661201415899951105/azNjKOSH_normal.jpg",
+      "profile_banner": "https://pbs.twimg.com/profile_banners/12/1742427520",
+      "entities": {
+        "urls": [
+          "http://primal.net/jack"
+        ]
+      }
+    },
+    "conversation_id": "1445078208190291973",
+    "reply_to": "1445079135106207747",
+    "reply_to_user": "WhatsApp",
+    "metrics": {
+      "replies": 2405,
+      "retweets": 8168,
+      "likes": 92250,
+      "quotes": 4280
+    },
+    "entities": {
+      "mentions": [
+        "WhatsApp",
+        "obyezeks",
+        "Twitter"
+      ]
+    },
+    "is_reply": true,
+    "sample": true
+  },
+  {
+    "kind": "tweet",
+    "id": "1511329369473564677",
+    "uri": "x://tweet/1511329369473564677",
+    "url": "https://x.com/jack/status/1511329369473564677",
+    "tier": 0,
+    "text": "I’m really happy Elon is joining the Twitter board! He cares deeply about our world and Twitter’s role in it.\n\nParag and Elon both lead with their hearts, and they will be an incredible team.",
+    "created_at": "2022-04-05T13:06:15Z",
+    "lang": "en",
+    "author": {
+      "kind": "user",
+      "id": "jack",
+      "uri": "x://user/jack",
+      "url": "https://x.com/jack",
+      "tier": 0,
+      "username": "jack",
+      "rest_id": "12",
+      "name": "jack",
+      "created_at": "2006-03-21T20:50:14Z",
+      "description": "no state is the best state",
+      "website": "http://primal.net/jack",
+      "verified": true,
+      "verified_type": "blue",
+      "metrics": {
+        "followers": 10559851,
+        "following": 3,
+        "tweets": 30786,
+        "listed": 33162,
+        "likes": 39921,
+        "media": 2973
+      },
+      "profile_image": "https://pbs.twimg.com/profile_images/1661201415899951105/azNjKOSH_normal.jpg",
+      "profile_banner": "https://pbs.twimg.com/profile_banners/12/1742427520",
+      "entities": {
+        "urls": [
+          "http://primal.net/jack"
+        ]
+      }
+    },
+    "conversation_id": "1511329369473564677",
+    "metrics": {
+      "replies": 3578,
+      "retweets": 6414,
+      "likes": 93043,
+      "quotes": 1592
+    },
+    "entities": {},
+    "is_quote": true,
+    "sample": true
+  },
+  {
+    "kind": "tweet",
+    "id": "1349510769268850690",
+    "uri": "x://tweet/1349510769268850690",
+    "url": "https://x.com/jack/status/1349510769268850690",
+    "tier": 0,
+    "text": "I do not celebrate or feel pride in our having to ban @realDonaldTrump from Twitter, or how we got here. After a clear warning we’d take this action, we made a decision with the best information we had based on threats to physical safety both on and off Twitter. Was this correct?",
+    "created_at": "2021-01-14T00:16:54Z",
+    "lang": "en",
+    "author": {
+      "kind": "user",
+      "id": "jack",
+      "uri": "x://user/jack",
+      "url": "https://x.com/jack",
+      "tier": 0,
+      "username": "jack",
+      "rest_id": "12",
+      "name": "jack",
+      "created_at": "2006-03-21T20:50:14Z",
+      "description": "no state is the best state",
+      "website": "http://primal.net/jack",
+      "verified": true,
+      "verified_type": "blue",
+      "metrics": {
+        "followers": 10559851,
+        "following": 3,
+        "tweets": 30786,
+        "listed": 33162,
+        "likes": 39921,
+        "media": 2973
+      },
+      "profile_image": "https://pbs.twimg.com/profile_images/1661201415899951105/azNjKOSH_normal.jpg",
+      "profile_banner": "https://pbs.twimg.com/profile_banners/12/1742427520",
+      "entities": {
+        "urls": [
+          "http://primal.net/jack"
+        ]
+      }
+    },
+    "conversation_id": "1349510769268850690",
+    "metrics": {
+      "replies": 37273,
+      "retweets": 12511,
+      "likes": 82717,
+      "quotes": 10873
+    },
+    "entities": {
+      "mentions": [
+        "realDonaldTrump"
+      ]
+    },
+    "sample": true
+  },
+  {
+    "kind": "tweet",
+    "id": "1403487211857797121",
+    "uri": "x://tweet/1403487211857797121",
+    "url": "https://x.com/jack/status/1403487211857797121",
+    "tier": 0,
+    "text": "🇳🇬",
+    "created_at": "2021-06-11T23:00:01Z",
+    "lang": "art",
+    "author": {
+      "kind": "user",
+      "id": "jack",
+      "uri": "x://user/jack",
+      "url": "https://x.com/jack",
+      "tier": 0,
+      "username": "jack",
+      "rest_id": "12",
+      "name": "jack",
+      "created_at": "2006-03-21T20:50:14Z",
+      "description": "no state is the best state",
+      "website": "http://primal.net/jack",
+      "verified": true,
+      "verified_type": "blue",
+      "metrics": {
+        "followers": 10559851,
+        "following": 3,
+        "tweets": 30786,
+        "listed": 33162,
+        "likes": 39921,
+        "media": 2973
+      },
+      "profile_image": "https://pbs.twimg.com/profile_images/1661201415899951105/azNjKOSH_normal.jpg",
+      "profile_banner": "https://pbs.twimg.com/profile_banners/12/1742427520",
+      "entities": {
+        "urls": [
+          "http://primal.net/jack"
+        ]
+      }
+    },
+    "conversation_id": "1403487211857797121",
+    "metrics": {
+      "replies": 6243,
+      "retweets": 42624,
+      "likes": 82672,
+      "quotes": 4924
+    },
+    "entities": {},
+    "sample": true
+  },
+  {
+    "kind": "tweet",
+    "id": "1283571658339397632",
+    "uri": "x://tweet/1283571658339397632",
+    "url": "https://x.com/jack/status/1283571658339397632",
+    "tier": 0,
+    "text": "Tough day for us at Twitter. We all feel terrible this happened.\n\nWe’re diagnosing and will share everything we can when we have a more complete understanding of exactly what happened. \n\n💙 to our teammates working hard to make this right.",
+    "created_at": "2020-07-16T01:18:25Z",
+    "lang": "en",
+    "author": {
+      "kind": "user",
+      "id": "jack",
+      "uri": "x://user/jack",
+      "url": "https://x.com/jack",
+      "tier": 0,
+      "username": "jack",
+      "rest_id": "12",
+      "name": "jack",
+      "created_at": "2006-03-21T20:50:14Z",
+      "description": "no state is the best state",
+      "website": "http://primal.net/jack",
+      "verified": true,
+      "verified_type": "blue",
+      "metrics": {
+        "followers": 10559851,
+        "following": 3,
+        "tweets": 30786,
+        "listed": 33162,
+        "likes": 39921,
+        "media": 2973
+      },
+      "profile_image": "https://pbs.twimg.com/profile_images/1661201415899951105/azNjKOSH_normal.jpg",
+      "profile_banner": "https://pbs.twimg.com/profile_banners/12/1742427520",
+      "entities": {
+        "urls": [
+          "http://primal.net/jack"
+        ]
+      }
+    },
+    "conversation_id": "1283571658339397632",
+    "metrics": {
+      "replies": 6542,
+      "retweets": 10646,
+      "likes": 80812,
+      "quotes": 3024
+    },
+    "entities": {},
+    "sample": true
+  },
+  {
+    "kind": "tweet",
+    "id": "1883976555686420844",
+    "uri": "x://tweet/1883976555686420844",
+    "url": "https://x.com/jack/status/1883976555686420844",
+    "tier": 0,
+    "text": "open source everything",
+    "created_at": "2025-01-27T20:33:08Z",
+    "lang": "en",
+    "author": {
+      "kind": "user",
+      "id": "jack",
+      "uri": "x://user/jack",
+      "url": "https://x.com/jack",
+      "tier": 0,
+      "username": "jack",
+      "rest_id": "12",
+      "name": "jack",
+      "created_at": "2006-03-21T20:50:14Z",
+      "description": "no state is the best state",
+      "website": "http://primal.net/jack",
+      "verified": true,
+      "verified_type": "blue",
+      "metrics": {
+        "followers": 10559851,
+        "following": 3,
+        "tweets": 30786,
+        "listed": 33162,
+        "likes": 39921,
+        "media": 2973
+      },
+      "profile_image": "https://pbs.twimg.com/profile_images/1661201415899951105/azNjKOSH_normal.jpg",
+      "profile_banner": "https://pbs.twimg.com/profile_banners/12/1742427520",
+      "entities": {
+        "urls": [
+          "http://primal.net/jack"
+        ]
+      }
+    },
+    "conversation_id": "1883976555686420844",
+    "metrics": {
+      "replies": 4164,
+      "retweets": 10787,
+      "likes": 83062,
+      "quotes": 1799
+    },
+    "entities": {},
+    "sample": true
+  },
+  {
+    "kind": "tweet",
+    "id": "1589438978113294336",
+    "uri": "x://tweet/1589438978113294336",
+    "url": "https://x.com/jack/status/1589438978113294336",
+    "tier": 0,
+    "text": "@elonmusk accurate to who?",
+    "created_at": "2022-11-07T02:05:57Z",
+    "lang": "en",
+    "author": {
+      "kind": "user",
+      "id": "jack",
+      "uri": "x://user/jack",
+      "url": "https://x.com/jack",
+      "tier": 0,
+      "username": "jack",
+      "rest_id": "12",
+      "name": "jack",
+      "created_at": "2006-03-21T20:50:14Z",
+      "description": "no state is the best state",
+      "website": "http://primal.net/jack",
+      "verified": true,
+      "verified_type": "blue",
+      "metrics": {
+        "followers": 10559851,
+        "following": 3,
+        "tweets": 30786,
+        "listed": 33162,
+        "likes": 39921,
+        "media": 2973
+      },
+      "profile_image": "https://pbs.twimg.com/profile_images/1661201415899951105/azNjKOSH_normal.jpg",
+      "profile_banner": "https://pbs.twimg.com/profile_banners/12/1742427520",
+      "entities": {
+        "urls": [
+          "http://primal.net/jack"
+        ]
+      }
+    },
+    "conversation_id": "1589413653190938624",
+    "reply_to": "1589413653190938624",
+    "reply_to_user": "elonmusk",
+    "metrics": {
+      "replies": 9051,
+      "retweets": 3986,
+      "likes": 77849,
+      "quotes": 2066
+    },
+    "entities": {
+      "mentions": [
+        "elonmusk"
+      ]
+    },
+    "is_reply": true,
+    "sample": true
+  },
+  {
+    "kind": "tweet",
+    "id": "1316478977494724609",
+    "uri": "x://tweet/1316478977494724609",
+    "url": "https://x.com/jack/status/1316478977494724609",
+    "tier": 0,
+    "text": "#EndSARS 🇳🇬 https://t.co/fcgQIOQYSS",
+    "created_at": "2020-10-14T20:40:21Z",
+    "lang": "qme",
+    "author": {
+      "kind": "user",
+      "id": "jack",
+      "uri": "x://user/jack",
+      "url": "https://x.com/jack",
+      "tier": 0,
+      "username": "jack",
+      "rest_id": "12",
+      "name": "jack",
+      "created_at": "2006-03-21T20:50:14Z",
+      "description": "no state is the best state",
+      "website": "http://primal.net/jack",
+      "verified": true,
+      "verified_type": "blue",
+      "metrics": {
+        "followers": 10559851,
+        "following": 3,
+        "tweets": 30786,
+        "listed": 33162,
+        "likes": 39921,
+        "media": 2973
+      },
+      "profile_image": "https://pbs.twimg.com/profile_images/1661201415899951105/azNjKOSH_normal.jpg",
+      "profile_banner": "https://pbs.twimg.com/profile_banners/12/1742427520",
+      "entities": {
+        "urls": [
+          "http://primal.net/jack"
+        ]
+      }
+    },
+    "conversation_id": "1316478977494724609",
+    "metrics": {
+      "replies": 4649,
+      "retweets": 74785,
+      "likes": 78128,
+      "quotes": 5585
+    },
+    "entities": {
+      "hashtags": [
+        "EndSARS"
+      ],
+      "urls": [
+        "https://techcabal.com/2020/10/12/the-next-wave-vive-la-resistance/"
+      ]
+    },
+    "sample": true
+  },
+  {
+    "kind": "tweet",
+    "id": "1464865985471471616",
+    "uri": "x://tweet/1464865985471471616",
+    "url": "https://x.com/jack/status/1464865985471471616",
+    "tier": 0,
+    "text": "I love twitter",
+    "created_at": "2021-11-28T07:57:21Z",
+    "lang": "en",
+    "author": {
+      "kind": "user",
+      "id": "jack",
+      "uri": "x://user/jack",
+      "url": "https://x.com/jack",
+      "tier": 0,
+      "username": "jack",
+      "rest_id": "12",
+      "name": "jack",
+      "created_at": "2006-03-21T20:50:14Z",
+      "description": "no state is the best state",
+      "website": "http://primal.net/jack",
+      "verified": true,
+      "verified_type": "blue",
+      "metrics": {
+        "followers": 10559851,
+        "following": 3,
+        "tweets": 30786,
+        "listed": 33162,
+        "likes": 39921,
+        "media": 2973
+      },
+      "profile_image": "https://pbs.twimg.com/profile_images/1661201415899951105/azNjKOSH_normal.jpg",
+      "profile_banner": "https://pbs.twimg.com/profile_banners/12/1742427520",
+      "entities": {
+        "urls": [
+          "http://primal.net/jack"
+        ]
+      }
+    },
+    "conversation_id": "1464865985471471616",
+    "metrics": {
+      "replies": 6557,
+      "retweets": 9045,
+      "likes": 74928,
+      "quotes": 5289
+    },
+    "entities": {},
+    "sample": true
+  },
+  {
+    "kind": "tweet",
+    "id": "1316485283777519620",
+    "uri": "x://tweet/1316485283777519620",
+    "url": "https://x.com/jack/status/1316485283777519620",
+    "tier": 0,
+    "text": "Donate via #Bitcoin to help #EndSARS 🇳🇬",
+    "created_at": "2020-10-14T21:05:25Z",
+    "lang": "en",
+    "author": {
+      "kind": "user",
+      "id": "jack",
+      "uri": "x://user/jack",
+      "url": "https://x.com/jack",
+      "tier": 0,
+      "username": "jack",
+      "rest_id": "12",
+      "name": "jack",
+      "created_at": "2006-03-21T20:50:14Z",
+      "description": "no state is the best state",
+      "website": "http://primal.net/jack",
+      "verified": true,
+      "verified_type": "blue",
+      "metrics": {
+        "followers": 10559851,
+        "following": 3,
+        "tweets": 30786,
+        "listed": 33162,
+        "likes": 39921,
+        "media": 2973
+      },
+      "profile_image": "https://pbs.twimg.com/profile_images/1661201415899951105/azNjKOSH_normal.jpg",
+      "profile_banner": "https://pbs.twimg.com/profile_banners/12/1742427520",
+      "entities": {
+        "urls": [
+          "http://primal.net/jack"
+        ]
+      }
+    },
+    "conversation_id": "1316485283777519620",
+    "metrics": {
+      "replies": 4170,
+      "retweets": 67598,
+      "likes": 70899,
+      "quotes": 4740
+    },
+    "entities": {
+      "hashtags": [
+        "Bitcoin",
+        "EndSARS"
+      ]
+    },
+    "sample": true
+  },
+  {
+    "kind": "tweet",
+    "id": "1601626270550216704",
+    "uri": "x://tweet/1601626270550216704",
+    "url": "https://x.com/jack/status/1601626270550216704",
+    "tier": 0,
+    "text": "wow Morocco 🇲🇦",
+    "created_at": "2022-12-10T17:13:54Z",
+    "lang": "en",
+    "author": {
+      "kind": "user",
+      "id": "jack",
+      "uri": "x://user/jack",
+      "url": "https://x.com/jack",
+      "tier": 0,
+      "username": "jack",
+      "rest_id": "12",
+      "name": "jack",
+      "created_at": "2006-03-21T20:50:14Z",
+      "description": "no state is the best state",
+      "website": "http://primal.net/jack",
+      "verified": true,
+      "verified_type": "blue",
+      "metrics": {
+        "followers": 10559851,
+        "following": 3,
+        "tweets": 30786,
+        "listed": 33162,
+        "likes": 39921,
+        "media": 2973
+      },
+      "profile_image": "https://pbs.twimg.com/profile_images/1661201415899951105/azNjKOSH_normal.jpg",
+      "profile_banner": "https://pbs.twimg.com/profile_banners/12/1742427520",
+      "entities": {
+        "urls": [
+          "http://primal.net/jack"
+        ]
+      }
+    },
+    "conversation_id": "1601626270550216704",
+    "metrics": {
+      "replies": 1153,
+      "retweets": 4674,
+      "likes": 71691,
+      "quotes": 257
+    },
+    "entities": {},
+    "sample": true
+  },
+  {
+    "kind": "tweet",
+    "id": "1451733913961783299",
+    "uri": "x://tweet/1451733913961783299",
+    "url": "https://x.com/jack/status/1451733913961783299",
+    "tier": 0,
+    "text": "Hyperinflation is going to change everything. It’s happening.",
+    "created_at": "2021-10-23T02:15:11Z",
+    "lang": "en",
+    "author": {
+      "kind": "user",
+      "id": "jack",
+      "uri": "x://user/jack",
+      "url": "https://x.com/jack",
+      "tier": 0,
+      "username": "jack",
+      "rest_id": "12",
+      "name": "jack",
+      "created_at": "2006-03-21T20:50:14Z",
+      "description": "no state is the best state",
+      "website": "http://primal.net/jack",
+      "verified": true,
+      "verified_type": "blue",
+      "metrics": {
+        "followers": 10559851,
+        "following": 3,
+        "tweets": 30786,
+        "listed": 33162,
+        "likes": 39921,
+        "media": 2973
+      },
+      "profile_image": "https://pbs.twimg.com/profile_images/1661201415899951105/azNjKOSH_normal.jpg",
+      "profile_banner": "https://pbs.twimg.com/profile_banners/12/1742427520",
+      "entities": {
+        "urls": [
+          "http://primal.net/jack"
+        ]
+      }
+    },
+    "conversation_id": "1451733913961783299",
+    "metrics": {
+      "replies": 6966,
+      "retweets": 16775,
+      "likes": 71894,
+      "quotes": 8268
+    },
+    "entities": {},
+    "sample": true
+  },
+  {
+    "kind": "tweet",
+    "id": "1445079948432117778",
+    "uri": "x://tweet/1445079948432117778",
+    "url": "https://x.com/jack/status/1445079948432117778",
+    "tier": 0,
+    "text": "how much?",
+    "created_at": "2021-10-04T17:34:42Z",
+    "lang": "en",
+    "author": {
+      "kind": "user",
+      "id": "jack",
+      "uri": "x://user/jack",
+      "url": "https://x.com/jack",
+      "tier": 0,
+      "username": "jack",
+      "rest_id": "12",
+      "name": "jack",
+      "created_at": "2006-03-21T20:50:14Z",
+      "description": "no state is the best state",
+      "website": "http://primal.net/jack",
+      "verified": true,
+      "verified_type": "blue",
+      "metrics": {
+        "followers": 10559851,
+        "following": 3,
+        "tweets": 30786,
+        "listed": 33162,
+        "likes": 39921,
+        "media": 2973
+      },
+      "profile_image": "https://pbs.twimg.com/profile_images/1661201415899951105/azNjKOSH_normal.jpg",
+      "profile_banner": "https://pbs.twimg.com/profile_banners/12/1742427520",
+      "entities": {
+        "urls": [
+          "http://primal.net/jack"
+        ]
+      }
+    },
+    "conversation_id": "1445079948432117778",
+    "metrics": {
+      "replies": 2758,
+      "retweets": 15908,
+      "likes": 70320,
+      "quotes": 4879
+    },
+    "entities": {},
+    "sample": true
+  },
+  {
+    "kind": "tweet",
+    "id": "1510314535671922689",
+    "uri": "x://tweet/1510314535671922689",
+    "url": "https://x.com/jack/status/1510314535671922689",
+    "tier": 0,
+    "text": "the days of usenet, irc, the web...even email (w PGP)...were amazing. centralizing discovery and identity into corporations really damaged the internet.\n\nI realize I'm partially to blame, and regret it.",
+    "created_at": "2022-04-02T17:53:40Z",
+    "lang": "en",
+    "author": {
+      "kind": "user",
+      "id": "jack",
+      "uri": "x://user/jack",
+      "url": "https://x.com/jack",
+      "tier": 0,
+      "username": "jack",
+      "rest_id": "12",
+      "name": "jack",
+      "created_at": "2006-03-21T20:50:14Z",
+      "description": "no state is the best state",
+      "website": "http://primal.net/jack",
+      "verified": true,
+      "verified_type": "blue",
+      "metrics": {
+        "followers": 10559851,
+        "following": 3,
+        "tweets": 30786,
+        "listed": 33162,
+        "likes": 39921,
+        "media": 2973
+      },
+      "profile_image": "https://pbs.twimg.com/profile_images/1661201415899951105/azNjKOSH_normal.jpg",
+      "profile_banner": "https://pbs.twimg.com/profile_banners/12/1742427520",
+      "entities": {
+        "urls": [
+          "http://primal.net/jack"
+        ]
+      }
+    },
+    "conversation_id": "1510314535671922689",
+    "metrics": {
+      "replies": 4943,
+      "retweets": 9873,
+      "likes": 67358,
+      "quotes": 3850
+    },
+    "entities": {},
+    "sample": true
+  },
+  {
+    "kind": "tweet",
+    "id": "1518772756069773313",
+    "uri": "x://tweet/1518772756069773313",
+    "url": "https://x.com/jack/status/1518772756069773313",
+    "tier": 0,
+    "text": "In principle, I don’t believe anyone should own or run Twitter. It wants to be a public good at a protocol level, not a company. Solving for the problem of it being a company however, Elon is the singular solution I trust. I trust his mission to extend the light of consciousness.",
+    "created_at": "2022-04-26T02:03:37Z",
+    "lang": "en",
+    "author": {
+      "kind": "user",
+      "id": "jack",
+      "uri": "x://user/jack",
+      "url": "https://x.com/jack",
+      "tier": 0,
+      "username": "jack",
+      "rest_id": "12",
+      "name": "jack",
+      "created_at": "2006-03-21T20:50:14Z",
+      "description": "no state is the best state",
+      "website": "http://primal.net/jack",
+      "verified": true,
+      "verified_type": "blue",
+      "metrics": {
+        "followers": 10559851,
+        "following": 3,
+        "tweets": 30786,
+        "listed": 33162,
+        "likes": 39921,
+        "media": 2973
+      },
+      "profile_image": "https://pbs.twimg.com/profile_images/1661201415899951105/azNjKOSH_normal.jpg",
+      "profile_banner": "https://pbs.twimg.com/profile_banners/12/1742427520",
+      "entities": {
+        "urls": [
+          "http://primal.net/jack"
+        ]
+      }
+    },
+    "conversation_id": "1518767238081171456",
+    "reply_to": "1518772754782187520",
+    "reply_to_user": "jack",
+    "metrics": {
+      "replies": 3814,
+      "retweets": 9347,
+      "likes": 66106,
+      "quotes": 7431
+    },
+    "entities": {},
+    "is_reply": true,
+    "sample": true
+  },
+  {
+    "kind": "tweet",
+    "id": "1902452495198421391",
+    "uri": "x://tweet/1902452495198421391",
+    "url": "https://x.com/jack/status/1902452495198421391",
+    "tier": 0,
+    "text": "i love tesla",
+    "created_at": "2025-03-19T20:09:55Z",
+    "lang": "en",
+    "author": {
+      "kind": "user",
+      "id": "jack",
+      "uri": "x://user/jack",
+      "url": "https://x.com/jack",
+      "tier": 0,
+      "username": "jack",
+      "rest_id": "12",
+      "name": "jack",
+      "created_at": "2006-03-21T20:50:14Z",
+      "description": "no state is the best state",
+      "website": "http://primal.net/jack",
+      "verified": true,
+      "verified_type": "blue",
+      "metrics": {
+        "followers": 10559851,
+        "following": 3,
+        "tweets": 30786,
+        "listed": 33162,
+        "likes": 39921,
+        "media": 2973
+      },
+      "profile_image": "https://pbs.twimg.com/profile_images/1661201415899951105/azNjKOSH_normal.jpg",
+      "profile_banner": "https://pbs.twimg.com/profile_banners/12/1742427520",
+      "entities": {
+        "urls": [
+          "http://primal.net/jack"
+        ]
+      }
+    },
+    "conversation_id": "1902452495198421391",
+    "metrics": {
+      "replies": 2152,
+      "retweets": 3968,
+      "likes": 65476,
+      "quotes": 626
+    },
+    "entities": {},
+    "is_quote": true,
+    "sample": true
+  },
+  {
+    "kind": "tweet",
+    "id": "1930477885996900352",
+    "uri": "x://tweet/1930477885996900352",
+    "url": "https://x.com/jack/status/1930477885996900352",
+    "tier": 0,
+    "text": "bitcoin",
+    "created_at": "2025-06-05T04:12:49Z",
+    "lang": "en",
+    "author": {
+      "kind": "user",
+      "id": "jack",
+      "uri": "x://user/jack",
+      "url": "https://x.com/jack",
+      "tier": 0,
+      "username": "jack",
+      "rest_id": "12",
+      "name": "jack",
+      "created_at": "2006-03-21T20:50:14Z",
+      "description": "no state is the best state",
+      "website": "http://primal.net/jack",
+      "verified": true,
+      "verified_type": "blue",
+      "metrics": {
+        "followers": 10559851,
+        "following": 3,
+        "tweets": 30786,
+        "listed": 33162,
+        "likes": 39921,
+        "media": 2973
+      },
+      "profile_image": "https://pbs.twimg.com/profile_images/1661201415899951105/azNjKOSH_normal.jpg",
+      "profile_banner": "https://pbs.twimg.com/profile_banners/12/1742427520",
+      "entities": {
+        "urls": [
+          "http://primal.net/jack"
+        ]
+      }
+    },
+    "conversation_id": "1930477885996900352",
+    "metrics": {
+      "replies": 1310,
+      "retweets": 4756,
+      "likes": 61007,
+      "quotes": 645
+    },
+    "entities": {},
+    "is_quote": true,
+    "sample": true
+  },
+  {
+    "kind": "tweet",
+    "id": "1400839179513339905",
+    "uri": "x://tweet/1400839179513339905",
+    "url": "https://x.com/jack/status/1400839179513339905",
+    "tier": 0,
+    "text": "Square is considering making a hardware wallet for #bitcoin. If we do it, we would build it entirely in the open, from software to hardware design, and in collaboration with the community. We want to kick off this thinking the right way: by sharing some of our guiding principles.",
+    "created_at": "2021-06-04T15:37:41Z",
+    "lang": "en",
+    "author": {
+      "kind": "user",
+      "id": "jack",
+      "uri": "x://user/jack",
+      "url": "https://x.com/jack",
+      "tier": 0,
+      "username": "jack",
+      "rest_id": "12",
+      "name": "jack",
+      "created_at": "2006-03-21T20:50:14Z",
+      "description": "no state is the best state",
+      "website": "http://primal.net/jack",
+      "verified": true,
+      "verified_type": "blue",
+      "metrics": {
+        "followers": 10559851,
+        "following": 3,
+        "tweets": 30786,
+        "listed": 33162,
+        "likes": 39921,
+        "media": 2973
+      },
+      "profile_image": "https://pbs.twimg.com/profile_images/1661201415899951105/azNjKOSH_normal.jpg",
+      "profile_banner": "https://pbs.twimg.com/profile_banners/12/1742427520",
+      "entities": {
+        "urls": [
+          "http://primal.net/jack"
+        ]
+      }
+    },
+    "conversation_id": "1400839179513339905",
+    "metrics": {
+      "replies": 2357,
+      "retweets": 9983,
+      "likes": 57877,
+      "quotes": 1804
+    },
+    "entities": {
+      "hashtags": [
+        "bitcoin"
+      ]
+    },
+    "sample": true
+  },
+  {
+    "kind": "tweet",
+    "id": "1189634377057067008",
+    "uri": "x://tweet/1189634377057067008",
+    "url": "https://x.com/jack/status/1189634377057067008",
+    "tier": 0,
+    "text": "A final note. This isn’t about free expression. This is about paying for reach. And paying to increase the reach of political speech has significant ramifications that today’s democratic infrastructure may not be prepared to handle. It’s worth stepping back in order to address.",
+    "created_at": "2019-10-30T20:05:12Z",
+    "lang": "en",
+    "author": {
+      "kind": "user",
+      "id": "jack",
+      "uri": "x://user/jack",
+      "url": "https://x.com/jack",
+      "tier": 0,
+      "username": "jack",
+      "rest_id": "12",
+      "name": "jack",
+      "created_at": "2006-03-21T20:50:14Z",
+      "description": "no state is the best state",
+      "website": "http://primal.net/jack",
+      "verified": true,
+      "verified_type": "blue",
+      "metrics": {
+        "followers": 10559851,
+        "following": 3,
+        "tweets": 30786,
+        "listed": 33162,
+        "likes": 39921,
+        "media": 2973
+      },
+      "profile_image": "https://pbs.twimg.com/profile_images/1661201415899951105/azNjKOSH_normal.jpg",
+      "profile_banner": "https://pbs.twimg.com/profile_banners/12/1742427520",
+      "entities": {
+        "urls": [
+          "http://primal.net/jack"
+        ]
+      }
+    },
+    "conversation_id": "1189634360472829952",
+    "reply_to": "1189634376121798656",
+    "reply_to_user": "jack",
+    "metrics": {
+      "replies": 2360,
+      "retweets": 7363,
+      "likes": 49836,
+      "quotes": 1779
+    },
+    "entities": {},
+    "is_reply": true,
+    "sample": true
+  },
+  {
+    "kind": "tweet",
+    "id": "1555963290219692033",
+    "uri": "x://tweet/1555963290219692033",
+    "url": "https://x.com/jack/status/1555963290219692033",
+    "tier": 0,
+    "text": "End the CCP",
+    "created_at": "2022-08-06T17:05:31Z",
+    "lang": "es",
+    "author": {
+      "kind": "user",
+      "id": "jack",
+      "uri": "x://user/jack",
+      "url": "https://x.com/jack",
+      "tier": 0,
+      "username": "jack",
+      "rest_id": "12",
+      "name": "jack",
+      "created_at": "2006-03-21T20:50:14Z",
+      "description": "no state is the best state",
+      "website": "http://primal.net/jack",
+      "verified": true,
+      "verified_type": "blue",
+      "metrics": {
+        "followers": 10559851,
+        "following": 3,
+        "tweets": 30786,
+        "listed": 33162,
+        "likes": 39921,
+        "media": 2973
+      },
+      "profile_image": "https://pbs.twimg.com/profile_images/1661201415899951105/azNjKOSH_normal.jpg",
+      "profile_banner": "https://pbs.twimg.com/profile_banners/12/1742427520",
+      "entities": {
+        "urls": [
+          "http://primal.net/jack"
+        ]
+      }
+    },
+    "conversation_id": "1555963290219692033",
+    "metrics": {
+      "replies": 4447,
+      "retweets": 10435,
+      "likes": 52812,
+      "quotes": 2696
+    },
+    "entities": {},
+    "is_quote": true,
+    "sample": true
+  },
+  {
+    "kind": "tweet",
+    "id": "1438576819117215749",
+    "uri": "x://tweet/1438576819117215749",
+    "url": "https://x.com/jack/status/1438576819117215749",
+    "tier": 0,
+    "text": "“crypto”",
+    "created_at": "2021-09-16T18:53:35Z",
+    "lang": "en",
+    "author": {
+      "kind": "user",
+      "id": "jack",
+      "uri": "x://user/jack",
+      "url": "https://x.com/jack",
+      "tier": 0,
+      "username": "jack",
+      "rest_id": "12",
+      "name": "jack",
+      "created_at": "2006-03-21T20:50:14Z",
+      "description": "no state is the best state",
+      "website": "http://primal.net/jack",
+      "verified": true,
+      "verified_type": "blue",
+      "metrics": {
+        "followers": 10559851,
+        "following": 3,
+        "tweets": 30786,
+        "listed": 33162,
+        "likes": 39921,
+        "media": 2973
+      },
+      "profile_image": "https://pbs.twimg.com/profile_images/1661201415899951105/azNjKOSH_normal.jpg",
+      "profile_banner": "https://pbs.twimg.com/profile_banners/12/1742427520",
+      "entities": {
+        "urls": [
+          "http://primal.net/jack"
+        ]
+      }
+    },
+    "conversation_id": "1438576819117215749",
+    "metrics": {
+      "replies": 3513,
+      "retweets": 5035,
+      "likes": 51769,
+      "quotes": 884
+    },
+    "entities": {},
+    "sample": true
+  },
+  {
+    "kind": "tweet",
+    "id": "1403812730881052680",
+    "uri": "x://tweet/1403812730881052680",
+    "url": "https://x.com/jack/status/1403812730881052680",
+    "tier": 0,
+    "text": "🇳🇬🤝#bitcoin",
+    "created_at": "2021-06-12T20:33:31Z",
+    "lang": "qme",
+    "author": {
+      "kind": "user",
+      "id": "jack",
+      "uri": "x://user/jack",
+      "url": "https://x.com/jack",
+      "tier": 0,
+      "username": "jack",
+      "rest_id": "12",
+      "name": "jack",
+      "created_at": "2006-03-21T20:50:14Z",
+      "description": "no state is the best state",
+      "website": "http://primal.net/jack",
+      "verified": true,
+      "verified_type": "blue",
+      "metrics": {
+        "followers": 10559851,
+        "following": 3,
+        "tweets": 30786,
+        "listed": 33162,
+        "likes": 39921,
+        "media": 2973
+      },
+      "profile_image": "https://pbs.twimg.com/profile_images/1661201415899951105/azNjKOSH_normal.jpg",
+      "profile_banner": "https://pbs.twimg.com/profile_banners/12/1742427520",
+      "entities": {
+        "urls": [
+          "http://primal.net/jack"
+        ]
+      }
+    },
+    "conversation_id": "1403812730881052680",
+    "metrics": {
+      "replies": 2033,
+      "retweets": 13657,
+      "likes": 51224,
+      "quotes": 1339
+    },
+    "entities": {
+      "hashtags": [
+        "bitcoin"
+      ]
+    },
+    "sample": true
+  },
+  {
+    "kind": "tweet",
+    "id": "1675280187704086528",
+    "uri": "x://tweet/1675280187704086528",
+    "url": "https://x.com/jack/status/1675280187704086528",
+    "tier": 0,
+    "text": "Running Twitter is hard. I don’t wish that stress upon anyone. I trust that the team is doing their best under the constraints they have, which are immense. It’s easy to critique the decisions from afar…which I’m guilty of…but I know the goal is to see Twitter thrive. It will.",
+    "created_at": "2023-07-01T23:08:16Z",
+    "lang": "en",
+    "author": {
+      "kind": "user",
+      "id": "jack",
+      "uri": "x://user/jack",
+      "url": "https://x.com/jack",
+      "tier": 0,
+      "username": "jack",
+      "rest_id": "12",
+      "name": "jack",
+      "created_at": "2006-03-21T20:50:14Z",
+      "description": "no state is the best state",
+      "website": "http://primal.net/jack",
+      "verified": true,
+      "verified_type": "blue",
+      "metrics": {
+        "followers": 10559851,
+        "following": 3,
+        "tweets": 30786,
+        "listed": 33162,
+        "likes": 39921,
+        "media": 2973
+      },
+      "profile_image": "https://pbs.twimg.com/profile_images/1661201415899951105/azNjKOSH_normal.jpg",
+      "profile_banner": "https://pbs.twimg.com/profile_banners/12/1742427520",
+      "entities": {
+        "urls": [
+          "http://primal.net/jack"
+        ]
+      }
+    },
+    "conversation_id": "1675280187704086528",
+    "metrics": {
+      "replies": 4550,
+      "retweets": 6529,
+      "likes": 52262,
+      "quotes": 8319
+    },
+    "entities": {},
+    "sample": true
+  },
+  {
+    "kind": "tweet",
+    "id": "1680387851396186112",
+    "uri": "x://tweet/1680387851396186112",
+    "url": "https://x.com/jack/status/1680387851396186112",
+    "tier": 0,
+    "text": "Too soon b https://t.co/uhD8ZkvdxB",
+    "created_at": "2023-07-16T01:24:18Z",
+    "lang": "en",
+    "author": {
+      "kind": "user",
+      "id": "jack",
+      "uri": "x://user/jack",
+      "url": "https://x.com/jack",
+      "tier": 0,
+      "username": "jack",
+      "rest_id": "12",
+      "name": "jack",
+      "created_at": "2006-03-21T20:50:14Z",
+      "description": "no state is the best state",
+      "website": "http://primal.net/jack",
+      "verified": true,
+      "verified_type": "blue",
+      "metrics": {
+        "followers": 10559851,
+        "following": 3,
+        "tweets": 30786,
+        "listed": 33162,
+        "likes": 39921,
+        "media": 2973
+      },
+      "profile_image": "https://pbs.twimg.com/profile_images/1661201415899951105/azNjKOSH_normal.jpg",
+      "profile_banner": "https://pbs.twimg.com/profile_banners/12/1742427520",
+      "entities": {
+        "urls": [
+          "http://primal.net/jack"
+        ]
+      }
+    },
+    "conversation_id": "1680387851396186112",
+    "metrics": {
+      "replies": 1323,
+      "retweets": 2634,
+      "likes": 51242,
+      "quotes": 661
+    },
+    "entities": {},
+    "media": [
+      {
+        "key": "3_1680387813257383937",
+        "type": "photo",
+        "url": "https://pbs.twimg.com/media/F1Hv0CYaEAELNfD.jpg",
+        "width": 1179,
+        "height": 885
+      }
+    ],
+    "sample": true
+  },
+  {
+    "kind": "tweet",
+    "id": "1513708652951228416",
+    "uri": "x://tweet/1513708652951228416",
+    "url": "https://x.com/jack/status/1513708652951228416",
+    "tier": 0,
+    "text": "Every administration, republican or democrat, has an opportunity to build trust with the public.\n\nInstead, every single time, they choose deception and zero accountability. It’s not the party, it’s the system.",
+    "created_at": "2022-04-12T02:40:40Z",
+    "lang": "en",
+    "author": {
+      "kind": "user",
+      "id": "jack",
+      "uri": "x://user/jack",
+      "url": "https://x.com/jack",
+      "tier": 0,
+      "username": "jack",
+      "rest_id": "12",
+      "name": "jack",
+      "created_at": "2006-03-21T20:50:14Z",
+      "description": "no state is the best state",
+      "website": "http://primal.net/jack",
+      "verified": true,
+      "verified_type": "blue",
+      "metrics": {
+        "followers": 10559851,
+        "following": 3,
+        "tweets": 30786,
+        "listed": 33162,
+        "likes": 39921,
+        "media": 2973
+      },
+      "profile_image": "https://pbs.twimg.com/profile_images/1661201415899951105/azNjKOSH_normal.jpg",
+      "profile_banner": "https://pbs.twimg.com/profile_banners/12/1742427520",
+      "entities": {
+        "urls": [
+          "http://primal.net/jack"
+        ]
+      }
+    },
+    "conversation_id": "1513708652951228416",
+    "metrics": {
+      "replies": 3901,
+      "retweets": 7371,
+      "likes": 50605,
+      "quotes": 1472
+    },
+    "entities": {},
+    "is_quote": true,
+    "sample": true
+  },
+  {
+    "kind": "tweet",
+    "id": "1348139031599595522",
+    "uri": "x://tweet/1348139031599595522",
+    "url": "https://x.com/jack/status/1348139031599595522",
+    "tier": 0,
+    "text": "❤️ https://t.co/uewq6oP7rT",
+    "created_at": "2021-01-10T05:26:07Z",
+    "lang": "qme",
+    "author": {
+      "kind": "user",
+      "id": "jack",
+      "uri": "x://user/jack",
+      "url": "https://x.com/jack",
+      "tier": 0,
+      "username": "jack",
+      "rest_id": "12",
+      "name": "jack",
+      "created_at": "2006-03-21T20:50:14Z",
+      "description": "no state is the best state",
+      "website": "http://primal.net/jack",
+      "verified": true,
+      "verified_type": "blue",
+      "metrics": {
+        "followers": 10559851,
+        "following": 3,
+        "tweets": 30786,
+        "listed": 33162,
+        "likes": 39921,
+        "media": 2973
+      },
+      "profile_image": "https://pbs.twimg.com/profile_images/1661201415899951105/azNjKOSH_normal.jpg",
+      "profile_banner": "https://pbs.twimg.com/profile_banners/12/1742427520",
+      "entities": {
+        "urls": [
+          "http://primal.net/jack"
+        ]
+      }
+    },
+    "conversation_id": "1348139031599595522",
+    "metrics": {
+      "replies": 6895,
+      "retweets": 5587,
+      "likes": 47314,
+      "quotes": 3299
+    },
+    "entities": {},
+    "media": [
+      {
+        "key": "3_1348139025517871104",
+        "type": "photo",
+        "url": "https://pbs.twimg.com/media/ErWNTQvVgAA57Du.jpg",
+        "width": 1170,
+        "height": 831
+      }
+    ],
+    "sample": true
+  },
+  {
+    "kind": "tweet",
+    "id": "1768004906026160482",
+    "uri": "x://tweet/1768004906026160482",
+    "url": "https://x.com/jack/status/1768004906026160482",
+    "tier": 0,
+    "text": "oh yeah",
+    "created_at": "2024-03-13T20:03:12Z",
+    "lang": "en",
+    "author": {
+      "kind": "user",
+      "id": "jack",
+      "uri": "x://user/jack",
+      "url": "https://x.com/jack",
+      "tier": 0,
+      "username": "jack",
+      "rest_id": "12",
+      "name": "jack",
+      "created_at": "2006-03-21T20:50:14Z",
+      "description": "no state is the best state",
+      "website": "http://primal.net/jack",
+      "verified": true,
+      "verified_type": "blue",
+      "metrics": {
+        "followers": 10559851,
+        "following": 3,
+        "tweets": 30786,
+        "listed": 33162,
+        "likes": 39921,
+        "media": 2973
+      },
+      "profile_image": "https://pbs.twimg.com/profile_images/1661201415899951105/azNjKOSH_normal.jpg",
+      "profile_banner": "https://pbs.twimg.com/profile_banners/12/1742427520",
+      "entities": {
+        "urls": [
+          "http://primal.net/jack"
+        ]
+      }
+    },
+    "conversation_id": "1768004906026160482",
+    "metrics": {
+      "replies": 1135,
+      "retweets": 5047,
+      "likes": 47341,
+      "quotes": 361
+    },
+    "entities": {},
+    "is_quote": true,
+    "sample": true
+  },
+  {
+    "kind": "tweet",
+    "id": "1318705895807848448",
+    "uri": "x://tweet/1318705895807848448",
+    "url": "https://x.com/jack/status/1318705895807848448",
+    "tier": 0,
+    "text": "#EndSARS",
+    "created_at": "2020-10-21T00:09:20Z",
+    "lang": "qht",
+    "author": {
+      "kind": "user",
+      "id": "jack",
+      "uri": "x://user/jack",
+      "url": "https://x.com/jack",
+      "tier": 0,
+      "username": "jack",
+      "rest_id": "12",
+      "name": "jack",
+      "created_at": "2006-03-21T20:50:14Z",
+      "description": "no state is the best state",
+      "website": "http://primal.net/jack",
+      "verified": true,
+      "verified_type": "blue",
+      "metrics": {
+        "followers": 10559851,
+        "following": 3,
+        "tweets": 30786,
+        "listed": 33162,
+        "likes": 39921,
+        "media": 2973
+      },
+      "profile_image": "https://pbs.twimg.com/profile_images/1661201415899951105/azNjKOSH_normal.jpg",
+      "profile_banner": "https://pbs.twimg.com/profile_banners/12/1742427520",
+      "entities": {
+        "urls": [
+          "http://primal.net/jack"
+        ]
+      }
+    },
+    "conversation_id": "1318705895807848448",
+    "metrics": {
+      "replies": 1503,
+      "retweets": 53881,
+      "likes": 45987,
+      "quotes": 1825
+    },
+    "entities": {
+      "hashtags": [
+        "EndSARS"
+      ]
+    },
+    "is_quote": true,
+    "sample": true
+  },
+  {
+    "kind": "tweet",
+    "id": "1204766078468911106",
+    "uri": "x://tweet/1204766078468911106",
+    "url": "https://x.com/jack/status/1204766078468911106",
+    "tier": 0,
+    "text": "Twitter is funding a small independent team of up to five open source architects, engineers, and designers to develop an open and decentralized standard for social media. The goal is for Twitter to ultimately be a client of this standard. 🧵",
+    "created_at": "2019-12-11T14:13:11Z",
+    "lang": "en",
+    "author": {
+      "kind": "user",
+      "id": "jack",
+      "uri": "x://user/jack",
+      "url": "https://x.com/jack",
+      "tier": 0,
+      "username": "jack",
+      "rest_id": "12",
+      "name": "jack",
+      "created_at": "2006-03-21T20:50:14Z",
+      "description": "no state is the best state",
+      "website": "http://primal.net/jack",
+      "verified": true,
+      "verified_type": "blue",
+      "metrics": {
+        "followers": 10559851,
+        "following": 3,
+        "tweets": 30786,
+        "listed": 33162,
+        "likes": 39921,
+        "media": 2973
+      },
+      "profile_image": "https://pbs.twimg.com/profile_images/1661201415899951105/azNjKOSH_normal.jpg",
+      "profile_banner": "https://pbs.twimg.com/profile_banners/12/1742427520",
+      "entities": {
+        "urls": [
+          "http://primal.net/jack"
+        ]
+      }
+    },
+    "conversation_id": "1204766078468911106",
+    "metrics": {
+      "replies": 1952,
+      "retweets": 12279,
+      "likes": 46176,
+      "quotes": 5102
+    },
+    "entities": {},
+    "sample": true
+  },
+  {
+    "kind": "tweet",
+    "id": "1604554032831287298",
+    "uri": "x://tweet/1604554032831287298",
+    "url": "https://x.com/jack/status/1604554032831287298",
+    "tier": 0,
+    "text": "@TwitterSupport Why?",
+    "created_at": "2022-12-18T19:07:47Z",
+    "lang": "und",
+    "author": {
+      "kind": "user",
+      "id": "jack",
+      "uri": "x://user/jack",
+      "url": "https://x.com/jack",
+      "tier": 0,
+      "username": "jack",
+      "rest_id": "12",
+      "name": "jack",
+      "created_at": "2006-03-21T20:50:14Z",
+      "description": "no state is the best state",
+      "website": "http://primal.net/jack",
+      "verified": true,
+      "verified_type": "blue",
+      "metrics": {
+        "followers": 10559851,
+        "following": 3,
+        "tweets": 30786,
+        "listed": 33162,
+        "likes": 39921,
+        "media": 2973
+      },
+      "profile_image": "https://pbs.twimg.com/profile_images/1661201415899951105/azNjKOSH_normal.jpg",
+      "profile_banner": "https://pbs.twimg.com/profile_banners/12/1742427520",
+      "entities": {
+        "urls": [
+          "http://primal.net/jack"
+        ]
+      }
+    },
+    "conversation_id": "1604531261791522817",
+    "reply_to": "1604531265419591681",
+    "reply_to_user": "Support",
+    "metrics": {
+      "replies": 3138,
+      "retweets": 4551,
+      "likes": 43777,
+      "quotes": 4331
+    },
+    "entities": {},
+    "is_reply": true,
+    "sample": true
+  },
+  {
+    "kind": "tweet",
+    "id": "1316479288967942147",
+    "uri": "x://tweet/1316479288967942147",
+    "url": "https://x.com/jack/status/1316479288967942147",
+    "tier": 0,
+    "text": "https://t.co/pi12xwtb1i",
+    "created_at": "2020-10-14T20:41:36Z",
+    "lang": "zxx",
+    "author": {
+      "kind": "user",
+      "id": "jack",
+      "uri": "x://user/jack",
+      "url": "https://x.com/jack",
+      "tier": 0,
+      "username": "jack",
+      "rest_id": "12",
+      "name": "jack",
+      "created_at": "2006-03-21T20:50:14Z",
+      "description": "no state is the best state",
+      "website": "http://primal.net/jack",
+      "verified": true,
+      "verified_type": "blue",
+      "metrics": {
+        "followers": 10559851,
+        "following": 3,
+        "tweets": 30786,
+        "listed": 33162,
+        "likes": 39921,
+        "media": 2973
+      },
+      "profile_image": "https://pbs.twimg.com/profile_images/1661201415899951105/azNjKOSH_normal.jpg",
+      "profile_banner": "https://pbs.twimg.com/profile_banners/12/1742427520",
+      "entities": {
+        "urls": [
+          "http://primal.net/jack"
+        ]
+      }
+    },
+    "conversation_id": "1316478977494724609",
+    "reply_to": "1316478977494724609",
+    "reply_to_user": "jack",
+    "metrics": {
+      "replies": 1176,
+      "retweets": 45393,
+      "likes": 44397,
+      "quotes": 2199
+    },
+    "entities": {
+      "urls": [
+        "https://feministcoalition2020.com/20909b5c2f2549cd85b6ea14dec88818"
+      ]
+    },
+    "is_reply": true,
+    "sample": true
+  },
+  {
+    "kind": "tweet",
+    "id": "1600469184755822597",
+    "uri": "x://tweet/1600469184755822597",
+    "url": "https://x.com/jack/status/1600469184755822597",
+    "tier": 0,
+    "text": "@elonmusk If the goal is transparency to build trust, why not just release everything without filter and let people judge for themselves? Including all discussions around current and future actions? Make everything public now. #TwitterFiles",
+    "created_at": "2022-12-07T12:36:03Z",
+    "lang": "en",
+    "author": {
+      "kind": "user",
+      "id": "jack",
+      "uri": "x://user/jack",
+      "url": "https://x.com/jack",
+      "tier": 0,
+      "username": "jack",
+      "rest_id": "12",
+      "name": "jack",
+      "created_at": "2006-03-21T20:50:14Z",
+      "description": "no state is the best state",
+      "website": "http://primal.net/jack",
+      "verified": true,
+      "verified_type": "blue",
+      "metrics": {
+        "followers": 10559851,
+        "following": 3,
+        "tweets": 30786,
+        "listed": 33162,
+        "likes": 39921,
+        "media": 2973
+      },
+      "profile_image": "https://pbs.twimg.com/profile_images/1661201415899951105/azNjKOSH_normal.jpg",
+      "profile_banner": "https://pbs.twimg.com/profile_banners/12/1742427520",
+      "entities": {
+        "urls": [
+          "http://primal.net/jack"
+        ]
+      }
+    },
+    "conversation_id": "1598864377750306816",
+    "reply_to": "1599252162688655360",
+    "reply_to_user": "elonmusk",
+    "metrics": {
+      "replies": 5527,
+      "retweets": 5407,
+      "likes": 44277,
+      "quotes": 1696
+    },
+    "entities": {
+      "hashtags": [
+        "TwitterFiles"
+      ],
+      "mentions": [
+        "elonmusk"
+      ]
+    },
+    "is_reply": true,
+    "sample": true
+  },
+  {
+    "kind": "tweet",
+    "id": "1595864501437583367",
+    "uri": "x://tweet/1595864501437583367",
+    "url": "https://x.com/jack/status/1595864501437583367",
+    "tier": 0,
+    "text": "We need a new mobile OS that’s web-only.",
+    "created_at": "2022-11-24T19:38:41Z",
+    "lang": "en",
+    "author": {
+      "kind": "user",
+      "id": "jack",
+      "uri": "x://user/jack",
+      "url": "https://x.com/jack",
+      "tier": 0,
+      "username": "jack",
+      "rest_id": "12",
+      "name": "jack",
+      "created_at": "2006-03-21T20:50:14Z",
+      "description": "no state is the best state",
+      "website": "http://primal.net/jack",
+      "verified": true,
+      "verified_type": "blue",
+      "metrics": {
+        "followers": 10559851,
+        "following": 3,
+        "tweets": 30786,
+        "listed": 33162,
+        "likes": 39921,
+        "media": 2973
+      },
+      "profile_image": "https://pbs.twimg.com/profile_images/1661201415899951105/azNjKOSH_normal.jpg",
+      "profile_banner": "https://pbs.twimg.com/profile_banners/12/1742427520",
+      "entities": {
+        "urls": [
+          "http://primal.net/jack"
+        ]
+      }
+    },
+    "conversation_id": "1595864501437583367",
+    "metrics": {
+      "replies": 4577,
+      "retweets": 3825,
+      "likes": 43925,
+      "quotes": 1688
+    },
+    "entities": {},
+    "sample": true
+  },
+  {
+    "kind": "tweet",
+    "id": "1527379574438277121",
+    "uri": "x://tweet/1527379574438277121",
+    "url": "https://x.com/jack/status/1527379574438277121",
+    "tier": 0,
+    "text": "not a slip up...it's truth.",
+    "created_at": "2022-05-19T20:04:02Z",
+    "lang": "en",
+    "author": {
+      "kind": "user",
+      "id": "jack",
+      "uri": "x://user/jack",
+      "url": "https://x.com/jack",
+      "tier": 0,
+      "username": "jack",
+      "rest_id": "12",
+      "name": "jack",
+      "created_at": "2006-03-21T20:50:14Z",
+      "description": "no state is the best state",
+      "website": "http://primal.net/jack",
+      "verified": true,
+      "verified_type": "blue",
+      "metrics": {
+        "followers": 10559851,
+        "following": 3,
+        "tweets": 30786,
+        "listed": 33162,
+        "likes": 39921,
+        "media": 2973
+      },
+      "profile_image": "https://pbs.twimg.com/profile_images/1661201415899951105/azNjKOSH_normal.jpg",
+      "profile_banner": "https://pbs.twimg.com/profile_banners/12/1742427520",
+      "entities": {
+        "urls": [
+          "http://primal.net/jack"
+        ]
+      }
+    },
+    "conversation_id": "1527379574438277121",
+    "metrics": {
+      "replies": 1486,
+      "retweets": 8295,
+      "likes": 43301,
+      "quotes": 570
+    },
+    "entities": {},
+    "is_quote": true,
+    "sample": true
+  },
+  {
+    "kind": "tweet",
+    "id": "1518772757340639232",
+    "uri": "x://tweet/1518772757340639232",
+    "url": "https://x.com/jack/status/1518772757340639232",
+    "tier": 0,
+    "text": "Elon’s goal of creating a platform that is “maximally trusted and broadly inclusive” is the right one. This is also @paraga’s goal, and why I chose him. Thank you both for getting the company out of an impossible situation. This is the right path...I believe it with all my heart.",
+    "created_at": "2022-04-26T02:03:37Z",
+    "lang": "en",
+    "author": {
+      "kind": "user",
+      "id": "jack",
+      "uri": "x://user/jack",
+      "url": "https://x.com/jack",
+      "tier": 0,
+      "username": "jack",
+      "rest_id": "12",
+      "name": "jack",
+      "created_at": "2006-03-21T20:50:14Z",
+      "description": "no state is the best state",
+      "website": "http://primal.net/jack",
+      "verified": true,
+      "verified_type": "blue",
+      "metrics": {
+        "followers": 10559851,
+        "following": 3,
+        "tweets": 30786,
+        "listed": 33162,
+        "likes": 39921,
+        "media": 2973
+      },
+      "profile_image": "https://pbs.twimg.com/profile_images/1661201415899951105/azNjKOSH_normal.jpg",
+      "profile_banner": "https://pbs.twimg.com/profile_banners/12/1742427520",
+      "entities": {
+        "urls": [
+          "http://primal.net/jack"
+        ]
+      }
+    },
+    "conversation_id": "1518767238081171456",
+    "reply_to": "1518772756069773313",
+    "reply_to_user": "jack",
+    "metrics": {
+      "replies": 2435,
+      "retweets": 5388,
+      "likes": 44288,
+      "quotes": 1884
+    },
+    "entities": {
+      "mentions": [
+        "paraga"
+      ]
+    },
+    "is_reply": true,
+    "sample": true
+  },
+  {
+    "kind": "tweet",
+    "id": "1677009482076020737",
+    "uri": "x://tweet/1677009482076020737",
+    "url": "https://x.com/jack/status/1677009482076020737",
+    "tier": 0,
+    "text": "“We wanted flying cars, instead we got 7 Twitter clones.”",
+    "created_at": "2023-07-06T17:39:52Z",
+    "lang": "en",
+    "author": {
+      "kind": "user",
+      "id": "jack",
+      "uri": "x://user/jack",
+      "url": "https://x.com/jack",
+      "tier": 0,
+      "username": "jack",
+      "rest_id": "12",
+      "name": "jack",
+      "created_at": "2006-03-21T20:50:14Z",
+      "description": "no state is the best state",
+      "website": "http://primal.net/jack",
+      "verified": true,
+      "verified_type": "blue",
+      "metrics": {
+        "followers": 10559851,
+        "following": 3,
+        "tweets": 30786,
+        "listed": 33162,
+        "likes": 39921,
+        "media": 2973
+      },
+      "profile_image": "https://pbs.twimg.com/profile_images/1661201415899951105/azNjKOSH_normal.jpg",
+      "profile_banner": "https://pbs.twimg.com/profile_banners/12/1742427520",
+      "entities": {
+        "urls": [
+          "http://primal.net/jack"
+        ]
+      }
+    },
+    "conversation_id": "1677009482076020737",
+    "metrics": {
+      "replies": 2263,
+      "retweets": 7327,
+      "likes": 43249,
+      "quotes": 2161
+    },
+    "entities": {},
+    "is_quote": true,
+    "sample": true
+  },
+  {
+    "kind": "tweet",
+    "id": "1404203298148737026",
+    "uri": "x://tweet/1404203298148737026",
+    "url": "https://x.com/jack/status/1404203298148737026",
+    "tier": 0,
+    "text": "🇳🇬🇳🇬🇳🇬",
+    "created_at": "2021-06-13T22:25:29Z",
+    "lang": "art",
+    "author": {
+      "kind": "user",
+      "id": "jack",
+      "uri": "x://user/jack",
+      "url": "https://x.com/jack",
+      "tier": 0,
+      "username": "jack",
+      "rest_id": "12",
+      "name": "jack",
+      "created_at": "2006-03-21T20:50:14Z",
+      "description": "no state is the best state",
+      "website": "http://primal.net/jack",
+      "verified": true,
+      "verified_type": "blue",
+      "metrics": {
+        "followers": 10559851,
+        "following": 3,
+        "tweets": 30786,
+        "listed": 33162,
+        "likes": 39921,
+        "media": 2973
+      },
+      "profile_image": "https://pbs.twimg.com/profile_images/1661201415899951105/azNjKOSH_normal.jpg",
+      "profile_banner": "https://pbs.twimg.com/profile_banners/12/1742427520",
+      "entities": {
+        "urls": [
+          "http://primal.net/jack"
+        ]
+      }
+    },
+    "conversation_id": "1404203298148737026",
+    "metrics": {
+      "replies": 2323,
+      "retweets": 13124,
+      "likes": 42558,
+      "quotes": 1462
+    },
+    "entities": {},
+    "sample": true
+  },
+  {
+    "kind": "tweet",
+    "id": "1786621609647702176",
+    "uri": "x://tweet/1786621609647702176",
+    "url": "https://x.com/jack/status/1786621609647702176",
+    "tier": 0,
+    "text": "truth vs lies",
+    "created_at": "2024-05-04T04:59:20Z",
+    "lang": "en",
+    "author": {
+      "kind": "user",
+      "id": "jack",
+      "uri": "x://user/jack",
+      "url": "https://x.com/jack",
+      "tier": 0,
+      "username": "jack",
+      "rest_id": "12",
+      "name": "jack",
+      "created_at": "2006-03-21T20:50:14Z",
+      "description": "no state is the best state",
+      "website": "http://primal.net/jack",
+      "verified": true,
+      "verified_type": "blue",
+      "metrics": {
+        "followers": 10559851,
+        "following": 3,
+        "tweets": 30786,
+        "listed": 33162,
+        "likes": 39921,
+        "media": 2973
+      },
+      "profile_image": "https://pbs.twimg.com/profile_images/1661201415899951105/azNjKOSH_normal.jpg",
+      "profile_banner": "https://pbs.twimg.com/profile_banners/12/1742427520",
+      "entities": {
+        "urls": [
+          "http://primal.net/jack"
+        ]
+      }
+    },
+    "conversation_id": "1786621609647702176",
+    "metrics": {
+      "replies": 925,
+      "retweets": 4807,
+      "likes": 41662,
+      "quotes": 2684
+    },
+    "entities": {},
+    "is_quote": true,
+    "sample": true
+  },
+  {
+    "kind": "tweet",
+    "id": "1599732915390205957",
+    "uri": "x://tweet/1599732915390205957",
+    "url": "https://x.com/jack/status/1599732915390205957",
+    "tier": 0,
+    "text": "finally back in Ghana 🇬🇭",
+    "created_at": "2022-12-05T11:50:23Z",
+    "lang": "en",
+    "author": {
+      "kind": "user",
+      "id": "jack",
+      "uri": "x://user/jack",
+      "url": "https://x.com/jack",
+      "tier": 0,
+      "username": "jack",
+      "rest_id": "12",
+      "name": "jack",
+      "created_at": "2006-03-21T20:50:14Z",
+      "description": "no state is the best state",
+      "website": "http://primal.net/jack",
+      "verified": true,
+      "verified_type": "blue",
+      "metrics": {
+        "followers": 10559851,
+        "following": 3,
+        "tweets": 30786,
+        "listed": 33162,
+        "likes": 39921,
+        "media": 2973
+      },
+      "profile_image": "https://pbs.twimg.com/profile_images/1661201415899951105/azNjKOSH_normal.jpg",
+      "profile_banner": "https://pbs.twimg.com/profile_banners/12/1742427520",
+      "entities": {
+        "urls": [
+          "http://primal.net/jack"
+        ]
+      }
+    },
+    "conversation_id": "1599732915390205957",
+    "metrics": {
+      "replies": 1481,
+      "retweets": 3338,
+      "likes": 42608,
+      "quotes": 494
+    },
+    "entities": {},
+    "sample": true
+  },
+  {
+    "kind": "tweet",
+    "id": "1318706043451572225",
+    "uri": "x://tweet/1318706043451572225",
+    "url": "https://x.com/jack/status/1318706043451572225",
+    "tier": 0,
+    "text": "#EndSARS",
+    "created_at": "2020-10-21T00:09:55Z",
+    "lang": "qht",
+    "author": {
+      "kind": "user",
+      "id": "jack",
+      "uri": "x://user/jack",
+      "url": "https://x.com/jack",
+      "tier": 0,
+      "username": "jack",
+      "rest_id": "12",
+      "name": "jack",
+      "created_at": "2006-03-21T20:50:14Z",
+      "description": "no state is the best state",
+      "website": "http://primal.net/jack",
+      "verified": true,
+      "verified_type": "blue",
+      "metrics": {
+        "followers": 10559851,
+        "following": 3,
+        "tweets": 30786,
+        "listed": 33162,
+        "likes": 39921,
+        "media": 2973
+      },
+      "profile_image": "https://pbs.twimg.com/profile_images/1661201415899951105/azNjKOSH_normal.jpg",
+      "profile_banner": "https://pbs.twimg.com/profile_banners/12/1742427520",
+      "entities": {
+        "urls": [
+          "http://primal.net/jack"
+        ]
+      }
+    },
+    "conversation_id": "1318706043451572225",
+    "metrics": {
+      "replies": 1350,
+      "retweets": 48629,
+      "likes": 41458,
+      "quotes": 1598
+    },
+    "entities": {
+      "hashtags": [
+        "EndSARS"
+      ]
+    },
+    "sample": true
+  },
+  {
+    "kind": "tweet",
+    "id": "1591299587280883712",
+    "uri": "x://tweet/1591299587280883712",
+    "url": "https://x.com/jack/status/1591299587280883712",
+    "tier": 0,
+    "text": "30",
+    "created_at": "2022-11-12T05:19:21Z",
+    "lang": "qst",
+    "author": {
+      "kind": "user",
+      "id": "jack",
+      "uri": "x://user/jack",
+      "url": "https://x.com/jack",
+      "tier": 0,
+      "username": "jack",
+      "rest_id": "12",
+      "name": "jack",
+      "created_at": "2006-03-21T20:50:14Z",
+      "description": "no state is the best state",
+      "website": "http://primal.net/jack",
+      "verified": true,
+      "verified_type": "blue",
+      "metrics": {
+        "followers": 10559851,
+        "following": 3,
+        "tweets": 30786,
+        "listed": 33162,
+        "likes": 39921,
+        "media": 2973
+      },
+      "profile_image": "https://pbs.twimg.com/profile_images/1661201415899951105/azNjKOSH_normal.jpg",
+      "profile_banner": "https://pbs.twimg.com/profile_banners/12/1742427520",
+      "entities": {
+        "urls": [
+          "http://primal.net/jack"
+        ]
+      }
+    },
+    "conversation_id": "1591299587280883712",
+    "metrics": {
+      "replies": 2911,
+      "retweets": 2290,
+      "likes": 40716,
+      "quotes": 1151
+    },
+    "entities": {},
+    "sample": true
+  },
+  {
+    "kind": "tweet",
+    "id": "1189634367296901120",
+    "uri": "x://tweet/1189634367296901120",
+    "url": "https://x.com/jack/status/1189634367296901120",
+    "tier": 0,
+    "text": "A political message earns reach when people decide to follow an account or retweet. Paying for reach removes that decision, forcing highly optimized and targeted political messages on people. We believe this decision should not be compromised by money.",
+    "created_at": "2019-10-30T20:05:10Z",
+    "lang": "en",
+    "author": {
+      "kind": "user",
+      "id": "jack",
+      "uri": "x://user/jack",
+      "url": "https://x.com/jack",
+      "tier": 0,
+      "username": "jack",
+      "rest_id": "12",
+      "name": "jack",
+      "created_at": "2006-03-21T20:50:14Z",
+      "description": "no state is the best state",
+      "website": "http://primal.net/jack",
+      "verified": true,
+      "verified_type": "blue",
+      "metrics": {
+        "followers": 10559851,
+        "following": 3,
+        "tweets": 30786,
+        "listed": 33162,
+        "likes": 39921,
+        "media": 2973
+      },
+      "profile_image": "https://pbs.twimg.com/profile_images/1661201415899951105/azNjKOSH_normal.jpg",
+      "profile_banner": "https://pbs.twimg.com/profile_banners/12/1742427520",
+      "entities": {
+        "urls": [
+          "http://primal.net/jack"
+        ]
+      }
+    },
+    "conversation_id": "1189634360472829952",
+    "reply_to": "1189634360472829952",
+    "reply_to_user": "jack",
+    "metrics": {
+      "replies": 465,
+      "retweets": 4252,
+      "likes": 38168,
+      "quotes": 515
+    },
+    "entities": {},
+    "is_reply": true,
+    "sample": true
+  },
+  {
+    "kind": "tweet",
+    "id": "1422209576041078785",
+    "uri": "x://tweet/1422209576041078785",
+    "url": "https://x.com/jack/status/1422209576041078785",
+    "tier": 0,
+    "text": "Bitcoin is Bitcoin.\n\n(and that’s all it needs to be)",
+    "created_at": "2021-08-02T14:56:00Z",
+    "lang": "en",
+    "author": {
+      "kind": "user",
+      "id": "jack",
+      "uri": "x://user/jack",
+      "url": "https://x.com/jack",
+      "tier": 0,
+      "username": "jack",
+      "rest_id": "12",
+      "name": "jack",
+      "created_at": "2006-03-21T20:50:14Z",
+      "description": "no state is the best state",
+      "website": "http://primal.net/jack",
+      "verified": true,
+      "verified_type": "blue",
+      "metrics": {
+        "followers": 10559851,
+        "following": 3,
+        "tweets": 30786,
+        "listed": 33162,
+        "likes": 39921,
+        "media": 2973
+      },
+      "profile_image": "https://pbs.twimg.com/profile_images/1661201415899951105/azNjKOSH_normal.jpg",
+      "profile_banner": "https://pbs.twimg.com/profile_banners/12/1742427520",
+      "entities": {
+        "urls": [
+          "http://primal.net/jack"
+        ]
+      }
+    },
+    "conversation_id": "1422209576041078785",
+    "metrics": {
+      "replies": 3058,
+      "retweets": 5696,
+      "likes": 41246,
+      "quotes": 741
+    },
+    "entities": {},
+    "sample": true
+  },
+  {
+    "kind": "tweet",
+    "id": "1109028973864869888",
+    "uri": "x://tweet/1109028973864869888",
+    "url": "https://x.com/jack/status/1109028973864869888",
+    "tier": 0,
+    "text": "Oh hi @BamBam1A https://t.co/nqsEd1a95s",
+    "created_at": "2019-03-22T09:48:06Z",
+    "lang": "en",
+    "author": {
+      "kind": "user",
+      "id": "jack",
+      "uri": "x://user/jack",
+      "url": "https://x.com/jack",
+      "tier": 0,
+      "username": "jack",
+      "rest_id": "12",
+      "name": "jack",
+      "created_at": "2006-03-21T20:50:14Z",
+      "description": "no state is the best state",
+      "website": "http://primal.net/jack",
+      "verified": true,
+      "verified_type": "blue",
+      "metrics": {
+        "followers": 10559851,
+        "following": 3,
+        "tweets": 30786,
+        "listed": 33162,
+        "likes": 39921,
+        "media": 2973
+      },
+      "profile_image": "https://pbs.twimg.com/profile_images/1661201415899951105/azNjKOSH_normal.jpg",
+      "profile_banner": "https://pbs.twimg.com/profile_banners/12/1742427520",
+      "entities": {
+        "urls": [
+          "http://primal.net/jack"
+        ]
+      }
+    },
+    "conversation_id": "1109028973864869888",
+    "metrics": {
+      "replies": 1248,
+      "retweets": 23410,
+      "likes": 41697,
+      "quotes": 666
+    },
+    "entities": {
+      "mentions": [
+        "BamBam1A"
+      ]
+    },
+    "media": [
+      {
+        "key": "3_1109028968169013248",
+        "type": "photo",
+        "url": "https://pbs.twimg.com/media/D2QP-H1VAAARQzW.jpg",
+        "width": 576,
+        "height": 1024
+      }
+    ],
+    "sample": true
+  },
+  {
+    "kind": "tweet",
+    "id": "1265837139360485376",
+    "uri": "x://tweet/1265837139360485376",
+    "url": "https://x.com/jack/status/1265837139360485376",
+    "tier": 0,
+    "text": "This does not make us an “arbiter of truth.” Our intention is to connect the dots of conflicting statements and show the information in dispute so people can judge for themselves. More transparency from us is critical so folks can clearly see the why behind our actions.",
+    "created_at": "2020-05-28T02:47:46Z",
+    "lang": "en",
+    "author": {
+      "kind": "user",
+      "id": "jack",
+      "uri": "x://user/jack",
+      "url": "https://x.com/jack",
+      "tier": 0,
+      "username": "jack",
+      "rest_id": "12",
+      "name": "jack",
+      "created_at": "2006-03-21T20:50:14Z",
+      "description": "no state is the best state",
+      "website": "http://primal.net/jack",
+      "verified": true,
+      "verified_type": "blue",
+      "metrics": {
+        "followers": 10559851,
+        "following": 3,
+        "tweets": 30786,
+        "listed": 33162,
+        "likes": 39921,
+        "media": 2973
+      },
+      "profile_image": "https://pbs.twimg.com/profile_images/1661201415899951105/azNjKOSH_normal.jpg",
+      "profile_banner": "https://pbs.twimg.com/profile_banners/12/1742427520",
+      "entities": {
+        "urls": [
+          "http://primal.net/jack"
+        ]
+      }
+    },
+    "conversation_id": "1265837138114830336",
+    "reply_to": "1265837138114830336",
+    "reply_to_user": "jack",
+    "metrics": {
+      "replies": 4545,
+      "retweets": 4317,
+      "likes": 36836,
+      "quotes": 1204
+    },
+    "entities": {},
+    "is_reply": true,
+    "sample": true
+  },
+  {
+    "kind": "tweet",
+    "id": "1339841187813814273",
+    "uri": "x://tweet/1339841187813814273",
+    "url": "https://x.com/jack/status/1339841187813814273",
+    "tier": 0,
+    "text": "🇳🇬 https://t.co/bHD9qV41b5",
+    "created_at": "2020-12-18T07:53:26Z",
+    "lang": "qme",
+    "author": {
+      "kind": "user",
+      "id": "jack",
+      "uri": "x://user/jack",
+      "url": "https://x.com/jack",
+      "tier": 0,
+      "username": "jack",
+      "rest_id": "12",
+      "name": "jack",
+      "created_at": "2006-03-21T20:50:14Z",
+      "description": "no state is the best state",
+      "website": "http://primal.net/jack",
+      "verified": true,
+      "verified_type": "blue",
+      "metrics": {
+        "followers": 10559851,
+        "following": 3,
+        "tweets": 30786,
+        "listed": 33162,
+        "likes": 39921,
+        "media": 2973
+      },
+      "profile_image": "https://pbs.twimg.com/profile_images/1661201415899951105/azNjKOSH_normal.jpg",
+      "profile_banner": "https://pbs.twimg.com/profile_banners/12/1742427520",
+      "entities": {
+        "urls": [
+          "http://primal.net/jack"
+        ]
+      }
+    },
+    "conversation_id": "1339841187813814273",
+    "metrics": {
+      "replies": 1274,
+      "retweets": 10685,
+      "likes": 39186,
+      "quotes": 1381
+    },
+    "entities": {
+      "urls": [
+        "https://qz.com/africa/1947769/nigeria-is-the-second-largest-bitcoin-market-after-the-us/"
+      ]
+    },
+    "sample": true
+  },
+  {
+    "kind": "tweet",
+    "id": "969234275420655616",
+    "uri": "x://tweet/969234275420655616",
+    "url": "https://x.com/jack/status/969234275420655616",
+    "tier": 0,
+    "text": "We’re committing Twitter to help increase the collective health, openness, and civility of public conversation, and to hold ourselves publicly accountable towards progress.",
+    "created_at": "2018-03-01T15:33:53Z",
+    "lang": "en",
+    "author": {
+      "kind": "user",
+      "id": "jack",
+      "uri": "x://user/jack",
+      "url": "https://x.com/jack",
+      "tier": 0,
+      "username": "jack",
+      "rest_id": "12",
+      "name": "jack",
+      "created_at": "2006-03-21T20:50:14Z",
+      "description": "no state is the best state",
+      "website": "http://primal.net/jack",
+      "verified": true,
+      "verified_type": "blue",
+      "metrics": {
+        "followers": 10559851,
+        "following": 3,
+        "tweets": 30786,
+        "listed": 33162,
+        "likes": 39921,
+        "media": 2973
+      },
+      "profile_image": "https://pbs.twimg.com/profile_images/1661201415899951105/azNjKOSH_normal.jpg",
+      "profile_banner": "https://pbs.twimg.com/profile_banners/12/1742427520",
+      "entities": {
+        "urls": [
+          "http://primal.net/jack"
+        ]
+      }
+    },
+    "conversation_id": "969234275420655616",
+    "metrics": {
+      "replies": 17021,
+      "retweets": 7212,
+      "likes": 36910,
+      "quotes": 6101
+    },
+    "entities": {},
+    "sample": true
+  },
+  {
+    "kind": "tweet",
+    "id": "1189634371407380480",
+    "uri": "x://tweet/1189634371407380480",
+    "url": "https://x.com/jack/status/1189634371407380480",
+    "tier": 0,
+    "text": "For instance, it‘s not credible for us to say: “We’re working hard to stop people from gaming our systems to spread misleading info, buuut if someone pays us to target and force people to see their political ad…well...they can say whatever they want! 😉”",
+    "created_at": "2019-10-30T20:05:11Z",
+    "lang": "en",
+    "author": {
+      "kind": "user",
+      "id": "jack",
+      "uri": "x://user/jack",
+      "url": "https://x.com/jack",
+      "tier": 0,
+      "username": "jack",
+      "rest_id": "12",
+      "name": "jack",
+      "created_at": "2006-03-21T20:50:14Z",
+      "description": "no state is the best state",
+      "website": "http://primal.net/jack",
+      "verified": true,
+      "verified_type": "blue",
+      "metrics": {
+        "followers": 10559851,
+        "following": 3,
+        "tweets": 30786,
+        "listed": 33162,
+        "likes": 39921,
+        "media": 2973
+      },
+      "profile_image": "https://pbs.twimg.com/profile_images/1661201415899951105/azNjKOSH_normal.jpg",
+      "profile_banner": "https://pbs.twimg.com/profile_banners/12/1742427520",
+      "entities": {
+        "urls": [
+          "http://primal.net/jack"
+        ]
+      }
+    },
+    "conversation_id": "1189634360472829952",
+    "reply_to": "1189634370132303872",
+    "reply_to_user": "jack",
+    "metrics": {
+      "replies": 416,
+      "retweets": 4567,
+      "likes": 35550,
+      "quotes": 2234
+    },
+    "entities": {},
+    "is_reply": true,
+    "sample": true
+  },
+  {
+    "kind": "tweet",
+    "id": "1518772758708060160",
+    "uri": "x://tweet/1518772758708060160",
+    "url": "https://x.com/jack/status/1518772758708060160",
+    "tier": 0,
+    "text": "I’m so happy Twitter will continue to serve the public conversation. Around the world, and into the stars!",
+    "created_at": "2022-04-26T02:03:37Z",
+    "lang": "en",
+    "author": {
+      "kind": "user",
+      "id": "jack",
+      "uri": "x://user/jack",
+      "url": "https://x.com/jack",
+      "tier": 0,
+      "username": "jack",
+      "rest_id": "12",
+      "name": "jack",
+      "created_at": "2006-03-21T20:50:14Z",
+      "description": "no state is the best state",
+      "website": "http://primal.net/jack",
+      "verified": true,
+      "verified_type": "blue",
+      "metrics": {
+        "followers": 10559851,
+        "following": 3,
+        "tweets": 30786,
+        "listed": 33162,
+        "likes": 39921,
+        "media": 2973
+      },
+      "profile_image": "https://pbs.twimg.com/profile_images/1661201415899951105/azNjKOSH_normal.jpg",
+      "profile_banner": "https://pbs.twimg.com/profile_banners/12/1742427520",
+      "entities": {
+        "urls": [
+          "http://primal.net/jack"
+        ]
+      }
+    },
+    "conversation_id": "1518767238081171456",
+    "reply_to": "1518772757340639232",
+    "reply_to_user": "jack",
+    "metrics": {
+      "replies": 1688,
+      "retweets": 3672,
+      "likes": 39539,
+      "quotes": 853
+    },
+    "entities": {},
+    "is_reply": true,
+    "sample": true
+  },
+  {
+    "kind": "tweet",
+    "id": "1473725424387694601",
+    "uri": "x://tweet/1473725424387694601",
+    "url": "https://x.com/jack/status/1473725424387694601",
+    "tier": 0,
+    "text": "I’m officially banned from web3 https://t.co/RrEIAuqE6f",
+    "created_at": "2021-12-22T18:41:36Z",
+    "lang": "en",
+    "author": {
+      "kind": "user",
+      "id": "jack",
+      "uri": "x://user/jack",
+      "url": "https://x.com/jack",
+      "tier": 0,
+      "username": "jack",
+      "rest_id": "12",
+      "name": "jack",
+      "created_at": "2006-03-21T20:50:14Z",
+      "description": "no state is the best state",
+      "website": "http://primal.net/jack",
+      "verified": true,
+      "verified_type": "blue",
+      "metrics": {
+        "followers": 10559851,
+        "following": 3,
+        "tweets": 30786,
+        "listed": 33162,
+        "likes": 39921,
+        "media": 2973
+      },
+      "profile_image": "https://pbs.twimg.com/profile_images/1661201415899951105/azNjKOSH_normal.jpg",
+      "profile_banner": "https://pbs.twimg.com/profile_banners/12/1742427520",
+      "entities": {
+        "urls": [
+          "http://primal.net/jack"
+        ]
+      }
+    },
+    "conversation_id": "1473725424387694601",
+    "metrics": {
+      "replies": 2930,
+      "retweets": 3018,
+      "likes": 38756,
+      "quotes": 2164
+    },
+    "entities": {},
+    "media": [
+      {
+        "key": "3_1473725419601936399",
+        "type": "photo",
+        "url": "https://pbs.twimg.com/media/FHO5dgPWQA8Grb-.jpg",
+        "width": 1170,
+        "height": 886
+      }
+    ],
+    "sample": true
+  },
+  {
+    "kind": "tweet",
+    "id": "1473139010197508098",
+    "uri": "x://tweet/1473139010197508098",
+    "url": "https://x.com/jack/status/1473139010197508098",
+    "tier": 0,
+    "text": "You don’t own “web3.”\n\nThe VCs and their LPs do. It will never escape their incentives. It’s ultimately a centralized entity with a different label. \n\nKnow what you’re getting into…",
+    "created_at": "2021-12-21T03:51:24Z",
+    "lang": "en",
+    "author": {
+      "kind": "user",
+      "id": "jack",
+      "uri": "x://user/jack",
+      "url": "https://x.com/jack",
+      "tier": 0,
+      "username": "jack",
+      "rest_id": "12",
+      "name": "jack",
+      "created_at": "2006-03-21T20:50:14Z",
+      "description": "no state is the best state",
+      "website": "http://primal.net/jack",
+      "verified": true,
+      "verified_type": "blue",
+      "metrics": {
+        "followers": 10559851,
+        "following": 3,
+        "tweets": 30786,
+        "listed": 33162,
+        "likes": 39921,
+        "media": 2973
+      },
+      "profile_image": "https://pbs.twimg.com/profile_images/1661201415899951105/azNjKOSH_normal.jpg",
+      "profile_banner": "https://pbs.twimg.com/profile_banners/12/1742427520",
+      "entities": {
+        "urls": [
+          "http://primal.net/jack"
+        ]
+      }
+    },
+    "conversation_id": "1473139010197508098",
+    "metrics": {
+      "replies": 2769,
+      "retweets": 5955,
+      "likes": 38006,
+      "quotes": 3106
+    },
+    "entities": {},
+    "sample": true
+  },
+  {
+    "kind": "tweet",
+    "id": "1885024311355859293",
+    "uri": "x://tweet/1885024311355859293",
+    "url": "https://x.com/jack/status/1885024311355859293",
+    "tier": 0,
+    "text": "pardon @Snowden \u0026amp; Assange",
+    "created_at": "2025-01-30T17:56:32Z",
+    "lang": "fr",
+    "author": {
+      "kind": "user",
+      "id": "jack",
+      "uri": "x://user/jack",
+      "url": "https://x.com/jack",
+      "tier": 0,
+      "username": "jack",
+      "rest_id": "12",
+      "name": "jack",
+      "created_at": "2006-03-21T20:50:14Z",
+      "description": "no state is the best state",
+      "website": "http://primal.net/jack",
+      "verified": true,
+      "verified_type": "blue",
+      "metrics": {
+        "followers": 10559851,
+        "following": 3,
+        "tweets": 30786,
+        "listed": 33162,
+        "likes": 39921,
+        "media": 2973
+      },
+      "profile_image": "https://pbs.twimg.com/profile_images/1661201415899951105/azNjKOSH_normal.jpg",
+      "profile_banner": "https://pbs.twimg.com/profile_banners/12/1742427520",
+      "entities": {
+        "urls": [
+          "http://primal.net/jack"
+        ]
+      }
+    },
+    "conversation_id": "1885024311355859293",
+    "metrics": {
+      "replies": 1568,
+      "retweets": 5221,
+      "likes": 39021,
+      "quotes": 525
+    },
+    "entities": {
+      "mentions": [
+        "Snowden"
+      ]
+    },
+    "sample": true
+  },
+  {
+    "kind": "tweet",
+    "id": "1403685976162148358",
+    "uri": "x://tweet/1403685976162148358",
+    "url": "https://x.com/jack/status/1403685976162148358",
+    "tier": 0,
+    "text": "💯 🇳🇬",
+    "created_at": "2021-06-12T12:09:50Z",
+    "lang": "art",
+    "author": {
+      "kind": "user",
+      "id": "jack",
+      "uri": "x://user/jack",
+      "url": "https://x.com/jack",
+      "tier": 0,
+      "username": "jack",
+      "rest_id": "12",
+      "name": "jack",
+      "created_at": "2006-03-21T20:50:14Z",
+      "description": "no state is the best state",
+      "website": "http://primal.net/jack",
+      "verified": true,
+      "verified_type": "blue",
+      "metrics": {
+        "followers": 10559851,
+        "following": 3,
+        "tweets": 30786,
+        "listed": 33162,
+        "likes": 39921,
+        "media": 2973
+      },
+      "profile_image": "https://pbs.twimg.com/profile_images/1661201415899951105/azNjKOSH_normal.jpg",
+      "profile_banner": "https://pbs.twimg.com/profile_banners/12/1742427520",
+      "entities": {
+        "urls": [
+          "http://primal.net/jack"
+        ]
+      }
+    },
+    "conversation_id": "1403685976162148358",
+    "metrics": {
+      "replies": 957,
+      "retweets": 17303,
+      "likes": 37290,
+      "quotes": 789
+    },
+    "entities": {},
+    "is_quote": true,
+    "sample": true
+  },
+  {
+    "kind": "tweet",
+    "id": "1518767238081171456",
+    "uri": "x://tweet/1518767238081171456",
+    "url": "https://x.com/jack/status/1518767238081171456",
+    "tier": 0,
+    "text": "https://t.co/jeNtFyRrpR",
+    "created_at": "2022-04-26T01:41:41Z",
+    "lang": "zxx",
+    "author": {
+      "kind": "user",
+      "id": "jack",
+      "uri": "x://user/jack",
+      "url": "https://x.com/jack",
+      "tier": 0,
+      "username": "jack",
+      "rest_id": "12",
+      "name": "jack",
+      "created_at": "2006-03-21T20:50:14Z",
+      "description": "no state is the best state",
+      "website": "http://primal.net/jack",
+      "verified": true,
+      "verified_type": "blue",
+      "metrics": {
+        "followers": 10559851,
+        "following": 3,
+        "tweets": 30786,
+        "listed": 33162,
+        "likes": 39921,
+        "media": 2973
+      },
+      "profile_image": "https://pbs.twimg.com/profile_images/1661201415899951105/azNjKOSH_normal.jpg",
+      "profile_banner": "https://pbs.twimg.com/profile_banners/12/1742427520",
+      "entities": {
+        "urls": [
+          "http://primal.net/jack"
+        ]
+      }
+    },
+    "conversation_id": "1518767238081171456",
+    "metrics": {
+      "replies": 1380,
+      "retweets": 3818,
+      "likes": 37559,
+      "quotes": 1888
+    },
+    "entities": {
+      "urls": [
+        "https://tidal.com/browse/track/58990524"
+      ]
+    },
+    "sample": true
+  },
+  {
+    "kind": "tweet",
+    "id": "1980046360998203615",
+    "uri": "x://tweet/1980046360998203615",
+    "url": "https://x.com/jack/status/1980046360998203615",
+    "tier": 0,
+    "text": ".@RepThomasMassie for president",
+    "created_at": "2025-10-19T23:00:14Z",
+    "lang": "en",
+    "author": {
+      "kind": "user",
+      "id": "jack",
+      "uri": "x://user/jack",
+      "url": "https://x.com/jack",
+      "tier": 0,
+      "username": "jack",
+      "rest_id": "12",
+      "name": "jack",
+      "created_at": "2006-03-21T20:50:14Z",
+      "description": "no state is the best state",
+      "website": "http://primal.net/jack",
+      "verified": true,
+      "verified_type": "blue",
+      "metrics": {
+        "followers": 10559851,
+        "following": 3,
+        "tweets": 30786,
+        "listed": 33162,
+        "likes": 39921,
+        "media": 2973
+      },
+      "profile_image": "https://pbs.twimg.com/profile_images/1661201415899951105/azNjKOSH_normal.jpg",
+      "profile_banner": "https://pbs.twimg.com/profile_banners/12/1742427520",
+      "entities": {
+        "urls": [
+          "http://primal.net/jack"
+        ]
+      }
+    },
+    "conversation_id": "1980046360998203615",
+    "metrics": {
+      "replies": 4233,
+      "retweets": 5455,
+      "likes": 45772,
+      "quotes": 1001
+    },
+    "entities": {
+      "mentions": [
+        "RepThomasMassie"
+      ]
+    },
+    "sample": true
+  },
+  {
+    "kind": "tweet",
+    "id": "1345605607206735873",
+    "uri": "x://tweet/1345605607206735873",
+    "url": "https://x.com/jack/status/1345605607206735873",
+    "tier": 0,
+    "text": "Happy birthday #Bitcoin",
+    "created_at": "2021-01-03T05:39:11Z",
+    "lang": "en",
+    "author": {
+      "kind": "user",
+      "id": "jack",
+      "uri": "x://user/jack",
+      "url": "https://x.com/jack",
+      "tier": 0,
+      "username": "jack",
+      "rest_id": "12",
+      "name": "jack",
+      "created_at": "2006-03-21T20:50:14Z",
+      "description": "no state is the best state",
+      "website": "http://primal.net/jack",
+      "verified": true,
+      "verified_type": "blue",
+      "metrics": {
+        "followers": 10559851,
+        "following": 3,
+        "tweets": 30786,
+        "listed": 33162,
+        "likes": 39921,
+        "media": 2973
+      },
+      "profile_image": "https://pbs.twimg.com/profile_images/1661201415899951105/azNjKOSH_normal.jpg",
+      "profile_banner": "https://pbs.twimg.com/profile_banners/12/1742427520",
+      "entities": {
+        "urls": [
+          "http://primal.net/jack"
+        ]
+      }
+    },
+    "conversation_id": "1345605607206735873",
+    "metrics": {
+      "replies": 948,
+      "retweets": 4970,
+      "likes": 35568,
+      "quotes": 401
+    },
+    "entities": {
+      "hashtags": [
+        "Bitcoin"
+      ]
+    },
+    "sample": true
+  },
+  {
+    "kind": "tweet",
+    "id": "1516205719158149121",
+    "uri": "x://tweet/1516205719158149121",
+    "url": "https://x.com/jack/status/1516205719158149121",
+    "tier": 0,
+    "text": "@brianstelter @pbump and you all are selling hope?",
+    "created_at": "2022-04-19T00:03:07Z",
+    "lang": "en",
+    "author": {
+      "kind": "user",
+      "id": "jack",
+      "uri": "x://user/jack",
+      "url": "https://x.com/jack",
+      "tier": 0,
+      "username": "jack",
+      "rest_id": "12",
+      "name": "jack",
+      "created_at": "2006-03-21T20:50:14Z",
+      "description": "no state is the best state",
+      "website": "http://primal.net/jack",
+      "verified": true,
+      "verified_type": "blue",
+      "metrics": {
+        "followers": 10559851,
+        "following": 3,
+        "tweets": 30786,
+        "listed": 33162,
+        "likes": 39921,
+        "media": 2973
+      },
+      "profile_image": "https://pbs.twimg.com/profile_images/1661201415899951105/azNjKOSH_normal.jpg",
+      "profile_banner": "https://pbs.twimg.com/profile_banners/12/1742427520",
+      "entities": {
+        "urls": [
+          "http://primal.net/jack"
+        ]
+      }
+    },
+    "conversation_id": "1516205300264554497",
+    "reply_to": "1516205300264554497",
+    "reply_to_user": "brianstelter",
+    "metrics": {
+      "replies": 1769,
+      "retweets": 3063,
+      "likes": 36011,
+      "quotes": 1069
+    },
+    "entities": {
+      "mentions": [
+        "brianstelter",
+        "pbump"
+      ]
+    },
+    "is_reply": true,
+    "sample": true
+  },
+  {
+    "kind": "tweet",
+    "id": "1432137059666378755",
+    "uri": "x://tweet/1432137059666378755",
+    "url": "https://x.com/jack/status/1432137059666378755",
+    "tier": 0,
+    "text": "Grateful for @elonmusk \u0026amp; @SpaceX ❤️ https://t.co/1s4TqV3IdH",
+    "created_at": "2021-08-30T00:24:17Z",
+    "lang": "en",
+    "author": {
+      "kind": "user",
+      "id": "jack",
+      "uri": "x://user/jack",
+      "url": "https://x.com/jack",
+      "tier": 0,
+      "username": "jack",
+      "rest_id": "12",
+      "name": "jack",
+      "created_at": "2006-03-21T20:50:14Z",
+      "description": "no state is the best state",
+      "website": "http://primal.net/jack",
+      "verified": true,
+      "verified_type": "blue",
+      "metrics": {
+        "followers": 10559851,
+        "following": 3,
+        "tweets": 30786,
+        "listed": 33162,
+        "likes": 39921,
+        "media": 2973
+      },
+      "profile_image": "https://pbs.twimg.com/profile_images/1661201415899951105/azNjKOSH_normal.jpg",
+      "profile_banner": "https://pbs.twimg.com/profile_banners/12/1742427520",
+      "entities": {
+        "urls": [
+          "http://primal.net/jack"
+        ]
+      }
+    },
+    "conversation_id": "1432137059666378755",
+    "metrics": {
+      "replies": 826,
+      "retweets": 2099,
+      "likes": 36405,
+      "quotes": 318
+    },
+    "entities": {
+      "mentions": [
+        "elonmusk",
+        "SpaceX"
+      ]
+    },
+    "media": [
+      {
+        "key": "3_1432137054721396742",
+        "type": "photo",
+        "url": "https://pbs.twimg.com/media/E9_5EEBX0AY1R7X.jpg",
+        "width": 1536,
+        "height": 2048
+      }
+    ],
+    "sample": true
+  },
+  {
+    "kind": "tweet",
+    "id": "1449110239442345995",
+    "uri": "x://tweet/1449110239442345995",
+    "url": "https://x.com/jack/status/1449110239442345995",
+    "tier": 0,
+    "text": "Square is considering building a Bitcoin mining system based on custom silicon and open source for individuals and businesses worldwide. If we do this, we’d follow our hardware wallet model: build in the open in collaboration with the community. First some thoughts and questions.",
+    "created_at": "2021-10-15T20:29:38Z",
+    "lang": "en",
+    "author": {
+      "kind": "user",
+      "id": "jack",
+      "uri": "x://user/jack",
+      "url": "https://x.com/jack",
+      "tier": 0,
+      "username": "jack",
+      "rest_id": "12",
+      "name": "jack",
+      "created_at": "2006-03-21T20:50:14Z",
+      "description": "no state is the best state",
+      "website": "http://primal.net/jack",
+      "verified": true,
+      "verified_type": "blue",
+      "metrics": {
+        "followers": 10559851,
+        "following": 3,
+        "tweets": 30786,
+        "listed": 33162,
+        "likes": 39921,
+        "media": 2973
+      },
+      "profile_image": "https://pbs.twimg.com/profile_images/1661201415899951105/azNjKOSH_normal.jpg",
+      "profile_banner": "https://pbs.twimg.com/profile_banners/12/1742427520",
+      "entities": {
+        "urls": [
+          "http://primal.net/jack"
+        ]
+      }
+    },
+    "conversation_id": "1449110239442345995",
+    "metrics": {
+      "replies": 1476,
+      "retweets": 5820,
+      "likes": 36109,
+      "quotes": 1046
+    },
+    "entities": {},
+    "sample": true
+  },
+  {
+    "kind": "tweet",
+    "id": "1109041294200889344",
+    "uri": "x://tweet/1109041294200889344",
+    "url": "https://x.com/jack/status/1109041294200889344",
+    "tier": 0,
+    "text": "Hard Carry @GOT7Official https://t.co/COe8JDMw9Q",
+    "created_at": "2019-03-22T10:37:04Z",
+    "lang": "en",
+    "author": {
+      "kind": "user",
+      "id": "jack",
+      "uri": "x://user/jack",
+      "url": "https://x.com/jack",
+      "tier": 0,
+      "username": "jack",
+      "rest_id": "12",
+      "name": "jack",
+      "created_at": "2006-03-21T20:50:14Z",
+      "description": "no state is the best state",
+      "website": "http://primal.net/jack",
+      "verified": true,
+      "verified_type": "blue",
+      "metrics": {
+        "followers": 10559851,
+        "following": 3,
+        "tweets": 30786,
+        "listed": 33162,
+        "likes": 39921,
+        "media": 2973
+      },
+      "profile_image": "https://pbs.twimg.com/profile_images/1661201415899951105/azNjKOSH_normal.jpg",
+      "profile_banner": "https://pbs.twimg.com/profile_banners/12/1742427520",
+      "entities": {
+        "urls": [
+          "http://primal.net/jack"
+        ]
+      }
+    },
+    "conversation_id": "1109041294200889344",
+    "metrics": {
+      "replies": 854,
+      "retweets": 21257,
+      "likes": 35575,
+      "quotes": 614
+    },
+    "entities": {
+      "mentions": [
+        "GOT7Official"
+      ],
+      "urls": [
+        "https://open.spotify.com/track/7Cd4glTUgV0vr0DBncEg8S?si=0ghpmtDZSy2xbpv7hFQmQg"
+      ]
+    },
+    "sample": true
+  },
+  {
+    "kind": "tweet",
+    "id": "1340813319607787520",
+    "uri": "x://tweet/1340813319607787520",
+    "url": "https://x.com/jack/status/1340813319607787520",
+    "tier": 0,
+    "text": "$600!?…of fiat!?",
+    "created_at": "2020-12-21T00:16:21Z",
+    "lang": "en",
+    "author": {
+      "kind": "user",
+      "id": "jack",
+      "uri": "x://user/jack",
+      "url": "https://x.com/jack",
+      "tier": 0,
+      "username": "jack",
+      "rest_id": "12",
+      "name": "jack",
+      "created_at": "2006-03-21T20:50:14Z",
+      "description": "no state is the best state",
+      "website": "http://primal.net/jack",
+      "verified": true,
+      "verified_type": "blue",
+      "metrics": {
+        "followers": 10559851,
+        "following": 3,
+        "tweets": 30786,
+        "listed": 33162,
+        "likes": 39921,
+        "media": 2973
+      },
+      "profile_image": "https://pbs.twimg.com/profile_images/1661201415899951105/azNjKOSH_normal.jpg",
+      "profile_banner": "https://pbs.twimg.com/profile_banners/12/1742427520",
+      "entities": {
+        "urls": [
+          "http://primal.net/jack"
+        ]
+      }
+    },
+    "conversation_id": "1340813319607787520",
+    "metrics": {
+      "replies": 2697,
+      "retweets": 2702,
+      "likes": 32200,
+      "quotes": 1228
+    },
+    "entities": {},
+    "sample": true
+  },
+  {
+    "kind": "tweet",
+    "id": "1785789403207737695",
+    "uri": "x://tweet/1785789403207737695",
+    "url": "https://x.com/jack/status/1785789403207737695",
+    "tier": 0,
+    "text": "follow the money",
+    "created_at": "2024-05-01T21:52:26Z",
+    "lang": "en",
+    "author": {
+      "kind": "user",
+      "id": "jack",
+      "uri": "x://user/jack",
+      "url": "https://x.com/jack",
+      "tier": 0,
+      "username": "jack",
+      "rest_id": "12",
+      "name": "jack",
+      "created_at": "2006-03-21T20:50:14Z",
+      "description": "no state is the best state",
+      "website": "http://primal.net/jack",
+      "verified": true,
+      "verified_type": "blue",
+      "metrics": {
+        "followers": 10559851,
+        "following": 3,
+        "tweets": 30786,
+        "listed": 33162,
+        "likes": 39921,
+        "media": 2973
+      },
+      "profile_image": "https://pbs.twimg.com/profile_images/1661201415899951105/azNjKOSH_normal.jpg",
+      "profile_banner": "https://pbs.twimg.com/profile_banners/12/1742427520",
+      "entities": {
+        "urls": [
+          "http://primal.net/jack"
+        ]
+      }
+    },
+    "conversation_id": "1785789403207737695",
+    "metrics": {
+      "replies": 2731,
+      "retweets": 5034,
+      "likes": 25878,
+      "quotes": 1240
+    },
+    "entities": {},
+    "sample": true
+  },
+  {
+    "kind": "tweet",
+    "id": "1979880332175495586",
+    "uri": "x://tweet/1979880332175495586",
+    "url": "https://x.com/jack/status/1979880332175495586",
+    "tier": 0,
+    "text": "bitcoin is not crypto",
+    "created_at": "2025-10-19T12:00:30Z",
+    "lang": "en",
+    "author": {
+      "kind": "user",
+      "id": "jack",
+      "uri": "x://user/jack",
+      "url": "https://x.com/jack",
+      "tier": 0,
+      "username": "jack",
+      "rest_id": "12",
+      "name": "jack",
+      "created_at": "2006-03-21T20:50:14Z",
+      "description": "no state is the best state",
+      "website": "http://primal.net/jack",
+      "verified": true,
+      "verified_type": "blue",
+      "metrics": {
+        "followers": 10559851,
+        "following": 3,
+        "tweets": 30786,
+        "listed": 33162,
+        "likes": 39921,
+        "media": 2973
+      },
+      "profile_image": "https://pbs.twimg.com/profile_images/1661201415899951105/azNjKOSH_normal.jpg",
+      "profile_banner": "https://pbs.twimg.com/profile_banners/12/1742427520",
+      "entities": {
+        "urls": [
+          "http://primal.net/jack"
+        ]
+      }
+    },
+    "conversation_id": "1979880332175495586",
+    "metrics": {
+      "replies": 4657,
+      "retweets": 4776,
+      "likes": 38611,
+      "quotes": 1604
+    },
+    "entities": {},
+    "sample": true
+  },
+  {
+    "kind": "tweet",
+    "id": "1520140974801924096",
+    "uri": "x://tweet/1520140974801924096",
+    "url": "https://x.com/jack/status/1520140974801924096",
+    "tier": 0,
+    "text": "I have tried taking a break from Twitter recently, but I must say: the company has always tried to do its best given the information it had. Every decision we made was ultimately my responsibility*. In the cases we were wrong or went too far, we admitted it and worked to correct.",
+    "created_at": "2022-04-29T20:40:25Z",
+    "lang": "en",
+    "author": {
+      "kind": "user",
+      "id": "jack",
+      "uri": "x://user/jack",
+      "url": "https://x.com/jack",
+      "tier": 0,
+      "username": "jack",
+      "rest_id": "12",
+      "name": "jack",
+      "created_at": "2006-03-21T20:50:14Z",
+      "description": "no state is the best state",
+      "website": "http://primal.net/jack",
+      "verified": true,
+      "verified_type": "blue",
+      "metrics": {
+        "followers": 10559851,
+        "following": 3,
+        "tweets": 30786,
+        "listed": 33162,
+        "likes": 39921,
+        "media": 2973
+      },
+      "profile_image": "https://pbs.twimg.com/profile_images/1661201415899951105/azNjKOSH_normal.jpg",
+      "profile_banner": "https://pbs.twimg.com/profile_banners/12/1742427520",
+      "entities": {
+        "urls": [
+          "http://primal.net/jack"
+        ]
+      }
+    },
+    "conversation_id": "1520140974801924096",
+    "metrics": {
+      "replies": 11416,
+      "retweets": 3553,
+      "likes": 32987,
+      "quotes": 2691
+    },
+    "entities": {},
+    "sample": true
+  },
+  {
+    "kind": "tweet",
+    "id": "1473322116804079616",
+    "uri": "x://tweet/1473322116804079616",
+    "url": "https://x.com/jack/status/1473322116804079616",
+    "tier": 0,
+    "text": "21/12/21",
+    "created_at": "2021-12-21T15:59:00Z",
+    "lang": "und",
+    "author": {
+      "kind": "user",
+      "id": "jack",
+      "uri": "x://user/jack",
+      "url": "https://x.com/jack",
+      "tier": 0,
+      "username": "jack",
+      "rest_id": "12",
+      "name": "jack",
+      "created_at": "2006-03-21T20:50:14Z",
+      "description": "no state is the best state",
+      "website": "http://primal.net/jack",
+      "verified": true,
+      "verified_type": "blue",
+      "metrics": {
+        "followers": 10559851,
+        "following": 3,
+        "tweets": 30786,
+        "listed": 33162,
+        "likes": 39921,
+        "media": 2973
+      },
+      "profile_image": "https://pbs.twimg.com/profile_images/1661201415899951105/azNjKOSH_normal.jpg",
+      "profile_banner": "https://pbs.twimg.com/profile_banners/12/1742427520",
+      "entities": {
+        "urls": [
+          "http://primal.net/jack"
+        ]
+      }
+    },
+    "conversation_id": "1473322116804079616",
+    "metrics": {
+      "replies": 1909,
+      "retweets": 4052,
+      "likes": 33044,
+      "quotes": 709
+    },
+    "entities": {},
+    "sample": true
+  },
+  {
+    "kind": "tweet",
+    "id": "1344444478334136321",
+    "uri": "x://tweet/1344444478334136321",
+    "url": "https://x.com/jack/status/1344444478334136321",
+    "tier": 0,
+    "text": "2030",
+    "created_at": "2020-12-31T00:45:16Z",
+    "lang": "qst",
+    "author": {
+      "kind": "user",
+      "id": "jack",
+      "uri": "x://user/jack",
+      "url": "https://x.com/jack",
+      "tier": 0,
+      "username": "jack",
+      "rest_id": "12",
+      "name": "jack",
+      "created_at": "2006-03-21T20:50:14Z",
+      "description": "no state is the best state",
+      "website": "http://primal.net/jack",
+      "verified": true,
+      "verified_type": "blue",
+      "metrics": {
+        "followers": 10559851,
+        "following": 3,
+        "tweets": 30786,
+        "listed": 33162,
+        "likes": 39921,
+        "media": 2973
+      },
+      "profile_image": "https://pbs.twimg.com/profile_images/1661201415899951105/azNjKOSH_normal.jpg",
+      "profile_banner": "https://pbs.twimg.com/profile_banners/12/1742427520",
+      "entities": {
+        "urls": [
+          "http://primal.net/jack"
+        ]
+      }
+    },
+    "conversation_id": "1344444478334136321",
+    "metrics": {
+      "replies": 4679,
+      "retweets": 3408,
+      "likes": 31946,
+      "quotes": 2773
+    },
+    "entities": {},
+    "sample": true
+  },
+  {
+    "kind": "tweet",
+    "id": "1241452711951790080",
+    "uri": "x://tweet/1241452711951790080",
+    "url": "https://x.com/jack/status/1241452711951790080",
+    "tier": 0,
+    "text": "happy 14th twttr",
+    "created_at": "2020-03-21T19:52:46Z",
+    "lang": "en",
+    "author": {
+      "kind": "user",
+      "id": "jack",
+      "uri": "x://user/jack",
+      "url": "https://x.com/jack",
+      "tier": 0,
+      "username": "jack",
+      "rest_id": "12",
+      "name": "jack",
+      "created_at": "2006-03-21T20:50:14Z",
+      "description": "no state is the best state",
+      "website": "http://primal.net/jack",
+      "verified": true,
+      "verified_type": "blue",
+      "metrics": {
+        "followers": 10559851,
+        "following": 3,
+        "tweets": 30786,
+        "listed": 33162,
+        "likes": 39921,
+        "media": 2973
+      },
+      "profile_image": "https://pbs.twimg.com/profile_images/1661201415899951105/azNjKOSH_normal.jpg",
+      "profile_banner": "https://pbs.twimg.com/profile_banners/12/1742427520",
+      "entities": {
+        "urls": [
+          "http://primal.net/jack"
+        ]
+      }
+    },
+    "conversation_id": "1241452711951790080",
+    "metrics": {
+      "replies": 890,
+      "retweets": 5327,
+      "likes": 32605,
+      "quotes": 442
+    },
+    "entities": {},
+    "is_quote": true,
+    "sample": true
+  },
+  {
+    "kind": "tweet",
+    "id": "1685519132073357313",
+    "uri": "x://tweet/1685519132073357313",
+    "url": "https://x.com/jack/status/1685519132073357313",
+    "tier": 0,
+    "text": "why not? https://t.co/yPgGQNDHFg",
+    "created_at": "2023-07-30T05:14:11Z",
+    "lang": "en",
+    "author": {
+      "kind": "user",
+      "id": "jack",
+      "uri": "x://user/jack",
+      "url": "https://x.com/jack",
+      "tier": 0,
+      "username": "jack",
+      "rest_id": "12",
+      "name": "jack",
+      "created_at": "2006-03-21T20:50:14Z",
+      "description": "no state is the best state",
+      "website": "http://primal.net/jack",
+      "verified": true,
+      "verified_type": "blue",
+      "metrics": {
+        "followers": 10559851,
+        "following": 3,
+        "tweets": 30786,
+        "listed": 33162,
+        "likes": 39921,
+        "media": 2973
+      },
+      "profile_image": "https://pbs.twimg.com/profile_images/1661201415899951105/azNjKOSH_normal.jpg",
+      "profile_banner": "https://pbs.twimg.com/profile_banners/12/1742427520",
+      "entities": {
+        "urls": [
+          "http://primal.net/jack"
+        ]
+      }
+    },
+    "conversation_id": "1685519132073357313",
+    "metrics": {
+      "replies": 2932,
+      "retweets": 1745,
+      "likes": 32300,
+      "quotes": 637
+    },
+    "entities": {},
+    "media": [
+      {
+        "key": "3_1685519053891543040",
+        "type": "photo",
+        "url": "https://pbs.twimg.com/media/F2QqpjVboAAOj5_.jpg",
+        "width": 3840,
+        "height": 1799
+      }
+    ],
+    "sample": true
+  },
+  {
+    "kind": "tweet",
+    "id": "1263921211236511744",
+    "uri": "x://tweet/1263921211236511744",
+    "url": "https://x.com/jack/status/1263921211236511744",
+    "tier": 0,
+    "text": "🍕",
+    "created_at": "2020-05-22T19:54:33Z",
+    "lang": "art",
+    "author": {
+      "kind": "user",
+      "id": "jack",
+      "uri": "x://user/jack",
+      "url": "https://x.com/jack",
+      "tier": 0,
+      "username": "jack",
+      "rest_id": "12",
+      "name": "jack",
+      "created_at": "2006-03-21T20:50:14Z",
+      "description": "no state is the best state",
+      "website": "http://primal.net/jack",
+      "verified": true,
+      "verified_type": "blue",
+      "metrics": {
+        "followers": 10559851,
+        "following": 3,
+        "tweets": 30786,
+        "listed": 33162,
+        "likes": 39921,
+        "media": 2973
+      },
+      "profile_image": "https://pbs.twimg.com/profile_images/1661201415899951105/azNjKOSH_normal.jpg",
+      "profile_banner": "https://pbs.twimg.com/profile_banners/12/1742427520",
+      "entities": {
+        "urls": [
+          "http://primal.net/jack"
+        ]
+      }
+    },
+    "conversation_id": "1263921211236511744",
+    "metrics": {
+      "replies": 4998,
+      "retweets": 2675,
+      "likes": 30659,
+      "quotes": 2871
+    },
+    "entities": {},
+    "sample": true
+  },
+  {
+    "kind": "tweet",
+    "id": "1371311044988129286",
+    "uri": "x://tweet/1371311044988129286",
+    "url": "https://x.com/jack/status/1371311044988129286",
+    "tier": 0,
+    "text": "https://t.co/Y9EVV5g4ah",
+    "created_at": "2021-03-15T04:03:25Z",
+    "lang": "zxx",
+    "author": {
+      "kind": "user",
+      "id": "jack",
+      "uri": "x://user/jack",
+      "url": "https://x.com/jack",
+      "tier": 0,
+      "username": "jack",
+      "rest_id": "12",
+      "name": "jack",
+      "created_at": "2006-03-21T20:50:14Z",
+      "description": "no state is the best state",
+      "website": "http://primal.net/jack",
+      "verified": true,
+      "verified_type": "blue",
+      "metrics": {
+        "followers": 10559851,
+        "following": 3,
+        "tweets": 30786,
+        "listed": 33162,
+        "likes": 39921,
+        "media": 2973
+      },
+      "profile_image": "https://pbs.twimg.com/profile_images/1661201415899951105/azNjKOSH_normal.jpg",
+      "profile_banner": "https://pbs.twimg.com/profile_banners/12/1742427520",
+      "entities": {
+        "urls": [
+          "http://primal.net/jack"
+        ]
+      }
+    },
+    "conversation_id": "1371311044988129286",
+    "metrics": {
+      "replies": 374,
+      "retweets": 3309,
+      "likes": 30991,
+      "quotes": 414
+    },
+    "entities": {},
+    "media": [
+      {
+        "key": "3_1371311039246110720",
+        "type": "photo",
+        "url": "https://pbs.twimg.com/media/EwfgH-rWEAAKwgF.jpg",
+        "width": 2048,
+        "height": 1166
+      }
+    ],
+    "sample": true
+  },
+  {
+    "kind": "tweet",
+    "id": "1189634368081260549",
+    "uri": "x://tweet/1189634368081260549",
+    "url": "https://x.com/jack/status/1189634368081260549",
+    "tier": 0,
+    "text": "While internet advertising is incredibly powerful and very effective for commercial advertisers, that power brings significant risks to politics, where it can be used to influence votes to affect the lives of millions.",
+    "created_at": "2019-10-30T20:05:10Z",
+    "lang": "en",
+    "author": {
+      "kind": "user",
+      "id": "jack",
+      "uri": "x://user/jack",
+      "url": "https://x.com/jack",
+      "tier": 0,
+      "username": "jack",
+      "rest_id": "12",
+      "name": "jack",
+      "created_at": "2006-03-21T20:50:14Z",
+      "description": "no state is the best state",
+      "website": "http://primal.net/jack",
+      "verified": true,
+      "verified_type": "blue",
+      "metrics": {
+        "followers": 10559851,
+        "following": 3,
+        "tweets": 30786,
+        "listed": 33162,
+        "likes": 39921,
+        "media": 2973
+      },
+      "profile_image": "https://pbs.twimg.com/profile_images/1661201415899951105/azNjKOSH_normal.jpg",
+      "profile_banner": "https://pbs.twimg.com/profile_banners/12/1742427520",
+      "entities": {
+        "urls": [
+          "http://primal.net/jack"
+        ]
+      }
+    },
+    "conversation_id": "1189634360472829952",
+    "reply_to": "1189634367296901120",
+    "reply_to_user": "jack",
+    "metrics": {
+      "replies": 181,
+      "retweets": 3136,
+      "likes": 28516,
+      "quotes": 228
+    },
+    "entities": {},
+    "is_reply": true,
+    "sample": true
+  },
+  {
+    "kind": "tweet",
+    "id": "1403887669768339459",
+    "uri": "x://tweet/1403887669768339459",
+    "url": "https://x.com/jack/status/1403887669768339459",
+    "tier": 0,
+    "text": "The people of Nigeria will lead #bitcoin 🇳🇬",
+    "created_at": "2021-06-13T01:31:18Z",
+    "lang": "en",
+    "author": {
+      "kind": "user",
+      "id": "jack",
+      "uri": "x://user/jack",
+      "url": "https://x.com/jack",
+      "tier": 0,
+      "username": "jack",
+      "rest_id": "12",
+      "name": "jack",
+      "created_at": "2006-03-21T20:50:14Z",
+      "description": "no state is the best state",
+      "website": "http://primal.net/jack",
+      "verified": true,
+      "verified_type": "blue",
+      "metrics": {
+        "followers": 10559851,
+        "following": 3,
+        "tweets": 30786,
+        "listed": 33162,
+        "likes": 39921,
+        "media": 2973
+      },
+      "profile_image": "https://pbs.twimg.com/profile_images/1661201415899951105/azNjKOSH_normal.jpg",
+      "profile_banner": "https://pbs.twimg.com/profile_banners/12/1742427520",
+      "entities": {
+        "urls": [
+          "http://primal.net/jack"
+        ]
+      }
+    },
+    "conversation_id": "1403887669768339459",
+    "metrics": {
+      "replies": 835,
+      "retweets": 10567,
+      "likes": 30704,
+      "quotes": 606
+    },
+    "entities": {
+      "hashtags": [
+        "bitcoin"
+      ]
+    },
+    "is_quote": true,
+    "sample": true
+  },
+  {
+    "kind": "tweet",
+    "id": "1600173650518237186",
+    "uri": "x://tweet/1600173650518237186",
+    "url": "https://x.com/jack/status/1600173650518237186",
+    "tier": 0,
+    "text": "🇬🇭 https://t.co/peCEJdLlv9",
+    "created_at": "2022-12-06T17:01:42Z",
+    "lang": "qme",
+    "author": {
+      "kind": "user",
+      "id": "jack",
+      "uri": "x://user/jack",
+      "url": "https://x.com/jack",
+      "tier": 0,
+      "username": "jack",
+      "rest_id": "12",
+      "name": "jack",
+      "created_at": "2006-03-21T20:50:14Z",
+      "description": "no state is the best state",
+      "website": "http://primal.net/jack",
+      "verified": true,
+      "verified_type": "blue",
+      "metrics": {
+        "followers": 10559851,
+        "following": 3,
+        "tweets": 30786,
+        "listed": 33162,
+        "likes": 39921,
+        "media": 2973
+      },
+      "profile_image": "https://pbs.twimg.com/profile_images/1661201415899951105/azNjKOSH_normal.jpg",
+      "profile_banner": "https://pbs.twimg.com/profile_banners/12/1742427520",
+      "entities": {
+        "urls": [
+          "http://primal.net/jack"
+        ]
+      }
+    },
+    "conversation_id": "1600173650518237186",
+    "metrics": {
+      "replies": 1302,
+      "retweets": 3036,
+      "likes": 30910,
+      "quotes": 729
+    },
+    "entities": {},
+    "media": [
+      {
+        "key": "3_1600173573884313600",
+        "type": "photo",
+        "url": "https://pbs.twimg.com/media/FjT1YypXgAAGWL1.jpg",
+        "width": 1536,
+        "height": 2048
+      }
+    ],
+    "sample": true
+  },
+  {
+    "kind": "tweet",
+    "id": "1339408625253531649",
+    "uri": "x://tweet/1339408625253531649",
+    "url": "https://x.com/jack/status/1339408625253531649",
+    "tier": 0,
+    "text": "11+11",
+    "created_at": "2020-12-17T03:14:35Z",
+    "lang": "qst",
+    "author": {
+      "kind": "user",
+      "id": "jack",
+      "uri": "x://user/jack",
+      "url": "https://x.com/jack",
+      "tier": 0,
+      "username": "jack",
+      "rest_id": "12",
+      "name": "jack",
+      "created_at": "2006-03-21T20:50:14Z",
+      "description": "no state is the best state",
+      "website": "http://primal.net/jack",
+      "verified": true,
+      "verified_type": "blue",
+      "metrics": {
+        "followers": 10559851,
+        "following": 3,
+        "tweets": 30786,
+        "listed": 33162,
+        "likes": 39921,
+        "media": 2973
+      },
+      "profile_image": "https://pbs.twimg.com/profile_images/1661201415899951105/azNjKOSH_normal.jpg",
+      "profile_banner": "https://pbs.twimg.com/profile_banners/12/1742427520",
+      "entities": {
+        "urls": [
+          "http://primal.net/jack"
+        ]
+      }
+    },
+    "conversation_id": "1339408625253531649",
+    "metrics": {
+      "replies": 5174,
+      "retweets": 2929,
+      "likes": 28820,
+      "quotes": 2196
+    },
+    "entities": {},
+    "sample": true
+  },
+  {
+    "kind": "tweet",
+    "id": "1381609431381766147",
+    "uri": "x://tweet/1381609431381766147",
+    "url": "https://x.com/jack/status/1381609431381766147",
+    "tier": 0,
+    "text": "🇬🇭 Twitter is now present on the continent.  \n\nThank you Ghana and @NAkufoAddo. #TwitterGhana https://t.co/tt7KR3kvDg",
+    "created_at": "2021-04-12T14:05:32Z",
+    "lang": "en",
+    "author": {
+      "kind": "user",
+      "id": "jack",
+      "uri": "x://user/jack",
+      "url": "https://x.com/jack",
+      "tier": 0,
+      "username": "jack",
+      "rest_id": "12",
+      "name": "jack",
+      "created_at": "2006-03-21T20:50:14Z",
+      "description": "no state is the best state",
+      "website": "http://primal.net/jack",
+      "verified": true,
+      "verified_type": "blue",
+      "metrics": {
+        "followers": 10559851,
+        "following": 3,
+        "tweets": 30786,
+        "listed": 33162,
+        "likes": 39921,
+        "media": 2973
+      },
+      "profile_image": "https://pbs.twimg.com/profile_images/1661201415899951105/azNjKOSH_normal.jpg",
+      "profile_banner": "https://pbs.twimg.com/profile_banners/12/1742427520",
+      "entities": {
+        "urls": [
+          "http://primal.net/jack"
+        ]
+      }
+    },
+    "conversation_id": "1381609431381766147",
+    "metrics": {
+      "replies": 1566,
+      "retweets": 11269,
+      "likes": 30563,
+      "quotes": 3041
+    },
+    "entities": {
+      "hashtags": [
+        "TwitterGhana"
+      ],
+      "mentions": [
+        "NAkufoAddo"
+      ],
+      "urls": [
+        "https://blog.twitter.com/en_us/topics/company/2021/establishing-twitter-s-presence-in-africa.html"
+      ]
+    },
+    "sample": true
+  },
+  {
+    "kind": "tweet",
+    "id": "1787653754164035741",
+    "uri": "x://tweet/1787653754164035741",
+    "url": "https://x.com/jack/status/1787653754164035741",
+    "tier": 0,
+    "text": "like that not like us",
+    "created_at": "2024-05-07T01:20:42Z",
+    "lang": "en",
+    "author": {
+      "kind": "user",
+      "id": "jack",
+      "uri": "x://user/jack",
+      "url": "https://x.com/jack",
+      "tier": 0,
+      "username": "jack",
+      "rest_id": "12",
+      "name": "jack",
+      "created_at": "2006-03-21T20:50:14Z",
+      "description": "no state is the best state",
+      "website": "http://primal.net/jack",
+      "verified": true,
+      "verified_type": "blue",
+      "metrics": {
+        "followers": 10559851,
+        "following": 3,
+        "tweets": 30786,
+        "listed": 33162,
+        "likes": 39921,
+        "media": 2973
+      },
+      "profile_image": "https://pbs.twimg.com/profile_images/1661201415899951105/azNjKOSH_normal.jpg",
+      "profile_banner": "https://pbs.twimg.com/profile_banners/12/1742427520",
+      "entities": {
+        "urls": [
+          "http://primal.net/jack"
+        ]
+      }
+    },
+    "conversation_id": "1787653754164035741",
+    "metrics": {
+      "replies": 1536,
+      "retweets": 2423,
+      "likes": 29555,
+      "quotes": 1398
+    },
+    "entities": {},
+    "sample": true
+  },
+  {
+    "kind": "tweet",
+    "id": "1470787826346246159",
+    "uri": "x://tweet/1470787826346246159",
+    "url": "https://x.com/jack/status/1470787826346246159",
+    "tier": 0,
+    "text": "\"transitory\"",
+    "created_at": "2021-12-14T16:08:38Z",
+    "lang": "en",
+    "author": {
+      "kind": "user",
+      "id": "jack",
+      "uri": "x://user/jack",
+      "url": "https://x.com/jack",
+      "tier": 0,
+      "username": "jack",
+      "rest_id": "12",
+      "name": "jack",
+      "created_at": "2006-03-21T20:50:14Z",
+      "description": "no state is the best state",
+      "website": "http://primal.net/jack",
+      "verified": true,
+      "verified_type": "blue",
+      "metrics": {
+        "followers": 10559851,
+        "following": 3,
+        "tweets": 30786,
+        "listed": 33162,
+        "likes": 39921,
+        "media": 2973
+      },
+      "profile_image": "https://pbs.twimg.com/profile_images/1661201415899951105/azNjKOSH_normal.jpg",
+      "profile_banner": "https://pbs.twimg.com/profile_banners/12/1742427520",
+      "entities": {
+        "urls": [
+          "http://primal.net/jack"
+        ]
+      }
+    },
+    "conversation_id": "1470787826346246159",
+    "metrics": {
+      "replies": 1636,
+      "retweets": 2989,
+      "likes": 29843,
+      "quotes": 606
+    },
+    "entities": {},
+    "sample": true
+  },
+  {
+    "kind": "tweet",
+    "id": "1265837143827468289",
+    "uri": "x://tweet/1265837143827468289",
+    "url": "https://x.com/jack/status/1265837143827468289",
+    "tier": 0,
+    "text": "Per our Civic Integrity policy (https://t.co/uQ0AoPtoCm), the tweets yesterday may mislead people into thinking they don’t need to register to get a ballot (only registered voters receive ballots). We’re updating the link on @realDonaldTrump’s tweet to make this more clear.",
+    "created_at": "2020-05-28T02:47:47Z",
+    "lang": "en",
+    "author": {
+      "kind": "user",
+      "id": "jack",
+      "uri": "x://user/jack",
+      "url": "https://x.com/jack",
+      "tier": 0,
+      "username": "jack",
+      "rest_id": "12",
+      "name": "jack",
+      "created_at": "2006-03-21T20:50:14Z",
+      "description": "no state is the best state",
+      "website": "http://primal.net/jack",
+      "verified": true,
+      "verified_type": "blue",
+      "metrics": {
+        "followers": 10559851,
+        "following": 3,
+        "tweets": 30786,
+        "listed": 33162,
+        "likes": 39921,
+        "media": 2973
+      },
+      "profile_image": "https://pbs.twimg.com/profile_images/1661201415899951105/azNjKOSH_normal.jpg",
+      "profile_banner": "https://pbs.twimg.com/profile_banners/12/1742427520",
+      "entities": {
+        "urls": [
+          "http://primal.net/jack"
+        ]
+      }
+    },
+    "conversation_id": "1265837138114830336",
+    "reply_to": "1265837139360485376",
+    "reply_to_user": "jack",
+    "metrics": {
+      "replies": 4270,
+      "retweets": 4191,
+      "likes": 26093,
+      "quotes": 796
+    },
+    "entities": {
+      "mentions": [
+        "realDonaldTrump"
+      ],
+      "urls": [
+        "https://help.twitter.com/en/rules-and-policies/election-integrity-policy"
+      ]
+    },
+    "is_reply": true,
+    "sample": true
+  },
+  {
+    "kind": "tweet",
+    "id": "1683327575517728769",
+    "uri": "x://tweet/1683327575517728769",
+    "url": "https://x.com/jack/status/1683327575517728769",
+    "tier": 0,
+    "text": "keep calm and just x through it",
+    "created_at": "2023-07-24T04:05:43Z",
+    "lang": "en",
+    "author": {
+      "kind": "user",
+      "id": "jack",
+      "uri": "x://user/jack",
+      "url": "https://x.com/jack",
+      "tier": 0,
+      "username": "jack",
+      "rest_id": "12",
+      "name": "jack",
+      "created_at": "2006-03-21T20:50:14Z",
+      "description": "no state is the best state",
+      "website": "http://primal.net/jack",
+      "verified": true,
+      "verified_type": "blue",
+      "metrics": {
+        "followers": 10559851,
+        "following": 3,
+        "tweets": 30786,
+        "listed": 33162,
+        "likes": 39921,
+        "media": 2973
+      },
+      "profile_image": "https://pbs.twimg.com/profile_images/1661201415899951105/azNjKOSH_normal.jpg",
+      "profile_banner": "https://pbs.twimg.com/profile_banners/12/1742427520",
+      "entities": {
+        "urls": [
+          "http://primal.net/jack"
+        ]
+      }
+    },
+    "conversation_id": "1683327575517728769",
+    "metrics": {
+      "replies": 1857,
+      "retweets": 2811,
+      "likes": 29090,
+      "quotes": 2341
+    },
+    "entities": {},
+    "sample": true
+  },
+  {
+    "kind": "tweet",
+    "id": "1588913278566436865",
+    "uri": "x://tweet/1588913278566436865",
+    "url": "https://x.com/jack/status/1588913278566436865",
+    "tier": 0,
+    "text": "I am grateful for, and love, everyone who has ever worked on Twitter. I don't expect that to be mutual in this moment...or ever…and I understand. 💙",
+    "created_at": "2022-11-05T15:17:00Z",
+    "lang": "en",
+    "author": {
+      "kind": "user",
+      "id": "jack",
+      "uri": "x://user/jack",
+      "url": "https://x.com/jack",
+      "tier": 0,
+      "username": "jack",
+      "rest_id": "12",
+      "name": "jack",
+      "created_at": "2006-03-21T20:50:14Z",
+      "description": "no state is the best state",
+      "website": "http://primal.net/jack",
+      "verified": true,
+      "verified_type": "blue",
+      "metrics": {
+        "followers": 10559851,
+        "following": 3,
+        "tweets": 30786,
+        "listed": 33162,
+        "likes": 39921,
+        "media": 2973
+      },
+      "profile_image": "https://pbs.twimg.com/profile_images/1661201415899951105/azNjKOSH_normal.jpg",
+      "profile_banner": "https://pbs.twimg.com/profile_banners/12/1742427520",
+      "entities": {
+        "urls": [
+          "http://primal.net/jack"
+        ]
+      }
+    },
+    "conversation_id": "1588913276980633600",
+    "reply_to": "1588913276980633600",
+    "reply_to_user": "jack",
+    "metrics": {
+      "replies": 1552,
+      "retweets": 2243,
+      "likes": 28740,
+      "quotes": 562
+    },
+    "entities": {},
+    "is_reply": true,
+    "sample": true
+  },
+  {
+    "kind": "tweet",
+    "id": "1415765941904941061",
+    "uri": "x://tweet/1415765941904941061",
+    "url": "https://x.com/jack/status/1415765941904941061",
+    "tier": 0,
+    "text": "Square is creating a new business (joining Seller, Cash App, \u0026amp; Tidal) focused on building an open developer platform with the sole goal of making it easy to create non-custodial, permissionless, and decentralized financial services. Our primary focus is #Bitcoin. Its name is TBD.",
+    "created_at": "2021-07-15T20:11:18Z",
+    "lang": "en",
+    "author": {
+      "kind": "user",
+      "id": "jack",
+      "uri": "x://user/jack",
+      "url": "https://x.com/jack",
+      "tier": 0,
+      "username": "jack",
+      "rest_id": "12",
+      "name": "jack",
+      "created_at": "2006-03-21T20:50:14Z",
+      "description": "no state is the best state",
+      "website": "http://primal.net/jack",
+      "verified": true,
+      "verified_type": "blue",
+      "metrics": {
+        "followers": 10559851,
+        "following": 3,
+        "tweets": 30786,
+        "listed": 33162,
+        "likes": 39921,
+        "media": 2973
+      },
+      "profile_image": "https://pbs.twimg.com/profile_images/1661201415899951105/azNjKOSH_normal.jpg",
+      "profile_banner": "https://pbs.twimg.com/profile_banners/12/1742427520",
+      "entities": {
+        "urls": [
+          "http://primal.net/jack"
+        ]
+      }
+    },
+    "conversation_id": "1415765941904941061",
+    "metrics": {
+      "replies": 1426,
+      "retweets": 4960,
+      "likes": 29535,
+      "quotes": 1254
+    },
+    "entities": {
+      "hashtags": [
+        "Bitcoin"
+      ]
+    },
+    "sample": true
+  },
+  {
+    "kind": "tweet",
+    "id": "1518772754782187520",
+    "uri": "x://tweet/1518772754782187520",
+    "url": "https://x.com/jack/status/1518772754782187520",
+    "tier": 0,
+    "text": "The idea and service is all that matters to me, and I will do whatever it takes to protect both. Twitter as a company has always been my sole issue and my biggest regret. It has been owned by Wall Street and the ad model. Taking it back from Wall Street is the correct first step.",
+    "created_at": "2022-04-26T02:03:36Z",
+    "lang": "en",
+    "author": {
+      "kind": "user",
+      "id": "jack",
+      "uri": "x://user/jack",
+      "url": "https://x.com/jack",
+      "tier": 0,
+      "username": "jack",
+      "rest_id": "12",
+      "name": "jack",
+      "created_at": "2006-03-21T20:50:14Z",
+      "description": "no state is the best state",
+      "website": "http://primal.net/jack",
+      "verified": true,
+      "verified_type": "blue",
+      "metrics": {
+        "followers": 10559851,
+        "following": 3,
+        "tweets": 30786,
+        "listed": 33162,
+        "likes": 39921,
+        "media": 2973
+      },
+      "profile_image": "https://pbs.twimg.com/profile_images/1661201415899951105/azNjKOSH_normal.jpg",
+      "profile_banner": "https://pbs.twimg.com/profile_banners/12/1742427520",
+      "entities": {
+        "urls": [
+          "http://primal.net/jack"
+        ]
+      }
+    },
+    "conversation_id": "1518767238081171456",
+    "reply_to": "1518772753460998145",
+    "reply_to_user": "jack",
+    "metrics": {
+      "replies": 495,
+      "retweets": 3701,
+      "likes": 29297,
+      "quotes": 1037
+    },
+    "entities": {},
+    "is_reply": true,
+    "sample": true
+  },
+  {
+    "kind": "tweet",
+    "id": "1270448639622524928",
+    "uri": "x://tweet/1270448639622524928",
+    "url": "https://x.com/jack/status/1270448639622524928",
+    "tier": 0,
+    "text": "Both Twitter and Square are making #Juneteenth (June 19th) a company holiday in the US, forevermore. A day for celebration, education, and connection.\n\nhttps://t.co/xmR3fWMiRs",
+    "created_at": "2020-06-09T20:12:14Z",
+    "lang": "en",
+    "author": {
+      "kind": "user",
+      "id": "jack",
+      "uri": "x://user/jack",
+      "url": "https://x.com/jack",
+      "tier": 0,
+      "username": "jack",
+      "rest_id": "12",
+      "name": "jack",
+      "created_at": "2006-03-21T20:50:14Z",
+      "description": "no state is the best state",
+      "website": "http://primal.net/jack",
+      "verified": true,
+      "verified_type": "blue",
+      "metrics": {
+        "followers": 10559851,
+        "following": 3,
+        "tweets": 30786,
+        "listed": 33162,
+        "likes": 39921,
+        "media": 2973
+      },
+      "profile_image": "https://pbs.twimg.com/profile_images/1661201415899951105/azNjKOSH_normal.jpg",
+      "profile_banner": "https://pbs.twimg.com/profile_banners/12/1742427520",
+      "entities": {
+        "urls": [
+          "http://primal.net/jack"
+        ]
+      }
+    },
+    "conversation_id": "1270448639622524928",
+    "metrics": {
+      "replies": 923,
+      "retweets": 5908,
+      "likes": 26609,
+      "quotes": 1558
+    },
+    "entities": {
+      "hashtags": [
+        "Juneteenth"
+      ],
+      "urls": [
+        "http://www.juneteenth.com/history.htm"
+      ]
+    },
+    "sample": true
+  },
+  {
+    "kind": "tweet",
+    "id": "1108683588885602305",
+    "uri": "x://tweet/1108683588885602305",
+    "url": "https://x.com/jack/status/1108683588885602305",
+    "tier": 0,
+    "text": "@BamBam1A looking forward to meeting you BamBam!",
+    "created_at": "2019-03-21T10:55:40Z",
+    "lang": "en",
+    "author": {
+      "kind": "user",
+      "id": "jack",
+      "uri": "x://user/jack",
+      "url": "https://x.com/jack",
+      "tier": 0,
+      "username": "jack",
+      "rest_id": "12",
+      "name": "jack",
+      "created_at": "2006-03-21T20:50:14Z",
+      "description": "no state is the best state",
+      "website": "http://primal.net/jack",
+      "verified": true,
+      "verified_type": "blue",
+      "metrics": {
+        "followers": 10559851,
+        "following": 3,
+        "tweets": 30786,
+        "listed": 33162,
+        "likes": 39921,
+        "media": 2973
+      },
+      "profile_image": "https://pbs.twimg.com/profile_images/1661201415899951105/azNjKOSH_normal.jpg",
+      "profile_banner": "https://pbs.twimg.com/profile_banners/12/1742427520",
+      "entities": {
+        "urls": [
+          "http://primal.net/jack"
+        ]
+      }
+    },
+    "conversation_id": "1108683588885602305",
+    "reply_to_user": "BamBam1A",
+    "metrics": {
+      "replies": 664,
+      "retweets": 17858,
+      "likes": 28824,
+      "quotes": 331
+    },
+    "entities": {
+      "mentions": [
+        "BamBam1A"
+      ]
+    },
+    "sample": true
+  },
+  {
+    "kind": "tweet",
+    "id": "1357588751757627393",
+    "uri": "x://tweet/1357588751757627393",
+    "url": "https://x.com/jack/status/1357588751757627393",
+    "tier": 0,
+    "text": "Running #bitcoin https://t.co/W51ga3yrKb",
+    "created_at": "2021-02-05T07:15:55Z",
+    "lang": "en",
+    "author": {
+      "kind": "user",
+      "id": "jack",
+      "uri": "x://user/jack",
+      "url": "https://x.com/jack",
+      "tier": 0,
+      "username": "jack",
+      "rest_id": "12",
+      "name": "jack",
+      "created_at": "2006-03-21T20:50:14Z",
+      "description": "no state is the best state",
+      "website": "http://primal.net/jack",
+      "verified": true,
+      "verified_type": "blue",
+      "metrics": {
+        "followers": 10559851,
+        "following": 3,
+        "tweets": 30786,
+        "listed": 33162,
+        "likes": 39921,
+        "media": 2973
+      },
+      "profile_image": "https://pbs.twimg.com/profile_images/1661201415899951105/azNjKOSH_normal.jpg",
+      "profile_banner": "https://pbs.twimg.com/profile_banners/12/1742427520",
+      "entities": {
+        "urls": [
+          "http://primal.net/jack"
+        ]
+      }
+    },
+    "conversation_id": "1357588751757627393",
+    "metrics": {
+      "replies": 1311,
+      "retweets": 3848,
+      "likes": 28251,
+      "quotes": 653
+    },
+    "entities": {
+      "hashtags": [
+        "bitcoin"
+      ]
+    },
+    "media": [
+      {
+        "key": "3_1357588748041506817",
+        "type": "photo",
+        "url": "https://pbs.twimg.com/media/EtcfxgYU0AEBD1r.jpg",
+        "width": 816,
+        "height": 637
+      }
+    ],
+    "sample": true
+  },
+  {
+    "kind": "tweet",
+    "id": "1270838563911790592",
+    "uri": "x://tweet/1270838563911790592",
+    "url": "https://x.com/jack/status/1270838563911790592",
+    "tier": 0,
+    "text": "Did you read the article you’re about to spread?",
+    "created_at": "2020-06-10T22:01:39Z",
+    "lang": "en",
+    "author": {
+      "kind": "user",
+      "id": "jack",
+      "uri": "x://user/jack",
+      "url": "https://x.com/jack",
+      "tier": 0,
+      "username": "jack",
+      "rest_id": "12",
+      "name": "jack",
+      "created_at": "2006-03-21T20:50:14Z",
+      "description": "no state is the best state",
+      "website": "http://primal.net/jack",
+      "verified": true,
+      "verified_type": "blue",
+      "metrics": {
+        "followers": 10559851,
+        "following": 3,
+        "tweets": 30786,
+        "listed": 33162,
+        "likes": 39921,
+        "media": 2973
+      },
+      "profile_image": "https://pbs.twimg.com/profile_images/1661201415899951105/azNjKOSH_normal.jpg",
+      "profile_banner": "https://pbs.twimg.com/profile_banners/12/1742427520",
+      "entities": {
+        "urls": [
+          "http://primal.net/jack"
+        ]
+      }
+    },
+    "conversation_id": "1270838563911790592",
+    "metrics": {
+      "replies": 1663,
+      "retweets": 3646,
+      "likes": 27697,
+      "quotes": 770
+    },
+    "entities": {},
+    "sample": true
+  },
+  {
+    "kind": "tweet",
+    "id": "1589442162718277633",
+    "uri": "x://tweet/1589442162718277633",
+    "url": "https://x.com/jack/status/1589442162718277633",
+    "tier": 0,
+    "text": "these tracking additions when sharing a tweet are a step backwards\n\nnothing needed after the ? https://t.co/v7eCFaAT99",
+    "created_at": "2022-11-07T02:18:36Z",
+    "lang": "en",
+    "author": {
+      "kind": "user",
+      "id": "jack",
+      "uri": "x://user/jack",
+      "url": "https://x.com/jack",
+      "tier": 0,
+      "username": "jack",
+      "rest_id": "12",
+      "name": "jack",
+      "created_at": "2006-03-21T20:50:14Z",
+      "description": "no state is the best state",
+      "website": "http://primal.net/jack",
+      "verified": true,
+      "verified_type": "blue",
+      "metrics": {
+        "followers": 10559851,
+        "following": 3,
+        "tweets": 30786,
+        "listed": 33162,
+        "likes": 39921,
+        "media": 2973
+      },
+      "profile_image": "https://pbs.twimg.com/profile_images/1661201415899951105/azNjKOSH_normal.jpg",
+      "profile_banner": "https://pbs.twimg.com/profile_banners/12/1742427520",
+      "entities": {
+        "urls": [
+          "http://primal.net/jack"
+        ]
+      }
+    },
+    "conversation_id": "1589442162718277633",
+    "metrics": {
+      "replies": 1984,
+      "retweets": 2187,
+      "likes": 27405,
+      "quotes": 1093
+    },
+    "entities": {},
+    "media": [
+      {
+        "key": "3_1589442157982646277",
+        "type": "photo",
+        "url": "https://pbs.twimg.com/media/Fg7VOLGWAAU0Cn4.jpg",
+        "width": 1178,
+        "height": 336
+      }
+    ],
+    "sample": true
+  }
+]

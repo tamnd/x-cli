@@ -1,0 +1,325 @@
+{
+  "tweet": {
+    "kind": "tweet",
+    "id": "1903142823316049977",
+    "uri": "x://tweet/1903142823316049977",
+    "url": "https://x.com/GuyFisherMoney/status/1903142823316049977",
+    "tier": 0,
+    "surfaces": [
+      "s8"
+    ],
+    "sources": [
+      "https://x.com/i/status/1903142823316049977"
+    ],
+    "text": "@MarmoushEra @jack The year is 2035, and you're reading this tweet with a smirk on your face while sitting in the trenches, wearing body armor and holding a rifle.",
+    "created_at": "2025-03-21T17:53:02Z",
+    "author": {
+      "kind": "user",
+      "id": "guyfishermoney",
+      "uri": "x://user/guyfishermoney",
+      "url": "https://x.com/guyfishermoney",
+      "tier": 0,
+      "surfaces": [
+        "s8"
+      ],
+      "sources": [
+        "https://x.com/i/status/1903142823316049977"
+      ],
+      "username": "GuyFisherMoney",
+      "rest_id": "252445420",
+      "name": "Guy Fisher",
+      "metrics": {
+        "followers": 180,
+        "following": 149,
+        "tweets": 10568
+      },
+      "profile_image": "https://pbs.twimg.com/profile_images/1272205091869777920/mDNeP_1P_normal.jpg",
+      "entities": {}
+    },
+    "reply_to_user": "marmoushEra",
+    "metrics": {
+      "replies": 5,
+      "retweets": 1,
+      "likes": 193,
+      "quotes": 0,
+      "bookmarks": 4,
+      "impressions": 7483
+    },
+    "entities": {
+      "mentions": [
+        "MarmoushEra",
+        "jack"
+      ]
+    }
+  },
+  "postings": [
+    {
+      "kind": "tweet",
+      "id": "1903136743634723031",
+      "uri": "x://tweet/1903136743634723031",
+      "url": "https://x.com/marmoushEra/status/1903136743634723031",
+      "tier": 0,
+      "surfaces": [
+        "s8"
+      ],
+      "sources": [
+        "https://x.com/i/status/1903142823316049977"
+      ],
+      "text": "@jack This is 2025, if you see this in 2040 bill me for anything i will pay. Pretty sure i will be rich",
+      "created_at": "2025-03-21T17:28:52Z",
+      "author": {
+        "kind": "user",
+        "id": "marmoushera",
+        "uri": "x://user/marmoushera",
+        "url": "https://x.com/marmoushera",
+        "tier": 0,
+        "surfaces": [
+          "s8"
+        ],
+        "sources": [
+          "https://x.com/i/status/1903142823316049977"
+        ],
+        "username": "marmoushEra",
+        "rest_id": "1605962922064232449",
+        "name": "Reymi",
+        "verified": true,
+        "metrics": {
+          "followers": 6994,
+          "following": 1603,
+          "tweets": 59087
+        },
+        "profile_image": "https://pbs.twimg.com/profile_images/1956662085259026432/mzjCbIlI_normal.jpg",
+        "entities": {}
+      },
+      "reply_to_user": "jack",
+      "metrics": {
+        "replies": 143,
+        "retweets": 100,
+        "likes": 4763,
+        "quotes": 5,
+        "bookmarks": 684,
+        "impressions": 398131
+      },
+      "entities": {
+        "mentions": [
+          "jack"
+        ]
+      }
+    },
+    {
+      "kind": "tweet",
+      "id": "1903153674597306688",
+      "uri": "x://tweet/1903153674597306688",
+      "url": "https://x.com/marmoushEra/status/1903153674597306688",
+      "tier": 0,
+      "surfaces": [
+        "s8"
+      ],
+      "sources": [
+        "https://x.com/i/status/1903142823316049977"
+      ],
+      "text": "@GuyFisherMoney @jack Bro wtf, you narrating a movie?",
+      "created_at": "2025-03-21T18:36:09Z",
+      "author": {
+        "kind": "user",
+        "id": "marmoushera",
+        "uri": "x://user/marmoushera",
+        "url": "https://x.com/marmoushera",
+        "tier": 0,
+        "surfaces": [
+          "s8"
+        ],
+        "sources": [
+          "https://x.com/i/status/1903142823316049977"
+        ],
+        "username": "marmoushEra",
+        "rest_id": "1605962922064232449",
+        "name": "Reymi",
+        "verified": true,
+        "metrics": {
+          "followers": 6994,
+          "following": 1603,
+          "tweets": 59087
+        },
+        "profile_image": "https://pbs.twimg.com/profile_images/1956662085259026432/mzjCbIlI_normal.jpg",
+        "entities": {}
+      },
+      "reply_to_user": "GuyFisherMoney",
+      "metrics": {
+        "replies": 4,
+        "retweets": 0,
+        "likes": 72,
+        "quotes": 0,
+        "bookmarks": 1,
+        "impressions": 6618
+      },
+      "entities": {
+        "mentions": [
+          "GuyFisherMoney",
+          "jack"
+        ]
+      }
+    },
+    {
+      "kind": "tweet",
+      "id": "1903181148152533402",
+      "uri": "x://tweet/1903181148152533402",
+      "url": "https://x.com/Mr_Victor15/status/1903181148152533402",
+      "tier": 0,
+      "surfaces": [
+        "s8"
+      ],
+      "sources": [
+        "https://x.com/i/status/1903142823316049977"
+      ],
+      "text": "@GuyFisherMoney @MarmoushEra @jack 😂😂😂",
+      "created_at": "2025-03-21T20:25:19Z",
+      "author": {
+        "kind": "user",
+        "id": "mr_victor15",
+        "uri": "x://user/mr_victor15",
+        "url": "https://x.com/mr_victor15",
+        "tier": 0,
+        "surfaces": [
+          "s8"
+        ],
+        "sources": [
+          "https://x.com/i/status/1903142823316049977"
+        ],
+        "username": "Mr_Victor15",
+        "rest_id": "1628613192",
+        "name": "Chinazo 🇳🇬",
+        "metrics": {
+          "followers": 390,
+          "following": 848,
+          "tweets": 6907
+        },
+        "profile_image": "https://pbs.twimg.com/profile_images/1868247977958985728/zVGpD_vu_normal.jpg",
+        "entities": {}
+      },
+      "reply_to_user": "GuyFisherMoney",
+      "metrics": {
+        "replies": 0,
+        "retweets": 0,
+        "likes": 2,
+        "quotes": 0,
+        "bookmarks": 0,
+        "impressions": 115
+      },
+      "entities": {
+        "mentions": [
+          "GuyFisherMoney",
+          "MarmoushEra",
+          "jack"
+        ]
+      }
+    },
+    {
+      "kind": "tweet",
+      "id": "1903312926368272526",
+      "uri": "x://tweet/1903312926368272526",
+      "url": "https://x.com/SaintMatoi/status/1903312926368272526",
+      "tier": 0,
+      "surfaces": [
+        "s8"
+      ],
+      "sources": [
+        "https://x.com/i/status/1903142823316049977"
+      ],
+      "text": "@GuyFisherMoney @MarmoushEra @jack ...and beside him lies his homies; each shot worse than the last. He powers on his phone to reminisce about the good old days before the enemy drone blows him to bits after sensing his phone signal from 163km away.",
+      "created_at": "2025-03-22T05:08:58Z",
+      "author": {
+        "kind": "user",
+        "id": "saintmatoi",
+        "uri": "x://user/saintmatoi",
+        "url": "https://x.com/saintmatoi",
+        "tier": 0,
+        "surfaces": [
+          "s8"
+        ],
+        "sources": [
+          "https://x.com/i/status/1903142823316049977"
+        ],
+        "username": "SaintMatoi",
+        "rest_id": "1620261149173227520",
+        "name": "Saint Matoi",
+        "metrics": {
+          "followers": 1535,
+          "following": 677,
+          "tweets": 16095
+        },
+        "profile_image": "https://pbs.twimg.com/profile_images/1769057256484503552/bbRBqLpE_normal.jpg",
+        "entities": {}
+      },
+      "reply_to_user": "GuyFisherMoney",
+      "metrics": {
+        "replies": 0,
+        "retweets": 0,
+        "likes": 2,
+        "quotes": 0,
+        "bookmarks": 0,
+        "impressions": 163
+      },
+      "entities": {
+        "mentions": [
+          "GuyFisherMoney",
+          "MarmoushEra",
+          "jack"
+        ]
+      }
+    },
+    {
+      "kind": "tweet",
+      "id": "1903142823316049977",
+      "uri": "x://tweet/1903142823316049977",
+      "url": "https://x.com/GuyFisherMoney/status/1903142823316049977",
+      "tier": 0,
+      "surfaces": [
+        "s8"
+      ],
+      "sources": [
+        "https://x.com/i/status/1903142823316049977"
+      ],
+      "text": "@MarmoushEra @jack The year is 2035, and you're reading this tweet with a smirk on your face while sitting in the trenches, wearing body armor and holding a rifle.",
+      "created_at": "2025-03-21T17:53:02Z",
+      "author": {
+        "kind": "user",
+        "id": "guyfishermoney",
+        "uri": "x://user/guyfishermoney",
+        "url": "https://x.com/guyfishermoney",
+        "tier": 0,
+        "surfaces": [
+          "s8"
+        ],
+        "sources": [
+          "https://x.com/i/status/1903142823316049977"
+        ],
+        "username": "GuyFisherMoney",
+        "rest_id": "252445420",
+        "name": "Guy Fisher",
+        "metrics": {
+          "followers": 180,
+          "following": 149,
+          "tweets": 10568
+        },
+        "profile_image": "https://pbs.twimg.com/profile_images/1272205091869777920/mDNeP_1P_normal.jpg",
+        "entities": {}
+      },
+      "reply_to_user": "marmoushEra",
+      "metrics": {
+        "replies": 5,
+        "retweets": 1,
+        "likes": 193,
+        "quotes": 0,
+        "bookmarks": 4,
+        "impressions": 7483
+      },
+      "entities": {
+        "mentions": [
+          "MarmoushEra",
+          "jack"
+        ]
+      }
+    }
+  ]
+}

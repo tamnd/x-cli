@@ -11,7 +11,10 @@ import (
 	"testing"
 )
 
-var update = flag.Bool("update", false, "rewrite fields_gen.go from the fixtures")
+// One -update for both generated things in this package: fields_gen.go and the
+// goldens under testdata/golden. They regenerate from the same fixtures, so a
+// recapture wants them rewritten together or not at all.
+var update = flag.Bool("update", false, "rewrite fields_gen.go and testdata/golden from the fixtures")
 
 // TestFieldSurfaces measures which surface fills which field by running every
 // committed fixture through the decoder that would read it, and fails when

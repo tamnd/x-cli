@@ -1,0 +1,2319 @@
+[
+  {
+    "kind": "tweet",
+    "id": "2081860978694594863",
+    "uri": "x://tweet/2081860978694594863",
+    "url": "https://x.com/NASA/status/2081860978694594863",
+    "tier": 0,
+    "text": "The Andromeda galaxy isn't making stars like it used to. A new study using @NASAHubble data shows that star formation in Andromeda has been slowing down over the last 40 million years: https://t.co/nK1ndoydi7 https://t.co/1fmYXooDq2",
+    "created_at": "2026-07-27T21:55:11Z",
+    "lang": "en",
+    "author": {
+      "kind": "user",
+      "id": "nasa",
+      "uri": "x://user/nasa",
+      "url": "https://x.com/nasa",
+      "tier": 0,
+      "username": "NASA",
+      "rest_id": "11348282",
+      "name": "NASA",
+      "created_at": "2007-12-19T20:20:32Z",
+      "description": "Making the seemingly impossible, possible. ✨",
+      "location": "Pale Blue Dot",
+      "website": "http://www.nasa.gov/",
+      "verified": true,
+      "verified_type": "government",
+      "metrics": {
+        "followers": 92219437,
+        "following": 119,
+        "tweets": 74261,
+        "listed": 97038,
+        "likes": 16894,
+        "media": 28050
+      },
+      "profile_image": "https://pbs.twimg.com/profile_images/1321163587679784960/0ZxKlEKB_normal.jpg",
+      "profile_banner": "https://pbs.twimg.com/profile_banners/11348282/1775567134",
+      "entities": {
+        "urls": [
+          "http://www.nasa.gov/"
+        ]
+      }
+    },
+    "conversation_id": "2081860978694594863",
+    "metrics": {
+      "replies": 172,
+      "retweets": 490,
+      "likes": 3081,
+      "quotes": 40,
+      "bookmarks": 175,
+      "impressions": 794614
+    },
+    "entities": {
+      "mentions": [
+        "NASAHubble"
+      ],
+      "urls": [
+        "https://go.nasa.gov/4yE0X5z"
+      ]
+    },
+    "media": [
+      {
+        "key": "3_2081860965780299776",
+        "type": "photo",
+        "url": "https://pbs.twimg.com/media/HORBhKkWIAAFjOh.jpg",
+        "width": 7005,
+        "height": 4066,
+        "alt_text": "An image showing countless stars in the Andromeda galaxy, with two small portions labeled \"1\" and \"2\" inset on the left side. Squares at the top and bottom of the image, which were not covered in the survey, are displayed in black. Credits: Image: NASA, ESA, Benjamin Williams (UWashington), Zhuo Chen (UWashington), L. Clifton Johnson (Northwestern); Image Processing: Joseph DePasquale (STScI) "
+      }
+    ],
+    "source": "Sprinklr"
+  },
+  {
+    "kind": "tweet",
+    "id": "2081856004237545809",
+    "uri": "x://tweet/2081856004237545809",
+    "url": "https://x.com/NASA/status/2081856004237545809",
+    "tier": 0,
+    "text": "We've finished fueling up our @NASARoman telescope, bringing it one step closer to its targeted liftoff on Aug. 30.\n\nLearn more about the process and find out what's next for our mystery-solving mission: https://t.co/sd1VuCK9Yk https://t.co/Ytp0Yn8J1T",
+    "created_at": "2026-07-27T21:35:25Z",
+    "lang": "en",
+    "author": {
+      "kind": "user",
+      "id": "nasa",
+      "uri": "x://user/nasa",
+      "url": "https://x.com/nasa",
+      "tier": 0,
+      "username": "NASA",
+      "rest_id": "11348282",
+      "name": "NASA",
+      "created_at": "2007-12-19T20:20:32Z",
+      "description": "Making the seemingly impossible, possible. ✨",
+      "location": "Pale Blue Dot",
+      "website": "http://www.nasa.gov/",
+      "verified": true,
+      "verified_type": "government",
+      "metrics": {
+        "followers": 92219437,
+        "following": 119,
+        "tweets": 74261,
+        "listed": 97038,
+        "likes": 16894,
+        "media": 28050
+      },
+      "profile_image": "https://pbs.twimg.com/profile_images/1321163587679784960/0ZxKlEKB_normal.jpg",
+      "profile_banner": "https://pbs.twimg.com/profile_banners/11348282/1775567134",
+      "entities": {
+        "urls": [
+          "http://www.nasa.gov/"
+        ]
+      }
+    },
+    "conversation_id": "2081856004237545809",
+    "metrics": {
+      "replies": 125,
+      "retweets": 334,
+      "likes": 2278,
+      "quotes": 22,
+      "bookmarks": 77,
+      "impressions": 494941
+    },
+    "entities": {
+      "mentions": [
+        "NASARoman"
+      ],
+      "urls": [
+        "https://go.nasa.gov/3TDA8hR"
+      ]
+    },
+    "media": [
+      {
+        "key": "3_2081855995857231872",
+        "type": "photo",
+        "url": "https://pbs.twimg.com/media/HOQ8_4KWYAA4fI4.jpg",
+        "width": 4364,
+        "height": 5455,
+        "alt_text": "The Roman Space Telescope, several stories tall and covered in gray foil, towers over a group of about a dozen technicians, wearing dark blue clean suits and full face masks; they are posing in front of the telescope for the photo. The cavernous, white servicing room surrounds them. Credit: NASA/Sydney Rohde (Rocz)"
+      }
+    ],
+    "source": "Sprinklr"
+  },
+  {
+    "kind": "tweet",
+    "id": "2081832975524634937",
+    "uri": "x://tweet/2081832975524634937",
+    "url": "https://x.com/NASA/status/2081832975524634937",
+    "tier": 0,
+    "text": "RT @NASASolarSystem: On Aug. 12, a total solar eclipse will cross Greenland, Iceland, and Spain — and NASA science will be there! ☀️🌑🔭\n\nWe'…",
+    "created_at": "2026-07-27T20:03:54Z",
+    "lang": "en",
+    "author": {
+      "kind": "user",
+      "id": "nasa",
+      "uri": "x://user/nasa",
+      "url": "https://x.com/nasa",
+      "tier": 0,
+      "username": "NASA",
+      "rest_id": "11348282",
+      "name": "NASA",
+      "created_at": "2007-12-19T20:20:32Z",
+      "description": "Making the seemingly impossible, possible. ✨",
+      "location": "Pale Blue Dot",
+      "website": "http://www.nasa.gov/",
+      "verified": true,
+      "verified_type": "government",
+      "metrics": {
+        "followers": 92219437,
+        "following": 119,
+        "tweets": 74261,
+        "listed": 97038,
+        "likes": 16894,
+        "media": 28050
+      },
+      "profile_image": "https://pbs.twimg.com/profile_images/1321163587679784960/0ZxKlEKB_normal.jpg",
+      "profile_banner": "https://pbs.twimg.com/profile_banners/11348282/1775567134",
+      "entities": {
+        "urls": [
+          "http://www.nasa.gov/"
+        ]
+      }
+    },
+    "conversation_id": "2081832975524634937",
+    "retweeted": {
+      "kind": "tweet",
+      "id": "2081803694480261151",
+      "uri": "x://tweet/2081803694480261151",
+      "url": "https://x.com/NASASolarSystem/status/2081803694480261151",
+      "tier": 0,
+      "text": "On Aug. 12, a total solar eclipse will cross Greenland, Iceland, and Spain — and NASA science will be there! ☀️🌑🔭\n\nWe're flying high-altitude jets and launching scientific balloons to study the Sun and the eclipse's effects on us: https://t.co/zPn8UavJ3m\n\n📸: NASA/Ernie Wright https://t.co/wVJzVGJ3Ao",
+      "created_at": "2026-07-27T18:07:33Z",
+      "lang": "en",
+      "author": {
+        "kind": "user",
+        "id": "nasasolarsystem",
+        "uri": "x://user/nasasolarsystem",
+        "url": "https://x.com/nasasolarsystem",
+        "tier": 0,
+        "username": "NASASolarSystem",
+        "rest_id": "15165493",
+        "name": "NASA Solar System",
+        "created_at": "2008-06-19T03:16:46Z",
+        "description": "Join us as we explore the worlds of our solar system.",
+        "location": "Milky Way Galaxy",
+        "website": "https://science.nasa.gov/solar-system",
+        "verified": true,
+        "verified_type": "government",
+        "metrics": {
+          "followers": 2966233,
+          "following": 141,
+          "tweets": 9634,
+          "listed": 12007,
+          "likes": 10659,
+          "media": 3286
+        },
+        "profile_image": "https://pbs.twimg.com/profile_images/1852211324224442369/9KHp7JLo_normal.jpg",
+        "profile_banner": "https://pbs.twimg.com/profile_banners/15165493/1783122314",
+        "entities": {
+          "urls": [
+            "https://science.nasa.gov/solar-system"
+          ]
+        }
+      },
+      "conversation_id": "2081803694480261151",
+      "metrics": {
+        "replies": 46,
+        "retweets": 249,
+        "likes": 1086,
+        "quotes": 15,
+        "bookmarks": 114,
+        "impressions": 234713
+      },
+      "entities": {
+        "urls": [
+          "http://go.nasa.gov/4x5qvqP"
+        ]
+      },
+      "media": [
+        {
+          "key": "13_2081803656530190336",
+          "type": "video",
+          "url": "https://pbs.twimg.com/amplify_video_thumb/2081803656530190336/img/zUx_qij2E2oP-MsL.jpg",
+          "width": 1080,
+          "height": 1920,
+          "duration_ms": 24781,
+          "variants": [
+            {
+              "bitrate": 0,
+              "content_type": "application/x-mpegURL",
+              "url": "https://video.twimg.com/amplify_video/2081803656530190336/pl/gqep-DhBK-jLjlhh.m3u8?tag=14\u0026v=cfc"
+            },
+            {
+              "bitrate": 632000,
+              "content_type": "video/mp4",
+              "url": "https://video.twimg.com/amplify_video/2081803656530190336/vid/avc1/320x568/dE6rlsvqKoeCzlo2.mp4?tag=14"
+            },
+            {
+              "bitrate": 950000,
+              "content_type": "video/mp4",
+              "url": "https://video.twimg.com/amplify_video/2081803656530190336/vid/avc1/480x852/zNs-GIAGTVCq5Myg.mp4?tag=14"
+            },
+            {
+              "bitrate": 2176000,
+              "content_type": "video/mp4",
+              "url": "https://video.twimg.com/amplify_video/2081803656530190336/vid/avc1/720x1280/gX81fYAYMrdTGuZN.mp4?tag=14"
+            }
+          ]
+        }
+      ],
+      "source": "Sprinklr"
+    },
+    "metrics": {
+      "replies": 0,
+      "retweets": 249,
+      "likes": 0,
+      "quotes": 0,
+      "bookmarks": 0,
+      "impressions": 52259
+    },
+    "entities": {
+      "mentions": [
+        "NASASolarSystem"
+      ]
+    },
+    "source": "Twitter Web App",
+    "is_retweet": true
+  },
+  {
+    "kind": "tweet",
+    "id": "2081803694480261151",
+    "uri": "x://tweet/2081803694480261151",
+    "url": "https://x.com/NASASolarSystem/status/2081803694480261151",
+    "tier": 0,
+    "text": "On Aug. 12, a total solar eclipse will cross Greenland, Iceland, and Spain — and NASA science will be there! ☀️🌑🔭\n\nWe're flying high-altitude jets and launching scientific balloons to study the Sun and the eclipse's effects on us: https://t.co/zPn8UavJ3m\n\n📸: NASA/Ernie Wright https://t.co/wVJzVGJ3Ao",
+    "created_at": "2026-07-27T18:07:33Z",
+    "lang": "en",
+    "author": {
+      "kind": "user",
+      "id": "nasasolarsystem",
+      "uri": "x://user/nasasolarsystem",
+      "url": "https://x.com/nasasolarsystem",
+      "tier": 0,
+      "username": "NASASolarSystem",
+      "rest_id": "15165493",
+      "name": "NASA Solar System",
+      "created_at": "2008-06-19T03:16:46Z",
+      "description": "Join us as we explore the worlds of our solar system.",
+      "location": "Milky Way Galaxy",
+      "website": "https://science.nasa.gov/solar-system",
+      "verified": true,
+      "verified_type": "government",
+      "metrics": {
+        "followers": 2966233,
+        "following": 141,
+        "tweets": 9634,
+        "listed": 12007,
+        "likes": 10659,
+        "media": 3286
+      },
+      "profile_image": "https://pbs.twimg.com/profile_images/1852211324224442369/9KHp7JLo_normal.jpg",
+      "profile_banner": "https://pbs.twimg.com/profile_banners/15165493/1783122314",
+      "entities": {
+        "urls": [
+          "https://science.nasa.gov/solar-system"
+        ]
+      }
+    },
+    "conversation_id": "2081803694480261151",
+    "metrics": {
+      "replies": 46,
+      "retweets": 249,
+      "likes": 1086,
+      "quotes": 15,
+      "bookmarks": 114,
+      "impressions": 234713
+    },
+    "entities": {
+      "urls": [
+        "http://go.nasa.gov/4x5qvqP"
+      ]
+    },
+    "media": [
+      {
+        "key": "13_2081803656530190336",
+        "type": "video",
+        "url": "https://pbs.twimg.com/amplify_video_thumb/2081803656530190336/img/zUx_qij2E2oP-MsL.jpg",
+        "width": 1080,
+        "height": 1920,
+        "duration_ms": 24781,
+        "variants": [
+          {
+            "bitrate": 0,
+            "content_type": "application/x-mpegURL",
+            "url": "https://video.twimg.com/amplify_video/2081803656530190336/pl/gqep-DhBK-jLjlhh.m3u8?tag=14\u0026v=cfc"
+          },
+          {
+            "bitrate": 632000,
+            "content_type": "video/mp4",
+            "url": "https://video.twimg.com/amplify_video/2081803656530190336/vid/avc1/320x568/dE6rlsvqKoeCzlo2.mp4?tag=14"
+          },
+          {
+            "bitrate": 950000,
+            "content_type": "video/mp4",
+            "url": "https://video.twimg.com/amplify_video/2081803656530190336/vid/avc1/480x852/zNs-GIAGTVCq5Myg.mp4?tag=14"
+          },
+          {
+            "bitrate": 2176000,
+            "content_type": "video/mp4",
+            "url": "https://video.twimg.com/amplify_video/2081803656530190336/vid/avc1/720x1280/gX81fYAYMrdTGuZN.mp4?tag=14"
+          }
+        ]
+      }
+    ],
+    "source": "Sprinklr"
+  },
+  {
+    "kind": "tweet",
+    "id": "2081822391315935604",
+    "uri": "x://tweet/2081822391315935604",
+    "url": "https://x.com/NASA/status/2081822391315935604",
+    "tier": 0,
+    "text": "Watch with us on Aug. 4 as @Astro_ChrisW recaps his eight-month mission aboard the @Space_Station. His first spaceflight included research, tech demos, and two spacewalks. More detail: https://t.co/BddnMLUpD1 https://t.co/ONXdpTz2vu",
+    "created_at": "2026-07-27T19:21:51Z",
+    "lang": "en",
+    "author": {
+      "kind": "user",
+      "id": "nasa",
+      "uri": "x://user/nasa",
+      "url": "https://x.com/nasa",
+      "tier": 0,
+      "username": "NASA",
+      "rest_id": "11348282",
+      "name": "NASA",
+      "created_at": "2007-12-19T20:20:32Z",
+      "description": "Making the seemingly impossible, possible. ✨",
+      "location": "Pale Blue Dot",
+      "website": "http://www.nasa.gov/",
+      "verified": true,
+      "verified_type": "government",
+      "metrics": {
+        "followers": 92219437,
+        "following": 119,
+        "tweets": 74261,
+        "listed": 97038,
+        "likes": 16894,
+        "media": 28050
+      },
+      "profile_image": "https://pbs.twimg.com/profile_images/1321163587679784960/0ZxKlEKB_normal.jpg",
+      "profile_banner": "https://pbs.twimg.com/profile_banners/11348282/1775567134",
+      "entities": {
+        "urls": [
+          "http://www.nasa.gov/"
+        ]
+      }
+    },
+    "conversation_id": "2081822391315935604",
+    "metrics": {
+      "replies": 83,
+      "retweets": 134,
+      "likes": 1048,
+      "quotes": 4,
+      "bookmarks": 35,
+      "impressions": 553697
+    },
+    "entities": {
+      "mentions": [
+        "Astro_ChrisW",
+        "Space_Station"
+      ],
+      "urls": [
+        "https://go.nasa.gov/4h5DIeB"
+      ]
+    },
+    "media": [
+      {
+        "key": "3_2081822388451201024",
+        "type": "photo",
+        "url": "https://pbs.twimg.com/media/HOQebq0W0AAJ07G.jpg",
+        "width": 2000,
+        "height": 1333,
+        "alt_text": "NASA astronaut Chris Williams smiles as he shows off the Destiny laboratory module’s Microgravity Science Glovebox aboard the International Space Station. He is wearing a dark green t-shirt, khaki pants with a brown belt, and a headset around his neck. Credit: NASA/Chris Williams"
+      }
+    ],
+    "source": "Sprinklr"
+  },
+  {
+    "kind": "tweet",
+    "id": "2081772453093593253",
+    "uri": "x://tweet/2081772453093593253",
+    "url": "https://x.com/NASA/status/2081772453093593253",
+    "tier": 0,
+    "text": "This August, our astronauts will be stepping outside the @Space_Station three times! NASA experts will discuss our upcoming spacewalks at 2pm ET (1800 UTC) on July 30. Learn how to tune in: https://t.co/7CyQqEN9bF https://t.co/Dxa5zMAxzh",
+    "created_at": "2026-07-27T16:03:24Z",
+    "lang": "en",
+    "author": {
+      "kind": "user",
+      "id": "nasa",
+      "uri": "x://user/nasa",
+      "url": "https://x.com/nasa",
+      "tier": 0,
+      "username": "NASA",
+      "rest_id": "11348282",
+      "name": "NASA",
+      "created_at": "2007-12-19T20:20:32Z",
+      "description": "Making the seemingly impossible, possible. ✨",
+      "location": "Pale Blue Dot",
+      "website": "http://www.nasa.gov/",
+      "verified": true,
+      "verified_type": "government",
+      "metrics": {
+        "followers": 92219437,
+        "following": 119,
+        "tweets": 74261,
+        "listed": 97038,
+        "likes": 16894,
+        "media": 28050
+      },
+      "profile_image": "https://pbs.twimg.com/profile_images/1321163587679784960/0ZxKlEKB_normal.jpg",
+      "profile_banner": "https://pbs.twimg.com/profile_banners/11348282/1775567134",
+      "entities": {
+        "urls": [
+          "http://www.nasa.gov/"
+        ]
+      }
+    },
+    "conversation_id": "2081772453093593253",
+    "metrics": {
+      "replies": 124,
+      "retweets": 288,
+      "likes": 2105,
+      "quotes": 10,
+      "bookmarks": 90,
+      "impressions": 1061392
+    },
+    "entities": {
+      "mentions": [
+        "Space_Station"
+      ],
+      "urls": [
+        "https://go.nasa.gov/4x9ASdi"
+      ]
+    },
+    "media": [
+      {
+        "key": "3_2081772435523710976",
+        "type": "photo",
+        "url": "https://pbs.twimg.com/media/HOPxABqXMAAvEjg.jpg",
+        "width": 8192,
+        "height": 5461,
+        "alt_text": "A photo of NASA astronaut Jessica Meir's reflection in a spacesuit helmet visor as she swaps and installs parts. Credit: NASA/Jack Hathaway"
+      }
+    ],
+    "source": "Sprinklr"
+  },
+  {
+    "kind": "tweet",
+    "id": "2081416266816823754",
+    "uri": "x://tweet/2081416266816823754",
+    "url": "https://x.com/NASA/status/2081416266816823754",
+    "tier": 0,
+    "text": "RT @nasahqphoto: Welcome home! @NASA astronaut Chris Williams, and Roscosmos cosmonauts Sergey Kud-Sverchkov, and Sergei Mikaev returned to…",
+    "created_at": "2026-07-26T16:28:03Z",
+    "lang": "en",
+    "author": {
+      "kind": "user",
+      "id": "nasa",
+      "uri": "x://user/nasa",
+      "url": "https://x.com/nasa",
+      "tier": 0,
+      "username": "NASA",
+      "rest_id": "11348282",
+      "name": "NASA",
+      "created_at": "2007-12-19T20:20:32Z",
+      "description": "Making the seemingly impossible, possible. ✨",
+      "location": "Pale Blue Dot",
+      "website": "http://www.nasa.gov/",
+      "verified": true,
+      "verified_type": "government",
+      "metrics": {
+        "followers": 92219437,
+        "following": 119,
+        "tweets": 74261,
+        "listed": 97038,
+        "likes": 16894,
+        "media": 28050
+      },
+      "profile_image": "https://pbs.twimg.com/profile_images/1321163587679784960/0ZxKlEKB_normal.jpg",
+      "profile_banner": "https://pbs.twimg.com/profile_banners/11348282/1775567134",
+      "entities": {
+        "urls": [
+          "http://www.nasa.gov/"
+        ]
+      }
+    },
+    "conversation_id": "2081416266816823754",
+    "retweeted": {
+      "kind": "tweet",
+      "id": "2081346877090386049",
+      "uri": "x://tweet/2081346877090386049",
+      "url": "https://x.com/nasahqphoto/status/2081346877090386049",
+      "tier": 0,
+      "text": "Welcome home! @NASA astronaut Chris Williams, and Roscosmos cosmonauts Sergey Kud-Sverchkov, and Sergei Mikaev returned to Earth after their 8-month mission as members of Expeditions 73 and 74 aboard the International Space Station. Photos: https://t.co/aTV2Az9gWO https://t.co/vVXUNLoSCw",
+      "created_at": "2026-07-26T11:52:19Z",
+      "lang": "en",
+      "author": {
+        "kind": "user",
+        "id": "nasahqphoto",
+        "uri": "x://user/nasahqphoto",
+        "url": "https://x.com/nasahqphoto",
+        "tier": 0,
+        "username": "nasahqphoto",
+        "rest_id": "18164420",
+        "name": "NASA HQ PHOTO",
+        "created_at": "2008-12-16T15:40:44Z",
+        "description": "NASA Headquarters Photo Department.\r\nWashington, DC",
+        "location": "Washington, DC",
+        "website": "http://www.flickr.com/photos/nasahqphoto",
+        "verified": true,
+        "verified_type": "government",
+        "metrics": {
+          "followers": 2858412,
+          "following": 141,
+          "tweets": 2577,
+          "listed": 11539,
+          "likes": 110,
+          "media": 1486
+        },
+        "profile_image": "https://pbs.twimg.com/profile_images/67630775/button_meatball_normal.png",
+        "profile_banner": "https://pbs.twimg.com/profile_banners/18164420/1407783461",
+        "entities": {
+          "urls": [
+            "http://www.flickr.com/photos/nasahqphoto"
+          ]
+        }
+      },
+      "conversation_id": "2081346877090386049",
+      "metrics": {
+        "replies": 49,
+        "retweets": 269,
+        "likes": 1937,
+        "quotes": 16,
+        "bookmarks": 55,
+        "impressions": 278054
+      },
+      "entities": {
+        "mentions": [
+          "NASA"
+        ],
+        "urls": [
+          "http://flic.kr/s/aHBqjCZYU2"
+        ]
+      },
+      "media": [
+        {
+          "key": "3_2081346320279719936",
+          "type": "photo",
+          "url": "https://pbs.twimg.com/media/HOJtc2rW0AA4s7l.jpg",
+          "width": 1058,
+          "height": 896,
+          "alt_text": "The Soyuz MS-28 spacecraft is seen as it lands in a remote area near the town of Zhezkazgan, Kazakhstan with Expedition 74 NASA astronaut Chris Williams, and Roscosmos cosmonauts Sergey Kud-Sverchkov, and Sergei Mikaev aboard, Sunday, July 26, 2026. The trio are returning to Earth after logging 241 days in space as members of Expeditions 73 and 74 aboard the International Space Station. Photo Credit: (NASA/Bill Ingalls)"
+        },
+        {
+          "key": "3_2081346703567863808",
+          "type": "photo",
+          "url": "https://pbs.twimg.com/media/HOJtzKiXwAATa8Z.jpg",
+          "width": 1058,
+          "height": 610,
+          "alt_text": "NASA astronaut Chris Williams, left, Roscosmos cosmonaut Sergey Kud-Sverchkov, center, and Roscosmos cosmonaut Sergei Mikaev are seen inside the Soyuz MS-28 spacecraft after they landed in a remote area near the town of Zhezkazgan, Kazakhstan on Sunday, July 26, 2026. The trio returned to Earth after logging 241 days in space as a members of Expeditions 73 and 74 aboard the International Space Station. Photo Credit: (NASA/Bill Ingalls)"
+        }
+      ],
+      "source": "Twitter Web App"
+    },
+    "metrics": {
+      "replies": 0,
+      "retweets": 269,
+      "likes": 0,
+      "quotes": 0,
+      "bookmarks": 0,
+      "impressions": 66573
+    },
+    "entities": {
+      "mentions": [
+        "nasahqphoto",
+        "NASA"
+      ]
+    },
+    "source": "Twitter for iPhone",
+    "is_retweet": true
+  },
+  {
+    "kind": "tweet",
+    "id": "2081346877090386049",
+    "uri": "x://tweet/2081346877090386049",
+    "url": "https://x.com/nasahqphoto/status/2081346877090386049",
+    "tier": 0,
+    "text": "Welcome home! @NASA astronaut Chris Williams, and Roscosmos cosmonauts Sergey Kud-Sverchkov, and Sergei Mikaev returned to Earth after their 8-month mission as members of Expeditions 73 and 74 aboard the International Space Station. Photos: https://t.co/aTV2Az9gWO https://t.co/vVXUNLoSCw",
+    "created_at": "2026-07-26T11:52:19Z",
+    "lang": "en",
+    "author": {
+      "kind": "user",
+      "id": "nasahqphoto",
+      "uri": "x://user/nasahqphoto",
+      "url": "https://x.com/nasahqphoto",
+      "tier": 0,
+      "username": "nasahqphoto",
+      "rest_id": "18164420",
+      "name": "NASA HQ PHOTO",
+      "created_at": "2008-12-16T15:40:44Z",
+      "description": "NASA Headquarters Photo Department.\r\nWashington, DC",
+      "location": "Washington, DC",
+      "website": "http://www.flickr.com/photos/nasahqphoto",
+      "verified": true,
+      "verified_type": "government",
+      "metrics": {
+        "followers": 2858412,
+        "following": 141,
+        "tweets": 2577,
+        "listed": 11539,
+        "likes": 110,
+        "media": 1486
+      },
+      "profile_image": "https://pbs.twimg.com/profile_images/67630775/button_meatball_normal.png",
+      "profile_banner": "https://pbs.twimg.com/profile_banners/18164420/1407783461",
+      "entities": {
+        "urls": [
+          "http://www.flickr.com/photos/nasahqphoto"
+        ]
+      }
+    },
+    "conversation_id": "2081346877090386049",
+    "metrics": {
+      "replies": 49,
+      "retweets": 269,
+      "likes": 1937,
+      "quotes": 16,
+      "bookmarks": 55,
+      "impressions": 278054
+    },
+    "entities": {
+      "mentions": [
+        "NASA"
+      ],
+      "urls": [
+        "http://flic.kr/s/aHBqjCZYU2"
+      ]
+    },
+    "media": [
+      {
+        "key": "3_2081346320279719936",
+        "type": "photo",
+        "url": "https://pbs.twimg.com/media/HOJtc2rW0AA4s7l.jpg",
+        "width": 1058,
+        "height": 896,
+        "alt_text": "The Soyuz MS-28 spacecraft is seen as it lands in a remote area near the town of Zhezkazgan, Kazakhstan with Expedition 74 NASA astronaut Chris Williams, and Roscosmos cosmonauts Sergey Kud-Sverchkov, and Sergei Mikaev aboard, Sunday, July 26, 2026. The trio are returning to Earth after logging 241 days in space as members of Expeditions 73 and 74 aboard the International Space Station. Photo Credit: (NASA/Bill Ingalls)"
+      },
+      {
+        "key": "3_2081346703567863808",
+        "type": "photo",
+        "url": "https://pbs.twimg.com/media/HOJtzKiXwAATa8Z.jpg",
+        "width": 1058,
+        "height": 610,
+        "alt_text": "NASA astronaut Chris Williams, left, Roscosmos cosmonaut Sergey Kud-Sverchkov, center, and Roscosmos cosmonaut Sergei Mikaev are seen inside the Soyuz MS-28 spacecraft after they landed in a remote area near the town of Zhezkazgan, Kazakhstan on Sunday, July 26, 2026. The trio returned to Earth after logging 241 days in space as a members of Expeditions 73 and 74 aboard the International Space Station. Photo Credit: (NASA/Bill Ingalls)"
+      }
+    ],
+    "source": "Twitter Web App"
+  },
+  {
+    "kind": "tweet",
+    "id": "2081307441594331350",
+    "uri": "x://tweet/2081307441594331350",
+    "url": "https://x.com/NASA/status/2081307441594331350",
+    "tier": 0,
+    "text": "LIVE: After 241 days in space, @Astro_ChrisW is about to return to Earth. Williams and his two cosmonaut crewmates are scheduled to touch down in Kazakhstan at 6:25am ET (1025 UTC). https://t.co/DUen0tXEtD",
+    "created_at": "2026-07-26T09:15:37Z",
+    "lang": "en",
+    "author": {
+      "kind": "user",
+      "id": "nasa",
+      "uri": "x://user/nasa",
+      "url": "https://x.com/nasa",
+      "tier": 0,
+      "username": "NASA",
+      "rest_id": "11348282",
+      "name": "NASA",
+      "created_at": "2007-12-19T20:20:32Z",
+      "description": "Making the seemingly impossible, possible. ✨",
+      "location": "Pale Blue Dot",
+      "website": "http://www.nasa.gov/",
+      "verified": true,
+      "verified_type": "government",
+      "metrics": {
+        "followers": 92219437,
+        "following": 119,
+        "tweets": 74261,
+        "listed": 97038,
+        "likes": 16894,
+        "media": 28050
+      },
+      "profile_image": "https://pbs.twimg.com/profile_images/1321163587679784960/0ZxKlEKB_normal.jpg",
+      "profile_banner": "https://pbs.twimg.com/profile_banners/11348282/1775567134",
+      "entities": {
+        "urls": [
+          "http://www.nasa.gov/"
+        ]
+      }
+    },
+    "conversation_id": "2081307441594331350",
+    "metrics": {
+      "replies": 201,
+      "retweets": 485,
+      "likes": 3003,
+      "quotes": 33,
+      "bookmarks": 128,
+      "impressions": 1270374
+    },
+    "entities": {
+      "mentions": [
+        "Astro_ChrisW"
+      ],
+      "urls": [
+        "https://x.com/i/broadcasts/1PKqrrBZbvnGb"
+      ]
+    },
+    "source": "Twitter Media Studio"
+  },
+  {
+    "kind": "tweet",
+    "id": "2081326380050940365",
+    "uri": "x://tweet/2081326380050940365",
+    "url": "https://x.com/NASA/status/2081326380050940365",
+    "tier": 0,
+    "text": "Welcome home! @Astro_ChrisW and his crewmates are back on solid Earth after their eight-month mission to low Earth orbit. https://t.co/C8Ikkafb6f",
+    "created_at": "2026-07-26T10:30:52Z",
+    "lang": "en",
+    "author": {
+      "kind": "user",
+      "id": "nasa",
+      "uri": "x://user/nasa",
+      "url": "https://x.com/nasa",
+      "tier": 0,
+      "username": "NASA",
+      "rest_id": "11348282",
+      "name": "NASA",
+      "created_at": "2007-12-19T20:20:32Z",
+      "description": "Making the seemingly impossible, possible. ✨",
+      "location": "Pale Blue Dot",
+      "website": "http://www.nasa.gov/",
+      "verified": true,
+      "verified_type": "government",
+      "metrics": {
+        "followers": 92219437,
+        "following": 119,
+        "tweets": 74261,
+        "listed": 97038,
+        "likes": 16894,
+        "media": 28050
+      },
+      "profile_image": "https://pbs.twimg.com/profile_images/1321163587679784960/0ZxKlEKB_normal.jpg",
+      "profile_banner": "https://pbs.twimg.com/profile_banners/11348282/1775567134",
+      "entities": {
+        "urls": [
+          "http://www.nasa.gov/"
+        ]
+      }
+    },
+    "conversation_id": "2081307441594331350",
+    "reply_to": "2081307441594331350",
+    "reply_to_user": "NASA",
+    "metrics": {
+      "replies": 90,
+      "retweets": 232,
+      "likes": 1941,
+      "quotes": 22,
+      "bookmarks": 44,
+      "impressions": 285261
+    },
+    "entities": {
+      "mentions": [
+        "Astro_ChrisW"
+      ]
+    },
+    "media": [
+      {
+        "key": "13_2081326271166885888",
+        "type": "video",
+        "url": "https://pbs.twimg.com/amplify_video_thumb/2081326271166885888/img/ZzEiselsCRcbhi6h.jpg",
+        "width": 3840,
+        "height": 2160,
+        "duration_ms": 24533,
+        "variants": [
+          {
+            "bitrate": 0,
+            "content_type": "application/x-mpegURL",
+            "url": "https://video.twimg.com/amplify_video/2081326271166885888/pl/WSsg9ul1TGuAxJgg.m3u8?tag=29\u0026v=159"
+          },
+          {
+            "bitrate": 256000,
+            "content_type": "video/mp4",
+            "url": "https://video.twimg.com/amplify_video/2081326271166885888/vid/avc1/480x270/YxK-0dytf5friBnb.mp4?tag=29"
+          },
+          {
+            "bitrate": 832000,
+            "content_type": "video/mp4",
+            "url": "https://video.twimg.com/amplify_video/2081326271166885888/vid/avc1/640x360/2mF12IYDh4w73550.mp4?tag=29"
+          },
+          {
+            "bitrate": 2176000,
+            "content_type": "video/mp4",
+            "url": "https://video.twimg.com/amplify_video/2081326271166885888/vid/avc1/1280x720/F5vfumPKf6uEc7Pe.mp4?tag=29"
+          },
+          {
+            "bitrate": 10368000,
+            "content_type": "video/mp4",
+            "url": "https://video.twimg.com/amplify_video/2081326271166885888/vid/avc1/1920x1080/_CtQJGFspPbEiplt.mp4?tag=29"
+          },
+          {
+            "bitrate": 25128000,
+            "content_type": "video/mp4",
+            "url": "https://video.twimg.com/amplify_video/2081326271166885888/vid/avc1/3840x2160/mlNReHZR1In-fgff.mp4?tag=29"
+          }
+        ]
+      }
+    ],
+    "source": "Twitter Web App",
+    "is_reply": true
+  },
+  {
+    "kind": "tweet",
+    "id": "2081265947034493413",
+    "uri": "x://tweet/2081265947034493413",
+    "url": "https://x.com/NASA/status/2081265947034493413",
+    "tier": 0,
+    "text": "LIVE: Goodbyes have been said and the Soyuz hatch is closed. Now, watch as the spacecraft undocks, beginning @Astro_ChrisW's journey back to Earth. https://t.co/8KrW3ANqZp",
+    "created_at": "2026-07-26T06:30:44Z",
+    "lang": "en",
+    "author": {
+      "kind": "user",
+      "id": "nasa",
+      "uri": "x://user/nasa",
+      "url": "https://x.com/nasa",
+      "tier": 0,
+      "username": "NASA",
+      "rest_id": "11348282",
+      "name": "NASA",
+      "created_at": "2007-12-19T20:20:32Z",
+      "description": "Making the seemingly impossible, possible. ✨",
+      "location": "Pale Blue Dot",
+      "website": "http://www.nasa.gov/",
+      "verified": true,
+      "verified_type": "government",
+      "metrics": {
+        "followers": 92219437,
+        "following": 119,
+        "tweets": 74261,
+        "listed": 97038,
+        "likes": 16894,
+        "media": 28050
+      },
+      "profile_image": "https://pbs.twimg.com/profile_images/1321163587679784960/0ZxKlEKB_normal.jpg",
+      "profile_banner": "https://pbs.twimg.com/profile_banners/11348282/1775567134",
+      "entities": {
+        "urls": [
+          "http://www.nasa.gov/"
+        ]
+      }
+    },
+    "conversation_id": "2081265947034493413",
+    "metrics": {
+      "replies": 164,
+      "retweets": 424,
+      "likes": 2486,
+      "quotes": 37,
+      "bookmarks": 130,
+      "impressions": 1131340
+    },
+    "entities": {
+      "mentions": [
+        "Astro_ChrisW"
+      ],
+      "urls": [
+        "https://x.com/i/broadcasts/1oJMvvZqPdoxQ"
+      ]
+    },
+    "source": "Twitter Media Studio"
+  },
+  {
+    "kind": "tweet",
+    "id": "2081215755253850465",
+    "uri": "x://tweet/2081215755253850465",
+    "url": "https://x.com/NASA/status/2081215755253850465",
+    "tier": 0,
+    "text": "LIVE: Watch as @Astro_ChrisW and cosmonauts Sergey Kud-Sverchkov and Sergei Mikaev say farewell to the @Space_Station and board their Soyuz MS-28 spacecraft. https://t.co/vTlOtSsjab",
+    "created_at": "2026-07-26T03:11:17Z",
+    "lang": "en",
+    "author": {
+      "kind": "user",
+      "id": "nasa",
+      "uri": "x://user/nasa",
+      "url": "https://x.com/nasa",
+      "tier": 0,
+      "username": "NASA",
+      "rest_id": "11348282",
+      "name": "NASA",
+      "created_at": "2007-12-19T20:20:32Z",
+      "description": "Making the seemingly impossible, possible. ✨",
+      "location": "Pale Blue Dot",
+      "website": "http://www.nasa.gov/",
+      "verified": true,
+      "verified_type": "government",
+      "metrics": {
+        "followers": 92219437,
+        "following": 119,
+        "tweets": 74261,
+        "listed": 97038,
+        "likes": 16894,
+        "media": 28050
+      },
+      "profile_image": "https://pbs.twimg.com/profile_images/1321163587679784960/0ZxKlEKB_normal.jpg",
+      "profile_banner": "https://pbs.twimg.com/profile_banners/11348282/1775567134",
+      "entities": {
+        "urls": [
+          "http://www.nasa.gov/"
+        ]
+      }
+    },
+    "conversation_id": "2081215755253850465",
+    "metrics": {
+      "replies": 142,
+      "retweets": 322,
+      "likes": 1878,
+      "quotes": 20,
+      "bookmarks": 74,
+      "impressions": 966550
+    },
+    "entities": {
+      "mentions": [
+        "Astro_ChrisW",
+        "Space_Station"
+      ],
+      "urls": [
+        "https://x.com/i/broadcasts/1YGNrrgOqzOGw"
+      ]
+    },
+    "source": "Twitter Media Studio"
+  },
+  {
+    "kind": "tweet",
+    "id": "2081089009401360705",
+    "uri": "x://tweet/2081089009401360705",
+    "url": "https://x.com/NASA/status/2081089009401360705",
+    "tier": 0,
+    "text": "RT @Astro_Jessica: A bittersweet day on the @Space_Station, as we prepare to say goodbye to the Soyuz 74S crew.  Expedition 74 has been ful…",
+    "created_at": "2026-07-25T18:47:39Z",
+    "lang": "en",
+    "author": {
+      "kind": "user",
+      "id": "nasa",
+      "uri": "x://user/nasa",
+      "url": "https://x.com/nasa",
+      "tier": 0,
+      "username": "NASA",
+      "rest_id": "11348282",
+      "name": "NASA",
+      "created_at": "2007-12-19T20:20:32Z",
+      "description": "Making the seemingly impossible, possible. ✨",
+      "location": "Pale Blue Dot",
+      "website": "http://www.nasa.gov/",
+      "verified": true,
+      "verified_type": "government",
+      "metrics": {
+        "followers": 92219437,
+        "following": 119,
+        "tweets": 74261,
+        "listed": 97038,
+        "likes": 16894,
+        "media": 28050
+      },
+      "profile_image": "https://pbs.twimg.com/profile_images/1321163587679784960/0ZxKlEKB_normal.jpg",
+      "profile_banner": "https://pbs.twimg.com/profile_banners/11348282/1775567134",
+      "entities": {
+        "urls": [
+          "http://www.nasa.gov/"
+        ]
+      }
+    },
+    "conversation_id": "2081089009401360705",
+    "retweeted": {
+      "kind": "tweet",
+      "id": "2081085065400910128",
+      "uri": "x://tweet/2081085065400910128",
+      "url": "https://x.com/Astro_Jessica/status/2081085065400910128",
+      "tier": 0,
+      "text": "A bittersweet day on the @Space_Station, as we prepare to say goodbye to the Soyuz 74S crew.  Expedition 74 has been full of science, technology demonstrations and station maintenance, and most importantly, enduring friendship and “huggles”.  See you back on Earth my friends! https://t.co/B84kuzNq16",
+      "created_at": "2026-07-25T18:31:58Z",
+      "lang": "en",
+      "author": {
+        "kind": "user",
+        "id": "astro_jessica",
+        "uri": "x://user/astro_jessica",
+        "url": "https://x.com/astro_jessica",
+        "tier": 0,
+        "username": "Astro_Jessica",
+        "rest_id": "1524976560",
+        "name": "Jessica Meir",
+        "created_at": "2013-06-17T14:31:52Z",
+        "description": "NASA Astronaut. Scientist. Mother. Explorer. Nature lover. Currently living on-board the @Space_Station supporting Expeditions 74 and 75.",
+        "location": "International Space Station",
+        "website": "http://www.jsc.nasa.gov/Bios/htmlbios/meir-ju.pdf",
+        "verified": true,
+        "verified_type": "government",
+        "metrics": {
+          "followers": 267055,
+          "following": 169,
+          "tweets": 1493,
+          "listed": 1366,
+          "likes": 635,
+          "media": 672
+        },
+        "profile_image": "https://pbs.twimg.com/profile_images/2016913681510957057/7AfAG8aI_normal.jpg",
+        "profile_banner": "https://pbs.twimg.com/profile_banners/1524976560/1594140946",
+        "pinned_tweet": "2063325870530469936",
+        "entities": {
+          "urls": [
+            "http://www.jsc.nasa.gov/Bios/htmlbios/meir-ju.pdf"
+          ]
+        }
+      },
+      "conversation_id": "2081085065400910128",
+      "metrics": {
+        "replies": 55,
+        "retweets": 231,
+        "likes": 1931,
+        "quotes": 18,
+        "bookmarks": 66,
+        "impressions": 246774
+      },
+      "entities": {
+        "mentions": [
+          "Space_Station"
+        ]
+      },
+      "media": [
+        {
+          "key": "3_2081084799561662464",
+          "type": "photo",
+          "url": "https://pbs.twimg.com/media/HOF_mWFWgAAOGR3.jpg",
+          "width": 4096,
+          "height": 2730
+        },
+        {
+          "key": "3_2081084799561707521",
+          "type": "photo",
+          "url": "https://pbs.twimg.com/media/HOF_mWFXMAE7G8e.jpg",
+          "width": 4096,
+          "height": 2731
+        }
+      ],
+      "source": "Twitter Web App"
+    },
+    "metrics": {
+      "replies": 0,
+      "retweets": 231,
+      "likes": 0,
+      "quotes": 0,
+      "bookmarks": 0,
+      "impressions": 65270
+    },
+    "entities": {
+      "mentions": [
+        "Astro_Jessica",
+        "Space_Station"
+      ]
+    },
+    "source": "Twitter for iPhone",
+    "is_retweet": true
+  },
+  {
+    "kind": "tweet",
+    "id": "2081085065400910128",
+    "uri": "x://tweet/2081085065400910128",
+    "url": "https://x.com/Astro_Jessica/status/2081085065400910128",
+    "tier": 0,
+    "text": "A bittersweet day on the @Space_Station, as we prepare to say goodbye to the Soyuz 74S crew.  Expedition 74 has been full of science, technology demonstrations and station maintenance, and most importantly, enduring friendship and “huggles”.  See you back on Earth my friends! https://t.co/B84kuzNq16",
+    "created_at": "2026-07-25T18:31:58Z",
+    "lang": "en",
+    "author": {
+      "kind": "user",
+      "id": "astro_jessica",
+      "uri": "x://user/astro_jessica",
+      "url": "https://x.com/astro_jessica",
+      "tier": 0,
+      "username": "Astro_Jessica",
+      "rest_id": "1524976560",
+      "name": "Jessica Meir",
+      "created_at": "2013-06-17T14:31:52Z",
+      "description": "NASA Astronaut. Scientist. Mother. Explorer. Nature lover. Currently living on-board the @Space_Station supporting Expeditions 74 and 75.",
+      "location": "International Space Station",
+      "website": "http://www.jsc.nasa.gov/Bios/htmlbios/meir-ju.pdf",
+      "verified": true,
+      "verified_type": "government",
+      "metrics": {
+        "followers": 267055,
+        "following": 169,
+        "tweets": 1493,
+        "listed": 1366,
+        "likes": 635,
+        "media": 672
+      },
+      "profile_image": "https://pbs.twimg.com/profile_images/2016913681510957057/7AfAG8aI_normal.jpg",
+      "profile_banner": "https://pbs.twimg.com/profile_banners/1524976560/1594140946",
+      "pinned_tweet": "2063325870530469936",
+      "entities": {
+        "urls": [
+          "http://www.jsc.nasa.gov/Bios/htmlbios/meir-ju.pdf"
+        ]
+      }
+    },
+    "conversation_id": "2081085065400910128",
+    "metrics": {
+      "replies": 55,
+      "retweets": 231,
+      "likes": 1931,
+      "quotes": 18,
+      "bookmarks": 66,
+      "impressions": 246774
+    },
+    "entities": {
+      "mentions": [
+        "Space_Station"
+      ]
+    },
+    "media": [
+      {
+        "key": "3_2081084799561662464",
+        "type": "photo",
+        "url": "https://pbs.twimg.com/media/HOF_mWFWgAAOGR3.jpg",
+        "width": 4096,
+        "height": 2730
+      },
+      {
+        "key": "3_2081084799561707521",
+        "type": "photo",
+        "url": "https://pbs.twimg.com/media/HOF_mWFXMAE7G8e.jpg",
+        "width": 4096,
+        "height": 2731
+      }
+    ],
+    "source": "Twitter Web App"
+  },
+  {
+    "kind": "tweet",
+    "id": "2081011830927806892",
+    "uri": "x://tweet/2081011830927806892",
+    "url": "https://x.com/NASA/status/2081011830927806892",
+    "tier": 0,
+    "text": "LIVE: As the Soyuz MS-28 crew prepares to return to Earth, watch as command of the @Space_Station is handed to @Astro_Jessica. https://t.co/Lu3YnaGJww",
+    "created_at": "2026-07-25T13:40:58Z",
+    "lang": "en",
+    "author": {
+      "kind": "user",
+      "id": "nasa",
+      "uri": "x://user/nasa",
+      "url": "https://x.com/nasa",
+      "tier": 0,
+      "username": "NASA",
+      "rest_id": "11348282",
+      "name": "NASA",
+      "created_at": "2007-12-19T20:20:32Z",
+      "description": "Making the seemingly impossible, possible. ✨",
+      "location": "Pale Blue Dot",
+      "website": "http://www.nasa.gov/",
+      "verified": true,
+      "verified_type": "government",
+      "metrics": {
+        "followers": 92219437,
+        "following": 119,
+        "tweets": 74261,
+        "listed": 97038,
+        "likes": 16894,
+        "media": 28050
+      },
+      "profile_image": "https://pbs.twimg.com/profile_images/1321163587679784960/0ZxKlEKB_normal.jpg",
+      "profile_banner": "https://pbs.twimg.com/profile_banners/11348282/1775567134",
+      "entities": {
+        "urls": [
+          "http://www.nasa.gov/"
+        ]
+      }
+    },
+    "conversation_id": "2081011830927806892",
+    "metrics": {
+      "replies": 184,
+      "retweets": 401,
+      "likes": 2122,
+      "quotes": 24,
+      "bookmarks": 85,
+      "impressions": 1466405
+    },
+    "entities": {
+      "mentions": [
+        "Space_Station",
+        "Astro_Jessica"
+      ],
+      "urls": [
+        "https://x.com/i/broadcasts/1nxeLLRPMmNJX"
+      ]
+    },
+    "source": "Twitter Media Studio"
+  },
+  {
+    "kind": "tweet",
+    "id": "2080777261897175496",
+    "uri": "x://tweet/2080777261897175496",
+    "url": "https://x.com/NASA/status/2080777261897175496",
+    "tier": 0,
+    "text": "RT @NASASpox: The future of flight looks bright at Oshkosh!\n\n@NASAAdmin spent time with aviation enthusiasts of all ages at EAA AirVenture,…",
+    "created_at": "2026-07-24T22:08:52Z",
+    "lang": "en",
+    "author": {
+      "kind": "user",
+      "id": "nasa",
+      "uri": "x://user/nasa",
+      "url": "https://x.com/nasa",
+      "tier": 0,
+      "username": "NASA",
+      "rest_id": "11348282",
+      "name": "NASA",
+      "created_at": "2007-12-19T20:20:32Z",
+      "description": "Making the seemingly impossible, possible. ✨",
+      "location": "Pale Blue Dot",
+      "website": "http://www.nasa.gov/",
+      "verified": true,
+      "verified_type": "government",
+      "metrics": {
+        "followers": 92219437,
+        "following": 119,
+        "tweets": 74261,
+        "listed": 97038,
+        "likes": 16894,
+        "media": 28050
+      },
+      "profile_image": "https://pbs.twimg.com/profile_images/1321163587679784960/0ZxKlEKB_normal.jpg",
+      "profile_banner": "https://pbs.twimg.com/profile_banners/11348282/1775567134",
+      "entities": {
+        "urls": [
+          "http://www.nasa.gov/"
+        ]
+      }
+    },
+    "conversation_id": "2080777261897175496",
+    "retweeted": {
+      "kind": "tweet",
+      "id": "2080776588996563188",
+      "uri": "x://tweet/2080776588996563188",
+      "url": "https://x.com/NASASpox/status/2080776588996563188",
+      "tier": 0,
+      "text": "The future of flight looks bright at Oshkosh!\n\n@NASAAdmin spent time with aviation enthusiasts of all ages at EAA AirVenture, sharing NASA’s mission and meeting the pilots, engineers, and explorers helping inspire what comes next ✈️🇺🇸 https://t.co/XWuAdhkrdz",
+      "created_at": "2026-07-24T22:06:12Z",
+      "lang": "en",
+      "author": {
+        "kind": "user",
+        "id": "nasaspox",
+        "uri": "x://user/nasaspox",
+        "url": "https://x.com/nasaspox",
+        "tier": 0,
+        "username": "NASASpox",
+        "rest_id": "1907894348319973378",
+        "name": "Bethany Stevens",
+        "created_at": "2025-04-03T20:34:05Z",
+        "description": "@NASA Comms | furthering the Golden Age of exploration and discovery under @nasaadmin",
+        "location": "Washington, DC",
+        "verified": true,
+        "verified_type": "government",
+        "metrics": {
+          "followers": 19408,
+          "following": 128,
+          "tweets": 786,
+          "listed": 149,
+          "likes": 1684,
+          "media": 107
+        },
+        "profile_image": "https://pbs.twimg.com/profile_images/2030158374625759233/3fWyLDjS_normal.jpg",
+        "profile_banner": "https://pbs.twimg.com/profile_banners/1907894348319973378/1772862464",
+        "pinned_tweet": "2078224758781751775",
+        "entities": {}
+      },
+      "conversation_id": "2080776588996563188",
+      "metrics": {
+        "replies": 27,
+        "retweets": 72,
+        "likes": 661,
+        "quotes": 1,
+        "bookmarks": 24,
+        "impressions": 201592
+      },
+      "entities": {
+        "mentions": [
+          "NASAAdmin"
+        ]
+      },
+      "media": [
+        {
+          "key": "3_2080776552233512960",
+          "type": "photo",
+          "url": "https://pbs.twimg.com/media/HOBnP_TXMAAsCnl.jpg",
+          "width": 2048,
+          "height": 1366
+        },
+        {
+          "key": "3_2080776552241840128",
+          "type": "photo",
+          "url": "https://pbs.twimg.com/media/HOBnP_VWQAA3hW4.jpg",
+          "width": 2048,
+          "height": 1366
+        },
+        {
+          "key": "3_2080776552304754688",
+          "type": "photo",
+          "url": "https://pbs.twimg.com/media/HOBnP_kWQAAVMRu.jpg",
+          "width": 2048,
+          "height": 1366
+        },
+        {
+          "key": "3_2080776552300630017",
+          "type": "photo",
+          "url": "https://pbs.twimg.com/media/HOBnP_jXUAEmzDN.jpg",
+          "width": 2048,
+          "height": 1366
+        }
+      ],
+      "source": "Twitter for iPhone"
+    },
+    "metrics": {
+      "replies": 0,
+      "retweets": 72,
+      "likes": 0,
+      "quotes": 0,
+      "bookmarks": 0,
+      "impressions": 61160
+    },
+    "entities": {
+      "mentions": [
+        "NASASpox",
+        "NASAAdmin"
+      ]
+    },
+    "source": "Twitter for iPhone",
+    "is_retweet": true
+  },
+  {
+    "kind": "tweet",
+    "id": "2080776588996563188",
+    "uri": "x://tweet/2080776588996563188",
+    "url": "https://x.com/NASASpox/status/2080776588996563188",
+    "tier": 0,
+    "text": "The future of flight looks bright at Oshkosh!\n\n@NASAAdmin spent time with aviation enthusiasts of all ages at EAA AirVenture, sharing NASA’s mission and meeting the pilots, engineers, and explorers helping inspire what comes next ✈️🇺🇸 https://t.co/XWuAdhkrdz",
+    "created_at": "2026-07-24T22:06:12Z",
+    "lang": "en",
+    "author": {
+      "kind": "user",
+      "id": "nasaspox",
+      "uri": "x://user/nasaspox",
+      "url": "https://x.com/nasaspox",
+      "tier": 0,
+      "username": "NASASpox",
+      "rest_id": "1907894348319973378",
+      "name": "Bethany Stevens",
+      "created_at": "2025-04-03T20:34:05Z",
+      "description": "@NASA Comms | furthering the Golden Age of exploration and discovery under @nasaadmin",
+      "location": "Washington, DC",
+      "verified": true,
+      "verified_type": "government",
+      "metrics": {
+        "followers": 19408,
+        "following": 128,
+        "tweets": 786,
+        "listed": 149,
+        "likes": 1684,
+        "media": 107
+      },
+      "profile_image": "https://pbs.twimg.com/profile_images/2030158374625759233/3fWyLDjS_normal.jpg",
+      "profile_banner": "https://pbs.twimg.com/profile_banners/1907894348319973378/1772862464",
+      "pinned_tweet": "2078224758781751775",
+      "entities": {}
+    },
+    "conversation_id": "2080776588996563188",
+    "metrics": {
+      "replies": 27,
+      "retweets": 72,
+      "likes": 661,
+      "quotes": 1,
+      "bookmarks": 24,
+      "impressions": 201592
+    },
+    "entities": {
+      "mentions": [
+        "NASAAdmin"
+      ]
+    },
+    "media": [
+      {
+        "key": "3_2080776552233512960",
+        "type": "photo",
+        "url": "https://pbs.twimg.com/media/HOBnP_TXMAAsCnl.jpg",
+        "width": 2048,
+        "height": 1366
+      },
+      {
+        "key": "3_2080776552241840128",
+        "type": "photo",
+        "url": "https://pbs.twimg.com/media/HOBnP_VWQAA3hW4.jpg",
+        "width": 2048,
+        "height": 1366
+      },
+      {
+        "key": "3_2080776552304754688",
+        "type": "photo",
+        "url": "https://pbs.twimg.com/media/HOBnP_kWQAAVMRu.jpg",
+        "width": 2048,
+        "height": 1366
+      },
+      {
+        "key": "3_2080776552300630017",
+        "type": "photo",
+        "url": "https://pbs.twimg.com/media/HOBnP_jXUAEmzDN.jpg",
+        "width": 2048,
+        "height": 1366
+      }
+    ],
+    "source": "Twitter for iPhone"
+  },
+  {
+    "kind": "tweet",
+    "id": "2080659774136291424",
+    "uri": "x://tweet/2080659774136291424",
+    "url": "https://x.com/NASA/status/2080659774136291424",
+    "tier": 0,
+    "text": "There is more than meets the eye in this photo…\n\nThe ring around the central galaxy cluster is evidence of dark matter, the invisible glue holding the universe together. Dark matter doesn’t emit, reflect, or absorb light, but it has gravity like ordinary matter. 🧵 https://t.co/BgN80VoiRZ",
+    "created_at": "2026-07-24T14:22:01Z",
+    "lang": "en",
+    "author": {
+      "kind": "user",
+      "id": "nasa",
+      "uri": "x://user/nasa",
+      "url": "https://x.com/nasa",
+      "tier": 0,
+      "username": "NASA",
+      "rest_id": "11348282",
+      "name": "NASA",
+      "created_at": "2007-12-19T20:20:32Z",
+      "description": "Making the seemingly impossible, possible. ✨",
+      "location": "Pale Blue Dot",
+      "website": "http://www.nasa.gov/",
+      "verified": true,
+      "verified_type": "government",
+      "metrics": {
+        "followers": 92219437,
+        "following": 119,
+        "tweets": 74261,
+        "listed": 97038,
+        "likes": 16894,
+        "media": 28050
+      },
+      "profile_image": "https://pbs.twimg.com/profile_images/1321163587679784960/0ZxKlEKB_normal.jpg",
+      "profile_banner": "https://pbs.twimg.com/profile_banners/11348282/1775567134",
+      "entities": {
+        "urls": [
+          "http://www.nasa.gov/"
+        ]
+      }
+    },
+    "conversation_id": "2080659774136291424",
+    "metrics": {
+      "replies": 528,
+      "retweets": 2091,
+      "likes": 11641,
+      "quotes": 108,
+      "bookmarks": 870,
+      "impressions": 2286842
+    },
+    "entities": {},
+    "media": [
+      {
+        "key": "3_2080659770118164480",
+        "type": "photo",
+        "url": "https://pbs.twimg.com/media/HN_9CYBW0AAniZg.jpg",
+        "width": 2048,
+        "height": 2048,
+        "alt_text": "The scene is cloaked in a cool, blue haze, decorated with the warm light of galaxies and stars. Around the center is a jagged ring where the haze appears absent and dark space peeks through. Credit: NASA, ESA, M.J. Jee and H. Ford (Johns Hopkins University)"
+      }
+    ],
+    "source": "Sprinklr"
+  },
+  {
+    "kind": "tweet",
+    "id": "2080659777625997672",
+    "uri": "x://tweet/2080659777625997672",
+    "url": "https://x.com/NASA/status/2080659777625997672",
+    "tier": 0,
+    "text": "Scientists still have a lot to learn about dark matter, but @NASARoman aims to shed light on the mystery. Learn how Roman will teach us about this invisible substance: https://t.co/tXNugXL2iM",
+    "created_at": "2026-07-24T14:22:02Z",
+    "lang": "en",
+    "author": {
+      "kind": "user",
+      "id": "nasa",
+      "uri": "x://user/nasa",
+      "url": "https://x.com/nasa",
+      "tier": 0,
+      "username": "NASA",
+      "rest_id": "11348282",
+      "name": "NASA",
+      "created_at": "2007-12-19T20:20:32Z",
+      "description": "Making the seemingly impossible, possible. ✨",
+      "location": "Pale Blue Dot",
+      "website": "http://www.nasa.gov/",
+      "verified": true,
+      "verified_type": "government",
+      "metrics": {
+        "followers": 92219437,
+        "following": 119,
+        "tweets": 74261,
+        "listed": 97038,
+        "likes": 16894,
+        "media": 28050
+      },
+      "profile_image": "https://pbs.twimg.com/profile_images/1321163587679784960/0ZxKlEKB_normal.jpg",
+      "profile_banner": "https://pbs.twimg.com/profile_banners/11348282/1775567134",
+      "entities": {
+        "urls": [
+          "http://www.nasa.gov/"
+        ]
+      }
+    },
+    "conversation_id": "2080659774136291424",
+    "reply_to": "2080659774136291424",
+    "reply_to_user": "NASA",
+    "metrics": {
+      "replies": 36,
+      "retweets": 82,
+      "likes": 682,
+      "quotes": 6,
+      "bookmarks": 55,
+      "impressions": 180017
+    },
+    "entities": {
+      "mentions": [
+        "NASARoman"
+      ],
+      "urls": [
+        "https://go.nasa.gov/3TTr88n"
+      ]
+    },
+    "source": "Sprinklr",
+    "is_reply": true
+  },
+  {
+    "kind": "tweet",
+    "id": "2080330036607893817",
+    "uri": "x://tweet/2080330036607893817",
+    "url": "https://x.com/NASA/status/2080330036607893817",
+    "tier": 0,
+    "text": "During his eight months aboard the @Space_Station, @Astro_ChrisW conducted numerous experiments to improve life on Earth and prepare us for future space missions.\n\nFrom cancer research to advancing technology, read about Williams’ work in orbit: https://t.co/nX66C0jvX5 https://t.co/8ZJutA6ijg",
+    "created_at": "2026-07-23T16:31:46Z",
+    "lang": "en",
+    "author": {
+      "kind": "user",
+      "id": "nasa",
+      "uri": "x://user/nasa",
+      "url": "https://x.com/nasa",
+      "tier": 0,
+      "username": "NASA",
+      "rest_id": "11348282",
+      "name": "NASA",
+      "created_at": "2007-12-19T20:20:32Z",
+      "description": "Making the seemingly impossible, possible. ✨",
+      "location": "Pale Blue Dot",
+      "website": "http://www.nasa.gov/",
+      "verified": true,
+      "verified_type": "government",
+      "metrics": {
+        "followers": 92219437,
+        "following": 119,
+        "tweets": 74261,
+        "listed": 97038,
+        "likes": 16894,
+        "media": 28050
+      },
+      "profile_image": "https://pbs.twimg.com/profile_images/1321163587679784960/0ZxKlEKB_normal.jpg",
+      "profile_banner": "https://pbs.twimg.com/profile_banners/11348282/1775567134",
+      "entities": {
+        "urls": [
+          "http://www.nasa.gov/"
+        ]
+      }
+    },
+    "conversation_id": "2080330036607893817",
+    "metrics": {
+      "replies": 167,
+      "retweets": 421,
+      "likes": 2590,
+      "quotes": 14,
+      "bookmarks": 106,
+      "impressions": 1783933
+    },
+    "entities": {
+      "mentions": [
+        "Space_Station",
+        "Astro_ChrisW"
+      ],
+      "urls": [
+        "https://go.nasa.gov/4fjNCry"
+      ]
+    },
+    "media": [
+      {
+        "key": "13_2080329877501132800",
+        "type": "video",
+        "url": "https://pbs.twimg.com/media/HN7RJIwX0AAJrfW.jpg",
+        "width": 720,
+        "height": 405,
+        "duration_ms": 112946,
+        "variants": [
+          {
+            "bitrate": 0,
+            "content_type": "application/x-mpegURL",
+            "url": "https://video.twimg.com/amplify_video/2080329877501132800/pl/XEiJzc40_ts9TAKU.m3u8?tag=14\u0026v=6f5"
+          },
+          {
+            "bitrate": 288000,
+            "content_type": "video/mp4",
+            "url": "https://video.twimg.com/amplify_video/2080329877501132800/vid/avc1/480x270/Qv1ILmVyDNIxt5xq.mp4?tag=14"
+          },
+          {
+            "bitrate": 832000,
+            "content_type": "video/mp4",
+            "url": "https://video.twimg.com/amplify_video/2080329877501132800/vid/avc1/640x360/IC8S3INcL3TsbIlp.mp4?tag=14"
+          },
+          {
+            "bitrate": 2176000,
+            "content_type": "video/mp4",
+            "url": "https://video.twimg.com/amplify_video/2080329877501132800/vid/avc1/1280x720/kaOaV6pm3Ys5rP7c.mp4?tag=14"
+          }
+        ]
+      }
+    ],
+    "source": "Sprinklr"
+  },
+  {
+    "kind": "tweet",
+    "id": "2080033755519947170",
+    "uri": "x://tweet/2080033755519947170",
+    "url": "https://x.com/NASA/status/2080033755519947170",
+    "tier": 0,
+    "text": "RT @NASAJohnson: Up, up, and away. \n\nNASA astronaut candidates Adam Fuhrmann and Rebecca Lawler recently completed training flights in NASA…",
+    "created_at": "2026-07-22T20:54:27Z",
+    "lang": "en",
+    "author": {
+      "kind": "user",
+      "id": "nasa",
+      "uri": "x://user/nasa",
+      "url": "https://x.com/nasa",
+      "tier": 0,
+      "username": "NASA",
+      "rest_id": "11348282",
+      "name": "NASA",
+      "created_at": "2007-12-19T20:20:32Z",
+      "description": "Making the seemingly impossible, possible. ✨",
+      "location": "Pale Blue Dot",
+      "website": "http://www.nasa.gov/",
+      "verified": true,
+      "verified_type": "government",
+      "metrics": {
+        "followers": 92219437,
+        "following": 119,
+        "tweets": 74261,
+        "listed": 97038,
+        "likes": 16894,
+        "media": 28050
+      },
+      "profile_image": "https://pbs.twimg.com/profile_images/1321163587679784960/0ZxKlEKB_normal.jpg",
+      "profile_banner": "https://pbs.twimg.com/profile_banners/11348282/1775567134",
+      "entities": {
+        "urls": [
+          "http://www.nasa.gov/"
+        ]
+      }
+    },
+    "conversation_id": "2080033755519947170",
+    "retweeted": {
+      "kind": "tweet",
+      "id": "2079993592798478689",
+      "uri": "x://tweet/2079993592798478689",
+      "url": "https://x.com/NASAJohnson/status/2079993592798478689",
+      "tier": 0,
+      "text": "Up, up, and away. \n\nNASA astronaut candidates Adam Fuhrmann and Rebecca Lawler recently completed training flights in NASA’s WB-57 aircraft. These high-altitude flights train the crew to work in a tight environment and operate aircraft systems while in a pressure suit, preparing them for future missions to the International Space Station, Moon, or beyond.",
+      "created_at": "2026-07-22T18:14:51Z",
+      "lang": "en",
+      "author": {
+        "kind": "user",
+        "id": "nasajohnson",
+        "uri": "x://user/nasajohnson",
+        "url": "https://x.com/nasajohnson",
+        "tier": 0,
+        "username": "NASAJohnson",
+        "rest_id": "50115087",
+        "name": "NASA's Johnson Space Center",
+        "created_at": "2009-06-23T21:54:57Z",
+        "description": "Lead center for the @Space_Station and Orion spacecraft. Home to Mission Control and the nation's astronaut corps. 🚀\n\nhttps://t.co/7u1SQekfru",
+        "location": "Houston, TX",
+        "website": "http://www.nasa.gov/johnson",
+        "verified": true,
+        "verified_type": "government",
+        "metrics": {
+          "followers": 2256566,
+          "following": 173,
+          "tweets": 20932,
+          "listed": 10914,
+          "likes": 10712,
+          "media": 6686
+        },
+        "profile_image": "https://pbs.twimg.com/profile_images/1920920885742944256/yqDqTY93_normal.jpg",
+        "profile_banner": "https://pbs.twimg.com/profile_banners/50115087/1734363925",
+        "entities": {
+          "urls": [
+            "http://www.nasa.gov/johnson"
+          ]
+        }
+      },
+      "conversation_id": "2079993592798478689",
+      "metrics": {
+        "replies": 70,
+        "retweets": 210,
+        "likes": 1547,
+        "quotes": 10,
+        "bookmarks": 61,
+        "impressions": 292559
+      },
+      "entities": {},
+      "media": [
+        {
+          "key": "3_2079992263149539328",
+          "type": "photo",
+          "url": "https://pbs.twimg.com/media/HN2d8WyW0AAMVUQ.jpg",
+          "width": 4096,
+          "height": 2731,
+          "alt_text": "jsc2026e401991 (July 15, 2026) --- NASA astronaut candidate Adam Fuhrmann (backseat) prepares for a training flight aboard NASA’s WB-57 aircraft. These high-altitude flights train the crew to work in a tight environment and operate aircraft systems while in a pressure suit, preparing them for future missions to the International Space Station, Moon, or beyond. In the front seat is pilot Justin Jones. Photo: NASA/Josh Valcarcel"
+        },
+        {
+          "key": "3_2079992324302528512",
+          "type": "photo",
+          "url": "https://pbs.twimg.com/media/HN2d_6mXYAAFb78.jpg",
+          "width": 4096,
+          "height": 2731,
+          "alt_text": "(July 15, 2026) --- NASA astronaut candidate Adam Fuhrmann prepares for a training flight aboard NASA’s WB-57 aircraft. These high-altitude flights train the crew to work in a tight environment and operate aircraft systems while in a pressure suit, preparing them for future missions to the International Space Station, Moon, or beyond. Photo: NASA/Josh Valcarcel"
+        },
+        {
+          "key": "3_2079992390597660672",
+          "type": "photo",
+          "url": "https://pbs.twimg.com/media/HN2eDxkW0AAN8eA.jpg",
+          "width": 4096,
+          "height": 2730,
+          "alt_text": "jsc2026e402144 (July 16, 2026) --- NASA astronaut candidate Rebecca Lawler prepares for a training flight aboard NASA’s WB-57 aircraft. These high-altitude flights train the crew to work in a tight environment and operate aircraft systems while in a pressure suit, preparing them for future missions to the International Space Station, Moon, or beyond. Photo: NASA/Josh Valcarcel"
+        },
+        {
+          "key": "3_2079992462714482688",
+          "type": "photo",
+          "url": "https://pbs.twimg.com/media/HN2eH-OWMAAOH8q.jpg",
+          "width": 4096,
+          "height": 2731,
+          "alt_text": "(July 16, 2026) --- NASA astronaut candidate Rebecca Lawler (backseat) prepares for a training flight aboard NASA’s WB-57 aircraft. These high-altitude flights train the crew to work in a tight environment and operate aircraft systems while in a pressure suit, preparing them for future missions to the International Space Station, Moon, or beyond. In the front seat is pilot Justin Jones. Photo: NASA/Josh Valcarcel"
+        }
+      ],
+      "source": "Twitter Web App"
+    },
+    "metrics": {
+      "replies": 0,
+      "retweets": 210,
+      "likes": 0,
+      "quotes": 0,
+      "bookmarks": 0,
+      "impressions": 63350
+    },
+    "entities": {
+      "mentions": [
+        "NASAJohnson"
+      ]
+    },
+    "source": "Twitter Web App",
+    "is_retweet": true
+  },
+  {
+    "kind": "tweet",
+    "id": "2079993592798478689",
+    "uri": "x://tweet/2079993592798478689",
+    "url": "https://x.com/NASAJohnson/status/2079993592798478689",
+    "tier": 0,
+    "text": "Up, up, and away. \n\nNASA astronaut candidates Adam Fuhrmann and Rebecca Lawler recently completed training flights in NASA’s WB-57 aircraft. These high-altitude flights train the crew to work in a tight environment and operate aircraft systems while in a pressure suit, preparing them for future missions to the International Space Station, Moon, or beyond.",
+    "created_at": "2026-07-22T18:14:51Z",
+    "lang": "en",
+    "author": {
+      "kind": "user",
+      "id": "nasajohnson",
+      "uri": "x://user/nasajohnson",
+      "url": "https://x.com/nasajohnson",
+      "tier": 0,
+      "username": "NASAJohnson",
+      "rest_id": "50115087",
+      "name": "NASA's Johnson Space Center",
+      "created_at": "2009-06-23T21:54:57Z",
+      "description": "Lead center for the @Space_Station and Orion spacecraft. Home to Mission Control and the nation's astronaut corps. 🚀\n\nhttps://t.co/7u1SQekfru",
+      "location": "Houston, TX",
+      "website": "http://www.nasa.gov/johnson",
+      "verified": true,
+      "verified_type": "government",
+      "metrics": {
+        "followers": 2256566,
+        "following": 173,
+        "tweets": 20932,
+        "listed": 10914,
+        "likes": 10712,
+        "media": 6686
+      },
+      "profile_image": "https://pbs.twimg.com/profile_images/1920920885742944256/yqDqTY93_normal.jpg",
+      "profile_banner": "https://pbs.twimg.com/profile_banners/50115087/1734363925",
+      "entities": {
+        "urls": [
+          "http://www.nasa.gov/johnson"
+        ]
+      }
+    },
+    "conversation_id": "2079993592798478689",
+    "metrics": {
+      "replies": 70,
+      "retweets": 210,
+      "likes": 1547,
+      "quotes": 10,
+      "bookmarks": 61,
+      "impressions": 292559
+    },
+    "entities": {},
+    "media": [
+      {
+        "key": "3_2079992263149539328",
+        "type": "photo",
+        "url": "https://pbs.twimg.com/media/HN2d8WyW0AAMVUQ.jpg",
+        "width": 4096,
+        "height": 2731,
+        "alt_text": "jsc2026e401991 (July 15, 2026) --- NASA astronaut candidate Adam Fuhrmann (backseat) prepares for a training flight aboard NASA’s WB-57 aircraft. These high-altitude flights train the crew to work in a tight environment and operate aircraft systems while in a pressure suit, preparing them for future missions to the International Space Station, Moon, or beyond. In the front seat is pilot Justin Jones. Photo: NASA/Josh Valcarcel"
+      },
+      {
+        "key": "3_2079992324302528512",
+        "type": "photo",
+        "url": "https://pbs.twimg.com/media/HN2d_6mXYAAFb78.jpg",
+        "width": 4096,
+        "height": 2731,
+        "alt_text": "(July 15, 2026) --- NASA astronaut candidate Adam Fuhrmann prepares for a training flight aboard NASA’s WB-57 aircraft. These high-altitude flights train the crew to work in a tight environment and operate aircraft systems while in a pressure suit, preparing them for future missions to the International Space Station, Moon, or beyond. Photo: NASA/Josh Valcarcel"
+      },
+      {
+        "key": "3_2079992390597660672",
+        "type": "photo",
+        "url": "https://pbs.twimg.com/media/HN2eDxkW0AAN8eA.jpg",
+        "width": 4096,
+        "height": 2730,
+        "alt_text": "jsc2026e402144 (July 16, 2026) --- NASA astronaut candidate Rebecca Lawler prepares for a training flight aboard NASA’s WB-57 aircraft. These high-altitude flights train the crew to work in a tight environment and operate aircraft systems while in a pressure suit, preparing them for future missions to the International Space Station, Moon, or beyond. Photo: NASA/Josh Valcarcel"
+      },
+      {
+        "key": "3_2079992462714482688",
+        "type": "photo",
+        "url": "https://pbs.twimg.com/media/HN2eH-OWMAAOH8q.jpg",
+        "width": 4096,
+        "height": 2731,
+        "alt_text": "(July 16, 2026) --- NASA astronaut candidate Rebecca Lawler (backseat) prepares for a training flight aboard NASA’s WB-57 aircraft. These high-altitude flights train the crew to work in a tight environment and operate aircraft systems while in a pressure suit, preparing them for future missions to the International Space Station, Moon, or beyond. In the front seat is pilot Justin Jones. Photo: NASA/Josh Valcarcel"
+      }
+    ],
+    "source": "Twitter Web App"
+  },
+  {
+    "kind": "tweet",
+    "id": "2079997610786496661",
+    "uri": "x://tweet/2079997610786496661",
+    "url": "https://x.com/NASA/status/2079997610786496661",
+    "tier": 0,
+    "text": "After spending 241 days aboard the @Space_Station, @Astro_ChrisW is returning to Earth on July 26. Here's where to watch as Williams concludes his first-ever space mission: https://t.co/Xv2TTppIzL https://t.co/wrqDaF8GTo",
+    "created_at": "2026-07-22T18:30:49Z",
+    "lang": "en",
+    "author": {
+      "kind": "user",
+      "id": "nasa",
+      "uri": "x://user/nasa",
+      "url": "https://x.com/nasa",
+      "tier": 0,
+      "username": "NASA",
+      "rest_id": "11348282",
+      "name": "NASA",
+      "created_at": "2007-12-19T20:20:32Z",
+      "description": "Making the seemingly impossible, possible. ✨",
+      "location": "Pale Blue Dot",
+      "website": "http://www.nasa.gov/",
+      "verified": true,
+      "verified_type": "government",
+      "metrics": {
+        "followers": 92219437,
+        "following": 119,
+        "tweets": 74261,
+        "listed": 97038,
+        "likes": 16894,
+        "media": 28050
+      },
+      "profile_image": "https://pbs.twimg.com/profile_images/1321163587679784960/0ZxKlEKB_normal.jpg",
+      "profile_banner": "https://pbs.twimg.com/profile_banners/11348282/1775567134",
+      "entities": {
+        "urls": [
+          "http://www.nasa.gov/"
+        ]
+      }
+    },
+    "conversation_id": "2079997610786496661",
+    "metrics": {
+      "replies": 129,
+      "retweets": 329,
+      "likes": 2325,
+      "quotes": 12,
+      "bookmarks": 54,
+      "impressions": 1004739
+    },
+    "entities": {
+      "mentions": [
+        "Space_Station",
+        "Astro_ChrisW"
+      ],
+      "urls": [
+        "https://go.nasa.gov/45e0Wb4"
+      ]
+    },
+    "media": [
+      {
+        "key": "3_2079997607238086656",
+        "type": "photo",
+        "url": "https://pbs.twimg.com/media/HN2izbEWsAAVZpo.jpg",
+        "width": 1920,
+        "height": 1280,
+        "alt_text": "A photo of NASA astronaut Chris Williams posing for a photo inside the International Space Station, holding biology research hardware. Credit: NASA/Jack Hathaway"
+      }
+    ],
+    "source": "Sprinklr"
+  },
+  {
+    "kind": "tweet",
+    "id": "2079663398631985563",
+    "uri": "x://tweet/2079663398631985563",
+    "url": "https://x.com/NASA/status/2079663398631985563",
+    "tier": 0,
+    "text": "RT @NASASpox: Something big just landed on TikTok 👀 https://t.co/pRTiCCnbE2",
+    "created_at": "2026-07-21T20:22:47Z",
+    "lang": "en",
+    "author": {
+      "kind": "user",
+      "id": "nasa",
+      "uri": "x://user/nasa",
+      "url": "https://x.com/nasa",
+      "tier": 0,
+      "username": "NASA",
+      "rest_id": "11348282",
+      "name": "NASA",
+      "created_at": "2007-12-19T20:20:32Z",
+      "description": "Making the seemingly impossible, possible. ✨",
+      "location": "Pale Blue Dot",
+      "website": "http://www.nasa.gov/",
+      "verified": true,
+      "verified_type": "government",
+      "metrics": {
+        "followers": 92219437,
+        "following": 119,
+        "tweets": 74261,
+        "listed": 97038,
+        "likes": 16894,
+        "media": 28050
+      },
+      "profile_image": "https://pbs.twimg.com/profile_images/1321163587679784960/0ZxKlEKB_normal.jpg",
+      "profile_banner": "https://pbs.twimg.com/profile_banners/11348282/1775567134",
+      "entities": {
+        "urls": [
+          "http://www.nasa.gov/"
+        ]
+      }
+    },
+    "conversation_id": "2079663398631985563",
+    "retweeted": {
+      "kind": "tweet",
+      "id": "2079663346551292270",
+      "uri": "x://tweet/2079663346551292270",
+      "url": "https://x.com/NASASpox/status/2079663346551292270",
+      "tier": 0,
+      "text": "Something big just landed on TikTok 👀 https://t.co/pRTiCCnbE2",
+      "created_at": "2026-07-21T20:22:34Z",
+      "lang": "en",
+      "author": {
+        "kind": "user",
+        "id": "nasaspox",
+        "uri": "x://user/nasaspox",
+        "url": "https://x.com/nasaspox",
+        "tier": 0,
+        "username": "NASASpox",
+        "rest_id": "1907894348319973378",
+        "name": "Bethany Stevens",
+        "created_at": "2025-04-03T20:34:05Z",
+        "description": "@NASA Comms | furthering the Golden Age of exploration and discovery under @nasaadmin",
+        "location": "Washington, DC",
+        "verified": true,
+        "verified_type": "government",
+        "metrics": {
+          "followers": 19408,
+          "following": 128,
+          "tweets": 786,
+          "listed": 149,
+          "likes": 1684,
+          "media": 107
+        },
+        "profile_image": "https://pbs.twimg.com/profile_images/2030158374625759233/3fWyLDjS_normal.jpg",
+        "profile_banner": "https://pbs.twimg.com/profile_banners/1907894348319973378/1772862464",
+        "pinned_tweet": "2078224758781751775",
+        "entities": {}
+      },
+      "conversation_id": "2079663346551292270",
+      "metrics": {
+        "replies": 66,
+        "retweets": 143,
+        "likes": 775,
+        "quotes": 6,
+        "bookmarks": 73,
+        "impressions": 231336
+      },
+      "entities": {},
+      "media": [
+        {
+          "key": "13_2079663316171956225",
+          "type": "video",
+          "url": "https://pbs.twimg.com/amplify_video_thumb/2079663316171956225/img/UvFsA6k3oWTLWwZ-.jpg",
+          "width": 576,
+          "height": 1024,
+          "duration_ms": 25166,
+          "variants": [
+            {
+              "bitrate": 0,
+              "content_type": "application/x-mpegURL",
+              "url": "https://video.twimg.com/amplify_video/2079663316171956225/pl/QYMHTPuCwXgiBCuO.m3u8?tag=29\u0026v=53f"
+            },
+            {
+              "bitrate": 632000,
+              "content_type": "video/mp4",
+              "url": "https://video.twimg.com/amplify_video/2079663316171956225/vid/avc1/320x568/3wHhLKy0Q1ziRi-K.mp4?tag=29"
+            },
+            {
+              "bitrate": 950000,
+              "content_type": "video/mp4",
+              "url": "https://video.twimg.com/amplify_video/2079663316171956225/vid/avc1/480x852/nwE_SPhg3YYd2OoJ.mp4?tag=29"
+            },
+            {
+              "bitrate": 2176000,
+              "content_type": "video/mp4",
+              "url": "https://video.twimg.com/amplify_video/2079663316171956225/vid/avc1/576x1024/rJylz7w5p_LByUZA.mp4?tag=29"
+            }
+          ]
+        }
+      ],
+      "source": "Twitter for iPhone"
+    },
+    "metrics": {
+      "replies": 0,
+      "retweets": 143,
+      "likes": 0,
+      "quotes": 0,
+      "bookmarks": 0,
+      "impressions": 66133
+    },
+    "entities": {
+      "mentions": [
+        "NASASpox"
+      ]
+    },
+    "media": [
+      {
+        "key": "13_2079663316171956225",
+        "type": "video",
+        "url": "https://pbs.twimg.com/amplify_video_thumb/2079663316171956225/img/UvFsA6k3oWTLWwZ-.jpg",
+        "width": 576,
+        "height": 1024,
+        "duration_ms": 25166,
+        "variants": [
+          {
+            "bitrate": 0,
+            "content_type": "application/x-mpegURL",
+            "url": "https://video.twimg.com/amplify_video/2079663316171956225/pl/QYMHTPuCwXgiBCuO.m3u8?tag=29\u0026v=53f"
+          },
+          {
+            "bitrate": 632000,
+            "content_type": "video/mp4",
+            "url": "https://video.twimg.com/amplify_video/2079663316171956225/vid/avc1/320x568/3wHhLKy0Q1ziRi-K.mp4?tag=29"
+          },
+          {
+            "bitrate": 950000,
+            "content_type": "video/mp4",
+            "url": "https://video.twimg.com/amplify_video/2079663316171956225/vid/avc1/480x852/nwE_SPhg3YYd2OoJ.mp4?tag=29"
+          },
+          {
+            "bitrate": 2176000,
+            "content_type": "video/mp4",
+            "url": "https://video.twimg.com/amplify_video/2079663316171956225/vid/avc1/576x1024/rJylz7w5p_LByUZA.mp4?tag=29"
+          }
+        ]
+      }
+    ],
+    "source": "Twitter for iPhone",
+    "is_retweet": true
+  },
+  {
+    "kind": "tweet",
+    "id": "2079663346551292270",
+    "uri": "x://tweet/2079663346551292270",
+    "url": "https://x.com/NASASpox/status/2079663346551292270",
+    "tier": 0,
+    "text": "Something big just landed on TikTok 👀 https://t.co/pRTiCCnbE2",
+    "created_at": "2026-07-21T20:22:34Z",
+    "lang": "en",
+    "author": {
+      "kind": "user",
+      "id": "nasaspox",
+      "uri": "x://user/nasaspox",
+      "url": "https://x.com/nasaspox",
+      "tier": 0,
+      "username": "NASASpox",
+      "rest_id": "1907894348319973378",
+      "name": "Bethany Stevens",
+      "created_at": "2025-04-03T20:34:05Z",
+      "description": "@NASA Comms | furthering the Golden Age of exploration and discovery under @nasaadmin",
+      "location": "Washington, DC",
+      "verified": true,
+      "verified_type": "government",
+      "metrics": {
+        "followers": 19408,
+        "following": 128,
+        "tweets": 786,
+        "listed": 149,
+        "likes": 1684,
+        "media": 107
+      },
+      "profile_image": "https://pbs.twimg.com/profile_images/2030158374625759233/3fWyLDjS_normal.jpg",
+      "profile_banner": "https://pbs.twimg.com/profile_banners/1907894348319973378/1772862464",
+      "pinned_tweet": "2078224758781751775",
+      "entities": {}
+    },
+    "conversation_id": "2079663346551292270",
+    "metrics": {
+      "replies": 66,
+      "retweets": 143,
+      "likes": 775,
+      "quotes": 6,
+      "bookmarks": 73,
+      "impressions": 231336
+    },
+    "entities": {},
+    "media": [
+      {
+        "key": "13_2079663316171956225",
+        "type": "video",
+        "url": "https://pbs.twimg.com/amplify_video_thumb/2079663316171956225/img/UvFsA6k3oWTLWwZ-.jpg",
+        "width": 576,
+        "height": 1024,
+        "duration_ms": 25166,
+        "variants": [
+          {
+            "bitrate": 0,
+            "content_type": "application/x-mpegURL",
+            "url": "https://video.twimg.com/amplify_video/2079663316171956225/pl/QYMHTPuCwXgiBCuO.m3u8?tag=29\u0026v=53f"
+          },
+          {
+            "bitrate": 632000,
+            "content_type": "video/mp4",
+            "url": "https://video.twimg.com/amplify_video/2079663316171956225/vid/avc1/320x568/3wHhLKy0Q1ziRi-K.mp4?tag=29"
+          },
+          {
+            "bitrate": 950000,
+            "content_type": "video/mp4",
+            "url": "https://video.twimg.com/amplify_video/2079663316171956225/vid/avc1/480x852/nwE_SPhg3YYd2OoJ.mp4?tag=29"
+          },
+          {
+            "bitrate": 2176000,
+            "content_type": "video/mp4",
+            "url": "https://video.twimg.com/amplify_video/2079663316171956225/vid/avc1/576x1024/rJylz7w5p_LByUZA.mp4?tag=29"
+          }
+        ]
+      }
+    ],
+    "source": "Twitter for iPhone"
+  },
+  {
+    "kind": "tweet",
+    "id": "2079655118165705100",
+    "uri": "x://tweet/2079655118165705100",
+    "url": "https://x.com/NASA/status/2079655118165705100",
+    "tier": 0,
+    "text": "Check! ✔️\n\nFor the first time, scientists used our IXPE telescope to measure the magnetic field of a pulsar—a spinning neutron star—located in the Lighthouse Nebula. This data helps us understand the structure of these extreme cosmic objects. https://t.co/AppFzUATwb https://t.co/h3pq4rp6qk",
+    "created_at": "2026-07-21T19:49:52Z",
+    "lang": "en",
+    "author": {
+      "kind": "user",
+      "id": "nasa",
+      "uri": "x://user/nasa",
+      "url": "https://x.com/nasa",
+      "tier": 0,
+      "username": "NASA",
+      "rest_id": "11348282",
+      "name": "NASA",
+      "created_at": "2007-12-19T20:20:32Z",
+      "description": "Making the seemingly impossible, possible. ✨",
+      "location": "Pale Blue Dot",
+      "website": "http://www.nasa.gov/",
+      "verified": true,
+      "verified_type": "government",
+      "metrics": {
+        "followers": 92219437,
+        "following": 119,
+        "tweets": 74261,
+        "listed": 97038,
+        "likes": 16894,
+        "media": 28050
+      },
+      "profile_image": "https://pbs.twimg.com/profile_images/1321163587679784960/0ZxKlEKB_normal.jpg",
+      "profile_banner": "https://pbs.twimg.com/profile_banners/11348282/1775567134",
+      "entities": {
+        "urls": [
+          "http://www.nasa.gov/"
+        ]
+      }
+    },
+    "conversation_id": "2079655118165705100",
+    "metrics": {
+      "replies": 261,
+      "retweets": 1247,
+      "likes": 6412,
+      "quotes": 50,
+      "bookmarks": 385,
+      "impressions": 1967132
+    },
+    "entities": {
+      "urls": [
+        "https://go.nasa.gov/4wVjsRt"
+      ]
+    },
+    "media": [
+      {
+        "key": "3_2079655110100025344",
+        "type": "photo",
+        "url": "https://pbs.twimg.com/media/HNxrTdzWgAALYTv.jpg",
+        "width": 3000,
+        "height": 2510,
+        "alt_text": "The Lighthouse Nebula (upper left) and a pulsar (lower right) are illuminated against a spotty starfield. The part of the nebula shown in this image looks like a diffuse, purple cloud with a bright star in the center. The pulsar looks like a bright white streak of light with a purple jet extending from one end, forming the shape of a checkmark. Credits: X-ray: Chandra: NASA/CXC/Stanford Univ./J.T. Dinsmore et al.; IXPE: NASA/MSFC/J.T. Dinsmore et al., Radio: CSIRO/ATNF/ATCA; Optical: 2MASS/UMass/IPAC-Caltech/NASA/NSF; Image processing: NASA/CXC/SAO/L. Frattare"
+      }
+    ],
+    "source": "Sprinklr"
+  }
+]

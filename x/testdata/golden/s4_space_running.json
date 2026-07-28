@@ -1,0 +1,99 @@
+{
+  "kind": "space",
+  "id": "1dRJZEpyjlNGB",
+  "uri": "x://space/1dRJZEpyjlNGB",
+  "url": "https://x.com/i/spaces/1dRJZEpyjlNGB",
+  "tier": 0,
+  "state": "TimedOut",
+  "title": "Cyber security with @mjkabir #USABizParty",
+  "creator": {
+    "kind": "user",
+    "id": "usabizparty",
+    "uri": "x://user/usabizparty",
+    "url": "https://x.com/usabizparty",
+    "tier": 0,
+    "username": "USABizparty",
+    "rest_id": "3706636217",
+    "name": "#USABizparty",
+    "created_at": "2015-09-19T11:37:10Z",
+    "description": "Let's connect! Hosted by @SchellerAnna Twitter chat #USABizParty Tuesday’s 1pm ET. Spaces every Friday at 11:30 am ET",
+    "location": "United States",
+    "website": "http://www.usabiz.party",
+    "verified": true,
+    "verified_type": "blue",
+    "metrics": {
+      "followers": 1081,
+      "following": 1365,
+      "tweets": 44549,
+      "listed": 26,
+      "likes": 30253,
+      "media": 3259
+    },
+    "profile_image": "https://pbs.twimg.com/profile_images/932777462693552128/VoMAeyZp_normal.jpg",
+    "profile_banner": "https://pbs.twimg.com/profile_banners/3706636217/1618259537",
+    "pinned_tweet": "1864023121994391812",
+    "entities": {
+      "urls": [
+        "http://www.usabiz.party"
+      ]
+    }
+  },
+  "hosts": [
+    {
+      "kind": "user",
+      "id": "usabizparty",
+      "uri": "x://user/usabizparty",
+      "url": "https://x.com/usabizparty",
+      "tier": 0,
+      "username": "USABizparty",
+      "rest_id": "3706636217",
+      "name": "#USABizparty",
+      "verified": true,
+      "verified_type": "blue",
+      "metrics": {},
+      "profile_image": "https://pbs.twimg.com/profile_images/932777462693552128/VoMAeyZp_normal.jpg",
+      "entities": {}
+    },
+    {
+      "kind": "user",
+      "id": "schelleranna",
+      "uri": "x://user/schelleranna",
+      "url": "https://x.com/schelleranna",
+      "tier": 0,
+      "username": "SchellerAnna",
+      "rest_id": "2293386248",
+      "name": "Anna Scheller, Small Business Enthusiast! 🇺🇸",
+      "verified": true,
+      "verified_type": "blue",
+      "metrics": {},
+      "profile_image": "https://pbs.twimg.com/profile_images/742097770249523200/eXaQWVit_normal.jpg",
+      "entities": {}
+    }
+  ],
+  "speakers": [
+    {
+      "kind": "user",
+      "id": "mjkabir",
+      "uri": "x://user/mjkabir",
+      "url": "https://x.com/mjkabir",
+      "tier": 0,
+      "username": "mjkabir",
+      "rest_id": "14047651",
+      "name": "𝕂𝕒𝕓𝕚𝕣",
+      "verified": true,
+      "verified_type": "blue",
+      "metrics": {},
+      "profile_image": "https://pbs.twimg.com/profile_images/2074301308207792128/rd4-XSpU_normal.jpg",
+      "entities": {}
+    }
+  ],
+  "live_listeners": 5,
+  "replay_watched": 17,
+  "media_key": "28_1732090503993360384",
+  "replayable": true,
+  "created_at": "2023-12-05T17:32:11.475Z",
+  "scheduled_start": "2023-12-05T18:00:00Z",
+  "started_at": "2023-12-05T18:00:27.019Z",
+  "ended_at": "2023-12-05T18:08:08.533Z",
+  "updated_at": "2023-12-05T18:08:10.083Z"
+}
