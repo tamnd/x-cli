@@ -15,12 +15,12 @@ func capture(t *testing.T, name string) string {
 	if err != nil {
 		t.Fatalf("open capture: %v", err)
 	}
-	defer f.Close()
+	defer func() { _ = f.Close() }()
 	gz, err := gzip.NewReader(f)
 	if err != nil {
 		t.Fatalf("gunzip %s: %v", name, err)
 	}
-	defer gz.Close()
+	defer func() { _ = gz.Close() }()
 	b, err := io.ReadAll(gz)
 	if err != nil {
 		t.Fatalf("read %s: %v", name, err)

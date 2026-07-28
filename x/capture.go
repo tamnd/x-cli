@@ -124,12 +124,18 @@ func (r Recording) Save(dir string) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	defer f.Close()
+	defer func() { _ = f.Close() }()
 	gz := gzip.NewWriter(f)
 	if _, err := gz.Write(r.Body); err != nil {
 		return "", err
 	}
 	if err := gz.Close(); err != nil {
+		return "", err
+	}
+	// Close for real here rather than leaving it to the defer: a fixture that
+	// lost its last block on a full disk should be an error, not a file the
+	// next test run reads as the truth.
+	if err := f.Close(); err != nil {
 		return "", err
 	}
 	return path, nil

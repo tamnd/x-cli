@@ -99,7 +99,7 @@ func nodeRow(n *x.Node) Row {
 	}
 	return Row{
 		Cols:  []string{"depth", "via", "kind", "id", "who", "summary", "url"},
-		Vals:  []string{itoa(n.Depth), string(n.Via), string(n.Kind), id, who, summary, url},
+		Vals:  []string{itoa(n.Depth), string(n.Via), n.Kind, id, who, summary, url},
 		Value: n,
 	}
 }

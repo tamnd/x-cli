@@ -48,7 +48,7 @@ func Microdata(doc string) ([]*Item, error) {
 	var walk func(n *html.Node, inScope bool)
 	walk = func(n *html.Node, inScope bool) {
 		scope := n.Type == html.ElementNode && hasAttr(n, "itemscope")
-		if scope && !(inScope && hasAttr(n, "itemprop")) {
+		if scope && (!inScope || !hasAttr(n, "itemprop")) {
 			out = append(out, item(n))
 		}
 		for c := n.FirstChild; c != nil; c = c.NextSibling {

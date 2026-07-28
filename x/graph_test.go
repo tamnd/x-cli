@@ -374,10 +374,10 @@ func TestTrustPutsAnyCredentialAboveNone(t *testing.T) {
 	page := Edge{Surface: 8, Tier: 0}
 	guest := Edge{Surface: 4, Tier: 1}
 	session := Edge{Surface: 7, Tier: 2}
-	if !(session.Trust() > guest.Trust() && guest.Trust() > page.Trust()) {
+	if session.Trust() <= guest.Trust() || guest.Trust() <= page.Trust() {
 		t.Errorf("trust ordered %d %d %d", session.Trust(), guest.Trust(), page.Trust())
 	}
-	if !(page.Trust() > (Edge{Surface: 1}).Trust()) {
+	if page.Trust() <= (Edge{Surface: 1}).Trust() {
 		t.Error("the status page did not outrank the embed payload")
 	}
 }
@@ -499,7 +499,7 @@ func TestExtractionIsTotalAndQuiet(t *testing.T) {
 // nobody does.
 func TestTheListingHopsAreTheOnlyEvidence(t *testing.T) {
 	liker := NewUser("alice")
-	liker.Meta.Stamp(7, "https://x.com/i/api/graphql/Favoriters")
+	liker.Stamp(7, "https://x.com/i/api/graphql/Favoriters")
 
 	cases := []struct {
 		hop      Hop
@@ -554,7 +554,7 @@ func TestAHopAndARecordAgreeAboutTheSameClaim(t *testing.T) {
 // account into two nodes, so the hop yields nothing instead.
 func TestAnAccountKnownOnlyByIdIsNotANode(t *testing.T) {
 	known := NewUser("jack")
-	known.Meta.Stamp(1, "https://cdn.syndication.twimg.com/tweet-result?id=20")
+	known.Stamp(1, "https://cdn.syndication.twimg.com/tweet-result?id=20")
 	if e, ok := HopEdge(HopAuthor, "20", "#12", &known.Meta); ok {
 		t.Fatalf("got %s %s %s, want no edge at all", e.From, e.Predicate, e.To)
 	}

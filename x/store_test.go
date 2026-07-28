@@ -45,7 +45,7 @@ func TestTheStoreKeepsTheHigherTierRecord(t *testing.T) {
 
 	rich := NewTweet("1")
 	rich.Text = "read with a session"
-	rich.Meta.Tier = 2
+	rich.Tier = 2
 	if err := st.PutRecord(URI(KindTweet, "1"), KindTweet, "1", 2, rich); err != nil {
 		t.Fatal(err)
 	}

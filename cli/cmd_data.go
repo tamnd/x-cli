@@ -198,7 +198,7 @@ func newCrawlCmd() kit.Command {
 					if edge, ok := x.HopEdge(e, src, dst, m); ok {
 						_ = st.PutEdges([]x.Edge{edge})
 					}
-					_ = st.Enqueue(dst, string(e.Target()), 0)
+					_ = st.Enqueue(dst, e.Target(), 0)
 				},
 			}
 			err = a.engine().Walk(a.ctx(), seeds, opts, func(n *x.Node) error {

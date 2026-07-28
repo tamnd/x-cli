@@ -25,7 +25,7 @@ func MergeTweet(dst, src *Tweet) *Tweet {
 	if dst == nil {
 		return src
 	}
-	m := merger{to: &dst.Meta, from: src.Meta.Surface()}
+	m := merger{to: &dst.Meta, from: src.Surface()}
 	m.str(&dst.Text, src.Text, "text")
 	m.str(&dst.URL, src.URL, "url")
 	m.str(&dst.Lang, src.Lang, "lang")
@@ -88,7 +88,7 @@ func MergeUser(dst, src *User) *User {
 	if dst == nil {
 		return src
 	}
-	m := merger{to: &dst.Meta, from: src.Meta.Surface()}
+	m := merger{to: &dst.Meta, from: src.Surface()}
 	if dst.Username == "" && src.Username != "" {
 		dst.setHandle(src.Username)
 		m.note("username")
