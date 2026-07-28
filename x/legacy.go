@@ -6,7 +6,7 @@ import (
 )
 
 // The legacy object shape (spec §1.5). Both the public profile-timeline widget
-// and the web-client GraphQL return tweets/users in this shape — GraphQL just
+// and the web-client GraphQL return tweets/users in this shape, GraphQL just
 // wraps it under result.legacy (+ result.core for the author). One parser here
 // feeds every surface, so the normalized types are produced identically.
 

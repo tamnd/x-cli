@@ -17,7 +17,7 @@ const UserAgent = "x-cli/" + "dev" + " (+https://github.com/tamnd/x-cli)"
 
 // Client is the shared HTTP client for every tier: one rate limiter, retry
 // policy, disk cache, and per-endpoint rate-limit accounting (the nitter
-// lesson, spec §13.2 — minus the account pool).
+// lesson, spec §13.2, minus the account pool).
 type Client struct {
 	cfg   Config
 	hc    *http.Client
@@ -50,16 +50,37 @@ func (c *Client) Cache() *Cache { return c.cache }
 // Config returns the client's resolved config.
 func (c *Client) Config() Config { return c.cfg }
 
+// maxWait caps every wait this client will ever sit through, whether that is a
+// retry backoff or a pre-emptive cooldown.
+//
+// X answers an exhausted window with a reset that can be hours out. Sleeping on
+// that number turns the tool into a hang with no output, which reads as a bug
+// even though the client is doing what it was told. Past this point the honest
+// answer is "you are rate limited until HH:MM", printed now, exit code 5.
+const maxWait = 30 * time.Second
+
 // throttle blocks until the global minimum inter-request delay has elapsed and
 // the named endpoint is not in a known rate-limit cooldown.
 func (c *Client) throttle(ctx context.Context, endpoint string) error {
 	c.mu.Lock()
+	// The global gate is whatever the user asked for with --rate, so it is
+	// honored however long it is. Clamping to zero matters: without it a
+	// zero-value nextOK pushes the next slot decades into the past and the
+	// configured delay is never applied again.
 	wait := time.Until(c.nextOK)
+	if wait < 0 {
+		wait = 0
+	}
 	// Pre-emptive per-endpoint backoff: if we know we are nearly out and the
 	// window has not reset, wait for the reset instead of provoking a 429.
 	if rl, ok := c.limits[endpoint]; ok && rl.remaining <= 2 && time.Now().Before(rl.reset) {
-		if d := time.Until(rl.reset); d > wait {
-			wait = d
+		cool := time.Until(rl.reset)
+		if cool > maxWait {
+			c.mu.Unlock()
+			return rateLimited(endpoint, rl.reset)
+		}
+		if cool > wait {
+			wait = cool
 		}
 	}
 	c.nextOK = time.Now().Add(wait).Add(c.cfg.Rate)
@@ -136,13 +157,40 @@ func (c *Client) Do(ctx context.Context, r Req) ([]byte, error) {
 		if he, ok := err.(*HTTPError); ok && he.RetryAfter > 0 {
 			back = he.RetryAfter
 		}
+		if back > maxWait {
+			return nil, c.limitErr(r.Endpoint, err)
+		}
 		select {
 		case <-ctx.Done():
 			return nil, ctx.Err()
 		case <-time.After(back):
 		}
 	}
+	if he, ok := lastErr.(*HTTPError); ok && he.Status == 429 {
+		return nil, c.limitErr(r.Endpoint, lastErr)
+	}
 	return nil, lastErr
+}
+
+// limitErr turns an exhausted window into the typed error the CLI maps to exit
+// code 5, naming the endpoint and when it comes back.
+func (c *Client) limitErr(endpoint string, err error) error {
+	c.mu.Lock()
+	reset := c.limits[endpoint].reset
+	c.mu.Unlock()
+	if he, ok := err.(*HTTPError); ok && he.Status != 429 {
+		return err
+	}
+	return rateLimited(endpoint, reset)
+}
+
+func rateLimited(endpoint string, reset time.Time) error {
+	msg := "rate limited by X on " + endpoint
+	if !reset.IsZero() && time.Now().Before(reset) {
+		msg += "; the window resets at " + reset.Local().Format("15:04:05") +
+			" (in " + time.Until(reset).Truncate(time.Second).String() + ")"
+	}
+	return &RateLimitedError{Msg: msg + "; slow down with --rate, or try again then"}
 }
 
 func (c *Client) do1(ctx context.Context, r Req) ([]byte, bool, error) {

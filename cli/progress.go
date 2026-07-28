@@ -11,7 +11,7 @@ import (
 
 // spinner is a minimal progress indicator for the slow network reads. It writes
 // only to stderr, and only when stderr is an interactive terminal, so it never
-// lands a byte on stdout — the data a command prints — and a pipeline like
+// lands a byte on stdout, the data a command prints, and a pipeline like
 // `x timeline nasa | jq` stays clean. It also waits a short beat before its
 // first frame, so a command that finishes quickly never paints anything.
 //
