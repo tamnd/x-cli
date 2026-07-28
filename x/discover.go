@@ -23,85 +23,95 @@ import (
 // many. The constants live there, with the other fourteen kinds.
 type NodeKind = string
 
-// Edge names a link the walk can follow. The string is the public vocabulary:
-// it is what the user types in --follow, what lands in the store's edges.kind
-// column, and what a discovered node reports as the edge it arrived by.
-type Edge string
+// Hop names a move the walk can make. The string is the public vocabulary: it
+// is what the user types in --follow and what a discovered node reports as the
+// way it was reached.
+//
+// A hop is not an edge, and graph.go has the other one. An edge is a claim a
+// record makes, with a direction fixed by the claim: @alice authored tweet 123.
+// A hop is a direction of travel, and half of them run against the arrow. The
+// liker hop goes from a tweet to the accounts that liked it, and the edge under
+// it points the other way, from each account to the tweet. Collapsing the two
+// vocabularies would cost the walk the distinctions it needs: author and
+// timeline are both the authored edge, and reply and replies are both
+// replies_to, but a walk that cannot tell them apart cannot climb a thread
+// without also descending it.
+type Hop string
 
 const (
-	// Tier-0 edges: reachable from the object itself, no token needed.
-	EdgeAuthor   Edge = "author"   // tweet -> the account that wrote it
-	EdgeQuoted   Edge = "quote"    // tweet -> the tweet it quotes
-	EdgeRetweet  Edge = "retweet"  // tweet -> the original it retweets
-	EdgeReply    Edge = "reply"    // tweet -> the tweet it replies to (the parent)
-	EdgeMention  Edge = "mention"  // tweet -> each account it @-mentions
-	EdgePinned   Edge = "pinned"   // user  -> their pinned tweet
-	EdgeTimeline Edge = "timeline" // user  -> their recent tweets
+	// Tier-0 hops: reachable from the object itself, no token needed.
+	HopAuthor   Hop = "author"   // tweet -> the account that wrote it
+	HopQuoted   Hop = "quote"    // tweet -> the tweet it quotes
+	HopRetweet  Hop = "retweet"  // tweet -> the original it retweets
+	HopReply    Hop = "reply"    // tweet -> the tweet it replies to (the parent)
+	HopMention  Hop = "mention"  // tweet -> each account it @-mentions
+	HopPinned   Hop = "pinned"   // user  -> their pinned tweet
+	HopTimeline Hop = "timeline" // user  -> their recent tweets
 
-	// Tier-1/2 edges: need the guest or session GraphQL tier.
-	EdgeReplies   Edge = "replies"   // tweet -> the replies under it
-	EdgeLiker     Edge = "liker"     // tweet -> accounts that liked it
-	EdgeRetweeter Edge = "retweeter" // tweet -> accounts that retweeted it
-	EdgeQuotedBy  Edge = "quotedby"  // tweet -> tweets that quote it (search-backed)
-	EdgeFollowing Edge = "following" // user  -> accounts they follow
-	EdgeFollowers Edge = "followers" // user  -> accounts that follow them
-	EdgeLikes     Edge = "likes"     // user  -> tweets they liked
+	// Tier-1/2 hops: need the guest or session GraphQL tier.
+	HopReplies   Hop = "replies"   // tweet -> the replies under it
+	HopLiker     Hop = "liker"     // tweet -> accounts that liked it
+	HopRetweeter Hop = "retweeter" // tweet -> accounts that retweeted it
+	HopQuotedBy  Hop = "quotedby"  // tweet -> tweets that quote it (search-backed)
+	HopFollowing Hop = "following" // user  -> accounts they follow
+	HopFollowers Hop = "followers" // user  -> accounts that follow them
+	HopLikes     Hop = "likes"     // user  -> tweets they liked
 )
 
-// allEdges is the full vocabulary, in a stable display order.
-var allEdges = []Edge{
-	EdgeAuthor, EdgeQuoted, EdgeRetweet, EdgeReply, EdgeMention, EdgePinned, EdgeTimeline,
-	EdgeReplies, EdgeLiker, EdgeRetweeter, EdgeQuotedBy, EdgeFollowing, EdgeFollowers, EdgeLikes,
+// allHops is the full vocabulary, in a stable display order.
+var allHops = []Hop{
+	HopAuthor, HopQuoted, HopRetweet, HopReply, HopMention, HopPinned, HopTimeline,
+	HopReplies, HopLiker, HopRetweeter, HopQuotedBy, HopFollowing, HopFollowers, HopLikes,
 }
 
-// knownEdges indexes allEdges for validation.
-var knownEdges = func() map[Edge]bool {
-	m := make(map[Edge]bool, len(allEdges))
-	for _, e := range allEdges {
+// knownHops indexes allHops for validation.
+var knownHops = func() map[Hop]bool {
+	m := make(map[Hop]bool, len(allHops))
+	for _, e := range allHops {
 		m[e] = true
 	}
 	return m
 }()
 
-// Target reports the kind of node an edge leads to.
-func (e Edge) Target() NodeKind {
+// Target reports the kind of node a hop leads to.
+func (e Hop) Target() NodeKind {
 	switch e {
-	case EdgeAuthor, EdgeMention, EdgeLiker, EdgeRetweeter, EdgeFollowing, EdgeFollowers:
+	case HopAuthor, HopMention, HopLiker, HopRetweeter, HopFollowing, HopFollowers:
 		return KindUser
 	default:
 		return KindTweet
 	}
 }
 
-// needsSession reports whether an edge can only be followed with the user's own
+// needsSession reports whether a hop can only be followed with the user's own
 // session.
 //
-// The tier-0 edges are reachable straight from the syndication object or off the
+// The tier-0 hops are reachable straight from the syndication object or off the
 // status page; the rest are GraphQL operations X denies a guest token, so a
 // guest token buys none of them and the message says session.
 //
-// EdgeReplies is not on this list, and used to be. The replies under a tweet
-// come off the status page now, at tier 0, so dropping that edge from an
+// HopReplies is not on this list, and used to be. The replies under a tweet
+// come off the status page now, at tier 0, so dropping that hop from an
 // anonymous walk cost the walk its whole downward half for nothing.
-func (e Edge) needsSession() bool {
+func (e Hop) needsSession() bool {
 	switch e {
-	case EdgeLiker, EdgeRetweeter, EdgeQuotedBy, EdgeFollowing, EdgeFollowers, EdgeLikes:
+	case HopLiker, HopRetweeter, HopQuotedBy, HopFollowing, HopFollowers, HopLikes:
 		return true
 	default:
 		return false
 	}
 }
 
-// EdgeSet is a chosen set of edges to follow.
-type EdgeSet map[Edge]bool
+// HopSet is a chosen set of hops to follow.
+type HopSet map[Hop]bool
 
 // Has reports whether the set contains e (a nil set contains nothing).
-func (s EdgeSet) Has(e Edge) bool { return s[e] }
+func (s HopSet) Has(e Hop) bool { return s[e] }
 
-// List returns the set's edges in stable display order.
-func (s EdgeSet) List() []Edge {
-	var out []Edge
-	for _, e := range allEdges {
+// List returns the set's hops in stable display order.
+func (s HopSet) List() []Hop {
+	var out []Hop
+	for _, e := range allHops {
 		if s[e] {
 			out = append(out, e)
 		}
@@ -110,105 +120,105 @@ func (s EdgeSet) List() []Edge {
 }
 
 // String renders the set as a comma-separated, ordered list.
-func (s EdgeSet) String() string { return joinEdges(s.List()) }
+func (s HopSet) String() string { return joinHops(s.List()) }
 
-// edgePresets are the named bundles --follow accepts in place of listing edges.
+// hopPresets are the named bundles --follow accepts in place of listing hops.
 // They are the everyday intents: read what a post is made of, walk a thread,
 // study who engaged, map an account's network, sweep a timeline, or take it all.
-var edgePresets = map[string]EdgeSet{
-	"content":    newEdgeSet(EdgeAuthor, EdgeQuoted, EdgeRetweet, EdgeReply, EdgeMention, EdgePinned),
-	"thread":     newEdgeSet(EdgeAuthor, EdgeReply, EdgeReplies, EdgeQuoted),
-	"engagement": newEdgeSet(EdgeLiker, EdgeRetweeter, EdgeQuotedBy),
-	"network":    newEdgeSet(EdgeFollowing, EdgeFollowers),
-	"timeline":   newEdgeSet(EdgeTimeline, EdgePinned, EdgeAuthor),
-	"all":        newEdgeSet(allEdges...),
+var hopPresets = map[string]HopSet{
+	"content":    newHopSet(HopAuthor, HopQuoted, HopRetweet, HopReply, HopMention, HopPinned),
+	"thread":     newHopSet(HopAuthor, HopReply, HopReplies, HopQuoted),
+	"engagement": newHopSet(HopLiker, HopRetweeter, HopQuotedBy),
+	"network":    newHopSet(HopFollowing, HopFollowers),
+	"timeline":   newHopSet(HopTimeline, HopPinned, HopAuthor),
+	"all":        newHopSet(allHops...),
 }
 
 // presetNames lists the presets in a friendly order for help text.
 var presetNames = []string{"content", "thread", "engagement", "network", "timeline", "all"}
 
-func newEdgeSet(edges ...Edge) EdgeSet {
-	s := make(EdgeSet, len(edges))
-	for _, e := range edges {
+func newHopSet(hops ...Hop) HopSet {
+	s := make(HopSet, len(hops))
+	for _, e := range hops {
 		s[e] = true
 	}
 	return s
 }
 
-// DefaultEdges is what a walk follows when --follow is unset: a post's content.
+// DefaultHops is what a walk follows when --follow is unset: a post's content.
 // It stays entirely on Tier 0, so `x discover <tweet>` works with no token.
-func DefaultEdges() EdgeSet { return edgePresets["content"].clone() }
+func DefaultHops() HopSet { return hopPresets["content"].clone() }
 
-func (s EdgeSet) clone() EdgeSet {
-	out := make(EdgeSet, len(s))
+func (s HopSet) clone() HopSet {
+	out := make(HopSet, len(s))
 	for e := range s {
 		out[e] = true
 	}
 	return out
 }
 
-// EdgeHelp is the one-line catalogue of presets and edges for flag help and
+// HopHelp is the one-line catalogue of presets and hops for flag help and
 // usage errors, so the names a user can type live in exactly one place.
-func EdgeHelp() string {
-	return "presets: " + strings.Join(presetNames, ",") + "; edges: " + joinEdges(allEdges)
+func HopHelp() string {
+	return "presets: " + strings.Join(presetNames, ",") + "; hops: " + joinHops(allHops)
 }
 
-// ParseEdges turns a --follow spec into an EdgeSet. The spec is a comma list of
-// preset names and/or edge names ("content", "thread,engagement", "author,liker").
-// An empty spec yields DefaultEdges. An unknown token is a usage error naming the
+// ParseHops turns a --follow spec into a HopSet. The spec is a comma list of
+// preset names and/or hop names ("content", "thread,engagement", "author,liker").
+// An empty spec yields DefaultHops. An unknown token is a usage error naming the
 // catalogue, so a typo points the user at the real vocabulary.
-func ParseEdges(spec string) (EdgeSet, error) {
+func ParseHops(spec string) (HopSet, error) {
 	spec = strings.TrimSpace(spec)
 	if spec == "" {
-		return DefaultEdges(), nil
+		return DefaultHops(), nil
 	}
-	set := EdgeSet{}
+	set := HopSet{}
 	for _, part := range strings.Split(spec, ",") {
 		p := strings.ToLower(strings.TrimSpace(part))
 		if p == "" {
 			continue
 		}
-		if preset, ok := edgePresets[p]; ok {
+		if preset, ok := hopPresets[p]; ok {
 			for e := range preset {
 				set[e] = true
 			}
 			continue
 		}
-		e := Edge(p)
-		if !knownEdges[e] {
-			return nil, fmt.Errorf("unknown edge or preset %q (%s)", p, EdgeHelp())
+		e := Hop(p)
+		if !knownHops[e] {
+			return nil, fmt.Errorf("unknown hop or preset %q (%s)", p, HopHelp())
 		}
 		set[e] = true
 	}
 	if len(set) == 0 {
-		return nil, fmt.Errorf("no edges selected (%s)", EdgeHelp())
+		return nil, fmt.Errorf("no hops selected (%s)", HopHelp())
 	}
 	return set, nil
 }
 
-func joinEdges(edges []Edge) string {
-	ss := make([]string, len(edges))
-	for i, e := range edges {
+func joinHops(hops []Hop) string {
+	ss := make([]string, len(hops))
+	for i, e := range hops {
 		ss[i] = string(e)
 	}
 	return strings.Join(ss, ",")
 }
 
 // Node is one object the walk reached, tagged with how it got there: the BFS
-// depth, the edge it arrived by, and the endpoint of the node it came from.
+// depth, the hop it arrived by, and the endpoint of the node it came from.
 // Exactly one of Tweet/User is set, matching Kind. Node is what Walk hands to
 // its callback and what the CLI renders.
 type Node struct {
 	Kind   NodeKind `json:"kind"`
 	Depth  int      `json:"depth"`
-	Via    Edge     `json:"via,omitempty"`
+	Via    Hop      `json:"via,omitempty"`
 	Parent string   `json:"parent,omitempty"`
 	Tweet  *Tweet   `json:"tweet,omitempty"`
 	User   *User    `json:"user,omitempty"`
 }
 
 // Endpoint is the node's stable identifier inside a walk: a tweet id, or a
-// "@handle" for a user. It is what edges record as src/dst and what the store
+// "@handle" for a user. It is what hops record as src/dst and what the store
 // keys a queue row by.
 func (n *Node) Endpoint() string {
 	if n.Kind == KindTweet {
@@ -275,18 +285,18 @@ func ParseSeed(ref string) (Seed, error) {
 
 // WalkOptions tunes a traversal.
 type WalkOptions struct {
-	Depth  int     // hops to follow from each seed (0 = seeds only)
-	Max    int     // stop after emitting this many nodes (0 = unlimited)
-	Fanout int     // per-edge neighbor cap (0 = unlimited)
-	Edges  EdgeSet // edges to follow (nil = DefaultEdges)
+	Depth  int    // hops to follow from each seed (0 = seeds only)
+	Max    int    // stop after emitting this many nodes (0 = unlimited)
+	Fanout int    // per-hop neighbor cap (0 = unlimited)
+	Hops   HopSet // hops to follow (nil = DefaultHops)
 
-	// OnEdge, if set, is called for every edge the walk traverses, before the
-	// neighbor is visited, with the two endpoints and the edge. The store sink
+	// OnHop, if set, is called for every hop the walk traverses, before the
+	// neighbor is visited, with the two endpoints and the hop. The store sink
 	// uses it to record the graph; it fires even for an already-visited neighbor
-	// so the edge list stays complete.
-	OnEdge func(src, dst string, edge Edge)
+	// so the hop list stays complete.
+	OnHop func(src, dst string, hop Hop)
 
-	// Note, if set, surfaces a one-line advisory (a skipped tier-only edge set, a
+	// Note, if set, surfaces a one-line advisory (a skipped tier-only hop set, a
 	// neighbor that could not be fetched). It never carries a fatal error.
 	Note func(string)
 }
@@ -330,7 +340,7 @@ type frontier struct {
 	ref    string
 	isID   bool
 	depth  int
-	via    Edge
+	via    Hop
 	parent string
 	tweet  *Tweet
 	user   *User
@@ -351,28 +361,28 @@ func (f frontier) key() string {
 
 // Walk visits the seeds and their links in breadth-first order, calling emit for
 // each node as it is reached. It returns when the queue drains, the node budget
-// (opts.Max) is hit, emit returns an error, or a seed cannot be fetched. Edges
+// (opts.Max) is hit, emit returns an error, or a seed cannot be fetched. Hops
 // that need a tier are dropped (with a Note) when none is configured, so a
 // Tier-0 walk always produces what it can rather than erroring.
 func (w *Walker) Walk(ctx context.Context, seeds []Seed, opts WalkOptions, emit func(*Node) error) error {
-	edges := opts.Edges
-	if edges == nil {
-		edges = DefaultEdges()
+	hops := opts.Hops
+	if hops == nil {
+		hops = DefaultHops()
 	}
 	if !w.g.HasSession() {
-		var dropped []Edge
-		for _, e := range edges.List() {
+		var dropped []Hop
+		for _, e := range hops.List() {
 			if e.needsSession() {
-				delete(edges, e)
+				delete(hops, e)
 				dropped = append(dropped, e)
 			}
 		}
 		if len(dropped) > 0 && opts.Note != nil {
-			opts.Note("skipping edges that need your own session (" + joinEdges(dropped) +
+			opts.Note("skipping hops that need your own session (" + joinHops(dropped) +
 				"); run `x auth import` to follow them")
 		}
-		if opts.Depth > 0 && len(edges) == 0 {
-			return needSession("every selected edge")
+		if opts.Depth > 0 && len(hops) == 0 {
+			return needSession("every selected hop")
 		}
 	}
 
@@ -416,7 +426,7 @@ func (w *Walker) Walk(ctx context.Context, seeds []Seed, opts WalkOptions, emit 
 		if f.depth >= opts.Depth {
 			continue
 		}
-		for _, nb := range w.neighbors(ctx, node, edges, opts) {
+		for _, nb := range w.neighbors(ctx, node, hops, opts) {
 			if !visited[nb.key()] {
 				queue = append(queue, nb)
 			}
@@ -450,29 +460,29 @@ func (w *Walker) hydrate(ctx context.Context, f frontier) (*Node, error) {
 	return n, nil
 }
 
-// neighbors expands a node into its outbound frontier under the chosen edges,
-// recording each edge via opts.OnEdge. The per-edge fanout caps every list read
+// neighbors expands a node into its outbound frontier under the chosen hops,
+// recording each hop via opts.OnHop. The per-hop fanout caps every list read
 // and the inline mention loop, so one hop can never page an account's whole
 // follower graph unless the caller asked for it (Fanout 0).
-func (w *Walker) neighbors(ctx context.Context, n *Node, edges EdgeSet, opts WalkOptions) []frontier {
+func (w *Walker) neighbors(ctx context.Context, n *Node, hops HopSet, opts WalkOptions) []frontier {
 	var out []frontier
 	cap := opts.Fanout
 	src := n.Endpoint()
 
-	addTweet := func(via Edge, id string, t *Tweet) {
+	addTweet := func(via Hop, id string, t *Tweet) {
 		dst := id
 		if t != nil {
 			dst = t.ID
 		}
-		if opts.OnEdge != nil {
-			opts.OnEdge(src, dst, via)
+		if opts.OnHop != nil {
+			opts.OnHop(src, dst, via)
 		}
 		out = append(out, frontier{kind: KindTweet, ref: id, depth: n.Depth + 1, via: via, parent: src, tweet: t})
 	}
-	addUser := func(via Edge, handle string, isID bool, u *User) {
+	addUser := func(via Hop, handle string, isID bool, u *User) {
 		dst := userEndpoint(u, handle)
-		if opts.OnEdge != nil {
-			opts.OnEdge(src, dst, via)
+		if opts.OnHop != nil {
+			opts.OnHop(src, dst, via)
 		}
 		out = append(out, frontier{kind: KindUser, ref: handle, isID: isID, depth: n.Depth + 1, via: via, parent: src, user: u})
 	}
@@ -480,82 +490,82 @@ func (w *Walker) neighbors(ctx context.Context, n *Node, edges EdgeSet, opts Wal
 	switch n.Kind {
 	case KindTweet:
 		t := n.Tweet
-		if edges.Has(EdgeAuthor) && t.Author != nil && t.Author.Username != "" {
-			addUser(EdgeAuthor, t.Author.Username, false, t.Author)
+		if hops.Has(HopAuthor) && t.Author != nil && t.Author.Username != "" {
+			addUser(HopAuthor, t.Author.Username, false, t.Author)
 		}
-		if edges.Has(EdgeQuoted) && t.Quoted != nil && t.Quoted.ID != "" {
-			addTweet(EdgeQuoted, t.Quoted.ID, t.Quoted)
+		if hops.Has(HopQuoted) && t.Quoted != nil && t.Quoted.ID != "" {
+			addTweet(HopQuoted, t.Quoted.ID, t.Quoted)
 		}
-		if edges.Has(EdgeRetweet) && t.Retweeted != nil && t.Retweeted.ID != "" {
-			addTweet(EdgeRetweet, t.Retweeted.ID, t.Retweeted)
+		if hops.Has(HopRetweet) && t.Retweeted != nil && t.Retweeted.ID != "" {
+			addTweet(HopRetweet, t.Retweeted.ID, t.Retweeted)
 		}
-		if edges.Has(EdgeReply) && t.ReplyTo != "" {
-			addTweet(EdgeReply, t.ReplyTo, nil)
+		if hops.Has(HopReply) && t.ReplyTo != "" {
+			addTweet(HopReply, t.ReplyTo, nil)
 		}
-		if edges.Has(EdgeMention) {
+		if hops.Has(HopMention) {
 			for i, m := range t.Entities.Mentions {
 				if cap > 0 && i >= cap {
 					break
 				}
-				addUser(EdgeMention, m, false, nil)
+				addUser(HopMention, m, false, nil)
 			}
 		}
-		if edges.Has(EdgeReplies) {
+		if hops.Has(HopReplies) {
 			// Replies and not Thread. Thread also walks upward, and an ancestor
-			// arriving on the `replies` edge would be an edge that points the
-			// wrong way: the upward hop is EdgeReply, and it is already followed
+			// arriving on the `replies` hop would be a hop that points the
+			// wrong way: the upward hop is HopReply, and it is already followed
 			// from in_reply_to above.
 			_, err := w.g.Replies(ctx, t.ID, cap, func(r *Tweet) error {
-				addTweet(EdgeReplies, r.ID, r)
+				addTweet(HopReplies, r.ID, r)
 				return nil
 			})
 			w.note(opts, err)
 		}
-		if edges.Has(EdgeLiker) {
+		if hops.Has(HopLiker) {
 			w.note(opts, w.g.Likers(ctx, t.ID, cap, func(u *User) error {
-				addUser(EdgeLiker, u.Username, false, u)
+				addUser(HopLiker, u.Username, false, u)
 				return nil
 			}))
 		}
-		if edges.Has(EdgeRetweeter) {
+		if hops.Has(HopRetweeter) {
 			w.note(opts, w.g.Retweeters(ctx, t.ID, cap, func(u *User) error {
-				addUser(EdgeRetweeter, u.Username, false, u)
+				addUser(HopRetweeter, u.Username, false, u)
 				return nil
 			}))
 		}
-		if edges.Has(EdgeQuotedBy) {
+		if hops.Has(HopQuotedBy) {
 			q := SearchQuery{Raw: "quoted_tweet_id:" + t.ID, Product: "Latest", Limit: cap}
 			w.note(opts, w.g.Search(ctx, q, func(r *Tweet) error {
-				addTweet(EdgeQuotedBy, r.ID, r)
+				addTweet(HopQuotedBy, r.ID, r)
 				return nil
 			}))
 		}
 	case KindUser:
 		u := n.User
-		if edges.Has(EdgePinned) && u.PinnedTweet != "" {
-			addTweet(EdgePinned, u.PinnedTweet, nil)
+		if hops.Has(HopPinned) && u.PinnedTweet != "" {
+			addTweet(HopPinned, u.PinnedTweet, nil)
 		}
-		if edges.Has(EdgeTimeline) {
+		if hops.Has(HopTimeline) {
 			w.note(opts, w.g.Timeline(ctx, u.Username, false, TimelineOpts{Limit: cap}, func(r *Tweet) error {
-				addTweet(EdgeTimeline, r.ID, r)
+				addTweet(HopTimeline, r.ID, r)
 				return nil
 			}))
 		}
-		if edges.Has(EdgeFollowing) {
+		if hops.Has(HopFollowing) {
 			w.note(opts, w.g.Following(ctx, u.Username, false, cap, func(f *User) error {
-				addUser(EdgeFollowing, f.Username, false, f)
+				addUser(HopFollowing, f.Username, false, f)
 				return nil
 			}))
 		}
-		if edges.Has(EdgeFollowers) {
+		if hops.Has(HopFollowers) {
 			w.note(opts, w.g.Followers(ctx, u.Username, false, cap, func(f *User) error {
-				addUser(EdgeFollowers, f.Username, false, f)
+				addUser(HopFollowers, f.Username, false, f)
 				return nil
 			}))
 		}
-		if edges.Has(EdgeLikes) {
+		if hops.Has(HopLikes) {
 			w.note(opts, w.g.Likes(ctx, u.Username, false, cap, func(r *Tweet) error {
-				addTweet(EdgeLikes, r.ID, r)
+				addTweet(HopLikes, r.ID, r)
 				return nil
 			}))
 		}
@@ -576,7 +586,7 @@ func (w *Walker) note(opts WalkOptions, err error) {
 func (e *Engine) CanGraphQL() bool { return e.canGraphQL() }
 
 // HasSession reports whether the user's own session is configured. It is what
-// the walker asks, because every edge the walker can be denied is denied to a
+// the walker asks, because every hop the walker can be denied is denied to a
 // guest token too, and a --tier ceiling below the session tier means the walker
 // should not count on one either.
 func (e *Engine) HasSession() bool {

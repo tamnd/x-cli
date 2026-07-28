@@ -16,6 +16,38 @@ x discover nasa              # what is this account linked to?
 A *seed* is any tweet or user reference: a tweet id or status URL, or a handle
 or profile URL. Pass more than one to start the walk from several places at once.
 
+## The graph one record already carries
+
+Before walking anywhere, look at what a single read is worth. `x edges` fetches
+the references you name and prints the claims those records make, as
+`from predicate to` with the URL each claim came from:
+
+```bash
+x edges 1903142823316049977 --fields from,predicate,to -o table
+```
+
+```text
+from                           predicate   to
+x://tweet/1903142823316049977  replies_to  x://tweet/1903136743634723031
+x://tweet/1903142823316049977  mentions    x://user/jack
+x://tweet/1903142823316049977  mentions    x://user/marmoushera
+x://user/guyfishermoney        authored    x://tweet/1903142823316049977
+x://user/marmoushera           authored    x://tweet/1903136743634723031
+```
+
+That is five edges about five nodes for one anonymous request, and one of them
+names the author of a tweet nobody has fetched. Every row also carries the tier
+and surface it cost, so a graph assembled from mixed reads can be filtered by how
+much you trust each claim. `--conflicts` narrows the output to claims two sources
+cannot both be right about, printing both sides with a marker on the one that
+wins on provenance instead of quietly picking a side.
+
+A hop is not an edge, and the difference matters once you start walking. An edge
+is a claim, pointing the way the claim points. A hop is a direction of travel,
+and half of them run against the arrow: the `liker` hop goes from a tweet out to
+the accounts that liked it, while the edge underneath points from each account
+back at the tweet.
+
 ## What gets followed
 
 The default follows a post's **content** and stays entirely on Tier 0, so it
@@ -33,16 +65,16 @@ x discover <user> --follow timeline    # timeline, pinned, author
 x discover <ref> --follow all          # everything
 ```
 
-or a comma-separated list of individual edges:
+or a comma-separated list of individual hops:
 
 ```bash
 x discover <ref> --follow author,quote,mention
 x discover <ref> --follow replies,liker
 ```
 
-The full edge vocabulary:
+The full hop vocabulary:
 
-| Edge | From → to | Tier | What it follows |
+| Hop | From → to | Tier | What it follows |
 |---|---|---|---|
 | `author` | tweet → user | 0 | who wrote the tweet |
 | `quote` | tweet → tweet | 0 | the tweet it quotes |
@@ -59,24 +91,24 @@ The full edge vocabulary:
 | `followers` | user → user | session | accounts that follow it |
 | `likes` | user → tweet | session | tweets it liked |
 
-The Tier-0 edges work with nothing. The rest read the GraphQL surface, which X
-answers for your own session (`x auth import`) and not for a guest token. When you ask for an edge
-you have no tier for, `x discover` drops it with a one-line note on stderr and
-keeps going on what it can reach, rather than failing the whole walk. The one
-exception is when *every* edge you asked for needs a tier: then there is nothing
-to do and it exits `4` with the tier to add.
+The Tier-0 hops work with nothing. The rest read the GraphQL surface, which X
+answers for your own session (`x auth import`) and not for a guest token. When
+you ask for a hop you have no tier for, `x discover` drops it with a one-line
+note on stderr and keeps going on what it can reach, rather than failing the
+whole walk. The one exception is when *every* hop you asked for needs a tier:
+then there is nothing to do and it exits `4` with the tier to add.
 
 ## How far and how wide
 
 ```bash
 x discover <ref> --depth 2            # follow two hops from the seed (default 1)
-x discover <ref> --fanout 50          # up to 50 neighbors per edge (default 25)
-x discover <ref> --fanout 0           # no per-edge cap
+x discover <ref> --fanout 50          # up to 50 neighbors per hop (default 25)
+x discover <ref> --fanout 0           # no per-hop cap
 x discover <ref> -n 1000              # stop after 1000 nodes total (default 500)
 ```
 
 `--depth` is how many hops to follow. `--fanout` caps how many neighbors each
-edge contributes per node, so one hop never pages a whole follower graph unless
+hop contributes per node, so one hop never pages a whole follower graph unless
 you raise it. `-n/--limit` is the total node budget, the hard stop on a deep or
 wide walk.
 

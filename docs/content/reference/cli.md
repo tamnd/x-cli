@@ -76,6 +76,7 @@ change your account. `likes`, `likers`, `followers`, and `bookmarks` only read.
 
 | Command | What it does | Key flags |
 |---|---|---|
+| `edges <ref>...` | The graph claims one record makes, without walking anywhere | `--conflicts` |
 | `discover <seed>...` | Breadth-first walk of the graph linked from a tweet or user (aliases `walk`, `graph`) | `--follow`, `--depth`, `--fanout`, `--store`, `-n` |
 | `crawl <seed>...` | The same walk, persisted into the local store | `--follow`, `--depth`, `--fanout`, `--max` |
 | `db stats` | Row counts per table | |
@@ -84,14 +85,27 @@ change your account. `likes`, `likers`, `followers`, and `bookmarks` only read.
 | `queue clear` | Empty the crawl queue | |
 | `export <user> <out-dir>` | Render a stored user's tweets as Markdown | |
 
+`edges` is one read per reference and no walking at all. It prints the claims a
+record already makes about other nodes, as `from predicate to` with the URL it
+was read from and the tier that cost. A tweet read with no credential is five or
+six edges for a single request, which is what makes it the cheap way to see what
+a surface is worth before spending a budget on a crawl. `--conflicts` narrows the
+output to claims two sources cannot both be right about, and prints both sides
+with a marker on the one that wins on provenance rather than picking for you.
+
 `discover` and `crawl` share the same walk: `--follow` is a preset (`content`,
-`thread`, `engagement`, `network`, `timeline`, `all`) or a comma-separated edge
+`thread`, `engagement`, `network`, `timeline`, `all`) or a comma-separated hop
 list, `--depth` is how many hops to follow (default `1`), and `--fanout` caps
-neighbors per edge (default `25`). `discover` streams nodes and stops at `-n`
+neighbors per hop (default `25`). `discover` streams nodes and stops at `-n`
 (default `500`); add `--store` to also persist them. `crawl` always persists and
 stops at `--max` (default `200`). The store is a fixed `x.db` under `--data-dir`.
-Engagement and network edges need a session. See
+Engagement and network hops need a session. See
 [graph discovery](/guides/graph-discovery/).
+
+A hop is not an edge. A hop is a direction the walk travels and an edge is a
+claim a record makes, and half the hops run against the arrow: the `liker` hop
+goes from a tweet to the accounts that liked it, and the edge under it points
+from each account back to the tweet.
 
 ## Meta
 
