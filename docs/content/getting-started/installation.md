@@ -21,6 +21,23 @@ go install github.com/tamnd/x-cli/cmd/x@latest
 That puts `x` in `$(go env GOPATH)/bin`, which is `~/go/bin` unless you moved
 it. Make sure that directory is on your `PATH`.
 
+## Container image
+
+Every release also pushes a multi-platform image (linux/amd64 and linux/arm64)
+to the GitHub container registry, with the version and `latest` as tags:
+
+```bash
+docker run --rm ghcr.io/tamnd/x:latest tweet 20
+```
+
+The entrypoint is `x` itself, so everything after the image name is the command
+line. All of its state lives under `/data`, so mount a volume there to keep the
+cache, the session, and the local store between runs:
+
+```bash
+docker run --rm -v ~/.x-data:/data ghcr.io/tamnd/x:latest timeline nasa -n 20
+```
+
 ## From source
 
 ```bash

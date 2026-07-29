@@ -27,16 +27,16 @@ think about them. They differ in what they can reach and what they cost you.
 - **Tier 1, guest GraphQL.** Opt in with `--guest`. x mints a guest token, which
   is cached on disk between runs so repeated commands do not re-mint it and trip
   X's rate limits. It buys less than it used to: measured on 2026-07-28 it
-  reaches the profile read and the deeper timeline walk, and X denies it
-  everything else on the GraphQL surface. So `--guest` is worth adding to
-  `x timeline` and to little else.
+  reaches five operations, the profile read by handle or by id, the deeper
+  timeline walk, the tweet read (which adds the client a tweet was posted from),
+  and an audio Space. X denies it everything else on the GraphQL surface.
 - **Tier 2, session GraphQL.** Your own browser cookies, imported once with
   `x auth import`. This reaches the reads X reserves for a logged-in client:
   search, followers and following, your home timeline, and your bookmarks. x is
   read-only, so the session is only ever used to fetch data, never to act.
 
-`x info` prints the tiers it has available and what each can do right now.
-Cap a run with `--tier 0`, `--tier 1` or `--tier 2` when you want to see what a
+`x tiers` prints the tiers it has available and what each can do right now, and
+`x doctor` goes further and asks every surface live. Cap a run with `--tier 0`, `--tier 1` or `--tier 2` when you want to see what a
 reader with that much credential gets, or pin one surface with
 `--tier syndication|oembed|web|guest|session` when you want to know what a
 single plane says.

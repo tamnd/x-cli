@@ -98,17 +98,20 @@ Neither one touches the network. Crawl once and the graph is yours.
 ## Export the graph as RDF
 
 ```bash
-x export --db nasa.db --format nq > nasa.nq
-x export --db nasa.db --format ttl --kind tweet --since 2026-07-01
+x export --format nq > nasa.nq
+x export --format ttl --kind tweet --since 2026-07-01
 ```
 
 `x export --format` walks the whole store into RDF, in the same schema.org
-vocabulary `x rdf` writes and the same four serializations. Nothing here goes
-back to the network, so the crawl you paid for once is a graph forever, and
-`nasa.nq` loads into a triple store beside data that has nothing to do with X.
+vocabulary `x rdf` writes and the same four serializations. There is nothing to
+point it at: the store is the one at `x.db` under the data dir, so
+`--data-dir ./crawl-a` is how you export one crawl rather than another. Nothing
+here goes back to the network, so the crawl you paid for once is a graph
+forever, and `nasa.nq` loads into a triple store beside data that has nothing to
+do with X.
 
 ```console
-$ x export --db nasa.db --format ttl | head -12
+$ x export --format ttl | head -12
 @prefix rdf:    <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix schema: <https://schema.org/> .
 @prefix x:      <https://x-cli.tamnd.com/ns#> .

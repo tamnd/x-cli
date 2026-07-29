@@ -34,7 +34,8 @@ override that:
 Anything else is a usage error naming the values, so a typo does not quietly
 read as if you had passed no flag.
 
-`x info` prints which tiers are available and what each can do right now.
+`x tiers` prints which tiers are available and what each can do right now, and
+`x routes` prints which surface answers which question at each of them.
 
 ## Query-id overrides
 

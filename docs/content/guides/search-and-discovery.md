@@ -80,11 +80,11 @@ session, even though the list is public.
 
 ## Session versus guest
 
-A guest token buys two operations: the profile read and the deeper timeline
-walk. Measured on 2026-07-28, every other GraphQL call on this page came back
-404 with an empty body under `--guest`, which is how X says no to a credential
-it does not accept. So `--guest` is worth adding to `x timeline` and worth
-nothing here.
+A guest token buys five operations, and none of them are on this page: the
+profile read by handle or by id, the deeper timeline walk, the tweet read, and
+an audio Space. Measured on 2026-07-28, every other GraphQL call came back 404
+with an empty body under `--guest`, which is how X says no to a credential it
+does not accept. So `--guest` is worth nothing here.
 
 Your own session (`x auth import`) is what these need. When a command needs more
 than you have enabled, x exits with code `4` and tells you which tier to add.
