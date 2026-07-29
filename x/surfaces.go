@@ -50,7 +50,7 @@ type Tier struct {
 // time from the config, because it is a statement about this machine rather than
 // about X.
 var Tiers = []Tier{
-	{0, "none", "tweet, user, timeline sample, list tweets, replies, media, oembed, bookmark and view counts, trends, places"},
+	{0, "none", "tweet, user, timeline sample, replies, thread, media, oembed, bookmark and view counts, trends, places"},
 	{1, "guest token", "adds source, the paged archive, and Spaces"},
 	{2, "session cookies", "adds search, whole threads, followers, likers, lists, your bookmarks"},
 }
@@ -84,7 +84,11 @@ var Routes = []Route{
 	{"a quoted tweet", "surface 1 quoted_tweet", "same, richer", "same"},
 	{"media urls", "surface 1 mediaDetails, or surface 8 og:image at original size",
 		"surface 4 extended_entities", "same"},
-	{"a list's tweets", "surface 2 /srv/list/{id}", "surface 2, the same read", "surface 7"},
+	// Surface 2 used to carry /srv/list/{id} and the row said so. It answers 404
+	// now, for any id, and `x list` has needed a session for as long as the
+	// command has existed. A table the binary prints is a claim about the
+	// binary, so the row says what the command does.
+	{"a list's tweets", "", "", "surface 7"},
 	{"trends", "surface 5, on the public bearer alone", "the same read, and a guest token would only shrink the budget", "the same read"},
 	{"places", "surface 5, the whole woeid directory", "the same read", "the same read"},
 	{"replies to a tweet", "surface 8, three of them, not paged", "the same three",
