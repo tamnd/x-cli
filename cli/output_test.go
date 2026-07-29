@@ -6,6 +6,7 @@ import (
 	"testing"
 
 	"github.com/tamnd/any-cli/kit"
+	"github.com/tamnd/any-cli/kit/errs"
 	"github.com/tamnd/any-cli/kit/render"
 )
 
@@ -34,6 +35,44 @@ func TestOutDefaultFormat(t *testing.T) {
 				t.Errorf("Format = %q, want %q", r.Format(), c.want)
 			}
 		})
+	}
+}
+
+// A format nobody has is a usage error, the same way a tier nobody has is. The
+// renderer's own default arm sends an unknown format to jsonl, so without this
+// check `-o jsonl1` printed jsonl and exited 0.
+func TestOutRefusesAFormatItDoesNotHave(t *testing.T) {
+	cases := []struct {
+		name string
+		out  kit.OutputOptions
+		want errs.Kind
+	}{
+		{"a typo", kit.OutputOptions{Format: "jsonl1"}, errs.KindUsage},
+		{"a format from another tool", kit.OutputOptions{Format: "yaml"}, errs.KindUsage},
+		{"template with nothing to render", kit.OutputOptions{Format: "template"}, errs.KindUsage},
+		{"template with something to render", kit.OutputOptions{Format: "template", Template: "{{.id}}"}, errs.KindOK},
+		{"an alias kit folds", kit.OutputOptions{Format: "md"}, errs.KindOK},
+		{"the other alias", kit.OutputOptions{Format: "sections"}, errs.KindOK},
+		{"no -o at all", kit.OutputOptions{}, errs.KindOK},
+	}
+	for _, c := range cases {
+		t.Run(c.name, func(t *testing.T) {
+			a := &App{st: &kit.State{Output: c.out}}
+			_, err := a.out()
+			if got := errs.KindOf(err); got != c.want {
+				t.Errorf("out() = %v (kind %v), want kind %v", err, got, c.want)
+			}
+		})
+	}
+}
+
+// The one value that is real and still cannot stand alone. It used to reach the
+// renderer with a nil template and panic on the first record.
+func TestTemplateFormatWithNoTemplateSaysSo(t *testing.T) {
+	a := &App{st: &kit.State{Output: kit.OutputOptions{Format: "template"}}}
+	_, err := a.out()
+	if err == nil || !strings.Contains(err.Error(), "--template") {
+		t.Errorf("out() = %v, want a message pointing at --template", err)
 	}
 }
 

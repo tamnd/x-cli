@@ -35,8 +35,9 @@ uses, across three tiers. It picks the cheapest one that can answer each call:
   all. Serves single tweets, profiles, and the recent timeline window.
 - **Tier 1, guest GraphQL.** An opt-in (`--guest`) guest token, minted the same
   way the web client mints one. X has narrowed what it answers for one: as of
-  July 2026 it pages deeper into timelines and resolves a profile, and that is
-  the whole of it.
+  July 2026 it is five operations, the profile read by handle or by id, the
+  deeper timeline walk, the tweet read, and an audio Space. Everything else on
+  that surface comes back 404.
 - **Tier 2, session GraphQL.** Your own browser session cookies, imported with
   `x auth import`. Unlocks reads X reserves for logged-in clients: search,
   followers/following, your home timeline, and bookmarks.
@@ -47,8 +48,13 @@ change your account.
 
 ## Install
 
+Grab a binary from the [releases](https://github.com/tamnd/x-cli/releases)
+(archives for Linux, macOS and Windows on amd64 and arm64, plus deb, rpm and
+apk), or:
+
 ```bash
 go install github.com/tamnd/x-cli/cmd/x@latest
+docker run --rm ghcr.io/tamnd/x:latest tweet 20
 ```
 
 Or build from source:
@@ -83,6 +89,7 @@ Tier 0 needs nothing, `g` needs `--guest`, `s` needs a session.
 | `x likers <ref>` / `x retweeters <ref>` | who liked or retweeted | s |
 | `x home` / `x bookmarks` | your home timeline, your bookmarks | s |
 | `x space <ref>` | an audio Space: hosts, speakers, times, audience | g |
+| `x trends [woeid]` / `x places [query]` | what is trending in a place, and the places there are | 0 |
 | `x embed <ref>` | a tweet's oEmbed blockquote, verbatim | 0 |
 | `x download <ref>` | a tweet's media to disk | 0 |
 | `x edges <ref>...` | the graph claims a record makes, one read and no walking | 0 |
@@ -93,9 +100,14 @@ Tier 0 needs nothing, `g` needs `--guest`, `s` needs a session.
 
 `x serve` exposes the reads over HTTP as NDJSON, one route each under `/v1/`, and
 `x mcp` exposes the same 24 as MCP tools for an agent. Both take the global
-flags, so the tier you serve at is the one you pass. See the
-[CLI reference](https://x-cli.tamnd.com/reference/cli/) for the full surface and
-every flag.
+flags, so the tier you serve at is the one you pass.
+
+x also says what it knows about itself, from the same tables it routes on:
+`x tiers` for what each credential buys, `x routes` for which surface answers
+which question, `x surfaces` for the limits and cache lives, `x fields tweet`
+for which surface fills which field, and `x doctor` to ask all eight live. See
+the [CLI reference](https://x-cli.tamnd.com/reference/cli/) for the full surface
+and every flag.
 
 ## Output
 
@@ -109,7 +121,7 @@ x timeline nasa --guest -o table         # aligned columns in a grid
 x timeline nasa --guest -o jsonl         # one JSON object per line
 x timeline nasa --guest -o csv --fields id,likes,text
 x timeline nasa --guest -o url           # just the permalinks
-x user nasa -o template --template '{{.username}} {{.metrics.followers}}'
+x user nasa --template '{{.username}} {{.metrics.followers}}'
 ```
 
 Tweet and account IDs are always strings, so a snowflake never loses precision
@@ -138,15 +150,17 @@ follows, or otherwise changes your account.
 
 ## Local store
 
-Point any read at `--db` and it also lands in a local SQLite store, so a read
-doubles as a crawl. `x crawl` walks accounts breadth-first, and `x db` queries
-what you have collected.
+`x crawl` walks the graph breadth-first into a local SQLite store, `x discover
+--store` tees a live walk into the same place, and `x query` runs SQL back over
+it without touching the network. The store is `x.db` under the data dir; point
+`--data-dir` somewhere else to keep crawls apart.
 
 ```bash
-x timeline nasa --guest -n 200 --db x.db
-x crawl nasa --depth 1 --db x.db
-x db stats --db x.db
+x crawl nasa --depth 1 --max 200
+x discover nasa --follow network --depth 2 --store
+x db stats
 x query "select predicate, count(*) from edges group by 1 order by 2 desc"
+x export --format nq > nasa.nq          # the whole store as RDF
 ```
 
 ## Guides

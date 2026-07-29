@@ -16,11 +16,19 @@ x tweet 20
 ```
 
 ```
-@jack  just setting up my twttr
-2006-03-21  •  replies 0  retweets 0  likes 0
+## 20
+- created: 2006-03-21 20:50
+- author: jack
+- likes: 309822
+- rt: 124855
+- replies: 17962
+- text: just setting up my twttr
+- url: https://x.com/jack/status/20
 ```
 
-That is Tier 0, syndication, no auth at all. A profile works the same way:
+That is Tier 0, no auth at all, and it is two surfaces rather than one: the
+syndication endpoint has the tweet and x.com's own page has the counts X stopped
+putting in the embed. A profile works the same way:
 
 ```bash
 x user nasa
@@ -46,7 +54,8 @@ x mints a guest token (cached for next time) and pages further back. Add
 
 ## 3. Shape the output
 
-On a terminal you get a table. Pick another shape with `-o`:
+On a terminal you get the readable list above, one section per record. Pick
+another shape with `-o`:
 
 ```bash
 x timeline nasa -o url            # just the tweet URLs, one per line

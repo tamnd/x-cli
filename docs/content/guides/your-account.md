@@ -49,7 +49,8 @@ x bookmarks                          # your saved bookmarks
 
 `home` and `bookmarks` are session-only by nature: they are your account's own
 views. The rest are session-only by X's choice: a guest token is refused on all
-of them, and only `x timeline` still gets anything extra out of `--guest`.
+of them. What `--guest` still buys is elsewhere, on `x user`, `x timeline`,
+`x tweet` and `x space`.
 
 ## Read-only by design
 

@@ -82,6 +82,23 @@ unreachable on the tier you used. Check that:
 - You are not hitting a guest-denied endpoint from the list above; if so, switch
   to a session.
 
+The message says which of the two it is, because they call for different fixes:
+
+```console
+$ x tweet 1
+Tweet not found: 1 (deleted, suspended, or protected)
+
+$ x tweet 12345678901234567890
+Tweet not found: 12345678901234567890 (not an id X could have minted)
+```
+
+The second one never leaves your machine. A tweet id is a snowflake and its top
+41 bits are the millisecond it was minted, so an id that decodes to a date in
+the future is not an id, and there is no point asking four surfaces in turn
+about it. X answers that id with `400 {"error":"Bad request."}` rather than a
+404, which used to surface as an unclassified failure at exit `1` with a line of
+JSON in it.
+
 ## Query-id rotation
 
 x calls the web-client GraphQL with operation ids that X rotates occasionally.

@@ -4,10 +4,10 @@ description: "Single tweets, timelines, replies, media, threads, polls, profiles
 weight: 10
 ---
 
-Most reading on X is free and needs no auth. A guest token (`--guest`) buys one
-more thing, the deeper timeline walk, and the rest of the GraphQL surface X
-reserves for a real session. This guide walks
-the read commands and marks the tier each needs.
+Most reading on X is free and needs no auth. A guest token (`--guest`) buys five
+operations, chiefly the deeper timeline walk and an audio Space, and the rest of
+the GraphQL surface X reserves for a real session. This guide walks the read
+commands and marks the tier each needs.
 
 A `<ref>` anywhere below is a tweet id (`20`), a status URL, or anything x can
 resolve to a tweet. A `<user>` is a handle (`nasa`), or a numeric id with
@@ -55,6 +55,15 @@ account's timeline with the replies left in. A tweet is the replies to that
 tweet, which at Tier 0 means the handful X renders on the status page: there is
 no cursor there, so the command says how many it got out of how many exist and
 points at `x auth import` for the rest.
+
+A timeline is the account's own tweets. X renders a reply on a profile together
+with the tweet it answers, and the page's own data says so, so a naive read of
+@jack's profile hands back tweets by four other people. They are context on a
+profile and they are the answer on a status page, but on `x timeline jack` they
+are a wrong answer, and each one also spends one of your `-n`. A repost is the
+case this cannot get right: X shows it under the original author and nothing on
+the page says it was reposted, so it looks exactly like a reply parent and drops
+with them.
 
 Two things about tier 0 here. The syndication widget answers an account that
 posts often with the last hundred or so posts, and an account that posts rarely

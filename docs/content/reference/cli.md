@@ -47,6 +47,13 @@ map. A `<ref>` is a tweet id, status URL, or anything x can resolve to a tweet; 
 `--guest`, because the guest tier answers that read with an empty timeline
 rather than refusing it; only a session pages it deeper.
 
+`timeline` is the account's own tweets and nothing else. X renders a reply on a
+profile together with the tweet it answers, so the page carries both authors;
+listing the parent would mean `x timeline jack` printing tweets @jack did not
+write, each one spending one of your `-n`. A repost is the case this cannot get
+right: the page shows it under the original author and says nothing about who
+reposted it, so it drops with the reply parents.
+
 `space` takes the id or the `x.com/i/spaces/` link and reads the whole record:
 who created it, the admins and the speakers, when it was scheduled, started and
 ended, and how many people heard it live or played the replay. The table
@@ -184,12 +191,29 @@ are for.
 | `config show` | Print the resolved configuration | |
 | `download <ref>` | Download a tweet's media to disk | `-O`/`--out` |
 | `open <ref>` | Open a tweet or profile in your browser | |
-| `info` | Show resolved tiers and capabilities | |
+| `classify <ref>...` | Say what a reference points at, and where (offline) | |
+| `uri <ref>...` | The stable `x://` name of each reference (offline) | |
+| `url <ref>...` | The canonical x.com URL of each reference (offline) | |
 | `capture <ref>...` | Record what a surface says now, into a fixture file | `--out` |
 | `serve` | Serve the operations over HTTP (NDJSON) | `--addr` |
 | `mcp` | Run as an MCP server over stdio | |
 | `version` | Print version info | |
 | `completion <shell>` | Generate a shell completion script | |
+
+`classify`, `uri` and `url` are the identity layer with the network taken out.
+All three take anything you can paste, a bare id, a handle, a status URL with
+tracking parameters on it, a nitter link, and none of them make a request.
+`classify` says what kind of thing it is, `uri` gives the stable `x://` name
+that is the same for a tweet however it was read, and `url` gives the canonical
+x.com link. They are what `get` dispatches on, so running them is how you check
+what `get` is about to do:
+
+```console
+$ x url 20 jack "https://twitter.com/jack/status/20?s=21"
+https://x.com/i/status/20
+https://x.com/jack
+https://x.com/i/status/20
+```
 
 `capture` is how `x/testdata` gets refreshed, and why no fixture in this repo is
 hand-written. It asks every surface that serves a reference, sends the reader's
@@ -212,10 +236,52 @@ the local-store and session commands stay on the command line, because a walk
 that writes to your disk and a command that saves your cookies are not things to
 hand a network port.
 
+## Diagnostics
+
+| Command | What it does | Key flags |
+|---|---|---|
+| `tiers` | What each credential tier reads, and which ones you have (alias `info`) | |
+| `routes` | Which surface answers which question, at each tier | |
+| `surfaces` | Every public route into X, with its tier, limit, and cache life | |
+| `fields <kind>` | A record's fields, their types, and the surfaces that fill them | |
+| `doctor` | Probe every surface live and report what answers today | |
+
+The first four print tables the binary carries rather than tables a doc carries,
+which is the point of them: what x says about itself and what x does come out of
+the same code, so a row that stops being true shows up as a wrong answer instead
+of a stale paragraph. `fields <kind>` takes `tweet` or `user` and is measured,
+not declared: the surface numbers on each row come from parsing the committed
+fixtures, so a field that only surface 4 fills says so.
+
+`doctor` is the one that costs requests. It sends one real read to each of the
+eight surfaces and reports what came back, with the time it took and whatever
+the surface says about its own rate window:
+
+```console
+$ x doctor -o table
+ SURFACE  NAME                  STATUS  MS    NOTE
+ 1        syndication tweet     ok      511   no rate headers
+ 2        syndication timeline  fail    754   rate limited by X on syndication.profile
+ 3        oembed                ok      1087  blockquote html, @jack, no rate headers
+ 4        guest graphql         skip          a session is configured, so this reads as surface 7
+ 5        app-only v1.1         ok            trends/available, 74 of 75 left
+ 6        media cdn             ok      237   pbs.twimg.com
+ 7        session graphql       ok      1730  UserByScreenName, 149 of 150 left
+ 8        x.com html            ok      1954  app-version, relay store, 2 microdata items
+```
+
+It exits non-zero when a surface did not answer, and the count is in the
+message, so it works as a health check in a script. A `skip` is not a failure: a
+surface x would not have used on this machine anyway is not evidence of
+anything.
+
 ## Global flags
 
 These apply to every command. See [configuration](/reference/configuration/)
 for defaults and [output formats](/reference/output/) for what `-o` produces.
+A value `-o` or `--tier` does not have is a usage error that lists the ones they
+do, because a typo that reads as if you had passed no flag at all is worse than
+a refusal.
 
 | Flag | Meaning |
 |---|---|
@@ -229,6 +295,7 @@ for defaults and [output formats](/reference/output/) for what `-o` produces.
 | `--tier` | Cap the tier (`0\|1\|2`) or pin one surface (`syndication\|oembed\|web\|guest\|session`) |
 | `--db` | Generic record sink provided by the framework; x's own typed store lives under `--data-dir`, not here |
 | `--data-dir` | Cache and store root |
+| `--profile` | Framework flag for a named config profile; x has no profiles, so it is carried and not acted on |
 | `--query-id` | Override a GraphQL query id (`Op=hash`) |
 | `--rate` | Minimum delay between requests (default `1s`) |
 | `--retries` | Retries on 429/5xx (default `3`) |

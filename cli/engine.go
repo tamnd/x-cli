@@ -136,6 +136,9 @@ func (a *App) out() (*render.Renderer, error) {
 		return nil, errs.Usage("no tier %q; there is %s", a.cfg.Tier,
 			strings.Join(x.TierValues(), ", "))
 	}
+	if err := a.checkFormat(); err != nil {
+		return nil, err
+	}
 	if a.st == nil {
 		return render.New(render.Options{Format: render.List, Writer: os.Stdout})
 	}
@@ -150,6 +153,54 @@ func (a *App) out() (*render.Renderer, error) {
 		Width:    o.Width,
 		Writer:   os.Stdout,
 	})
+}
+
+// outputFormats is every value -o takes, in the order the reference lists them.
+// "template" is in the list because the renderer has it, but it is reached by
+// passing --template rather than by naming it.
+var outputFormats = []render.Format{
+	render.Auto, render.List, render.Table, render.Markdown, render.JSON,
+	render.JSONL, render.CSV, render.TSV, render.URL, render.Raw,
+}
+
+// checkFormat is the -o twin of the --tier check above, and it is here for the
+// same reason: the renderer takes an unknown format and falls through to jsonl,
+// so `-o jsonl1` used to print jsonl and exit 0, which reads as if the flag had
+// been honoured.
+//
+// It also catches the one value that is real but cannot stand on its own. `-o
+// template` with no --template hands the renderer a nil template and it panics
+// on the first record, which is a stack trace where a caller wanted a sentence.
+func (a *App) checkFormat() error {
+	if a.st == nil || a.st.Output.Format == "" {
+		return nil
+	}
+	f := render.Format(a.st.Output.Format)
+	if f == render.Template {
+		if a.st.Output.Template == "" {
+			// Not "-o template ...": kit title-cases the first word of a
+			// message, and a flag is not a word to capitalise.
+			return errs.Usage("the template format renders --template, so pass one: --template '{{.id}}'")
+		}
+		return nil
+	}
+	// The aliases kit folds onto a canonical name before it renders anything.
+	switch f {
+	case "md", "section", "sections":
+		return nil
+	}
+	for _, v := range outputFormats {
+		if f == v {
+			return nil
+		}
+	}
+	names := make([]string, 0, len(outputFormats))
+	for _, v := range outputFormats {
+		if v != render.Auto {
+			names = append(names, string(v))
+		}
+	}
+	return errs.Usage("no output format %q; there is %s", f, strings.Join(names, ", "))
 }
 
 // format is the output format this run resolved to. It differs from kit's

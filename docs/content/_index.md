@@ -38,9 +38,14 @@ read-only, and the binary is pure Go with no runtime dependencies.
 - **Shape the output.** Render as a table, JSONL, JSON, CSV, TSV, plain URLs, or
   a Go template, project columns with `--fields`, and pipe to `jq`. IDs are
   always strings, so snowflake precision survives.
-- **Build a local store.** Add `--db` to any read and it persists entities to
-  SQLite as a side effect, so a read doubles as a crawl. `x crawl` walks
-  accounts breadth-first, and `x export` renders a stored user as Markdown.
+- **Build a local store.** `x crawl` walks the graph breadth-first into a local
+  SQLite store, `x discover --store` tees a live walk into the same place, and
+  `x query` runs SQL back over it without touching the network.
+- **Take the graph out.** `x edges` prints the claims one read makes, `x graph`
+  prints those claims and the nodes they address, and `x rdf` and
+  `x export --format` write either one as RDF in schema.org's vocabulary.
+- **Serve it.** `x serve` puts the reads on HTTP as NDJSON and `x mcp` puts the
+  same 24 in front of an agent as MCP tools, both at whatever tier you pass.
 
 ## Where to go next
 
